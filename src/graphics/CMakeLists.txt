@@ -1,5 +1,4 @@
-add_library(StellarForgeGraphics STATIC
-        ${StellarForgeGraphics_SOURCES})
+add_library(StellarForgeGraphics STATIC)
 add_library(StellarForge::Graphics ALIAS StellarForgeGraphics)
 add_dependencies(StellarForgeGraphics StellarForgeCommon)
 

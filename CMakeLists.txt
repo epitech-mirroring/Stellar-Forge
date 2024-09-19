@@ -20,7 +20,6 @@ get_target_property(StellarForgeGraphics_SOURCES StellarForgeGraphics SOURCES)
 
 # Collect sources from subdirectories
 set(StellarForge_SOURCES
-        ${StellarForge_SOURCES}
         ${StellarForgeCommon_SOURCES}
         ${StellarForgePhysics_SOURCES}
         ${StellarForgeGraphics_SOURCES}

@@ -12,5 +12,4 @@
 
 Engine::Engine() {
     UtilExemple::myFunction();
-    return;
 }

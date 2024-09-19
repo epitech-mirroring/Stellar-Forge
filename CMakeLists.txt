@@ -7,6 +7,8 @@ project(StellarForge
         DESCRIPTION "A simple 2D game engine"
 )
 
+set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+
 # Include subdirectories for common, physics, and graphics
 add_subdirectory(src/common)
 add_subdirectory(src/physics)

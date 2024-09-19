@@ -23,3 +23,38 @@ target_link_libraries(StellarForge
 
 add_subdirectory(src/engine)
 include_directories(src)
+
+# Extract the public headers from the sources (all .hpp files, including those in subdirectories)
+get_target_property(StellarForge_SOURCES StellarForge SOURCES)
+foreach (source IN LISTS StellarForge_SOURCES)
+    if (source MATCHES ".*\\.hpp$")
+        list(APPEND StellarForge_HEADERS ${source})
+    endif ()
+endforeach ()
+get_target_property(StellarForgeCommon_SOURCES StellarForgeCommon SOURCES)
+foreach (source IN LISTS StellarForgeCommon_SOURCES)
+    if (source MATCHES ".*\\.hpp$")
+        list(APPEND StellarForge_HEADERS ${source})
+    endif ()
+endforeach ()
+get_target_property(StellarForgePhysics_SOURCES StellarForgePhysics SOURCES)
+foreach (source IN LISTS StellarForgePhysics_SOURCES)
+    if (source MATCHES ".*\\.hpp$")
+        list(APPEND StellarForge_HEADERS ${source})
+    endif ()
+endforeach ()
+get_target_property(StellarForgeGraphics_SOURCES StellarForgeGraphics SOURCES)
+foreach (source IN LISTS StellarForgeGraphics_SOURCES)
+    if (source MATCHES ".*\\.hpp$")
+        list(APPEND StellarForge_HEADERS ${source})
+    endif ()
+endforeach ()
+
+# Set the public headers
+target_sources(StellarForge
+        PUBLIC
+        ${StellarForge_HEADERS}
+)
+
+# Export headers in build directory
+file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)

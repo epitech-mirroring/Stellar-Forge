@@ -7,15 +7,32 @@ project(StellarForge
         DESCRIPTION "A simple 2D game engine"
 )
 
-include(src/common/CMakeLists.txt)
-include(src/physics/CMakeLists.txt)
-include(src/graphics/CMakeLists.txt)
+# Include subdirectories for common, physics, and graphics
+add_subdirectory(src/common)
+add_subdirectory(src/physics)
+add_subdirectory(src/graphics)
 
-add_library(StellarForge STATIC
+get_target_property(StellarForgeCommon_SOURCES StellarForgeCommon SOURCES)
+get_target_property(StellarForgePhysics_SOURCES StellarForgePhysics SOURCES)
+get_target_property(StellarForgeGraphics_SOURCES StellarForgeGraphics SOURCES)
+
+# Collect sources from subdirectories
+set(StellarForge_SOURCES
         ${StellarForge_SOURCES}
+        ${StellarForgeCommon_SOURCES}
+        ${StellarForgePhysics_SOURCES}
+        ${StellarForgeGraphics_SOURCES}
 )
+
+# Add the main StellarForge library as a static library
+add_library(StellarForge STATIC ${StellarForge_SOURCES})
+
+# Ensure dependencies are built before StellarForge
 add_dependencies(StellarForge StellarForgeCommon StellarForgePhysics StellarForgeGraphics)
+
+# Link the dependent libraries statically
 target_link_libraries(StellarForge
+        PRIVATE
         StellarForgeCommon
         StellarForgePhysics
         StellarForgeGraphics

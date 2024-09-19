@@ -4,8 +4,8 @@ add_library(StellarForge::Graphics ALIAS StellarForgeGraphics)
 add_dependencies(StellarForgeGraphics StellarForgeCommon)
 
 target_sources(StellarForgeGraphics
-    PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/Graphics.hpp
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/graphics/Graphics.cpp
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/Graphics.hpp
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/Graphics.cpp
 )

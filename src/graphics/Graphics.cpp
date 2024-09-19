@@ -8,6 +8,4 @@
 
 #include "Graphics.hpp"
 
-#include "physics/Physics.hpp"
-
 Graphics::Graphics() = default;

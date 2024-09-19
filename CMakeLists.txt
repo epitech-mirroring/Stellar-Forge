@@ -8,15 +8,30 @@ project(StellarForge
 )
 
 # Check if clang-tidy is installed
+# If it is, set it as the C++ clang-tidy checker
+# If optional clang-tidy-18 is installed, set it as the C++ clang-tidy checker
+# If CLANG_SEVERE is set to ON, set clang_tidy warnings as errors
+option(CLANG_SEVERE "Set clang-tidy warnings as errors" OFF)
+
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
 if (CLANG_TIDY_EXE)
     message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
-    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+    if (CLANG_SEVERE)
+        message(STATUS "Setting clang-tidy warnings as errors")
+        set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-warnings-as-errors=*")
+    else ()
+        set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+    endif ()
 else ()
     find_program(CLANG_TIDY_EXE NAMES "clang-tidy-18")
     if (CLANG_TIDY_EXE)
         message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
-        set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+        if (CLANG_SEVERE)
+            message(STATUS "Setting clang-tidy warnings as errors")
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-warnings-as-errors=*")
+        else ()
+            set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+        endif ()
     else ()
         message(STATUS "clang-tidy not found")
     endif ()

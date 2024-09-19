@@ -7,8 +7,21 @@ project(StellarForge
         DESCRIPTION "A simple 2D game engine"
 )
 
-set(CMAKE_CXX_CLANG_TIDY "clang-tidy;
-        -header-filter=.")
+# Check if clang-tidy is installed
+find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
+if (CLANG_TIDY_EXE)
+    message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+else ()
+    find_program(CLANG_TIDY_EXE NAMES "clang-tidy-18")
+    if (CLANG_TIDY_EXE)
+        message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+        set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+    else ()
+        message(STATUS "clang-tidy not found")
+    endif ()
+endif ()
+
 
 # Include subdirectories for common, physics, and graphics
 add_subdirectory(src/common)

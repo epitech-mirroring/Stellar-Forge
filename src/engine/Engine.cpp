@@ -10,7 +10,6 @@
 
 #include "common/UtilExemple.hpp"
 
-Engine::Engine()
-{
+Engine::Engine() {
     UtilExemple::myFunction();
 }

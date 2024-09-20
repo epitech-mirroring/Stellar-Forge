@@ -1,5 +1,4 @@
-add_library(StellarForgePhysics STATIC
-        ${StellarForgePhysics_SOURCES})
+add_library(StellarForgePhysics STATIC)
 add_library(StellarForge::Physics ALIAS StellarForgePhysics)
 add_dependencies(StellarForgePhysics StellarForgeCommon)
 

@@ -9,7 +9,6 @@
 #include "UtilExemple.hpp"
 #include <iostream>
 
-void UtilExemple::myFunction()
-{
-    std::cout << "Hello World !" << std::endl;
+void UtilExemple::myFunction() {
+    std::cout << "Hello World !" << '\n';
 }

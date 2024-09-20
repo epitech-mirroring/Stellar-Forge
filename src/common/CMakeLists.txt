@@ -1,5 +1,4 @@
-add_library(StellarForgeCommon STATIC
-        ${StellarForgeCommon_SOURCES})
+add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
 
 

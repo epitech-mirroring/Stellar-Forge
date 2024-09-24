@@ -13,7 +13,18 @@
 
 class Physics {
 public:
-    Physics();
+    using Vector3f = struct Vector3f {
+        float x;
+        float y;
+        float z;
+    };
+
+    class Movement {
+    public:
+        static void applyMovement(Vector3f &pos, Vector3f &vel, float deltaTime);
+        static void applyMovement(Vector3f &pos, Vector3f &vel, Vector3f &acc, float deltaTime);
+        static void applyMovement(Vector3f &pos, Vector3f &vel, Vector3f &acc, float terminalVelocity, float deltaTime);
+    };
 };
 
 

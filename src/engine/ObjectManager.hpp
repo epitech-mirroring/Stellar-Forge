@@ -7,9 +7,9 @@
 
 #pragma once
 
-#include <string>
 #include <unordered_map>
-#include <memory>
+#include <vector>
+#include <stdexcept>
 
 // assuming ids are unique and are longs + objects are void pointers
 

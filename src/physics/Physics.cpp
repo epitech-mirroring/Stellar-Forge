@@ -44,3 +44,31 @@ void Physics::Movement::applyMovement(Vector3f &pos, Vector3f &vel, Vector3f &ac
         vel.z = vel.z * terminalVelocity / distance;
     }
 }
+
+void Physics::Movement::applyDrag(Vector3f &vel, float drag, float deltaTime)
+{
+    float distance = sqrt(vel.x * vel.x + vel.y * vel.y + vel.z * vel.z);
+    if (distance > drag * deltaTime) {
+        vel.x -= drag * deltaTime * vel.x / distance;
+        vel.y -= drag * deltaTime * vel.y / distance;
+        vel.z -= drag * deltaTime * vel.z / distance;
+    } else {
+        vel.x = 0;
+        vel.y = 0;
+        vel.z = 0;
+    }
+}
+
+void Physics::Movement::applyForce(Vector3f &vel, Vector3f &force, float deltaTime)
+{
+    vel.x += force.x * deltaTime;
+    vel.y += force.y * deltaTime;
+    vel.z += force.z * deltaTime;
+}
+
+void Physics::Movement::applyImpulse(Vector3f &vel, Vector3f &impulse)
+{
+    vel.x += impulse.x;
+    vel.y += impulse.y;
+    vel.z += impulse.z;
+}

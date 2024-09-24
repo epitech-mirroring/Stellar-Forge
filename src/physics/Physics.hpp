@@ -24,6 +24,12 @@ public:
         static void applyMovement(Vector3f &pos, Vector3f &vel, float deltaTime);
         static void applyMovement(Vector3f &pos, Vector3f &vel, Vector3f &acc, float deltaTime);
         static void applyMovement(Vector3f &pos, Vector3f &vel, Vector3f &acc, float terminalVelocity, float deltaTime);
+
+        static void applyDrag(Vector3f &vel, float drag, float deltaTime);
+
+        static void applyForce(Vector3f &vel, Vector3f &force, float deltaTime);
+
+        static void applyImpulse(Vector3f &vel, Vector3f &impulse);
     };
 };
 

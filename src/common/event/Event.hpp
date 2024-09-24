@@ -40,7 +40,7 @@ public:
      * @param consumer EventConsumer, consumer to add
      * @note This function adds a consumer to the event
      */
-    void AddConsumer(EventConsumer consumer);
+    void addConsumer(EventConsumer consumer);
 
     /**
      * @brief Remove a consumer from the event
@@ -48,14 +48,14 @@ public:
      * @param consumer EventConsumer, consumer to remove
      * @note This function removes a consumer from the event
      */
-    void RemoveConsumer(EventConsumer consumer);
+    void removeConsumer(EventConsumer consumer);
 
     /**
      * @brief Call all consumers of the event
      *
      * @note This function calls all consumers of the event
      */
-    void CallConsumers();
+    void callConsumers();
 
 protected:
 private:

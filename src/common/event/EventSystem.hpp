@@ -36,7 +36,7 @@ public:
      * @return EventManager *, pointer to the event manager
      * @note This function returns the event manager
      */
-    static EventManager *GetEventManager();
+    static EventManager *getEventManager();
 
 private:
     // Event manager instance

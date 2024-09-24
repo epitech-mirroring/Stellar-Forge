@@ -38,7 +38,7 @@ public:
      * @param name std::string, name of the event
      * @note This function adds an event to the event manager
      */
-    void AddEvent(std::string name);
+    void addEvent(std::string name);
 
     /**
      * @brief Remove an event from the event manager
@@ -46,7 +46,7 @@ public:
      * @param name std::string, name of the event
      * @note This function removes an event from the event manager
      */
-    void RemoveEvent(std::string name);
+    void removeEvent(std::string name);
 
     /**
      * @brief Add a consumer to an event
@@ -55,7 +55,7 @@ public:
      * @param consumer EventConsumer, consumer to add
      * @note This function adds a consumer to an event
      */
-    void AddConsumerToEvent(std::string name, EventConsumer consumer);
+    void addConsumerToEvent(std::string name, EventConsumer consumer);
 
     /**
      * @brief Remove a consumer from an event
@@ -64,7 +64,7 @@ public:
      * @param consumer EventConsumer, consumer to remove
      * @note This function removes a consumer from an event
      */
-    void RemoveConsumerFromEvent(std::string name, EventConsumer consumer);
+    void removeConsumerFromEvent(std::string name, EventConsumer consumer);
 
     /**
      * @brief Call all consumers of an event
@@ -72,7 +72,7 @@ public:
      * @param name std::string, name of the event
      * @note This function calls all consumers of an event
      */
-    void CallConsumersFromEvent(std::string name);
+    void callConsumersFromEvent(std::string name);
 
 protected:
 private:

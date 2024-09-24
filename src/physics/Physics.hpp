@@ -11,13 +11,11 @@
 
 
 
+#include "Math.hpp"
+
 class Physics {
 public:
-    using Vector3f = struct Vector3f {
-        float x;
-        float y;
-        float z;
-    };
+    using Vector3f = Math::Vector3f;
 
     class Movement {
     public:

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.27)
 set(CMAKE_CXX_STANDARD 17)
 
 project(StellarForge
@@ -105,3 +105,6 @@ target_sources(StellarForge
 
 # Export headers in build directory
 file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)
+
+find_package(glm REQUIRED)
+target_link_libraries(StellarForgePhysics PUBLIC glm)

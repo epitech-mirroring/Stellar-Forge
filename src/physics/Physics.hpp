@@ -10,8 +10,7 @@
 #define PHYSICS_HPP
 
 
-
-#include <glm/glm.hpp>
+#include "glm/vec3.hpp"
 
 /**
  * @class Physics

@@ -7,6 +7,7 @@
 */
 
 #include "Physics.hpp"
+#include "glm/geometric.hpp"
 
 void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, float deltaTime)
 {
@@ -26,7 +27,8 @@ void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, Vector3 &acc, 
 
     vel += acc * deltaTime;
 
-    float distance = glm::length(vel);
+    const float distance = glm::length(vel);
+
     if (distance > terminalVelocity) {
         vel *= terminalVelocity / distance;
     }
@@ -34,7 +36,8 @@ void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, Vector3 &acc, 
 
 void Physics::Movement::applyDrag(Vector3 &vel, float drag, float deltaTime)
 {
-    float distance = glm::length(vel);
+    const float distance = glm::length(vel);
+
     if (distance > drag * deltaTime) {
         vel -= vel * drag * deltaTime / distance;
     } else {

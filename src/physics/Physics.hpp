@@ -13,8 +13,6 @@
 
 #include <glm/glm.hpp>
 
-#include <glm/glm.hpp>
-
 /**
  * @class Physics
  * @brief A class that represents the physics of an object in a 3D space.

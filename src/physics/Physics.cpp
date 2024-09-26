@@ -13,14 +13,6 @@ void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, float deltaTim
 {
     pos += vel * deltaTime;
 }
-bool Physics::Collision::BoxVsBox(Box box1, Box box2) {
-    return (box1.position.x < box2.position.x + box2.size.x &&
-            box1.position.x + box1.size.x > box2.position.x &&
-            box1.position.y < box2.position.y + box2.size.y &&
-            box1.position.y + box1.size.y > box2.position.y &&
-            box1.position.z < box2.position.z + box2.size.z &&
-            box1.position.z + box1.size.z > box2.position.z);
-}
 
 void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, Vector3 &acc, float deltaTime)
 {
@@ -61,6 +53,16 @@ void Physics::Movement::applyForce(Vector3 &vel, Vector3 &force, float deltaTime
 void Physics::Movement::applyImpulse(Vector3 &vel, Vector3 &impulse)
 {
     vel += impulse;
+}
+
+bool Physics::Collision::BoxVsBox(Box box1, Box box2)
+{
+    return (std::min(box1.position.x, box1.position.x + box1.size.x) <= std::max(box2.position.x, box2.position.x + box2.size.x) &&
+            std::max(box1.position.x, box1.position.x + box1.size.x) >= std::min(box2.position.x, box2.position.x + box2.size.x) &&
+            std::min(box1.position.y, box1.position.y + box1.size.y) <= std::max(box2.position.y, box2.position.y + box2.size.y) &&
+            std::max(box1.position.y, box1.position.y + box1.size.y) >= std::min(box2.position.y, box2.position.y + box2.size.y) &&
+            std::min(box1.position.z, box1.position.z + box1.size.z) <= std::max(box2.position.z, box2.position.z + box2.size.z) &&
+            std::max(box1.position.z, box1.position.z + box1.size.z) >= std::min(box2.position.z, box2.position.z + box2.size.z));
 }
 
 bool Physics::Collision::SphereVsSphere(Sphere sphere1, Sphere sphere2) {

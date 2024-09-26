@@ -83,15 +83,12 @@ public:
         static void applyImpulse(Vector3 &vel, Vector3 &impulse);
     };
 
-    using Vector3 = glm::vec3;
-
     class Box {
     public:
         Vector3 position;
         Vector3 size;
 
         Box(Vector3 position, Vector3 size) : position(position), size(size) {};
-        ~Box() = default;
     };
 
     class Sphere {
@@ -100,7 +97,6 @@ public:
         float radius;
 
         Sphere(Vector3 position, float radius) : position(position), radius(radius) {};
-        ~Sphere() = default;;
     };
 
     class Collision {

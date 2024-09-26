@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
+
 
 project(StellarForge
         LANGUAGES CXX
@@ -37,6 +39,10 @@ else ()
     endif ()
 endif ()
 
+# Libraries
+find_package(glm CONFIG REQUIRED)
+
+include_directories(${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include)
 
 # Include subdirectories for common, physics, and graphics
 add_subdirectory(src/common)
@@ -105,6 +111,3 @@ target_sources(StellarForge
 
 # Export headers in build directory
 file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)
-
-find_package(glm CONFIG REQUIRED)
-target_link_libraries(StellarForgePhysics PRIVATE glm)

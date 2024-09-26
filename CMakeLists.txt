@@ -106,5 +106,5 @@ target_sources(StellarForge
 # Export headers in build directory
 file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)
 
-find_package(glm REQUIRED)
-target_link_libraries(StellarForgePhysics PUBLIC glm)
+find_package(glm CONFIG REQUIRED)
+target_link_libraries(StellarForgePhysics PRIVATE glm)

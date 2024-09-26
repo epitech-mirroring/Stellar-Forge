@@ -1,0 +1,7 @@
+{
+  "name": "stellar-forge",
+  "version": "0.1",
+  "dependencies": [
+    "glm"
+  ]
+}

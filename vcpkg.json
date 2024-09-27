@@ -10,6 +10,7 @@
     "Aubane NOURRY"
   ],
   "dependencies": [
-    "glm"
+    "glm",
+    "libuuid"
   ]
 }

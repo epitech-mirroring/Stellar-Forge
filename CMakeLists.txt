@@ -41,6 +41,7 @@ endif ()
 
 # Libraries
 find_package(glm CONFIG REQUIRED)
+find_package(unofficial-libuuid CONFIG REQUIRED)
 
 include_directories(${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include)
 

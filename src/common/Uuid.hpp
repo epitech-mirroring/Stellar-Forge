@@ -144,7 +144,7 @@ public:
   * @note This function sets the UUID from a string
   * @version 0.1.0
   */
- void setUuidFromString(std::string uuid);
+ void setUuidFromString(const std::string& uuid);
 
  /**
   * @brief Get the UUID as a struct
@@ -178,18 +178,20 @@ public:
   *
   * @param uuid UUID, UUID to move
   * @return UUID& , moved UUID
+  * @note This function is deleted
   * @version 0.1.0
   */
- UUID& operator=(UUID&& uuid) noexcept;
+ UUID& operator=(UUID&& uuid) noexcept = delete;
 
  /**
   * @brief Overload the move assignment operator
   *
   * @param uuid uuid_t, UUID to move
   * @return UUID& , moved UUID
+  * @note This function is deleted
   * @version 0.1.0
   */
- UUID& operator=(uuid_t&& uuid) noexcept;
+ UUID& operator=(uuid_t&& uuid) noexcept = delete;
 
  /**
   * @brief Overload the copy assignment operator
@@ -262,9 +264,9 @@ private:
 /**
  * @brief Overload the output stream operator
  *
- * @param os std::ostream &, output stream
+ * @param ostream std::ostream &, output stream
  * @param uuid UUID, UUID to output
  * @return std::ostream &, output stream
  * @version 0.1.0
  */
-std::ostream& operator<<(std::ostream& os, const UUID& uuid);
+std::ostream& operator<<(std::ostream& ostream, const UUID& uuid);

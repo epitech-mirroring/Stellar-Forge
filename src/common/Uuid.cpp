@@ -7,17 +7,19 @@
 
 #include "Uuid.hpp"
 
-UUID::UUID()
+#include <array>
+
+UUID::UUID(): _uuid()
 {
     uuid_clear(this->_uuid);
 }
 
-UUID::UUID(const UUID& uuid)
+UUID::UUID(const UUID& uuid): _uuid()
 {
     uuid_copy(this->_uuid, uuid._uuid);
 }
 
-UUID::UUID(const UUID&& uuid)
+UUID::UUID(const UUID&& uuid) noexcept: _uuid()
 {
     uuid_copy(this->_uuid, uuid._uuid);
 }
@@ -34,10 +36,10 @@ const uuid_t& UUID::getUuid() const
 
 std::string UUID::getUuidString() const
 {
-    char str[37] = {0};
+    std::array<char, 37> str{};
 
-    uuid_unparse(this->_uuid, str);
-    return std::string(str);
+    uuid_unparse(this->_uuid, str.data());
+    return {str.data()};
 }
 
 void UUID::generateUuid()
@@ -72,10 +74,10 @@ void UUID::clearUuid()
 
 bool UUID::isNullUuid() const
 {
-    return uuid_is_null(this->_uuid);
+    return uuid_is_null(this->_uuid) != 0;
 }
 
-void UUID::setUuidFromString(std::string uuid)
+void UUID::setUuidFromString(const std::string& uuid)
 {
     uuid_parse(uuid.c_str(), this->_uuid);
 }
@@ -87,6 +89,10 @@ const uuid_t& UUID::getUuidStruct() const
 
 UUID& UUID::operator=(const UUID& uuid)
 {
+    if (this == &uuid)
+    {
+        return *this;
+    }
     uuid_copy(this->_uuid, uuid._uuid);
     return *this;
 }
@@ -97,19 +103,8 @@ UUID& UUID::operator=(const uuid_t& uuid)
     return *this;
 }
 
-UUID& UUID::operator=(UUID&& uuid)
-{
-    uuid_copy(this->_uuid, uuid._uuid);
-    return *this;
-}
 
-UUID& UUID::operator=(uuid_t&& uuid)
-{
-    uuid_copy(this->_uuid, uuid);
-    return *this;
-}
-
-UUID& UUID::operator=(UUID uuid)
+UUID& UUID::operator=(const UUID uuid)
 {
     uuid_copy(this->_uuid, uuid._uuid);
     return *this;
@@ -141,8 +136,8 @@ bool UUID::operator!=(const uuid_t& uuid) const
     return uuid_compare(this->_uuid, uuid) != 0;
 }
 
-std::ostream& operator<<(std::ostream& os, const UUID& uuid)
+std::ostream& operator<<(std::ostream& ostream, const UUID& uuid)
 {
-    os << uuid.getUuidString();
-    return os;
+    ostream << uuid.getUuidString();
+    return ostream;
 }

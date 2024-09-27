@@ -9,34 +9,37 @@
 #include "Physics.hpp"
 #include "glm/geometric.hpp"
 
-void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, float deltaTime)
-{
+void Physics::Movement::applyMovement(Vector3 &pos, const Vector3 &vel,
+                                      const float deltaTime) {
     pos += vel * deltaTime;
 }
 
-void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, Vector3 &acc, float deltaTime)
-{
+void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel,
+                                      const Vector3 &acc,
+                                      const float deltaTime) {
     pos += vel * deltaTime + 0.5f * acc * deltaTime * deltaTime;
 
     vel += acc * deltaTime;
 }
 
-void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel, Vector3 &acc, float terminalVelocity, float deltaTime)
-{
+void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel,
+                                      const Vector3 &acc,
+                                      const float terminalVelocity,
+                                      const float deltaTime) {
     pos += vel * deltaTime + 0.5f * acc * deltaTime * deltaTime;
 
     vel += acc * deltaTime;
 
-    const float distance = glm::length(vel);
+    const float distance = length(vel);
 
     if (distance > terminalVelocity) {
         vel *= terminalVelocity / distance;
     }
 }
 
-void Physics::Movement::applyDrag(Vector3 &vel, float drag, float deltaTime)
-{
-    const float distance = glm::length(vel);
+void Physics::Movement::applyDrag(Vector3 &vel, const float drag,
+                                  const float deltaTime) {
+    const float distance = length(vel);
 
     if (distance > drag * deltaTime) {
         vel -= vel * drag * deltaTime / distance;
@@ -45,12 +48,11 @@ void Physics::Movement::applyDrag(Vector3 &vel, float drag, float deltaTime)
     }
 }
 
-void Physics::Movement::applyForce(Vector3 &vel, Vector3 &force, float deltaTime)
-{
+void Physics::Movement::applyForce(Vector3 &vel, const Vector3 &force,
+                                   const float deltaTime) {
     vel += force * deltaTime;
 }
 
-void Physics::Movement::applyImpulse(Vector3 &vel, Vector3 &impulse)
-{
+void Physics::Movement::applyImpulse(Vector3 &vel, const Vector3 &impulse) {
     vel += impulse;
 }

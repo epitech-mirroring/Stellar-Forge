@@ -12,12 +12,22 @@ UUID::UUID()
     uuid_clear(this->_uuid);
 }
 
+UUID::UUID(const UUID& uuid)
+{
+    uuid_copy(this->_uuid, uuid._uuid);
+}
+
+UUID::UUID(const UUID&& uuid)
+{
+    uuid_copy(this->_uuid, uuid._uuid);
+}
+
 UUID::~UUID()
 {
     uuid_clear(this->_uuid);
 }
 
-const uuid_t &UUID::getUuid() const
+const uuid_t& UUID::getUuid() const
 {
     return this->_uuid;
 }
@@ -35,27 +45,22 @@ void UUID::generateUuid()
     uuid_generate(this->_uuid);
 }
 
-void UUID::copyUuid(uuid_t uuid)
+void UUID::copyUuid(const uuid_t& uuid)
 {
     uuid_copy(this->_uuid, uuid);
 }
 
-void UUID::copyUuid(const uuid_t &uuid)
-{
-    uuid_copy(this->_uuid, uuid);
-}
-
-void UUID::copyUuid(UUID uuid)
+void UUID::copyUuid(const UUID uuid)
 {
     uuid_copy(this->_uuid, uuid._uuid);
 }
 
-bool UUID::compareUuid(uuid_t uuid)
+bool UUID::compareUuid(const uuid_t& uuid) const
 {
     return uuid_compare(this->_uuid, uuid) == 0;
 }
 
-bool UUID::compareUuid(UUID uuid)
+bool UUID::compareUuid(const UUID& uuid) const
 {
     return uuid_compare(this->_uuid, uuid._uuid) == 0;
 }
@@ -65,7 +70,7 @@ void UUID::clearUuid()
     uuid_clear(this->_uuid);
 }
 
-bool UUID::isNullUuid()
+bool UUID::isNullUuid() const
 {
     return uuid_is_null(this->_uuid);
 }
@@ -75,44 +80,68 @@ void UUID::setUuidFromString(std::string uuid)
     uuid_parse(uuid.c_str(), this->_uuid);
 }
 
-const uuid_t &UUID::getUuidStruct() const
+const uuid_t& UUID::getUuidStruct() const
 {
     return this->_uuid;
 }
 
-UUID &UUID::operator=(const UUID &uuid)
+UUID& UUID::operator=(const UUID& uuid)
 {
     uuid_copy(this->_uuid, uuid._uuid);
     return *this;
 }
 
-UUID &UUID::operator=(const uuid_t &uuid)
+UUID& UUID::operator=(const uuid_t& uuid)
 {
     uuid_copy(this->_uuid, uuid);
     return *this;
 }
 
-bool UUID::operator==(const UUID &uuid)
+UUID& UUID::operator=(UUID&& uuid)
+{
+    uuid_copy(this->_uuid, uuid._uuid);
+    return *this;
+}
+
+UUID& UUID::operator=(uuid_t&& uuid)
+{
+    uuid_copy(this->_uuid, uuid);
+    return *this;
+}
+
+UUID& UUID::operator=(UUID uuid)
+{
+    uuid_copy(this->_uuid, uuid._uuid);
+    return *this;
+}
+
+UUID& UUID::operator=(uuid_t uuid)
+{
+    uuid_copy(this->_uuid, uuid);
+    return *this;
+}
+
+bool UUID::operator==(const UUID& uuid) const
 {
     return uuid_compare(this->_uuid, uuid._uuid) == 0;
 }
 
-bool UUID::operator==(const uuid_t &uuid)
+bool UUID::operator==(const uuid_t& uuid) const
 {
     return uuid_compare(this->_uuid, uuid) == 0;
 }
 
-bool UUID::operator!=(const UUID &uuid)
+bool UUID::operator!=(const UUID& uuid) const
 {
     return uuid_compare(this->_uuid, uuid._uuid) != 0;
 }
 
-bool UUID::operator!=(const uuid_t &uuid)
+bool UUID::operator!=(const uuid_t& uuid) const
 {
     return uuid_compare(this->_uuid, uuid) != 0;
 }
 
-std::ostream &operator<<(std::ostream &os, const UUID &uuid)
+std::ostream& operator<<(std::ostream& os, const UUID& uuid)
 {
     os << uuid.getUuidString();
     return os;

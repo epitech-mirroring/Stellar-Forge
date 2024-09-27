@@ -14,6 +14,7 @@
  * @brief UUID class
  *
  * @note This class is used to generate and manage UUIDs
+ * @version 0.1.0
  */
 class UUID {
 public:
@@ -21,6 +22,7 @@ public:
      * @brief Construct a new UUID object
      *
      * @note This constructor creates a new UUID object
+     * @version 0.1.0
      */
     UUID();
 
@@ -28,6 +30,7 @@ public:
      * @brief Destroy the UUID object
      *
      * @note This destructor destroys the UUID object
+     * @version 0.1.0
      */
     ~UUID();
 
@@ -36,6 +39,7 @@ public:
      *
      * @return const uuid_t &, UUID
      * @note This function returns the UUID
+     * @version 0.1.0
      */
     const uuid_t &getUuid() const;
 
@@ -44,6 +48,7 @@ public:
      *
      * @return std::string, UUID as a string
      * @note This function returns the UUID as a string
+     * @version 0.1.0
      */
     std::string getUuidString() const;
 
@@ -51,6 +56,7 @@ public:
      * @brief Generate a new UUID
      *
      * @note This function generates a new UUID
+     * @version 0.1.0
      */
     void generateUuid();
 
@@ -59,6 +65,7 @@ public:
      *
      * @param uuid uuid_t, UUID to copy
      * @note This function copies a UUID
+     * @version 0.1.0
      */
     void copyUuid(uuid_t uuid);
 
@@ -67,6 +74,7 @@ public:
      *
      * @param uuid const uuid_t &, UUID to copy
      * @note This function copies a UUID
+     * @version 0.1.0
      */
     void copyUuid(const uuid_t &uuid);
 
@@ -75,6 +83,7 @@ public:
      *
      * @param uuid UUID, UUID to copy
      * @note This function copies a UUID
+     * @version 0.1.0
      */
     void copyUuid(UUID uuid);
 
@@ -85,6 +94,7 @@ public:
      * @return true, if the UUIDs are equal
      * @return false, if the UUIDs are not equal
      * @note This function compares a UUID
+     * @version 0.1.0
      */
     bool compareUuid(uuid_t uuid);
 
@@ -95,6 +105,7 @@ public:
      * @return true, if the UUIDs are equal
      * @return false, if the UUIDs are not equal
      * @note This function compares a UUID
+     * @version 0.1.0
      */
     bool compareUuid(UUID uuid);
 
@@ -102,6 +113,7 @@ public:
      * @brief Clear the UUID
      *
      * @note This function clears the UUID and sets it to null
+     * @version 0.1.0
      */
     void clearUuid();
 
@@ -111,6 +123,7 @@ public:
      * @return true, if the UUID is null
      * @return false, if the UUID is not null
      * @note This function checks if the UUID is null
+     * @version 0.1.0
      */
     bool isNullUuid();
 
@@ -119,6 +132,7 @@ public:
      *
      * @param uuid std::string, UUID as a string
      * @note This function sets the UUID from a string
+     * @version 0.1.0
      */
     void setUuidFromString(std::string uuid);
 
@@ -127,6 +141,7 @@ public:
      *
      * @return const uuid_t &, UUID as a struct
      * @note This function returns the UUID as a struct
+     * @version 0.1.0
      */
     const uuid_t &getUuidStruct() const;
 
@@ -135,6 +150,7 @@ public:
      *
      * @param uuid UUID, UUID to assign
      * @return UUID& , assigned UUID
+     * @version 0.1.0
      */
     UUID &operator=(const UUID &uuid);
 
@@ -143,6 +159,7 @@ public:
      *
      * @param uuid uuid_t, UUID to assign
      * @return UUID& , assigned UUID
+     * @version 0.1.0
      */
     UUID &operator=(const uuid_t &uuid);
 
@@ -152,6 +169,7 @@ public:
      * @param uuid UUID, UUID to compare
      * @return true, if the UUIDs are equal
      * @return false, if the UUIDs are not equal
+     * @version 0.1.0
      */
     bool operator==(const UUID &uuid);
 
@@ -161,6 +179,7 @@ public:
      * @param uuid uuid_t, UUID to compare
      * @return true, if the UUIDs are equal
      * @return false, if the UUIDs are not equal
+     * @version 0.1.0
      */
     bool operator==(const uuid_t &uuid);
 
@@ -170,6 +189,7 @@ public:
      * @param uuid UUID, UUID to compare
      * @return true, if the UUIDs are not equal
      * @return false, if the UUIDs are equal
+     * @version 0.1.0
      */
     bool operator!=(const UUID &uuid);
 
@@ -179,6 +199,7 @@ public:
      * @param uuid uuid_t, UUID to compare
      * @return true, if the UUIDs are not equal
      * @return false, if the UUIDs are equal
+     * @version 0.1.0
      */
     bool operator!=(const uuid_t &uuid);
 
@@ -193,5 +214,6 @@ private:
  * @param os std::ostream &, output stream
  * @param uuid UUID, UUID to output
  * @return std::ostream &, output stream
+ * @version 0.1.0
  */
 std::ostream &operator<<(std::ostream &os, const UUID &uuid);

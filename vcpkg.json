@@ -10,6 +10,8 @@
     "Aubane NOURRY"
   ],
   "dependencies": [
-    "glm"
+    "glm",
+    "stduuid",
+    "gsl"
   ]
 }

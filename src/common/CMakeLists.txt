@@ -1,10 +1,19 @@
-add_library(StellarForgeCommon SHARED)
+add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
-set_target_properties(StellarForgeCommon PROPERTIES LINKER_LANGUAGE CXX)
+
+target_link_libraries(StellarForgeCommon PRIVATE stduuid)
+target_link_libraries(StellarForgeCommon PRIVATE GSL::gsl GSL::gslcblas)
+
 
 target_sources(StellarForgeCommon
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/IComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IObject.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UUID.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.hpp
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
 )

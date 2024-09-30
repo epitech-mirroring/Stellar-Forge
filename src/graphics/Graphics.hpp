@@ -59,15 +59,14 @@ public:
     void initialize();
 
     /**
-     * @brief Renders the objects in the scene managed by the SceneManager.
-     * @param SceneManager A pointer to the scene manager containing the objects to be rendered.
-     * @details This method is called every frame to render the objects in the scene. It clears 
-     *          the screen, renders objects in the correct z-order, and then presents the 
-     *          rendered frame to the window.
+     * @brief Renders the objects in the current scene.
+     * @details This method renders all objects in the current scene in the correct order
+     *         based on their z-index. It should be called once per frame to render the
+     *        scene.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void render(void *SceneManager);
+    void render();
 
     /**
      * @brief Clears the current rendering target.
@@ -107,6 +106,16 @@ public:
      */
     void addAndSortObject(std::shared_ptr<IObject> object);
 
+    /**
+     * @brief Changes the current scene to the specified scene.
+     * @param scene A pointer to the scene to set as the current scene.
+     * @details This method changes the current scene to the specified scene and sets the
+     *         scene's objects to be rendered in the correct order. 
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void setScene(IScene *scene);
+
 private:
     SDL_Window *window;                          /**< The SDL window used for rendering. */
     SDL_Renderer *renderer;                      /**< The SDL renderer used to draw objects. */
@@ -116,6 +125,7 @@ private:
     bool initialized;                            /**< Flag indicating if the graphics system is initialized. */
     std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
+    IScene *currentScene;                        /**< The current scene being rendered. */
 };
 
 #endif // GRAPHICS_HPP

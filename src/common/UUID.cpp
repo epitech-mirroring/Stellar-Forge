@@ -105,6 +105,10 @@ std::ostream& operator<<(std::ostream& ostream, const UUID& uuid)
 }
 
 UUID &UUID::operator=(UUID &&uuid) noexcept {
-    this->_uuid = uuid._uuid;
+    if (this != &uuid) {
+        this->_uuid = std::move(uuid._uuid);
+        uuid._uuid = {};
+    }
+
     return *this;
 }

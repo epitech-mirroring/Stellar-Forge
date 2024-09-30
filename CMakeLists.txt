@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.29)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE STRING "")
 
 
 project(StellarForge
@@ -40,11 +39,9 @@ else ()
 endif ()
 
 # Libraries
-find_package(glm CONFIG REQUIRED)
-find_package(stduuid CONFIG REQUIRED)
+find_package(glm REQUIRED)
+find_package(stduuid REQUIRED)
 find_package(GSL REQUIRED)
-
-include_directories(${VCPKG_INSTALLED_DIR}/${VCPKG_TARGET_TRIPLET}/include)
 
 # Include subdirectories for common, physics, and graphics
 add_subdirectory(src/common)

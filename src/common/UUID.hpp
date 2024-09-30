@@ -7,7 +7,8 @@
 
 #pragma once
 
-#include <stduuid/uuid.h>
+#include <string>
+#include <uuid.h>
 
 /**
  * @brief UUID class
@@ -16,8 +17,7 @@
  * @note This class is a wrapper around the stduuid library
  * @version 0.1.0
  */
-class UUID
-{
+class UUID {
 public:
  /**
   * @brief Default constructor
@@ -34,7 +34,7 @@ public:
   * @param uuid UUID, the UUID to copy
   * @version 0.1.0
   */
- UUID(const UUID& uuid);
+ UUID(const UUID &uuid);
 
  /**
  * @brief Move constructor
@@ -43,7 +43,7 @@ public:
  * @param uuid UUID, the UUID to move
  * @version 0.1.0
  */
- UUID(const UUID&& uuid) noexcept;
+ UUID(const UUID &&uuid) noexcept;
 
  /**
  * @brief Default destructor
@@ -60,7 +60,7 @@ public:
   * @return const uuids::uuid&, the UUID
   * @version 0.1.0
   */
- [[nodiscard]] const uuids::uuid& getUuid() const;
+ [[nodiscard]] const uuids::uuid &getUuid() const;
 
  /**
   * @brief Get the UUID as a string
@@ -87,7 +87,7 @@ public:
   * @param uuid UUID, the UUID to copy
   * @version 0.1.0
   */
- void copyUuid(const UUID& uuid);
+ void copyUuid(const UUID &uuid);
 
  /**
   * @brief Compare a UUID
@@ -97,7 +97,7 @@ public:
   * @return bool, true if the UUIDs are equal, false otherwise
   * @version 0.1.0
   */
- [[nodiscard]] bool compareUuid(const UUID& uuid) const;
+ [[nodiscard]] bool compareUuid(const UUID &uuid) const;
 
  /**
   * @brief Check if the UUID is a nil UUID
@@ -116,7 +116,7 @@ public:
   * @throw UUIDException if an error occurs(Invalid string format, etc.)
   * @version 0.1.0
   */
- void setUuidFromString(const std::string& uuid);
+ void setUuidFromString(const std::string &uuid);
 
  /**
   * @brief Assignment operator
@@ -126,7 +126,7 @@ public:
   * @return UUID&, the assigned UUID
   * @version 0.1.0
   */
- UUID& operator=(const UUID& uuid);
+ UUID &operator=(const UUID &uuid);
 
  /**
   * @brief Equality operator
@@ -136,7 +136,7 @@ public:
   * @return bool, true if the UUIDs are equal, false otherwise
   * @version 0.1.0
   */
- UUID& operator=(UUID&& uuid) noexcept = delete;
+ UUID &operator=(UUID &&uuid) noexcept = delete;
 
  /**
   * @brief Equality operator
@@ -146,7 +146,7 @@ public:
   * @return bool, true if the UUIDs are equal, false otherwise
   * @version 0.1.0
   */
- bool operator==(const UUID& uuid) const;
+ bool operator==(const UUID &uuid) const;
 
  /**
   * @brief Inequality operator
@@ -156,7 +156,7 @@ public:
   * @return bool, true if the UUIDs are not equal, false otherwise
   * @version 0.1.0
   */
- bool operator!=(const UUID& uuid) const;
+ bool operator!=(const UUID &uuid) const;
 
  /**
   * @brief Less than operator
@@ -166,7 +166,7 @@ public:
   * @return bool, true if the UUID is less than the given UUID, false otherwise
   * @version 0.1.0
   */
- bool operator<(const UUID& uuid) const;
+ bool operator<(const UUID &uuid) const;
 
 private:
  /**
@@ -175,7 +175,7 @@ private:
   * @details This variable holds the UUID
   * @version 0.1.0
   */
- uuids::uuid _uuid;
+ uuids::uuid _uuid{};
 };
 
 /**
@@ -187,4 +187,4 @@ private:
  * @return std::ostream&, the output stream
  * @version 0.1.0
  */
-std::ostream& operator<<(std::ostream& ostream, const UUID& uuid);
+std::ostream &operator<<(std::ostream &ostream, const UUID &uuid);

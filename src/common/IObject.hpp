@@ -51,6 +51,16 @@ public:
  IObject &operator=(const IObject &other) = default;
 
  /**
+  * @brief The comparison operator of the object
+  * @param other The object to compare
+  * @return True if the objects are the same, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ bool operator==(const IObject &other) const = default;
+
+ /**
   * @brief The move constructor of the object
   * @details Is deleted because the object should not be moved
   * @param other The object to move

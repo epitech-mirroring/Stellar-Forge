@@ -7,26 +7,26 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const UUID &id, std::shared_ptr<IScene> scene, int position = -1)
+void SceneManager::addScene(const UUID &id, std::shared_ptr<IScene> scene, int position)
 {
     if (_scenes.find(id) != _scenes.end()) {
-            //raise Warning ID already exists, does not do anything
-            return;
-        }
-        _scenes[id] = scene;
+        throw ManagerException("Scene with ID " + id.getUuidString() + " already exists.");
+    }
+    _scenes[id] = scene;
 
-        if (position < 0 || position >= _sceneOrder.size()) {
-            _sceneOrder.push_back(id);
-        } else {
-            _sceneOrder.insert(_sceneOrder.begin() + position, id);
-        }
+    if (position < 0 || position >= _sceneOrder.size()) {
+        _sceneOrder.push_back(id);
+    } else {
+        _sceneOrder.insert(_sceneOrder.begin() + position, id);
+    }
 
-        if (_currentSceneIndex == -1) {
-            _currentSceneIndex = 0;
-        }
+    if (_currentSceneIndex == -1) {
+        _currentSceneIndex = 0;
+    }
 }
 
-void SceneManager::removeScene(const UUID& id) {
+void SceneManager::removeScene(const UUID& id)
+{
     auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), id);
     if (it != _sceneOrder.end()) {
         _sceneOrder.erase(it);
@@ -36,71 +36,82 @@ void SceneManager::removeScene(const UUID& id) {
         } else if (_currentSceneIndex >= _sceneOrder.size()) {
             _currentSceneIndex = _sceneOrder.size() - 1;
         }
+    } else {
+        throw ManagerException("Scene with ID " + id.getUuidString() + " not found in order.");
     }
 
     _scenes.erase(id);
 }
 
-void SceneManager::switchToScene(const UUID& id) {
+void SceneManager::switchToScene(const UUID& id)
+{
     auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), id);
     if (it != _sceneOrder.end()) {
         _currentSceneIndex = std::distance(_sceneOrder.begin(), it);
     } else {
-        //raise Warning ID does not exist
+        throw ManagerException("Scene with ID " + id.getUuidString() + " does not exist.");
     }
 }
 
-void SceneManager::switchToNextScene() {
+void SceneManager::switchToNextScene()
+{
     if (_currentSceneIndex >= 0 && _currentSceneIndex < _sceneOrder.size() - 1) {
         _currentSceneIndex++;
     } else {
-        //raise Warning No next scene
+        throw ManagerException("No next scene available.");
     }
 }
 
-void SceneManager::switchToPreviousScene() {
+void SceneManager::switchToPreviousScene()
+{
     if (_currentSceneIndex > 0) {
         _currentSceneIndex--;
     } else {
-        //raise Warning No previous scene
+        throw ManagerException("No previous scene available.");
     }
 }
 
-void SceneManager::switchScenesOrder(const UUID& id1, const UUID& id2) {
+void SceneManager::switchScenesOrder(const UUID& id1, const UUID& id2)
+{
     auto it1 = std::find(_sceneOrder.begin(), _sceneOrder.end(), id1);
     auto it2 = std::find(_sceneOrder.begin(), _sceneOrder.end(), id2);
 
     if (it1 != _sceneOrder.end() && it2 != _sceneOrder.end()) {
         std::iter_swap(it1, it2);
     } else {
-        //raise Error Scene not found
+        throw ManagerException("One or both scenes not found.");
     }
 }
 
-std::shared_ptr<IScene> SceneManager::getCurrentScene() const {
+std::shared_ptr<IScene> SceneManager::getCurrentScene() const
+{
     if (_currentSceneIndex >= 0 && _currentSceneIndex < _sceneOrder.size()) {
         return _scenes.at(_sceneOrder[_currentSceneIndex]);
     }
-    return nullptr;
+    throw ManagerException("No current scene available.");
 }
 
-std::shared_ptr<IScene> SceneManager::getSceneById(const UUID& id) const {
+std::shared_ptr<IScene> SceneManager::getSceneById(const UUID& id) const
+{
     auto it = _scenes.find(id);
     if (it != _scenes.end()) {
         return it->second;
     }
-    return nullptr;
+    throw ManagerException("Scene with ID " + id.getUuidString() + " not found.");
 }
 
-std::map<UUID, std::shared_ptr<IScene>> SceneManager::getScenes() const {
+std::map<UUID, std::shared_ptr<IScene>> SceneManager::getScenes() const
+{
     return _scenes;
 }
 
-std::vector<UUID> SceneManager::getSceneOrder() const {
+std::vector<UUID> SceneManager::getSceneOrder() const
+{
     return _sceneOrder;
 }
 
-void SceneManager::clearScenes() {
+void SceneManager::clearScenes()
+{
     _scenes.clear();
     _sceneOrder.clear();
     _currentSceneIndex = -1;

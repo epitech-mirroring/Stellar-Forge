@@ -22,20 +22,10 @@ bool ObjectManager::objectExists(const UUID& id) const
     return _objects.find(id) != _objects.end();
 }
 
-/*bool ObjectManager::objectExists(IObject object) const
-{
-    for (const auto& obj : _objects) {
-        if (obj.second == object) {
-            return true;
-        }
-    }
-    return false;
-}*/
-
 void ObjectManager::addObject(const UUID& id, IObject *object)
 {
     if (_objects.find(id) != _objects.end()) {
-        //raise Warning Object with ID id already exists: overwriting
+        throw ManagerException("Object with ID " + id.getUuidString() + " already exists: overwriting.");
     }
     _objects[id] = object;
 }
@@ -50,7 +40,7 @@ void ObjectManager::addObjects(const std::unordered_map<UUID, IObject *>& object
 void ObjectManager::removeObject(const UUID& id)
 {
     if (_objects.erase(id) == 0) {
-        //raise Warning Object with ID id does not exist
+        throw ManagerException("Object with ID " + id.getUuidString() + " does not exist.");
     }
 }
 
@@ -64,7 +54,7 @@ void ObjectManager::removeObjects(const std::vector<UUID>& ids)
 void ObjectManager::updateObject(const UUID& id, IObject *updatedObject)
 {
     if (!objectExists(id)) {
-        //raise Warning Object does not exist, creating a new
+        throw ManagerException("Object with ID " + id.getUuidString() + " does not exist, creating a new one.");
     }
     _objects[id] = updatedObject;
 }
@@ -75,8 +65,7 @@ IObject *ObjectManager::getObjectById(const UUID& id) const
     if (it != _objects.end()) {
         return it->second;
     }
-    //raise Eroor Object not found
-    return nullptr;
+    throw ManagerException("Object with ID " + id.getUuidString() + " not found.");
 }
 
 void ObjectManager::clearObjects()
@@ -93,6 +82,6 @@ void ObjectManager::duplicateObject(const UUID& id)
         newId.generateUuid();
         addObject(newId, newObject);
     } else {
-        //raise Error Object not found
+        throw ManagerException("Object with ID " + id.getUuidString() + " not found.");
     }
 }

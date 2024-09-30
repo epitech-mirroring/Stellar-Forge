@@ -13,8 +13,7 @@
 #include <algorithm>
 #include "../IScene.hpp"
 #include "../UUID.hpp"
-
-// assuming ids are unique and are UUIDs
+#include "ManagerException.hpp"
 
 class SceneManager {
 public:
@@ -24,11 +23,9 @@ public:
     void addScene(const UUID& id, std::shared_ptr<IScene> scene, int position /*default -1*/);
     void removeScene(const UUID& id);
     void switchToScene(const UUID& id);
-
     void switchToNextScene();
     void switchToPreviousScene();
     void switchScenesOrder(const UUID& id1, const UUID& id2);
-
     std::shared_ptr<IScene> getCurrentScene() const;
     std::shared_ptr<IScene> getSceneById(const UUID& id) const;
     void clearScenes();

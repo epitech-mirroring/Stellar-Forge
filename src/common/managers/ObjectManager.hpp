@@ -12,8 +12,7 @@
 #include <stdexcept>
 #include "../IObject.hpp"
 #include "../UUID.hpp"
-
-// assuming ids are unique and are UUIDs
+#include "ManagerException.hpp"
 
 class ObjectManager {
 public:
@@ -23,13 +22,6 @@ public:
     std::unordered_map<UUID, IObject *> getObjects() const;
     size_t getObjectCount() const;
     bool objectExists(const UUID& id) const;
-
-    // if we implement a equals function for the object class.
-    //bool objectExists(IObject object) const;
-
-    // If the id is in the object, change the function signature to:
-    // void addObject(IObject object);
-    // same for the following functions
     void addObject(const UUID& id, IObject *object);
     void addObjects(const std::unordered_map<UUID, IObject *>& objects);
     void removeObject(const UUID& id);

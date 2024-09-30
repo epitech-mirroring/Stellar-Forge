@@ -2,10 +2,6 @@ target_sources(
     StellarForge
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/Engine.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ObjectManager.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.hpp
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Engine.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ObjectManager.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.cpp
 )

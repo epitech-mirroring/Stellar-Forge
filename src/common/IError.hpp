@@ -5,7 +5,8 @@
 ** IError
 */
 
-#pragma once
+#ifndef IERROR_HPP
+#define IERROR_HPP
 
 #include <exception>
 
@@ -39,3 +40,5 @@ public:
   */
  [[nodiscard]] const char* what() const noexcept override = 0;
 };
+
+#endif // IERROR_HPP

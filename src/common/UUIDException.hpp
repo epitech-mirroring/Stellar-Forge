@@ -5,7 +5,8 @@
 ** UUIDException
 */
 
-#pragma once
+#ifndef UUIDEXCEPTION_HPP
+#define UUIDEXCEPTION_HPP
 
 #include "IError.hpp"
 
@@ -30,7 +31,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- explicit UUIDException(std::string  message);
+ explicit UUIDException(std::string message);
 
  /**
   * @brief Default destructor
@@ -57,3 +58,5 @@ private:
   */
  std::string _message;
 };
+
+#endif // UUIDEXCEPTION_HPP

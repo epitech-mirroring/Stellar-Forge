@@ -5,7 +5,8 @@
 ** UUID
 */
 
-#pragma once
+#ifndef UUID_HPP
+#define UUID_HPP
 
 #include <string>
 #include <uuid.h>
@@ -186,6 +187,18 @@ public:
   */
  bool operator<(const UUID& uuid) const;
 
+ /**
+  * @brief Output stream operator
+  * @details This operator outputs the UUID to the given output stream
+  * @param ostream std::ostream&, the output stream
+  * @param uuid UUID, the UUID to output
+  * @return std::ostream&, the output stream
+  * @version 0.1.0
+  * @since 0.1.0
+  * @author Marius PAIN
+  */
+ friend std::ostream& operator<<(std::ostream& ostream, const UUID& uuid);
+
 private:
  /**
   * @brief UUID
@@ -197,14 +210,4 @@ private:
  uuids::uuid _uuid{};
 };
 
-/**
- * @brief Output stream operator
- * @details This operator outputs the UUID to the given output stream
- * @param ostream std::ostream&, the output stream
- * @param uuid UUID, the UUID to output
- * @return std::ostream&, the output stream
- * @version 0.1.0
- * @since 0.1.0
- * @author Marius PAIN
- */
-std::ostream& operator<<(std::ostream& ostream, const UUID& uuid);
+#endif // UUID_HPP

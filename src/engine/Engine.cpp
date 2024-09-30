@@ -8,8 +8,4 @@
 
 #include "Engine.hpp"
 
-#include "common/UtilExemple.hpp"
-
-Engine::Engine() {
-    UtilExemple::myFunction();
-}
+Engine::Engine() = default;

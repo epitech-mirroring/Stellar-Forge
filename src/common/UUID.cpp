@@ -8,6 +8,10 @@
 #include "UUID.hpp"
 #include "UUIDException.hpp"
 
+UUID::UUID(const UUID&& uuid) noexcept : _uuid(uuid._uuid)
+{
+}
+
 const uuids::uuid& UUID::getUuid() const
 {
     return this->_uuid;

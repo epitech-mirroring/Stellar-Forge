@@ -48,7 +48,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID(const UUID&& uuid) noexcept = default;
+ UUID(const UUID&& uuid) noexcept;
 
  /**
   * @brief Default destructor

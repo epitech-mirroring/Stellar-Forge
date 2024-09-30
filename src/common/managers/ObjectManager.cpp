@@ -7,7 +7,7 @@
 
 #include "ObjectManager.hpp"
 
-std::unordered_map<long, IObject *> ObjectManager::getObjects() const
+std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const
 {
     return _objects;
 }
@@ -17,7 +17,7 @@ size_t ObjectManager::getObjectCount() const
     return _objects.size();
 }
 
-bool ObjectManager::objectExists(const long& id) const
+bool ObjectManager::objectExists(const UUID& id) const
 {
     return _objects.find(id) != _objects.end();
 }
@@ -32,7 +32,7 @@ bool ObjectManager::objectExists(const long& id) const
     return false;
 }*/
 
-void ObjectManager::addObject(const long& id, IObject *object)
+void ObjectManager::addObject(const UUID& id, IObject *object)
 {
     if (_objects.find(id) != _objects.end()) {
         //raise Warning Object with ID id already exists: overwriting
@@ -40,28 +40,28 @@ void ObjectManager::addObject(const long& id, IObject *object)
     _objects[id] = object;
 }
 
-void ObjectManager::addObjects(const std::unordered_map<long, IObject *>& objects)
+void ObjectManager::addObjects(const std::unordered_map<UUID, IObject *>& objects)
 {
     for (const auto& object : objects) {
         addObject(object.first, object.second);
     }
 }
 
-void ObjectManager::removeObject(const long& id)
+void ObjectManager::removeObject(const UUID& id)
 {
     if (_objects.erase(id) == 0) {
         //raise Warning Object with ID id does not exist
     }
 }
 
-void ObjectManager::removeObjects(const std::vector<long>& ids)
+void ObjectManager::removeObjects(const std::vector<UUID>& ids)
 {
     for (const auto& id : ids) {
         removeObject(id);
     }
 }
 
-void ObjectManager::updateObject(const long& id, IObject *updatedObject)
+void ObjectManager::updateObject(const UUID& id, IObject *updatedObject)
 {
     if (!objectExists(id)) {
         //raise Warning Object does not exist, creating a new
@@ -69,7 +69,7 @@ void ObjectManager::updateObject(const long& id, IObject *updatedObject)
     _objects[id] = updatedObject;
 }
 
-IObject *ObjectManager::getObjectById(const long& id) const
+IObject *ObjectManager::getObjectById(const UUID& id) const
 {
     auto it = _objects.find(id);
     if (it != _objects.end()) {
@@ -84,18 +84,15 @@ void ObjectManager::clearObjects()
     _objects.clear();
 }
 
-void ObjectManager::duplicateObject(const long& id)
+void ObjectManager::duplicateObject(const UUID& id)
 {
     auto it = _objects.find(id);
     if (it != _objects.end()) {
-        long newId = id + 1;
-
-        while (_objects.find(newId) != _objects.end()) {
-            newId++;
-        }
-
-        _objects[newId] = it->second;
+        IObject *newObject = it->second->clone();
+        UUID newId = UUID(id);
+        newId.generateUuid();
+        addObject(newId, newObject);
     } else {
-        //raise Eroor Object not found
+        //raise Error Object not found
     }
 }

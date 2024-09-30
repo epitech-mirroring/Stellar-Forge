@@ -7,7 +7,7 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const long &id, std::shared_ptr<IScene> scene, int position = -1)
+void SceneManager::addScene(const UUID &id, std::shared_ptr<IScene> scene, int position = -1)
 {
     if (_scenes.find(id) != _scenes.end()) {
             //raise Warning ID already exists, does not do anything
@@ -26,7 +26,7 @@ void SceneManager::addScene(const long &id, std::shared_ptr<IScene> scene, int p
         }
 }
 
-void SceneManager::removeScene(const long& id) {
+void SceneManager::removeScene(const UUID& id) {
     auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), id);
     if (it != _sceneOrder.end()) {
         _sceneOrder.erase(it);
@@ -41,7 +41,7 @@ void SceneManager::removeScene(const long& id) {
     _scenes.erase(id);
 }
 
-void SceneManager::switchToScene(const long& id) {
+void SceneManager::switchToScene(const UUID& id) {
     auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), id);
     if (it != _sceneOrder.end()) {
         _currentSceneIndex = std::distance(_sceneOrder.begin(), it);
@@ -66,7 +66,7 @@ void SceneManager::switchToPreviousScene() {
     }
 }
 
-void SceneManager::switchScenesOrder(const long& id1, const long& id2) {
+void SceneManager::switchScenesOrder(const UUID& id1, const UUID& id2) {
     auto it1 = std::find(_sceneOrder.begin(), _sceneOrder.end(), id1);
     auto it2 = std::find(_sceneOrder.begin(), _sceneOrder.end(), id2);
 
@@ -84,7 +84,7 @@ std::shared_ptr<IScene> SceneManager::getCurrentScene() const {
     return nullptr;
 }
 
-std::shared_ptr<IScene> SceneManager::getSceneById(const long& id) const {
+std::shared_ptr<IScene> SceneManager::getSceneById(const UUID& id) const {
     auto it = _scenes.find(id);
     if (it != _scenes.end()) {
         return it->second;
@@ -92,11 +92,11 @@ std::shared_ptr<IScene> SceneManager::getSceneById(const long& id) const {
     return nullptr;
 }
 
-std::map<long, std::shared_ptr<IScene>> SceneManager::getScenes() const {
+std::map<UUID, std::shared_ptr<IScene>> SceneManager::getScenes() const {
     return _scenes;
 }
 
-std::vector<long> SceneManager::getSceneOrder() const {
+std::vector<UUID> SceneManager::getSceneOrder() const {
     return _sceneOrder;
 }
 

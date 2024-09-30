@@ -1,10 +1,7 @@
 add_library(StellarForgePhysics STATIC)
 add_library(StellarForge::Physics ALIAS StellarForgePhysics)
 add_dependencies(StellarForgePhysics StellarForgeCommon)
-target_link_libraries(StellarForgePhysics
-        PRIVATE
-        glm::glm
-)
+target_link_libraries(StellarForgePhysics glm::glm)
 
 target_sources(StellarForgePhysics
         PUBLIC

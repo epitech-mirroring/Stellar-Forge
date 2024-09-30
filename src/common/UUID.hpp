@@ -38,7 +38,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID(const UUID& uuid);
+ UUID(const UUID& uuid) = default;
 
  /**
   * @brief Move constructor
@@ -48,7 +48,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID(const UUID&& uuid) noexcept;
+ UUID(const UUID&& uuid) noexcept = default;
 
  /**
   * @brief Default destructor

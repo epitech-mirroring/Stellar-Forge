@@ -8,16 +8,6 @@
 #include "UUID.hpp"
 #include "UUIDException.hpp"
 
-UUID::UUID(const UUID& uuid)
-{
-    this->_uuid = uuid._uuid;
-}
-
-UUID::UUID(const UUID&& uuid) noexcept
-{
-    this->_uuid = uuid._uuid;
-}
-
 const uuids::uuid& UUID::getUuid() const
 {
     return this->_uuid;
@@ -66,7 +56,12 @@ void UUID::setUuidFromString(const std::string& uuid)
 {
     try
     {
-        this->_uuid = uuids::uuid::from_string(uuid).value();
+        const std::optional<uuids::uuid> optUuid = uuids::uuid::from_string(uuid);
+        if (!optUuid.has_value())
+        {
+            throw UUIDException("Error while setting UUID from string : invalid UUID");
+        }
+        this->_uuid = optUuid.value();
     }
     catch (const std::exception& e)
     {

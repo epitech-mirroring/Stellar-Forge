@@ -7,7 +7,7 @@
 
 #include "ObjectManager.hpp"
 
-std::unordered_map<long, void*> ObjectManager::getObjects() const
+std::unordered_map<long, IObject *> ObjectManager::getObjects() const
 {
     return _objects;
 }
@@ -22,7 +22,7 @@ bool ObjectManager::objectExists(const long& id) const
     return _objects.find(id) != _objects.end();
 }
 
-/*bool ObjectManager::objectExists(void* object) const
+/*bool ObjectManager::objectExists(IObject object) const
 {
     for (const auto& obj : _objects) {
         if (obj.second == object) {
@@ -32,7 +32,7 @@ bool ObjectManager::objectExists(const long& id) const
     return false;
 }*/
 
-void ObjectManager::addObject(const long& id, void* object)
+void ObjectManager::addObject(const long& id, IObject *object)
 {
     if (_objects.find(id) != _objects.end()) {
         //raise Warning Object with ID id already exists: overwriting
@@ -40,7 +40,7 @@ void ObjectManager::addObject(const long& id, void* object)
     _objects[id] = object;
 }
 
-void ObjectManager::addObjects(const std::unordered_map<long, void*>& objects)
+void ObjectManager::addObjects(const std::unordered_map<long, IObject *>& objects)
 {
     for (const auto& object : objects) {
         addObject(object.first, object.second);
@@ -61,7 +61,7 @@ void ObjectManager::removeObjects(const std::vector<long>& ids)
     }
 }
 
-void ObjectManager::updateObject(const long& id, void* updatedObject)
+void ObjectManager::updateObject(const long& id, IObject *updatedObject)
 {
     if (!objectExists(id)) {
         //raise Warning Object does not exist, creating a new
@@ -69,7 +69,7 @@ void ObjectManager::updateObject(const long& id, void* updatedObject)
     _objects[id] = updatedObject;
 }
 
-void* ObjectManager::getObjectById(const long& id) const
+IObject *ObjectManager::getObjectById(const long& id) const
 {
     auto it = _objects.find(id);
     if (it != _objects.end()) {

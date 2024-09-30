@@ -7,7 +7,7 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const long &id, std::shared_ptr<void *> scene, int position = -1)
+void SceneManager::addScene(const long &id, std::shared_ptr<IScene> scene, int position = -1)
 {
     if (_scenes.find(id) != _scenes.end()) {
             //raise Warning ID already exists, does not do anything
@@ -77,14 +77,14 @@ void SceneManager::switchScenesOrder(const long& id1, const long& id2) {
     }
 }
 
-std::shared_ptr<void*> SceneManager::getCurrentScene() const {
+std::shared_ptr<IScene> SceneManager::getCurrentScene() const {
     if (_currentSceneIndex >= 0 && _currentSceneIndex < _sceneOrder.size()) {
         return _scenes.at(_sceneOrder[_currentSceneIndex]);
     }
     return nullptr;
 }
 
-std::shared_ptr<void*> SceneManager::getSceneById(const long& id) const {
+std::shared_ptr<IScene> SceneManager::getSceneById(const long& id) const {
     auto it = _scenes.find(id);
     if (it != _scenes.end()) {
         return it->second;
@@ -92,7 +92,7 @@ std::shared_ptr<void*> SceneManager::getSceneById(const long& id) const {
     return nullptr;
 }
 
-std::map<long, std::shared_ptr<void*>> SceneManager::getScenes() const {
+std::map<long, std::shared_ptr<IScene>> SceneManager::getScenes() const {
     return _scenes;
 }
 

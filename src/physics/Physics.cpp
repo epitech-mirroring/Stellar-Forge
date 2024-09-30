@@ -8,6 +8,8 @@
 
 #include "Physics.hpp"
 #include "glm/geometric.hpp"
+#include "glm/gtx/norm.hpp"
+#include <algorithm>
 
 void Physics::Movement::applyMovement(Vector3 &pos, const Vector3 &vel,
                                       const float deltaTime) {
@@ -72,7 +74,7 @@ bool Physics::Collision::SphereCollideSphere(Sphere sphere1, Sphere sphere2) {
 }
 
 bool Physics::Collision::BoxCollideSphere(Box box, Sphere sphere) {
-    Vector3 closestPoint = glm::vec3(
+    const Vector3 closestPoint = glm::vec3(
             glm::clamp(sphere.position.x, std::min(box.position.x, box.position.x + box.size.x),
                        std::max(box.position.x, box.position.x + box.size.x)),
             glm::clamp(sphere.position.y, std::min(box.position.y, box.position.y + box.size.y),

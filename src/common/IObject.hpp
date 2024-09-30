@@ -244,14 +244,14 @@ public:
   virtual std::string getName() const = 0;
  };
 
- /**
-  * @brief This function is used to get the meta of the object
+  /**
+  * @brief Gives the meta of the object
   * @return The meta of the object
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
- */
-  virtual IMeta *getMeta() const = 0;
+  */
+ [[nodiscard]] virtual IMeta &getMeta() const = 0;
 };
 
 #endif //IOBJECT_HPP

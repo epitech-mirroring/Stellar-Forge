@@ -61,9 +61,9 @@ void ObjectManager::updateObject(const UUID& uuid, IObject *updatedObject)
 
 IObject *ObjectManager::getObjectById(const UUID& uuid) const
 {
-    auto it = _objects.find(uuid);
-    if (it != _objects.end()) {
-        return it->second;
+    auto object = _objects.find(uuid);
+    if (object != _objects.end()) {
+        return object->second;
     }
     throw ManagerException("Object with UUID " + uuid.getUuidString() + " not found.");
 }
@@ -75,9 +75,9 @@ void ObjectManager::clearObjects()
 
 void ObjectManager::duplicateObject(const UUID& uuid)
 {
-    auto it = _objects.find(uuid);
-    if (it != _objects.end()) {
-        IObject *newObject = it->second->clone();
+    auto object = _objects.find(uuid);
+    if (object != _objects.end()) {
+        IObject *newObject = object->second->clone();
         UUID newId = UUID(uuid);
         newId.generateUuid();
         addObject(newId, newObject);

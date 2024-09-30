@@ -7,7 +7,7 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const UUID &uuid, std::shared_ptr<IScene> scene, int position)
+void SceneManager::addScene(const UUID &uuid, const std::shared_ptr<IScene> scene, int position)
 {
     if (_scenes.find(uuid) != _scenes.end()) {
         throw ManagerException("Scene with UUID " + uuid.getUuidString() + " already exists.");
@@ -27,9 +27,9 @@ void SceneManager::addScene(const UUID &uuid, std::shared_ptr<IScene> scene, int
 
 void SceneManager::removeScene(const UUID& uuid)
 {
-    auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
-    if (it != _sceneOrder.end()) {
-        _sceneOrder.erase(it);
+    auto scene = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
+    if (scene != _sceneOrder.end()) {
+        _sceneOrder.erase(scene);
 
         if (_sceneOrder.empty()) {
             _currentSceneIndex = -1;
@@ -45,9 +45,9 @@ void SceneManager::removeScene(const UUID& uuid)
 
 void SceneManager::switchToScene(const UUID& uuid)
 {
-    auto it = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
-    if (it != _sceneOrder.end()) {
-        _currentSceneIndex = std::distance(_sceneOrder.begin(), it);
+    auto scene = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
+    if (scene != _sceneOrder.end()) {
+        _currentSceneIndex = (int) std::distance(_sceneOrder.begin(), scene);
     } else {
         throw ManagerException("Scene with UUID " + uuid.getUuidString() + " does not exist.");
     }

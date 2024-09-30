@@ -52,7 +52,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addScene(const UUID& uuid, std::shared_ptr<IScene> scene, int position /*default -1*/);
+    void addScene(const UUID& uuid, const std::shared_ptr<IScene> scene, int position /*default -1*/);
 
     /**
      * @brief Removes a scene from the manager.

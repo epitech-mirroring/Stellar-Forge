@@ -110,29 +110,104 @@ public:
   static void applyImpulse(Vector3 &vel, const Vector3 &impulse);
  };
 
-    class Box {
-    public:
-        Vector3 position;
-        Vector3 size;
+ /**
+ * @class Box
+ * @brief A class that represents a box in 3D space.
+ * @details This class contains the position and size of the box.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Landry GIGANT
+ */
+ class Box {
+ public:
+  /**
+   * @brief The position of the box in 3D space.
+   */
+  Vector3 position;
 
-        Box(Vector3 position, Vector3 size) : position(position), size(size) {};
-    };
+  /**
+   * @brief The size of the box in 3D space.
+   */
+  Vector3 size;
 
-    class Sphere {
-    public:
-        Vector3 position;
-        float radius;
+  /**
+   * @brief Constructor for the Box class.
+   * @param position The position of the box in 3D space.
+   * @param size The size of the box in 3D space.
+   */
+  Box(Vector3 position, Vector3 size) : position(position), size(size) {};
+ };
 
-        Sphere(Vector3 position, float radius) : position(position), radius(radius) {};
-    };
+/**
+ * @class Sphere
+ * @brief A class that represents a sphere in 3D space.
+ * @details This class contains the position and radius of the sphere.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Landry GIGANT
+ */
+ class Sphere {
+ public:
+  /**
+   * @brief The position of the sphere in 3D space.
+   */
+  Vector3 position;
 
-    class Collision {
-    public:
-        static bool BoxCollideBox(Box box1, Box box2);
-        static bool SphereCollideSphere(Sphere sphere1, Sphere sphere2);
-        static bool BoxCollideSphere(Box box, Sphere sphere);
-        static bool SphereCollideBox(Sphere sphere, Box box);
-    };
+  /**
+   * @brief The radius of the sphere.
+   */
+  float radius;
+
+  /**
+   * @brief Constructor for the Sphere class.
+   * @param position The position of the sphere in 3D space.
+   * @param radius The radius of the sphere.
+   */
+  Sphere(Vector3 position, float radius) : position(position), radius(radius) {};
+ };
+
+/**
+ * @class Collision
+ * @brief A class that provides static methods for collision detection.
+ * @details This class contains methods for detecting collisions between boxes and spheres.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Landry GIGANT
+ */
+ class Collision {
+ public:
+  /**
+   * @brief Check if two boxes collide.
+   * @param box1 The first box.
+   * @param box2 The second box.
+   * @return True if the boxes collide, false otherwise.
+   */
+  static bool BoxCollideBox(Box box1, Box box2);
+
+  /**
+   * @brief Check if two spheres collide.
+   * @param sphere1 The first sphere.
+   * @param sphere2 The second sphere.
+   * @return True if the spheres collide, false otherwise.
+   */
+  static bool SphereCollideSphere(Sphere sphere1, Sphere sphere2);
+
+  /**
+   * @brief Check if a box and a sphere collide.
+   * @param box The box.
+   * @param sphere The sphere.
+   * @return True if the box and the sphere collide, false otherwise.
+   */
+  static bool BoxCollideSphere(Box box, Sphere sphere);
+
+  /**
+   * @brief Check if a sphere and a box collide.
+   * @param sphere The sphere.
+   * @param box The box.
+   * @return True if the sphere and the box collide, false otherwise.
+   */
+  static bool SphereCollideBox(Sphere sphere, Box box);
+ };
 };
 
 

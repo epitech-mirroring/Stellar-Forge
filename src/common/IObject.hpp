@@ -24,6 +24,13 @@
 class IObject {
 public:
  /**
+  * @brief The constructor of the object
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ IObject() = default;
+ /**
   * @brief The destructor of the object
   * @version v0.1.0
   * @since v0.1.0
@@ -174,13 +181,6 @@ public:
   */
  virtual void runObject() = 0;
 
- /**
-  * @brief This function is used to get the name of the object
-  * @return The name of the object
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
  class IMeta {
  public:
   /**
@@ -243,6 +243,15 @@ public:
   [[nodiscard]]
   virtual std::string getName() const = 0;
  };
+
+ /**
+  * @brief This function is used to get the meta of the object
+  * @return The meta of the object
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+ */
+  virtual IMeta *getMeta() const = 0;
 };
 
 #endif //IOBJECT_HPP

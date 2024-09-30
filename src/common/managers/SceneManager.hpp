@@ -45,32 +45,32 @@ public:
 
     /**
      * @brief Adds a scene to the manager.
-     * @param id The unique identifier of the scene.
+     * @param uuid The unique identifier of the scene.
      * @param scene A shared pointer to the scene to be added.
      * @param position The position to add the scene at. Default is -1, which appends the scene.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addScene(const UUID& id, std::shared_ptr<IScene> scene, int position /*default -1*/);
+    void addScene(const UUID& uuid, std::shared_ptr<IScene> scene, int position /*default -1*/);
 
     /**
      * @brief Removes a scene from the manager.
-     * @param id The unique identifier of the scene to be removed.
+     * @param uuid The unique identifier of the scene to be removed.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void removeScene(const UUID& id);
+    void removeScene(const UUID& uuid);
 
     /**
      * @brief Switches to a specific scene.
-     * @param id The unique identifier of the scene to switch to.
+     * @param uuid The unique identifier of the scene to switch to.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void switchToScene(const UUID& id);
+    void switchToScene(const UUID& uuid);
 
     /**
      * @brief Switches to the next scene in the order.
@@ -90,13 +90,13 @@ public:
 
     /**
      * @brief Switches the order of two scenes.
-     * @param id1 The unique identifier of the first scene.
-     * @param id2 The unique identifier of the second scene.
+     * @param uuid1 The unique identifier of the first scene.
+     * @param uuid2 The unique identifier of the second scene.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void switchScenesOrder(const UUID& id1, const UUID& id2);
+    void switchScenesOrder(const UUID& uuid1, const UUID& uuid2);
 
     /**
      * @brief Gets the current scene.
@@ -109,13 +109,13 @@ public:
 
     /**
      * @brief Retrieves a scene by its unique identifier.
-     * @param id The unique identifier of the scene.
+     * @param uuid The unique identifier of the scene.
      * @return A shared pointer to the scene.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::shared_ptr<IScene> getSceneById(const UUID& id) const;
+    std::shared_ptr<IScene> getSceneById(const UUID& uuid) const;
 
     /**
      * @brief Clears all scenes managed by the SceneManager.

@@ -101,10 +101,10 @@ public:
 
     class Collision {
     public:
-        static bool BoxVsBox(Box box1, Box box2);
-        static bool SphereVsSphere(Sphere sphere1, Sphere sphere2);
-        static bool BoxVsSphere(Box box, Sphere sphere);
-        static bool SphereVsBox(Sphere sphere, Box box);
+        static bool BoxCollideBox(Box box1, Box box2);
+        static bool SphereCollideSphere(Sphere sphere1, Sphere sphere2);
+        static bool BoxCollideSphere(Box box, Sphere sphere);
+        static bool SphereCollideBox(Sphere sphere, Box box);
     };
 };
 

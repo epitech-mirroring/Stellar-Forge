@@ -55,7 +55,7 @@ void Physics::Movement::applyImpulse(Vector3 &vel, Vector3 &impulse)
     vel += impulse;
 }
 
-bool Physics::Collision::BoxVsBox(Box box1, Box box2)
+bool Physics::Collision::BoxCollideBox(Box box1, Box box2)
 {
     return (std::min(box1.position.x, box1.position.x + box1.size.x) <= std::max(box2.position.x, box2.position.x + box2.size.x) &&
             std::max(box1.position.x, box1.position.x + box1.size.x) >= std::min(box2.position.x, box2.position.x + box2.size.x) &&
@@ -65,11 +65,11 @@ bool Physics::Collision::BoxVsBox(Box box1, Box box2)
             std::max(box1.position.z, box1.position.z + box1.size.z) >= std::min(box2.position.z, box2.position.z + box2.size.z));
 }
 
-bool Physics::Collision::SphereVsSphere(Sphere sphere1, Sphere sphere2) {
+bool Physics::Collision::SphereCollideSphere(Sphere sphere1, Sphere sphere2) {
     return glm::distance(sphere1.position, sphere2.position) < sphere1.radius + sphere2.radius;
 }
 
-bool Physics::Collision::BoxVsSphere(Box box, Sphere sphere) {
+bool Physics::Collision::BoxCollideSphere(Box box, Sphere sphere) {
     Vector3 closestPoint = glm::vec3(
             glm::clamp(sphere.position.x, std::min(box.position.x, box.position.x + box.size.x),
                        std::max(box.position.x, box.position.x + box.size.x)),
@@ -80,6 +80,6 @@ bool Physics::Collision::BoxVsSphere(Box box, Sphere sphere) {
     );
     return glm::distance(sphere.position, closestPoint) < sphere.radius;
 }
-bool Physics::Collision::SphereVsBox(Sphere sphere, Box box) {
-    return BoxVsSphere(box, sphere);
+bool Physics::Collision::SphereCollideBox(Sphere sphere, Box box) {
+    return BoxCollideSphere(box, sphere);
 }

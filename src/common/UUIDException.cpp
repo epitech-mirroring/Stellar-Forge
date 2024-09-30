@@ -7,7 +7,9 @@
 
 #include "UUIDException.hpp"
 
-UUIDException::UUIDException(const std::string& message): _message{message}
+#include <utility>
+
+UUIDException::UUIDException(std::string message): _message{std::move(message)}
 {
 }
 

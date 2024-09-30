@@ -30,7 +30,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- explicit UUIDException(const std::string& message);
+ explicit UUIDException(std::string  message);
 
  /**
   * @brief Default destructor

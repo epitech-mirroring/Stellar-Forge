@@ -22,6 +22,13 @@
 class IScene {
 public:
  /**
+ * @brief The constructor of the scene
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+  IScene() = default;
+ /**
   * @brief The destructor of the scene
   * @version v0.1.0
   * @since v0.1.0

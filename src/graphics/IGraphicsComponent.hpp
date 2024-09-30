@@ -52,5 +52,4 @@ public:
     virtual void render(SDL_Renderer *renderer) = 0;
 };
 
-
 #endif //IGRAPHICALCOMPONENT_HPP

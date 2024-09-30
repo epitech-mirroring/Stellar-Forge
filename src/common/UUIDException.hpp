@@ -16,6 +16,7 @@
  * @brief Exception class for UUID errors
  * @details This class is used to throw UUID errors
  * @version 0.1.0
+ * @since 0.1.0
  * @author Marius PAIN
  */
 class UUIDException : public IError
@@ -26,6 +27,8 @@ public:
   * @details This constructor initializes the UUIDException with a message
   * @param message std::string, the message
   * @version 0.1.0
+  * @since 0.1.0
+  * @author Marius PAIN
   */
  explicit UUIDException(const std::string& message);
 
@@ -33,6 +36,8 @@ public:
   * @brief Default destructor
   * @details This destructor clears the UUIDException
   * @version 0.1.0
+  * @since 0.1.0
+  * @author Marius PAIN
   */
  ~UUIDException() override = default;
 
@@ -41,6 +46,8 @@ public:
   * @details This function returns the error message
   * @return const char*, the error message
   * @version 0.1.0
+  * @since 0.1.0
+  * @author Marius PAIN
   */
  [[nodiscard]] const char* what() const noexcept override;
 

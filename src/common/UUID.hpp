@@ -152,7 +152,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID& operator=(UUID&& uuid) noexcept = delete;
+ UUID& operator=(UUID&& uuid) noexcept;
 
  /**
   * @brief Equality operator
@@ -207,7 +207,19 @@ private:
   * @since 0.1.0
   * @author Marius PAIN
   */
- uuids::uuid _uuid{};
+ uuids::uuid _uuid;
 };
+
+namespace std {
+ template <>
+ struct hash<UUID>
+ {
+  std::size_t operator()(const UUID& uuid) const noexcept
+  {
+   // Use the built-in hash function of uuids::uuid or hash based on its string representation
+   return std::hash<std::string>{}(uuid.getUuidString());
+  }
+ };
+}
 
 #endif // UUID_HPP

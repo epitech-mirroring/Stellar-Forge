@@ -75,11 +75,11 @@ void UUID::setUuidFromString(const std::string& uuid)
 
 UUID& UUID::operator=(const UUID& uuid)
 {
-    /*if (this == &uuid)
+    if (this == &uuid)
     {
         return *this;
-    }*/
-    //this->_uuid = uuid._uuid;
+    }
+    this->_uuid = uuid._uuid;
     return *this;
 }
 
@@ -106,7 +106,7 @@ std::ostream& operator<<(std::ostream& ostream, const UUID& uuid)
 
 UUID &UUID::operator=(UUID &&uuid) noexcept {
     if (this != &uuid) {
-        this->_uuid = std::move(uuid._uuid);
+        this->_uuid = uuid._uuid;
         uuid._uuid = {};
     }
 

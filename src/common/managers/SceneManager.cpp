@@ -7,7 +7,7 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const UUID &uuid, const std::shared_ptr<IScene> scene, int position)
+void SceneManager::addScene(const UUID &uuid, const std::shared_ptr<IScene> &scene, int position)
 {
     if (_scenes.find(uuid) != _scenes.end()) {
         throw ManagerException("Scene with UUID " + uuid.getUuidString() + " already exists.");
@@ -93,9 +93,9 @@ std::shared_ptr<IScene> SceneManager::getCurrentScene() const
 
 std::shared_ptr<IScene> SceneManager::getSceneById(const UUID& uuid) const
 {
-    auto it = _scenes.find(uuid);
-    if (it != _scenes.end()) {
-        return it->second;
+    auto scene = _scenes.find(uuid);
+    if (scene != _scenes.end()) {
+        return scene->second;
     }
     throw ManagerException("Scene with UUID " + uuid.getUuidString() + " not found.");
 }

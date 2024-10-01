@@ -9,10 +9,8 @@
 
 #include <unordered_map>
 #include <vector>
-#include <stdexcept>
 #include "../IObject.hpp"
 #include "../UUID.hpp"
-#include "ManagerException.hpp"
 
 /**
  * @class ObjectManager
@@ -24,142 +22,143 @@
  */
 class ObjectManager {
 public:
-    /**
-     * @brief Default constructor for ObjectManager.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    ObjectManager() = default;
+ /**
+  * @brief Default constructor for ObjectManager.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ ObjectManager() = default;
 
-    /**
-     * @brief Destructor for ObjectManager.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    ~ObjectManager() = default;
+ /**
+  * @brief Destructor for ObjectManager.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ ~ObjectManager() = default;
 
-    /**
-     * @brief Retrieves all objects managed by the ObjectManager.
-     * @return An unordered map of UUIDs to object pointers.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    [[nodiscard]] std::unordered_map<UUID, IObject *> getObjects() const;
+ /**
+  * @brief Retrieves all objects managed by the ObjectManager.
+  * @return An unordered map of UUIDs to object pointers.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ [[nodiscard]] std::unordered_map<UUID, IObject *> getObjects() const;
 
-    /**
-     * @brief Gets the total count of objects.
-     * @return The number of objects managed by the ObjectManager.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    [[nodiscard]] size_t getObjectCount() const;
+ /**
+  * @brief Gets the total count of objects.
+  * @return The number of objects managed by the ObjectManager.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ [[nodiscard]] size_t getObjectCount() const;
 
-    /**
-     * @brief Checks if an object exists in the manager.
-     * @param uuid The unique identifier of the object.
-     * @return True if the object exists, false otherwise.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    [[nodiscard]] bool objectExists(const UUID& uuid) const;
+ /**
+  * @brief Checks if an object exists in the manager.
+  * @param uuid The unique identifier of the object.
+  * @return True if the object exists, false otherwise.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ [[nodiscard]] bool objectExists(const UUID &uuid) const;
 
-    /**
-     * @brief Adds an object to the manager.
-     * @param uuid The unique identifier of the object.
-     * @param object The object to be added.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void addObject(const UUID& uuid, IObject *object);
+ /**
+  * @brief Adds an object to the manager.
+  * @param uuid The unique identifier of the object.
+  * @param object The object to be added.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void addObject(const UUID &uuid, IObject *object);
 
-    /**
-     * @brief Adds an object to the manager and generates a UUID for it.
-     * @param object The object to be added.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void addObject(IObject *object);
+ /**
+  * @brief Adds an object to the manager and generates a UUID for it.
+  * @param object The object to be added.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void addObject(IObject *object);
 
-    /**
-     * @brief Adds multiple objects to the manager.
-     * @param objects An unordered map of UUIDs to object pointers.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void addObjects(const std::unordered_map<UUID, IObject *>& objects);
+ /**
+  * @brief Adds multiple objects to the manager.
+  * @param objects An unordered map of UUIDs to object pointers.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void addObjects(const std::unordered_map<UUID, IObject *> &objects);
 
-    /**
-     * @brief Adds multiple objects to the manager and generates UUIDs for them.
-     * @param objects A vector of object pointers.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void addObjects(const std::vector<IObject *>& objects);
+ /**
+  * @brief Adds multiple objects to the manager and generates UUIDs for them.
+  * @param objects A vector of object pointers.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void addObjects(const std::vector<IObject *> &objects);
 
-    /**
-     * @brief Removes an object from the manager.
-     * @param uuid The unique identifier of the object to remove.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void removeObject(const UUID& uuid);
+ /**
+  * @brief Removes an object from the manager.
+  * @param uuid The unique identifier of the object to remove.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void removeObject(const UUID &uuid);
 
-    /**
-     * @brief Removes multiple objects from the manager.
-     * @param uuids A vector of UUIDs representing the objects to remove.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void removeObjects(const std::vector<UUID>& uuids);
+ /**
+  * @brief Removes multiple objects from the manager.
+  * @param uuids A vector of UUIDs representing the objects to remove.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void removeObjects(const std::vector<UUID> &uuids);
 
-    /**
-     * @brief Updates an object in the manager.
-     * @param uuid The unique identifier of the object.
-     * @param updatedObject The updated object.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void updateObject(const UUID& uuid, IObject *updatedObject);
+ /**
+  * @brief Updates an object in the manager.
+  * @param uuid The unique identifier of the object.
+  * @param updatedObject The updated object.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void updateObject(const UUID &uuid, IObject *updatedObject);
 
-    /**
-     * @brief Retrieves an object by its unique identifier.
-     * @param uuid The unique identifier of the object.
-     * @return A pointer to the object.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    [[nodiscard]] IObject *getObjectById(const UUID& uuid) const;
+ /**
+  * @brief Retrieves an object by its unique identifier.
+  * @param uuid The unique identifier of the object.
+  * @return A pointer to the object.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ [[nodiscard]] IObject *getObjectById(const UUID &uuid) const;
 
-    /**
-     * @brief Clears all objects managed by the ObjectManager.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void clearObjects();
+ /**
+  * @brief Clears all objects managed by the ObjectManager.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void clearObjects();
 
-    /**
-     * @brief Duplicates an object within the manager.
-     * @param uuid The unique identifier of the object to duplicate.
-     * @version v0.1.0
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void duplicateObject(const UUID& uuid);
+ /**
+  * @brief Duplicates an object within the manager.
+  * @param uuid The unique identifier of the object to duplicate.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void duplicateObject(const UUID &uuid);
 
 private:
-    std::unordered_map<UUID, IObject *> _objects;  ///< Unordered map of UUIDs to objects.
+ std::unordered_map<UUID, IObject *> _objects;
+ ///< Unordered map of UUIDs to objects.
 };

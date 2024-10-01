@@ -7,97 +7,93 @@
 
 #include "ObjectManager.hpp"
 
-std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const
-{
+#include "ManagerException.hpp"
+
+std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const {
     return _objects;
 }
 
-size_t ObjectManager::getObjectCount() const
-{
+size_t ObjectManager::getObjectCount() const {
     return _objects.size();
 }
 
-bool ObjectManager::objectExists(const UUID& uuid) const
-{
-    return _objects.find(uuid) != _objects.end();
+bool ObjectManager::objectExists(const UUID &uuid) const {
+    return _objects.contains(uuid);
 }
 
 
-
-void ObjectManager::addObject(const UUID& uuid, IObject *object)
-{
-    if (_objects.find(uuid) != _objects.end()) {
-        throw ManagerException("Object with UUID " + uuid.getUuidString() + " already exists: overwriting.");
+void ObjectManager::addObject(const UUID &uuid, IObject *object) {
+    if (_objects.contains(uuid)) {
+        throw ManagerException(
+            "Object with UUID " + uuid.getUuidString() +
+            " already exists: overwriting.");
     }
     _objects[uuid] = object;
 }
 
-void ObjectManager::addObject(IObject *object)
-{
+void ObjectManager::addObject(IObject *object) {
     UUID uuid;
     uuid.generateUuid();
     addObject(uuid, object);
 }
 
-void ObjectManager::addObjects(const std::unordered_map<UUID, IObject *>& objects)
-{
-    for (const auto& object : objects) {
-        addObject(object.first, object.second);
+void ObjectManager::addObjects(
+    const std::unordered_map<UUID, IObject *> &objects) {
+    for (const auto &[uuid, object_ptr]: objects) {
+        addObject(uuid, object_ptr);
     }
 }
 
-void ObjectManager::addObjects(const std::vector<IObject *>& objects)
-{
-    for (const auto& object : objects) {
+void ObjectManager::addObjects(const std::vector<IObject *> &objects) {
+    for (const auto &object: objects) {
         addObject(object);
     }
 }
 
-void ObjectManager::removeObject(const UUID& uuid)
-{
+void ObjectManager::removeObject(const UUID &uuid) {
     if (_objects.erase(uuid) == 0) {
-        throw ManagerException("Object with UUID " + uuid.getUuidString() + " does not exist.");
+        throw ManagerException(
+            "Object with UUID " + uuid.getUuidString() + " does not exist.");
     }
 }
 
-void ObjectManager::removeObjects(const std::vector<UUID>& uuids)
-{
-    for (const auto& uuid : uuids) {
+void ObjectManager::removeObjects(const std::vector<UUID> &uuids) {
+    for (const auto &uuid: uuids) {
         removeObject(uuid);
     }
 }
 
-void ObjectManager::updateObject(const UUID& uuid, IObject *updatedObject)
-{
+void ObjectManager::updateObject(const UUID &uuid, IObject *updatedObject) {
     if (!objectExists(uuid)) {
-        throw ManagerException("Object with UUID " + uuid.getUuidString() + " does not exist, creating a new one.");
+        throw ManagerException(
+            "Object with UUID " + uuid.getUuidString() +
+            " does not exist, creating a new one.");
     }
     _objects[uuid] = updatedObject;
 }
 
-IObject *ObjectManager::getObjectById(const UUID& uuid) const
-{
-    auto object = _objects.find(uuid);
+IObject *ObjectManager::getObjectById(const UUID &uuid) const {
+    const auto object = _objects.find(uuid);
     if (object != _objects.end()) {
         return object->second;
     }
-    throw ManagerException("Object with UUID " + uuid.getUuidString() + " not found.");
+    throw ManagerException(
+        "Object with UUID " + uuid.getUuidString() + " not found.");
 }
 
-void ObjectManager::clearObjects()
-{
+void ObjectManager::clearObjects() {
     _objects.clear();
 }
 
-void ObjectManager::duplicateObject(const UUID& uuid)
-{
-    auto object = _objects.find(uuid);
+void ObjectManager::duplicateObject(const UUID &uuid) {
+    const auto object = _objects.find(uuid);
     if (object != _objects.end()) {
         IObject *newObject = object->second->clone();
-        UUID newId = UUID(uuid);
+        auto newId = UUID(uuid);
         newId.generateUuid();
         addObject(newId, newObject);
     } else {
-        throw ManagerException("Object with UUID " + uuid.getUuidString() + " not found.");
+        throw ManagerException(
+            "Object with UUID " + uuid.getUuidString() + " not found.");
     }
 }

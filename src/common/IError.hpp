@@ -18,8 +18,7 @@
  * @since 0.1.0
  * @author Marius PAIN
  */
-class IError : std::exception
-{
+class IError : std::exception {
 public:
  /**
   * @brief Default constructor
@@ -38,7 +37,8 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] const char* what() const noexcept override = 0;
+ [[nodiscard]]
+ const char *what() const noexcept override = 0;
 };
 
 #endif // IERROR_HPP

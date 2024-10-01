@@ -7,13 +7,11 @@
 
 #include "UUIDException.hpp"
 
-#include <utility>
-
-UUIDException::UUIDException(std::string message): _message{std::move(message)}
-{
+UUIDException::UUIDException(std::string message): _message{
+    std::move(message)
+} {
 }
 
-const char* UUIDException::what() const noexcept
-{
+const char *UUIDException::what() const noexcept {
     return _message.c_str();
 }

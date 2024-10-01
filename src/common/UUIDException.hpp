@@ -20,8 +20,7 @@
  * @since 0.1.0
  * @author Marius PAIN
  */
-class UUIDException final : public IError
-{
+class UUIDException final : public IError {
 public:
  /**
   * @brief Default constructor
@@ -50,7 +49,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] const char* what() const noexcept override;
+ [[nodiscard]] const char *what() const noexcept override;
 
 private:
  /**

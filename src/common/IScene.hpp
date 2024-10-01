@@ -22,61 +22,12 @@
 class IScene {
 public:
  /**
- * @brief The constructor of the scene
- * @version v0.1.0
- * @since v0.1.0
- * @author Aubane NOURRY
- */
-  IScene() = default;
- /**
   * @brief The destructor of the scene
   * @version v0.1.0
   * @since v0.1.0
   * @author Axel ECKENBERG
   */
  virtual ~IScene() = default;
-
- /**
-  * @brief The copy constructor of the scene
-  * @details Is deleted because the scene should not be copied
-  * @param other The scene to copy
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IScene(const IScene &other) = delete;
-
- /**
-  * @brief The copy assignment operator of the scene
-  * @details Is deleted because the scene should not be copied
-  * @param other The scene to copy
-  * @return The new scene
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IScene &operator=(const IScene &other) = delete;
-
- /**
-  * @brief The move constructor of the scene
-  * @details Is deleted because the scene should not be moved
-  * @param other The scene to move
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IScene(IScene &&other) = delete;
-
- /**
-  * @brief The move assignment operator of the scene
-  * @details Is deleted because the scene should not be moved
-  * @param other The scene to move
-  * @return The new scene
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IScene &operator=(IScene &&other) = delete;
 
  /**
   * @brief This function is used to run the scene

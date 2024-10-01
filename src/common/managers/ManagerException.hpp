@@ -11,7 +11,6 @@
 #include "../IError.hpp"
 
 #include <string>
-#include <utility>
 
 /**
  * @class ManagerException
@@ -21,8 +20,7 @@
  * @since 0.1.0
  * @author Aubane NOURRY
  */
-class ManagerException final : public IError
-{
+class ManagerException final : public IError {
 public:
  /**
   * @brief Default constructor
@@ -51,7 +49,7 @@ public:
   * @since 0.1.0
   * @author Aubane NOURRY
   */
- [[nodiscard]] const char* what() const noexcept override;
+ [[nodiscard]] const char *what() const noexcept override;
 
 private:
  /**

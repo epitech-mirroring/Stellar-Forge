@@ -105,6 +105,8 @@ public:
    */
   virtual ~IMeta() = default;
 
+  IMeta() = default;
+
   /**
    * @brief The copy constructor of the component's meta
    * Is deleted because the component's meta should not be copied
@@ -231,6 +233,8 @@ public:
     */
    virtual ~IField() = default;
 
+   IField() = default;
+
    /**
     * @brief The copy constructor of the field
     * Is deleted because the field should not be copied
@@ -327,6 +331,8 @@ public:
     */
    virtual ~IFieldGroup() = default;
 
+   IFieldGroup() = default;
+
    /**
     * @brief The copy constructor of the field group
     * Is deleted because the field group should not be copied
@@ -412,7 +418,7 @@ public:
    * @author Axel ECKENBERG
    */
   [[nodiscard]]
-  virtual std::vector<IFieldGroup> getFieldGroups() const = 0;
+  virtual std::vector<IFieldGroup *> getFieldGroups() const = 0;
  };
 
  /**

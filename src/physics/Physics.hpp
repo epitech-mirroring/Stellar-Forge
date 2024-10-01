@@ -9,7 +9,7 @@
 #ifndef PHYSICS_HPP
 #define PHYSICS_HPP
 #include <glm/ext/vector_float3.hpp>
-
+#include <glm/gtc/quaternion.hpp>
 
 /**
  * @class Physics

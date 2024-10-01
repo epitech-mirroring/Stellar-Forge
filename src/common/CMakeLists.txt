@@ -9,6 +9,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IObject.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.hpp

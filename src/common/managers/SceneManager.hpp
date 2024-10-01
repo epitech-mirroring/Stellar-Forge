@@ -43,24 +43,24 @@ public:
  /**
   * @brief Adds a scene to the manager.
   * @param uuid The unique identifier of the scene.
-  * @param scene A shared pointer to the scene to be added.
+  * @param scene A pointer to the scene to be added.
   * @param position The position to add the scene at. Default is -1, which appends the scene.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- void addScene(const UUID &uuid, const std::shared_ptr<IScene> &scene,
+ void addScene(const UUID &uuid, const IScene *scene,
                int position = -1);
 
  /**
   * @brief Adds a scene to the manager and generates a UUID for it.
-  * @param scene A shared pointer to the scene to be added.
+  * @param scene A pointer to the scene to be added.
   * @param position The position to add the scene at. Default is -1, which appends the scene.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- void addScene(const std::shared_ptr<IScene> &scene, int position = -1);
+ void addScene(const IScene *scene, int position = -1);
 
  /**
   * @brief Removes a scene from the manager.
@@ -108,22 +108,22 @@ public:
 
  /**
   * @brief Gets the current scene.
-  * @return A shared pointer to the current scene.
+  * @return A pointer to the current scene.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- [[nodiscard]] std::shared_ptr<IScene> getCurrentScene() const;
+ [[nodiscard]] IScene *getCurrentScene() const;
 
  /**
   * @brief Retrieves a scene by its unique identifier.
   * @param uuid The unique identifier of the scene.
-  * @return A shared pointer to the scene.
+  * @return A pointer to the scene.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- [[nodiscard]] std::shared_ptr<IScene> getSceneById(const UUID &uuid) const;
+ [[nodiscard]] IScene *getSceneById(const UUID &uuid) const;
 
  /**
   * @brief Clears all scenes managed by the SceneManager.
@@ -135,12 +135,12 @@ public:
 
  /**
   * @brief Retrieves all the scenes managed by the SceneManager.
-  * @return A map of UUIDs and shared pointers to the scenes.
+  * @return A map of UUIDs and pointers to the scenes.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- [[nodiscard]] std::map<UUID, std::shared_ptr<IScene> > getScenes() const;
+ [[nodiscard]] std::map<UUID, IScene *> getScenes() const;
 
  /**
   * @brief Retrieves the order of the scenes.
@@ -152,7 +152,7 @@ public:
  [[nodiscard]] std::vector<UUID> getSceneOrder() const;
 
 private:
- std::map<UUID, std::shared_ptr<IScene> > _scenes; ///< Map of UUIDs to scenes.
+ std::map<UUID, IScene *> _scenes; ///< Map of UUIDs to scenes.
  std::vector<UUID> _sceneOrder; ///< Order of the scenes.
  int _currentSceneIndex{-1}; ///< The index of the current scene.
 };

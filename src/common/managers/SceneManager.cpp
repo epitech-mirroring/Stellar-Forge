@@ -10,7 +10,7 @@
 #include "ManagerException.hpp"
 
 void SceneManager::addScene(const UUID &uuid,
-                            const std::shared_ptr<IScene> &scene,
+                            const IScene *scene,
                             int position /*= -1*/) {
     if (_scenes.contains(uuid)) {
         throw ManagerException(
@@ -26,7 +26,7 @@ void SceneManager::addScene(const UUID &uuid,
     }
 }
 
-void SceneManager::addScene(const std::shared_ptr<IScene> &scene,
+void SceneManager::addScene(const IScene *scene,
                             int position) {
     UUID uuid;
     uuid.generateUuid();
@@ -90,14 +90,14 @@ void SceneManager::switchScenesOrder(const UUID &uuid1, const UUID &uuid2) {
     }
 }
 
-std::shared_ptr<IScene> SceneManager::getCurrentScene() const {
+IScene *SceneManager::getCurrentScene() const {
     if (_currentSceneIndex >= 0 && _currentSceneIndex < _sceneOrder.size()) {
         return _scenes.at(_sceneOrder[_currentSceneIndex]);
     }
     throw ManagerException("No current scene available.");
 }
 
-std::shared_ptr<IScene> SceneManager::getSceneById(const UUID &uuid) const {
+IScene *SceneManager::getSceneById(const UUID &uuid) const {
     const auto scene = _scenes.find(uuid);
     if (scene != _scenes.end()) {
         return scene->second;
@@ -106,7 +106,7 @@ std::shared_ptr<IScene> SceneManager::getSceneById(const UUID &uuid) const {
         "Scene with UUID " + uuid.getUuidString() + " not found.");
 }
 
-std::map<UUID, std::shared_ptr<IScene> > SceneManager::getScenes() const {
+std::map<UUID, IScene *> SceneManager::getScenes() const {
     return _scenes;
 }
 

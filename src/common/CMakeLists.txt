@@ -12,7 +12,10 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/event/EventData.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp
 )

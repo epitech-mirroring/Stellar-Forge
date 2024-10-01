@@ -26,7 +26,7 @@ UUID EventSystem::registerListener(const std::string& name, const EventConsumer&
     UUID uuid = UUID();
     uuid.generateUuid();
 
-    if (!this->_listeners.contains(name))
+    if (this->_listeners.find(name) != this->_listeners.end())
     {
         this->_listeners[name] = std::vector<std::pair<UUID, EventConsumer>>();
     }
@@ -38,11 +38,11 @@ bool EventSystem::unregisterListener(const UUID& uuid)
 {
     for (auto& listener : this->_listeners)
     {
-        for (auto& listener_uuid : listener.second)
+        for (int i = 0; i < listener.second.size(); i++)
         {
-            if (listener_uuid.first == uuid)
+            if (listener.second[i].first == uuid)
             {
-                std::erase(listener.second, listener_uuid);
+                listener.second.erase(listener.second.begin() + i);
                 if (listener.second.empty())
                 {
                     this->_listeners.erase(listener.first);
@@ -58,7 +58,7 @@ bool EventSystem::triggerEvent(EventData_t* eventData)
 {
     bool triggered = false;
 
-    if (this->_listeners.contains(eventData->name))
+    if (this->_listeners.find(eventData->name) != this->_listeners.end())
     {
         for (auto& listener : this->_listeners[eventData->name])
         {

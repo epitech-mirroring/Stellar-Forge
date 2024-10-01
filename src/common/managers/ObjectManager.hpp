@@ -159,6 +159,5 @@ public:
  void duplicateObject(const UUID &uuid);
 
 private:
- std::unordered_map<UUID, IObject *> _objects;
- ///< Unordered map of UUIDs to objects.
+ std::unordered_map<UUID, IObject *> _objects; ///< Unordered map of UUIDs to objects.
 };

@@ -6,7 +6,6 @@
 */
 
 #include "ObjectManager.hpp"
-
 #include "ManagerException.hpp"
 
 std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const {
@@ -20,7 +19,6 @@ size_t ObjectManager::getObjectCount() const {
 bool ObjectManager::objectExists(const UUID &uuid) const {
     return _objects.contains(uuid);
 }
-
 
 void ObjectManager::addObject(const UUID &uuid, IObject *object) {
     if (_objects.contains(uuid)) {

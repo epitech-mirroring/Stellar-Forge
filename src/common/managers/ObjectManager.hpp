@@ -47,7 +47,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::unordered_map<UUID, IObject *> getObjects() const;
+    [[nodiscard]] std::unordered_map<UUID, IObject *> getObjects() const;
 
     /**
      * @brief Gets the total count of objects.
@@ -56,7 +56,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    size_t getObjectCount() const;
+    [[nodiscard]] size_t getObjectCount() const;
 
     /**
      * @brief Checks if an object exists in the manager.
@@ -66,7 +66,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    bool objectExists(const UUID& uuid) const;
+    [[nodiscard]] bool objectExists(const UUID& uuid) const;
 
     /**
      * @brief Adds an object to the manager.
@@ -76,7 +76,16 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addObject(const UUID& id, IObject *object);
+    void addObject(const UUID& uuid, IObject *object);
+
+    /**
+     * @brief Adds an object to the manager and generates a UUID for it.
+     * @param object The object to be added.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void addObject(IObject *object);
 
     /**
      * @brief Adds multiple objects to the manager.
@@ -86,6 +95,15 @@ public:
      * @author Aubane NOURRY
      */
     void addObjects(const std::unordered_map<UUID, IObject *>& objects);
+
+    /**
+     * @brief Adds multiple objects to the manager and generates UUIDs for them.
+     * @param objects A vector of object pointers.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void addObjects(const std::vector<IObject *>& objects);
 
     /**
      * @brief Removes an object from the manager.
@@ -123,7 +141,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    IObject *getObjectById(const UUID& uuid) const;
+    [[nodiscard]] IObject *getObjectById(const UUID& uuid) const;
 
     /**
      * @brief Clears all objects managed by the ObjectManager.

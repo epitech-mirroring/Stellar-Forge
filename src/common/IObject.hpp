@@ -181,6 +181,14 @@ public:
   */
  virtual void runObject() = 0;
 
+ /**
+  * @class IMeta
+  * @brief This is the interface for the object's meta class.
+  * @details This class is used to get all the meta information of the object.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Axel ECKENBERG
+  */
  class IMeta {
  public:
   /**

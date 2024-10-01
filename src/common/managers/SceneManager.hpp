@@ -52,7 +52,17 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addScene(const UUID& uuid, const std::shared_ptr<IScene> &scene, int position /*default -1*/);
+    void addScene(const UUID& uuid, const std::shared_ptr<IScene> &scene, int position = -1);
+
+    /**
+     * @brief Adds a scene to the manager and generates a UUID for it.
+     * @param scene A shared pointer to the scene to be added.
+     * @param position The position to add the scene at. Default is -1, which appends the scene.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void addScene(const std::shared_ptr<IScene> &scene, int position = -1);
 
     /**
      * @brief Removes a scene from the manager.
@@ -105,7 +115,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::shared_ptr<IScene> getCurrentScene() const;
+    [[nodiscard]] std::shared_ptr<IScene> getCurrentScene() const;
 
     /**
      * @brief Retrieves a scene by its unique identifier.
@@ -115,7 +125,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::shared_ptr<IScene> getSceneById(const UUID& uuid) const;
+    [[nodiscard]] std::shared_ptr<IScene> getSceneById(const UUID& uuid) const;
 
     /**
      * @brief Clears all scenes managed by the SceneManager.
@@ -132,7 +142,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::map<UUID, std::shared_ptr<IScene>> getScenes() const;
+    [[nodiscard]] std::map<UUID, std::shared_ptr<IScene>> getScenes() const;
 
     /**
      * @brief Retrieves the order of the scenes.
@@ -141,7 +151,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    std::vector<UUID> getSceneOrder() const;
+    [[nodiscard]] std::vector<UUID> getSceneOrder() const;
 
 private:
     std::map<UUID, std::shared_ptr<IScene>> _scenes;  ///< Map of UUIDs to scenes.

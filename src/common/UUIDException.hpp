@@ -20,7 +20,7 @@
  * @since 0.1.0
  * @author Marius PAIN
  */
-class UUIDException : public IError
+class UUIDException final : public IError
 {
 public:
  /**

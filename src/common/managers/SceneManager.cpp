@@ -7,22 +7,23 @@
 
 #include "SceneManager.hpp"
 
-void SceneManager::addScene(const UUID &uuid, const std::shared_ptr<IScene> &scene, int position)
+void SceneManager::addScene(const UUID &uuid, const std::shared_ptr<IScene> &scene, int position /*= -1*/)
 {
     if (_scenes.find(uuid) != _scenes.end()) {
         throw ManagerException("Scene with UUID " + uuid.getUuidString() + " already exists.");
     }
     _scenes[uuid] = scene;
-
-    if (position < 0 || position >= _sceneOrder.size()) {
-        _sceneOrder.push_back(uuid);
-    } else {
-        _sceneOrder.insert(_sceneOrder.begin() + position, uuid);
-    }
-
+    _sceneOrder.insert(_sceneOrder.begin() + std::min(position, static_cast<int>(_sceneOrder.size())), uuid);
     if (_currentSceneIndex == -1) {
         _currentSceneIndex = 0;
     }
+}
+
+void SceneManager::addScene(const std::shared_ptr<IScene> &scene, int position)
+{
+    UUID uuid;
+    uuid.generateUuid();
+    addScene(uuid, scene, position);
 }
 
 void SceneManager::removeScene(const UUID& uuid)

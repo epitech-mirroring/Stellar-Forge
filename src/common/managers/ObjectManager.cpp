@@ -22,6 +22,8 @@ bool ObjectManager::objectExists(const UUID& uuid) const
     return _objects.find(uuid) != _objects.end();
 }
 
+
+
 void ObjectManager::addObject(const UUID& uuid, IObject *object)
 {
     if (_objects.find(uuid) != _objects.end()) {
@@ -30,10 +32,24 @@ void ObjectManager::addObject(const UUID& uuid, IObject *object)
     _objects[uuid] = object;
 }
 
+void ObjectManager::addObject(IObject *object)
+{
+    UUID uuid;
+    uuid.generateUuid();
+    addObject(uuid, object);
+}
+
 void ObjectManager::addObjects(const std::unordered_map<UUID, IObject *>& objects)
 {
     for (const auto& object : objects) {
         addObject(object.first, object.second);
+    }
+}
+
+void ObjectManager::addObjects(const std::vector<IObject *>& objects)
+{
+    for (const auto& object : objects) {
+        addObject(object);
     }
 }
 

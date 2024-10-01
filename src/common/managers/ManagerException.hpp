@@ -21,7 +21,7 @@
  * @since 0.1.0
  * @author Aubane NOURRY
  */
-class ManagerException : public IError
+class ManagerException final : public IError
 {
 public:
  /**

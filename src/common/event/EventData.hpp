@@ -5,9 +5,9 @@
 ** EventData
 */
 
-#pragma once
+#ifndef EVENTDATA_HPP
+#define EVENTDATA_HPP
 
-#include <iostream>
 #include <functional>
 
 /**
@@ -18,11 +18,12 @@
  * @param data void *, data of the event (can be anything)
  * @note This structure is used to pass data to the event consumers
  */
-typedef struct EventData_s {
+using EventData_t = struct EventData_s
+{
     std::string name;
     time_t timestamp;
-    void *data;
-} EventData_t;
+    void* data;
+};
 
 /**
  * @brief Event consumer function type
@@ -30,4 +31,6 @@ typedef struct EventData_s {
  * @param EventData_t * structure containing the event data
  * @note This function type is used to define the event consumers
  */
-typedef std::function<void(EventData_t *)> EventConsumer;
+using EventConsumer = std::function<void (EventData_t*)>;
+
+#endif // EVENTDATA_HPP

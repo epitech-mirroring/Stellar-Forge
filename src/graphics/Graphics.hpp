@@ -123,7 +123,7 @@ private:
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */
     bool initialized;                            /**< Flag indicating if the graphics system is initialized. */
-    std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
+    std::vector<IObject *> sortedObjects;        /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
     IScene *currentScene;                        /**< The current scene being rendered. */
 };

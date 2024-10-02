@@ -17,11 +17,11 @@ size_t ObjectManager::getObjectCount() const {
 }
 
 bool ObjectManager::objectExists(const UUID &uuid) const {
-    return _objects.contains(uuid);
+    return _objects.find(uuid) != _objects.end();
 }
 
 void ObjectManager::addObject(const UUID &uuid, IObject *object) {
-    if (_objects.contains(uuid)) {
+    if (objectExists(uuid)) {
         throw ManagerException(
             "Object with UUID " + uuid.getUuidString() +
             " already exists: overwriting.");

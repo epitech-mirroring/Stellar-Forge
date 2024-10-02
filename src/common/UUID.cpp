@@ -23,7 +23,8 @@ void UUID::generateUuid() {
     try {
         std::random_device randD;
         auto seedData = std::array<int, std::mt19937::state_size>{};
-        std::ranges::generate(seedData, std::ref(randD));
+        std::generate(std::begin(seedData), std::end(seedData),
+                      std::ref(randD));
         std::seed_seq seq(std::begin(seedData), std::end(seedData));
         std::mt19937 generator(seq);
         uuids::uuid_random_generator gen{generator};

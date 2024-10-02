@@ -49,7 +49,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- void addScene(const UUID &uuid, const IScene *scene,
+ void addScene(const UUID &uuid, IScene *scene,
                int position = -1);
 
  /**
@@ -60,7 +60,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- void addScene(const IScene *scene, int position = -1);
+ void addScene(IScene *scene, int position = -1);
 
  /**
   * @brief Removes a scene from the manager.
@@ -150,6 +150,17 @@ public:
   * @author Aubane NOURRY
   */
  [[nodiscard]] std::vector<UUID> getSceneOrder() const;
+
+ /**
+  * @brief Checks if a scene exists in the SceneManager.
+  * @param uuid The unique identifier of the scene.
+  * @return True if the scene exists, false otherwise.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Axel ECKENBERG
+  */
+ [[nodiscard]]
+ bool isSceneExist(const UUID &uuid) const;
 
 private:
  std::map<UUID, IScene *> _scenes; ///< Map of UUIDs to scenes.

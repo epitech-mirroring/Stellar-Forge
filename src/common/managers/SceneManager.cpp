@@ -10,9 +10,9 @@
 #include "ManagerException.hpp"
 
 void SceneManager::addScene(const UUID &uuid,
-                            const IScene *scene,
+                            IScene *scene,
                             int position) {
-    if (_scenes.contains(uuid)) {
+    if (isSceneExist(uuid)) {
         throw ManagerException(
             "Scene with UUID " + uuid.getUuidString() + " already exists.");
     }
@@ -26,7 +26,7 @@ void SceneManager::addScene(const UUID &uuid,
     }
 }
 
-void SceneManager::addScene(const IScene *scene,
+void SceneManager::addScene(IScene *scene,
                             int position) {
     UUID uuid;
     uuid.generateUuid();
@@ -34,7 +34,7 @@ void SceneManager::addScene(const IScene *scene,
 }
 
 void SceneManager::removeScene(const UUID &uuid) {
-    const auto scene = std::ranges::find(_sceneOrder, uuid);
+    const auto scene = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
     if (scene != _sceneOrder.end()) {
         _sceneOrder.erase(scene);
 
@@ -52,7 +52,7 @@ void SceneManager::removeScene(const UUID &uuid) {
 }
 
 void SceneManager::switchToScene(const UUID &uuid) {
-    const auto scene = std::ranges::find(_sceneOrder, uuid);
+    const auto scene = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid);
     if (scene != _sceneOrder.end()) {
         _currentSceneIndex = static_cast<int>(std::distance(
             _sceneOrder.begin(), scene));
@@ -80,8 +80,8 @@ void SceneManager::switchToPreviousScene() {
 }
 
 void SceneManager::switchScenesOrder(const UUID &uuid1, const UUID &uuid2) {
-    const auto it1 = std::ranges::find(_sceneOrder, uuid1);
-    const auto it2 = std::ranges::find(_sceneOrder, uuid2);
+    const auto it1 = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid1);
+    const auto it2 = std::find(_sceneOrder.begin(), _sceneOrder.end(), uuid2);
 
     if (it1 != _sceneOrder.end() && it2 != _sceneOrder.end()) {
         std::iter_swap(it1, it2);
@@ -119,3 +119,8 @@ void SceneManager::clearScenes() {
     _sceneOrder.clear();
     _currentSceneIndex = -1;
 }
+
+bool SceneManager::isSceneExist(const UUID &uuid) const {
+    return _scenes.find(uuid) != _scenes.end();
+}
+

@@ -185,8 +185,9 @@ public:
  virtual void runObject() = 0;
 
  /**
-  * @brief This function is used to get the name of the object
-  * @return The name of the object
+  * @class IMeta
+  * @brief This is the interface for the object's meta class.
+  * @details This class is used to get all the meta information of the object.
   * @version v0.1.0
   * @since v0.1.0
   * @author Axel ECKENBERG
@@ -253,6 +254,15 @@ public:
   [[nodiscard]]
   virtual std::string getName() const = 0;
  };
+
+ /**
+ * @brief Gives the meta of the object
+ * @return The meta of the object
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ [[nodiscard]] virtual IMeta &getMeta() const = 0;
 };
 
 #endif //IOBJECT_HPP

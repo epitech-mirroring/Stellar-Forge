@@ -104,7 +104,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addAndSortObject(std::shared_ptr<IObject> object);
+    void addAndSortObject(IObject *object);
 
     /**
      * @brief Changes the current scene to the specified scene.

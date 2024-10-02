@@ -119,5 +119,7 @@ void Graphics::clean() {
 
 void Graphics::setScene(IScene *scene) {
     currentScene = scene;
-    sortedObjects.clear();
+    for (auto object : sortedObjects) {
+        delete object;
+    }
 }

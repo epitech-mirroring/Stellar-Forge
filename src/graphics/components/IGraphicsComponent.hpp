@@ -9,8 +9,10 @@
 #ifndef IGRAPHICSCOMPONENT_HPP
 #define IGRAPHICSCOMPONENT_HPP
 
-#include "../common/IComponent.hpp"
+#include "../../common/IComponent.hpp"
+#include "../GraphicsException.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 /**
  * @class IGraphicsComponent

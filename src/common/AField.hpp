@@ -9,20 +9,90 @@
 
 #include "IComponent.hpp"
 
+/**
+ * @class AField
+ * @brief This class is the abstract class for the Field class
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Marius PAIN
+ */
 class AField : virtual public IComponent::IMeta::IField
 {
 public:
-    AField(std::string name, std::string description, FieldType type);
-    ~AField() override = default;
+ /**
+  * @brief The constructor of the AField class
+  * @param name The name of the field
+  * @param description The description of the field
+  * @param type The type of the field (FieldType)
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ AField(std::string name, std::string description, FieldType type);
 
-    [[nodiscard]] std::string getName() const override;
-    [[nodiscard]] std::string getDescription() const override;
-    [[nodiscard]] FieldType getType() const override;
+ /**
+  * @brief The destructor of the AField class
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ ~AField() override = default;
+
+ /**
+  * @brief Get the name of the field
+  * @see IComponent::IMeta::IField::getName
+  * @return the name of the field
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ [[nodiscard]] std::string getName() const override;
+
+ /**
+  * @brief Get the description of the field
+  * @see IComponent::IMeta::IField::getDescription
+  * @return the description of the field
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ [[nodiscard]] std::string getDescription() const override;
+
+ /**
+  * @brief Get the type of the field
+  * @see IComponent::IMeta::IField::getType
+  * @return the type of the field
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ [[nodiscard]] FieldType getType() const override;
 
 private:
-    std::string _name;
-    std::string _description;
-    FieldType _type;
+ /**
+  * @brief The name of the field
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ std::string _name;
+
+ /**
+  * @brief The description of the field
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ std::string _description;
+
+ /**
+  * @brief The type of the field
+  * @see IComponent::IMeta::IField::FieldType
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ FieldType _type;
 };
 
 #endif //AFIELD_HPP

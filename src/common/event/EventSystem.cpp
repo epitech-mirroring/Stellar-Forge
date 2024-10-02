@@ -9,7 +9,7 @@
 
 EventSystem::EventSystem(): _listeners({})
 {
-    _event_manager = this;
+    _event_system = this;
 }
 
 EventSystem::~EventSystem()
@@ -80,21 +80,21 @@ bool EventSystem::triggerEvents(const std::string& eventName, void* data)
 
 bool EventSystem::_triggerEventFromEventName(const std::string& eventName, const EventData& eventData)
 {
-    bool triggered = false;
+    bool handled = false;
 
     for (auto& [_, callback] : this->_listeners[eventName])
     {
         callback(eventData);
-        triggered = true;
+        handled = true;
     }
-    return triggered;
+    return handled;
 }
 
-EventSystem* EventSystem::getEventManager()
+EventSystem* EventSystem::getInstance()
 {
-    if (_event_manager == nullptr)
+    if (_event_system == nullptr)
     {
         return nullptr;
     }
-    return _event_manager;
+    return _event_system;
 }

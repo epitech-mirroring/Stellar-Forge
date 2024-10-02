@@ -77,14 +77,14 @@ public:
  bool triggerEvents(const std::string& eventName, void* data = nullptr);
 
  /**
-  * @brief Get the event manager
-  * @details This function returns the event manager
-  * @return EventSystem*, the event manager
+  * @brief Get the instance of the event system
+  * @details This function returns an instance of the event system
+  * @return EventSystem*, the instance of the event system
   * @version 0.1.0
   * @since 0.1.0
   * @author Marius PAIN
   */
- static EventSystem* getEventManager();
+ static EventSystem* getInstance();
 
 private:
  /**
@@ -118,7 +118,7 @@ private:
   * @since 0.1.0
   * @author Marius PAIN
   */
- static EventSystem* _event_manager;
+ static EventSystem* _event_system;
 };
 
 #endif // EVENTSYSTEM_HPP

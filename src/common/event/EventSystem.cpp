@@ -14,19 +14,19 @@ EventSystem::EventSystem(): _listeners({})
 
 EventSystem::~EventSystem()
 {
-    for (auto& listener : this->_listeners)
+    for (auto& [_, listenerVector] : this->_listeners)
     {
-        listener.second.clear();
+        listenerVector.clear();
     }
     this->_listeners.clear();
 }
 
 UUID EventSystem::registerListener(const std::string& name, const EventConsumer& listener)
 {
-    UUID uuid = UUID();
+    auto uuid = UUID();
     uuid.generateUuid();
 
-    if (this->_listeners.find(name) != this->_listeners.end())
+    if (this->_listeners.find(name) == this->_listeners.end())
     {
         this->_listeners[name] = std::vector<std::pair<UUID, EventConsumer>>();
     }
@@ -36,16 +36,16 @@ UUID EventSystem::registerListener(const std::string& name, const EventConsumer&
 
 bool EventSystem::unregisterListener(const UUID& uuid)
 {
-    for (auto& listener : this->_listeners)
+    for (auto& [key, listenersVector] : this->_listeners)
     {
-        for (int i = 0; i < listener.second.size(); i++)
+        for (int i = 0; i < listenersVector.size(); i++)
         {
-            if (listener.second[i].first == uuid)
+            if (listenersVector[i].first == uuid)
             {
-                listener.second.erase(listener.second.begin() + i);
-                if (listener.second.empty())
+                listenersVector.erase(listenersVector.begin() + i);
+                if (listenersVector.empty())
                 {
-                    this->_listeners.erase(listener.first);
+                    this->_listeners.erase(key);
                 }
                 return true;
             }
@@ -54,17 +54,42 @@ bool EventSystem::unregisterListener(const UUID& uuid)
     return false;
 }
 
-bool EventSystem::triggerEvent(EventData_t* eventData)
+bool EventSystem::triggerEvents(const std::string& eventName, void* data)
+{
+    EventData const eventData = {
+        .name = eventName,
+        .timestamp = std::time(nullptr),
+        .data = data
+    };
+    bool handled = false;
+
+    if (this->_listeners.find(eventName) != this->_listeners.end())
+    {
+        handled = this->_triggerEventFromEventName(eventName, eventData) || handled;
+    }
+    for (auto& [key, _] : this->_listeners)
+    {
+        std::size_t const found = key.find('*');
+        if (found != std::string::npos)
+        {
+            std::string const name = key.substr(0, found);
+            if (eventName.find(name) == 0)
+            {
+                handled = this->_triggerEventFromEventName(key, eventData) || handled;
+            }
+        }
+    }
+    return handled;
+}
+
+bool EventSystem::_triggerEventFromEventName(const std::string& eventName, const EventData& eventData)
 {
     bool triggered = false;
 
-    if (this->_listeners.find(eventData->name) != this->_listeners.end())
+    for (auto& [_, callback] : this->_listeners[eventName])
     {
-        for (auto& listener : this->_listeners[eventData->name])
-        {
-            listener.second(eventData);
-            triggered = true;
-        }
+        callback(eventData);
+        triggered = true;
     }
     return triggered;
 }

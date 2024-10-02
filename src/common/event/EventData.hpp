@@ -12,13 +12,12 @@
 
 /**
  * @brief Structure to hold event data
- *
  * @param name std::string, name of the event
  * @param timestamp time_t, timestamp of the event
  * @param data void *, data of the event (can be anything)
  * @note This structure is used to pass data to the event consumers
  */
-using EventData_t = struct EventData_s
+struct EventData
 {
     std::string name;
     time_t timestamp;
@@ -31,6 +30,6 @@ using EventData_t = struct EventData_s
  * @param EventData_t * structure containing the event data
  * @note This function type is used to define the event consumers
  */
-using EventConsumer = std::function<void (EventData_t*)>;
+using EventConsumer = std::function<void (const EventData&)>;
 
 #endif // EVENTDATA_HPP

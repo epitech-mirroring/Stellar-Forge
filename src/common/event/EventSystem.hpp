@@ -31,26 +31,6 @@ public:
  EventSystem();
 
  /**
-  * @brief Copy constructor
-  * @details This constructor is deleted
-  * @param eventSystem EventSystem, the event system to copy
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- EventSystem(const EventSystem& eventSystem) = delete;
-
- /**
-  * @brief Move constructor
-  * @details This constructor is deleted
-  * @param eventSystem EventSystem, the event system to move
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- EventSystem(const EventSystem&& eventSystem) noexcept = delete;
-
- /**
   * @brief Default destructor
   * @details This destructor clears the event system
   * @version 0.1.0
@@ -86,14 +66,15 @@ public:
  /**
   * @brief Trigger an event
   * @details This function triggers an event
-  * @param eventData EventData_t*, the event data
-  * @return bool, true if the event was triggered,
+  * @param eventName std::string, the name of the event to trigger
+  * @param data void*, the data to pass to the listeners
+  * @return bool, true if at least one listener was found,
   * false if no listener was found
   * @version 0.1.0
   * @since 0.1.0
   * @author Marius PAIN
   */
- bool triggerEvent(EventData_t* eventData);
+ bool triggerEvents(const std::string& eventName, void* data = nullptr);
 
  /**
   * @brief Get the event manager
@@ -105,29 +86,20 @@ public:
   */
  static EventSystem* getEventManager();
 
- /**
-  * @brief Copy assignment operator
-  * @details This operator is deleted
-  * @param eventSystem EventSystem, the event system to copy
-  * @return EventSystem&, the copied event system
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- EventSystem& operator=(const EventSystem& eventSystem) = delete;
-
- /**
-  * @brief Move assignment operator
-  * @details This operator is deleted
-  * @param eventSystem EventSystem, the event system to move
-  * @return EventSystem&, the moved event system
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- EventSystem& operator=(EventSystem&& eventSystem) noexcept = delete;
-
 private:
+ /**
+  * @brief Trigger an event from the event name
+  * @details This function triggers an event from the event name
+  * @param eventName std::string, the name of the event to trigger
+  * @param eventData EventData, the data to pass to the listeners
+  * @return bool, true if at least one listener was found,
+  * false if no listener was found
+  * @version 0.1.0
+  * @since 0.1.0
+  * @author Marius PAIN
+  */
+ bool _triggerEventFromEventName(const std::string& eventName, const EventData& eventData);
+
  /**
   * @brief Listeners
   * @details This unordered map contains the listeners

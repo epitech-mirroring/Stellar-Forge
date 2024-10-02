@@ -58,7 +58,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- bool operator==(const IObject &other) const = default;
+ virtual bool operator==(const IObject &other) const = 0;
 
  /**
   * @brief The move constructor of the object

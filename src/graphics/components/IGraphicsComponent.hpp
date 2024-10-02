@@ -33,15 +33,6 @@ public:
     virtual ~IGraphicsComponent() = default;
 
     /**
-     * @brief Runs the logic associated with the graphics component.
-     * @details This pure virtual function should contain any logic that the component needs to execute 
-     *          during each frame, such as updating its state or preparing for rendering. It must be implemented
-     *          by any derived class.
-     * @since v0.1.0
-     */
-    virtual void runComponent() = 0;
-
-    /**
      * @brief Renders the component using the provided SDL_Renderer.
      * @param renderer A pointer to the SDL_Renderer object used for rendering.
      * @details This pure virtual function must be implemented by derived classes to define how the component

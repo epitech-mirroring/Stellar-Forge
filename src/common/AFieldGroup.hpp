@@ -1,4 +1,5 @@
-/*** EPITECH PROJECT, 2024
+/*
+** EPITECH PROJECT, 2024
 ** StellarForge
 ** File description:
 ** AFieldGroup.hpp

@@ -56,11 +56,7 @@ bool EventSystem::unregisterListener(const UUID& uuid)
 
 bool EventSystem::triggerEvents(const std::string& eventName, void* data)
 {
-    EventData const eventData = {
-        .name = eventName,
-        .timestamp = std::time(nullptr),
-        .data = data
-    };
+    auto const eventData = EventData{eventName, std::time(nullptr), data};
     bool handled = false;
 
     if (this->_listeners.find(eventName) != this->_listeners.end())

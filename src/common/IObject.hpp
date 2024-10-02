@@ -32,46 +32,6 @@ public:
  virtual ~IObject() = default;
 
  /**
-  * @brief The copy constructor of the object
-  * @param other The object to copy
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IObject(const IObject &other) = default;
-
- /**
-  * @brief The copy assignment operator of the object
-  * @param other The object to copy
-  * @return The new object
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IObject &operator=(const IObject &other) = default;
-
- /**
-  * @brief The move constructor of the object
-  * @details Is deleted because the object should not be moved
-  * @param other The object to move
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IObject(IObject &&other) = delete;
-
- /**
-  * @brief The move assignment operator of the object
-  * @details Is deleted because the object should not be moved
-  * @param other The object to move
-  * @return The new object
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IObject &operator=(IObject &&other) = delete;
-
- /**
   * @brief Clone the object
   * @warning The object cloned will have the same components and children as the original object
   * but also all the same values.
@@ -175,8 +135,9 @@ public:
  virtual void runObject() = 0;
 
  /**
-  * @brief This function is used to get the name of the object
-  * @return The name of the object
+  * @class IMeta
+  * @brief This is the interface for the object's meta class.
+  * @details This class is used to get all the meta information of the object.
   * @version v0.1.0
   * @since v0.1.0
   * @author Axel ECKENBERG
@@ -243,6 +204,15 @@ public:
   [[nodiscard]]
   virtual std::string getName() const = 0;
  };
+
+ /**
+ * @brief Gives the meta of the object
+ * @return The meta of the object
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ [[nodiscard]] virtual IMeta &getMeta() const = 0;
 };
 
 #endif //IOBJECT_HPP

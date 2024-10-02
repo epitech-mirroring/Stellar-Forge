@@ -33,47 +33,6 @@ public:
  virtual ~IComponent() = default;
 
  /**
-  * @brief The copy constructor of the component.
-  * Is deleted because the component should not be copied
-  * @param other the other component to copy
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent(const IComponent &other) = delete;
-
- /**
-  * @brief The copy assignment operator of the component
-  * Is deleted because the component should not be copied
-  * @param other the other component to copy
-  * @return the copied component
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent &operator=(const IComponent &other) = delete;
-
- /**
-  * @brief The move constructor of the component
-  * Is deleted because the component should not be moved
-  * @param other the other component to move
-  * @version v0.1.0
-  * @since v0.1.0
-  */
- IComponent(IComponent &&other) = delete;
-
- /**
-  * @brief The move assignment operator of the component
-  * Is deleted because the component should not be moved
-  * @param other the other component to move
-  * @return the moved component
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent &operator=(IComponent &&other) = delete;
-
- /**
   * @brief The update function of the component.
   * This is meant to be runt by the parent object and update the component every frame
   * @version v0.1.0

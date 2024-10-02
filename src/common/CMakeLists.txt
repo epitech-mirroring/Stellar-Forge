@@ -3,7 +3,6 @@ add_library(StellarForge::Common ALIAS StellarForgeCommon)
 
 target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl)
 
-
 target_sources(StellarForgeCommon
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/IComponent.hpp
@@ -14,8 +13,14 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventData.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/ManagerException.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/managers/ManagerException.cpp
 )

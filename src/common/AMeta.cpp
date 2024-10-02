@@ -11,9 +11,9 @@
 
 AMeta::AMeta(std::string name, std::string description, const bool isUnique,
              const bool isRemovable,
-             const std::vector<IComponent::IMeta::IFieldGroup>& fieldGroups):
-    _isUnique(isUnique), _isRemovable(isRemovable), _description(std::move(description)),
-    _name(std::move(name)), _fieldGroups(fieldGroups)
+             std::vector<IFieldGroup*>&& fieldGroups):
+    _name(std::move(name)), _description(std::move(description)), _fieldGroups(std::move(fieldGroups)),
+    _isUnique(isUnique), _isRemovable(isRemovable)
 {
 }
 
@@ -37,7 +37,7 @@ bool AMeta::canBeRemoved() const
     return this->_isRemovable;
 }
 
-std::vector<IComponent::IMeta::IFieldGroup> AMeta::getFieldGroups() const
+std::vector<IComponent::IMeta::IFieldGroup*> AMeta::getFieldGroups() const
 {
     return this->_fieldGroups;
 }

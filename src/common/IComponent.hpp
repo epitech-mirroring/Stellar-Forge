@@ -245,7 +245,7 @@ public:
    * @author Axel ECKENBERG
    */
   [[nodiscard]]
-  virtual std::vector<IFieldGroup> getFieldGroups() const = 0;
+  virtual std::vector<IFieldGroup *> getFieldGroups() const = 0;
  };
 
  /**

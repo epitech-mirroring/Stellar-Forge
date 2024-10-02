@@ -11,19 +11,19 @@ class AMeta : virtual public IComponent::IMeta
 {
 public:
     AMeta(std::string name, std::string description, bool isUnique, bool isRemovable,
-          const std::vector<IFieldGroup>& fieldGroups);
+          std::vector<IFieldGroup*>&& fieldGroups);
     ~AMeta() override = default;
 
     [[nodiscard]] std::string getName() const override;
     [[nodiscard]] std::string getDescription() const override;
     [[nodiscard]] bool isUnique() const override;
     [[nodiscard]] bool canBeRemoved() const override;
-    [[nodiscard]] std::vector<IFieldGroup> getFieldGroups() const override;
+    [[nodiscard]] std::vector<IFieldGroup*> getFieldGroups() const override;
 
 private:
     std::string _name;
     std::string _description;
-    std::vector<IFieldGroup> _fieldGroups;
+    std::vector<IFieldGroup*> _fieldGroups;
     bool _isUnique{};
     bool _isRemovable{};
 };

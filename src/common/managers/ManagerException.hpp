@@ -2,44 +2,44 @@
 ** EPITECH PROJECT, 2024
 ** Stellar-Forge
 ** File description:
-** UUIDException
+** ManagerException.hpp
 */
 
-#ifndef UUIDEXCEPTION_HPP
-#define UUIDEXCEPTION_HPP
+#ifndef MANAGEREXCEPTION_HPP
+#define MANAGEREXCEPTION_HPP
 
-#include "IError.hpp"
+#include "../IError.hpp"
 
 #include <string>
 
 /**
- * @class UUIDException
- * @brief Exception class for UUID errors
- * @details This class is used to throw UUID errors
+ * @class ManagerException
+ * @brief Exception class for Manager errors
+ * @details This class is used to throw Manager errors
  * @version 0.1.0
  * @since 0.1.0
- * @author Marius PAIN
+ * @author Aubane NOURRY
  */
-class UUIDException final : public IError {
+class ManagerException final : public IError {
 public:
  /**
   * @brief Default constructor
-  * @details This constructor initializes the UUIDException with a message
+  * @details This constructor initializes the ManagerException with a message
   * @param message std::string, the message
   * @version 0.1.0
   * @since 0.1.0
-  * @author Marius PAIN
+  * @author Aubane NOURRY
   */
- explicit UUIDException(std::string message);
+ explicit ManagerException(std::string message);
 
  /**
   * @brief Default destructor
-  * @details This destructor clears the UUIDException
+  * @details This destructor clears the ManagerException
   * @version 0.1.0
   * @since 0.1.0
-  * @author Marius PAIN
+  * @author Aubane NOURRY
   */
- ~UUIDException() override = default;
+ ~ManagerException() override = default;
 
  /**
   * @brief Get the error message
@@ -47,7 +47,7 @@ public:
   * @return const char*, the error message
   * @version 0.1.0
   * @since 0.1.0
-  * @author Marius PAIN
+  * @author Aubane NOURRY
   */
  [[nodiscard]] const char *what() const noexcept override;
 
@@ -58,4 +58,4 @@ private:
  std::string _message;
 };
 
-#endif // UUIDEXCEPTION_HPP
+#endif // MANAGEREXCEPTION_HPP

@@ -116,3 +116,8 @@ void Graphics::clean() {
     }
     SDL_Quit();
 }
+
+void Graphics::setScene(IScene *scene) {
+    currentScene = scene;
+    sortedObjects.clear();
+}

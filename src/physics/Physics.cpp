@@ -7,8 +7,6 @@
 */
 
 #include "Physics.hpp"
-#include "glm/geometric.hpp"
-#include "glm/gtx/norm.hpp"
 #include <algorithm>
 
 void Physics::Movement::applyMovement(Vector3 &pos, const Vector3 &vel,

@@ -9,6 +9,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IObject.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.hpp
@@ -20,6 +21,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ManagerException.hpp
         PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp

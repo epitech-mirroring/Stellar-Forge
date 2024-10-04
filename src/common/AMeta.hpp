@@ -92,7 +92,7 @@ public:
   */
  [[nodiscard]] std::vector<IFieldGroup*> getFieldGroups() const override;
 
-private:
+protected:
  /**
   * @brief The name of the meta
   * @version v0.1.0

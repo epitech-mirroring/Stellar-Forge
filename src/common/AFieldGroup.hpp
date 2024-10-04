@@ -70,7 +70,7 @@ public:
   */
  [[nodiscard]] std::vector<IComponent::IMeta::IField*> getFields() const override;
 
-private:
+protected:
  /**
   * @brief The name of the field group
   * @version v0.1.0

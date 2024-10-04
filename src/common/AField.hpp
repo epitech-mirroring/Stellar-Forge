@@ -69,7 +69,7 @@ public:
   */
  [[nodiscard]] FieldType getType() const override;
 
-private:
+protected:
  /**
   * @brief The name of the field
   * @version v0.1.0

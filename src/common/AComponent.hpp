@@ -9,8 +9,6 @@
 #define ACOMPONENT_HPP
 
 #include "IComponent.hpp"
-#include "UUID.hpp"
-#include "managers/ObjectManager.hpp"
 
 /**
  * @class AComponent

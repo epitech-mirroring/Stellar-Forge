@@ -181,7 +181,7 @@ private:
  ObjectManager() = default;
 
  /**
-  * @brief Destructor for ObjectManager private to prevent instantiation.
+  * @brief Destructor for ObjectManager private to prevent deletion.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY

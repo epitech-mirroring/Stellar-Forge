@@ -9,7 +9,7 @@
 
 AComponent::AComponent(IObject *owner, IMeta &meta) : _meta(meta)
 {
-    this->_uuid = ObjectManager::getInstance().get_component_UUID(owner, this);
+    this->_uuid = ObjectManager::getInstance().generate_component_UUID(owner, this);
 }
 
 IObject *AComponent::getOwner()

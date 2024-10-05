@@ -101,7 +101,7 @@ void ObjectManager::duplicateObject(const UUID &uuid) {
     }
 }
 
-UUID ObjectManager::get_component_UUID(IObject *owner, IComponent *component) {
+UUID ObjectManager::generate_component_UUID(IObject *owner, IComponent *component) {
     auto uuid = UUID();
     uuid.generateUuid();
     _components[uuid] = std::make_pair(owner, component);

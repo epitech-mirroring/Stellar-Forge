@@ -159,7 +159,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- UUID get_component_UUID(IObject *owner, IComponent *component);
+ UUID generate_component_UUID(IObject *owner, IComponent *component);
 
  /**
   * @brief Retrieves an object from a component UUID.

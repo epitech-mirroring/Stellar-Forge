@@ -8,6 +8,11 @@
 #include "ObjectManager.hpp"
 #include "ManagerException.hpp"
 
+ObjectManager &ObjectManager::getInstance() {
+    static ObjectManager instance;
+    return instance;
+}
+
 std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const {
     return _objects;
 }
@@ -94,4 +99,18 @@ void ObjectManager::duplicateObject(const UUID &uuid) {
         throw ManagerException(
             "Object with UUID " + uuid.getUuidString() + " not found.");
     }
+}
+
+UUID ObjectManager::get_component_UUID(IObject *owner, IComponent *component) {
+    auto uuid = UUID();
+    uuid.generateUuid();
+    _components[uuid] = std::make_pair(owner, component);
+    return uuid;
+}
+
+IObject *ObjectManager::get_object_from_component(const UUID &uuid) {
+    if (_components.find(uuid) != _components.end()) {
+        return _components[uuid].first;
+    }
+    throw ManagerException("Object with UUID " + uuid.getUuidString() + " not found.");
 }

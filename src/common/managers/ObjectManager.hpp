@@ -23,21 +23,13 @@
 class ObjectManager {
 public:
  /**
-  * @brief Default constructor for ObjectManager.
+  * @brief Retrieves the singleton instance of ObjectManager.
+  * @return The single instance of ObjectManager.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
-  */
- ObjectManager() = default;
-
- /**
-  * @brief Destructor for ObjectManager.
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Aubane NOURRY
-  */
- ~ObjectManager() = default;
-
+ */
+ static ObjectManager &getInstance();
  /**
   * @brief Retrieves all objects managed by the ObjectManager.
   * @return An unordered map of UUIDs to object pointers.
@@ -158,6 +150,43 @@ public:
   */
  void duplicateObject(const UUID &uuid);
 
+ /**
+  * @brief Generates a UUID for a component and associates it with an object.
+  * @param owner The object to associate the component with.
+  * @param component The component to generate a UUID for.
+  * @return The UUID of the component.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ UUID get_component_UUID(IObject *owner, IComponent *component);
+
+ /**
+  * @brief Retrieves an object from a component UUID.
+  * @param uuid The UUID of the component.
+  * @return A pointer to the object.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ IObject *get_object_from_component(const UUID &uuid);
+
 private:
- std::unordered_map<UUID, IObject *> _objects; ///< Unordered map of UUIDs to objects.
+ /**
+  * @brief Default constructor for ObjectManager private to prevent instantiation.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ ObjectManager() = default;
+
+ /**
+  * @brief Destructor for ObjectManager private to prevent instantiation.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ ~ObjectManager() = default;
+ std::unordered_map<UUID, IObject *> _objects; ///< Unordered map of object UUIDs to objects.
+ std::unordered_map<UUID, std::pair<IObject *, IComponent *>> _components; ///< Unordered map of component UUIDs to object-component pairs.
 };

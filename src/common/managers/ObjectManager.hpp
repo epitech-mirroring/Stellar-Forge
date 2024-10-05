@@ -159,7 +159,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- UUID generate_component_UUID(IObject *owner, IComponent *component);
+ UUID generateComponentUUID(IObject *owner, IComponent *component);
 
  /**
   * @brief Retrieves an object from a component UUID.
@@ -169,7 +169,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- IObject *get_object_from_component(const UUID &uuid);
+ IObject *getObjectFromComponent(const UUID &uuid);
 
 private:
  /**

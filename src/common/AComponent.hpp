@@ -9,6 +9,8 @@
 #define ACOMPONENT_HPP
 
 #include "IComponent.hpp"
+#include "UUID.hpp"
+#include "managers/ObjectManager.hpp"
 
 /**
  * @class AComponent
@@ -71,12 +73,12 @@ protected:
  AComponent(IObject* owner, IMeta& meta);
 
  /**
-  * @brief The owner of the component
+  * @brief The UUID of the component
   * @version v0.1.0
   * @since v0.1.0
-  * @author Marius PAIN
-  */
- IObject* _owner;
+  * @author Aubane NOURRY
+ */
+ UUID _uuid;
 
  /**
   * @brief The meta of the component

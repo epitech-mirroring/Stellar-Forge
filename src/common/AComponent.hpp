@@ -73,12 +73,12 @@ protected:
  AComponent(IObject* owner, IMeta& meta);
 
  /**
-  * @brief The UUID of the component
+  * @brief The owner of the component
   * @version v0.1.0
   * @since v0.1.0
-  * @author Aubane NOURRY
+  * @author Marius PAIN
  */
- UUID _uuid;
+ IObject* _owner;
 
  /**
   * @brief The meta of the component

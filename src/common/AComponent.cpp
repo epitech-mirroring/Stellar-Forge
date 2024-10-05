@@ -7,14 +7,13 @@
 
 #include "AComponent.hpp"
 
-AComponent::AComponent(IObject *owner, IMeta &meta) : _meta(meta)
+AComponent::AComponent(IObject *owner, IMeta &meta) : _owner(owner), _meta(meta)
 {
-    this->_uuid = ObjectManager::getInstance().generateComponentUUID(owner, this);
 }
 
 IObject *AComponent::getOwner()
 {
-    return ObjectManager::getInstance().getObjectFromComponentUID(this->_uuid);
+    return this->_owner;
 }
 
 IComponent::IMeta &AComponent::getMeta() const

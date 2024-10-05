@@ -150,27 +150,6 @@ public:
   */
  void duplicateObject(const UUID &uuid);
 
- /**
-  * @brief Generates a UUID for a component and associates it with an object.
-  * @param owner The object to associate the component with.
-  * @param component The component to generate a UUID for.
-  * @return The UUID of the component.
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Aubane NOURRY
-  */
- UUID generateComponentUUID(IObject *owner, IComponent *component);
-
- /**
-  * @brief Retrieves an object from a component UUID.
-  * @param uuid The UUID of the component.
-  * @return A pointer to the object.
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Aubane NOURRY
-  */
- IObject *getObjectFromComponent(const UUID &uuid);
-
 private:
  /**
   * @brief Default constructor for ObjectManager private to prevent instantiation.
@@ -188,5 +167,4 @@ private:
   */
  ~ObjectManager() = default;
  std::unordered_map<UUID, IObject *> _objects; ///< Unordered map of object UUIDs to objects.
- std::unordered_map<UUID, std::pair<IObject *, IComponent *>> _components; ///< Unordered map of component UUIDs to object-component pairs.
 };

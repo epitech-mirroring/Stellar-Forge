@@ -33,47 +33,6 @@ public:
  virtual ~IComponent() = default;
 
  /**
-  * @brief The copy constructor of the component.
-  * Is deleted because the component should not be copied
-  * @param other the other component to copy
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent(const IComponent &other) = delete;
-
- /**
-  * @brief The copy assignment operator of the component
-  * Is deleted because the component should not be copied
-  * @param other the other component to copy
-  * @return the copied component
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent &operator=(const IComponent &other) = delete;
-
- /**
-  * @brief The move constructor of the component
-  * Is deleted because the component should not be moved
-  * @param other the other component to move
-  * @version v0.1.0
-  * @since v0.1.0
-  */
- IComponent(IComponent &&other) = delete;
-
- /**
-  * @brief The move assignment operator of the component
-  * Is deleted because the component should not be moved
-  * @param other the other component to move
-  * @return the moved component
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Axel ECKENBERG
-  */
- IComponent &operator=(IComponent &&other) = delete;
-
- /**
   * @brief The update function of the component.
   * This is meant to be runt by the parent object and update the component every frame
   * @version v0.1.0
@@ -106,48 +65,6 @@ public:
   virtual ~IMeta() = default;
 
   IMeta() = default;
-
-  /**
-   * @brief The copy constructor of the component's meta
-   * Is deleted because the component's meta should not be copied
-   * @param other the other component's meta to copy
-   * @version v0.1.0
-   * @since v0.1.0
-   * @author Axel ECKENBERG
-   */
-  IMeta(const IMeta &other) = delete;
-
-  /**
-   * @brief The copy assignment operator of the component's meta
-   * Is deleted because the component's meta should not be copied
-   * @param other the other component's meta to copy
-   * @return the copied component's meta
-   * @version v0.1.0
-   * @since v0.1.0
-   * @author Axel ECKENBERG
-   */
-  IMeta &operator=(const IMeta &other) = delete;
-
-  /**
-   * @brief The move constructor of the component's meta
-   * Is deleted because the component's meta should not be moved
-   * @param other the other component's meta to move
-   * @version v0.1.0
-   * @since v0.1.0
-   * @author Axel ECKENBERG
-   */
-  IMeta(IMeta &&other) = delete;
-
-  /**
-   * @brief The move assignment operator of the component's meta
-   * Is deleted because the component's meta should not be moved
-   * @param other the other component's meta to move
-   * @return the moved component's meta
-   * @version v0.1.0
-   * @since v0.1.0
-   * @author Axel ECKENBERG
-   */
-  IMeta &operator=(IMeta &&other) = delete;
 
   /**
    * @brief Returns the name of the component
@@ -236,48 +153,6 @@ public:
    IField() = default;
 
    /**
-    * @brief The copy constructor of the field
-    * Is deleted because the field should not be copied
-    * @param other the other field to copy
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IField(const IField &other) = delete;
-
-   /**
-    * @brief The copy assignment operator of the field
-    * Is deleted because the field should not be copied
-    * @param other the other field to copy
-    * @return the copied field
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IField &operator=(const IField &other) = delete;
-
-   /**
-    * @brief The move constructor of the field
-    * Is deleted because the field should not be moved
-    * @param other the other field to move
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IField(IField &&other) = delete;
-
-   /**
-    * @brief The move assignment operator of the field
-    * Is deleted because the field should not be moved
-    * @param other the other field to move
-    * @return the moved field
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IField &operator=(IField &&other) = delete;
-
-   /**
     * @brief Returns the name of the field
     * This is used to identify the field but also in the editor
     * display
@@ -332,48 +207,6 @@ public:
    virtual ~IFieldGroup() = default;
 
    IFieldGroup() = default;
-
-   /**
-    * @brief The copy constructor of the field group
-    * Is deleted because the field group should not be copied
-    * @param other the other field group to copy
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IFieldGroup(const IFieldGroup &other) = delete;
-
-   /**
-    * @brief The copy assignment operator of the field group
-    * Is deleted because the field group should not be copied
-    * @param other the other field group to copy
-    * @return the copied field group
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IFieldGroup &operator=(const IFieldGroup &other) = delete;
-
-   /**
-    * @brief The move constructor of the field group
-    * Is deleted because the field group should not be moved
-    * @param other the other field group to move
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IFieldGroup(IFieldGroup &&other) = delete;
-
-   /**
-    * @brief The move assignment operator of the field group
-    * Is deleted because the field group should not be moved
-    * @param other the other field group to move
-    * @return the moved field group
-    * @version v0.1.0
-    * @since v0.1.0
-    * @author Axel ECKENBERG
-    */
-   IFieldGroup &operator=(IFieldGroup &&other) = delete;
 
    /**
     * @brief Returns the name of the field group

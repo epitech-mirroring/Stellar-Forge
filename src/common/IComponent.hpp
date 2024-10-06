@@ -64,8 +64,6 @@ public:
    */
   virtual ~IMeta() = default;
 
-  IMeta() = default;
-
   /**
    * @brief Returns the name of the component
    * This is used to identify the component but also in the editor
@@ -150,8 +148,6 @@ public:
     */
    virtual ~IField() = default;
 
-   IField() = default;
-
    /**
     * @brief Returns the name of the field
     * This is used to identify the field but also in the editor
@@ -205,8 +201,6 @@ public:
     * @author Axel ECKENBERG
     */
    virtual ~IFieldGroup() = default;
-
-   IFieldGroup() = default;
 
    /**
     * @brief Returns the name of the field group
@@ -263,7 +257,7 @@ public:
   * @see IComponent::IMeta
   * @author Axel ECKENBERG
   */
- [[nodiscard]] virtual IMeta &getMeta() const = 0;
+ [[nodiscard]] virtual const IMeta &getMeta() const = 0;
 };
 
 

@@ -28,6 +28,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp

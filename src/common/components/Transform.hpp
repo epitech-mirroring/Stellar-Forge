@@ -12,35 +12,19 @@
 #include "../IComponent.hpp"
 #include "../fields/Vector3Field.hpp"
 #include "../fields/FieldGroup.hpp"
+#include "../AMeta.hpp"
+#include "../AComponent.hpp"
 
 using Vector3 = glm::vec3;
 
-class Transform : virtual public IComponent {
+class Transform : public AComponent {
 private:
     Vector3 position;
     glm::quat rotation;
     Vector3 scale;
 
 public:
-    Transform() : position(0, 0, 0), rotation(0, 0, 0, 1), scale(1, 1, 1) {}
-    Transform(Vector3 pos, glm::quat rot, Vector3 sca) : position(pos), rotation(rot), scale(sca) {}
-    ~Transform() override = default;
-    Transform(const Transform &other) = delete;
-    Transform &operator=(const Transform &other) = delete;
-    Transform(Transform &&other) = delete;
-    Transform &operator=(Transform &&other) = delete;
-
-    [[nodiscard]] Vector3 getPosition() const { return position; }
-    [[nodiscard]] glm::quat getRotation() const { return rotation; }
-    [[nodiscard]] Vector3 getScale() const { return scale; }
-    void setPosition(Vector3 pos) { position = pos; }
-    void translate(Vector3 pos) { position += pos; }
-    void setRotation(glm::quat rot) { rotation = rot; }
-    void rotate(Vector3 axis, float angle) { rotation = glm::rotate(rotation, angle, axis); }
-    void setScale(Vector3 sca) { scale = sca; }
-    void scaleBy(Vector3 sca) { scale *= sca; }
-
-    class Meta : virtual public IMeta {
+    class TransformMeta : public AMeta {
     private:
         class FieldGroup : public InvisibleFieldGroup {
         public:
@@ -49,30 +33,24 @@ public:
                 new Vector3Field("Rotation", "The rotation of the object."),
                 new Vector3Field("Scale", "The scale of the object.")
             }) {}
-            ~FieldGroup() override = default;
-            FieldGroup(const FieldGroup &other) = delete;
-            FieldGroup &operator=(const FieldGroup &other) = delete;
-            FieldGroup(FieldGroup &&other) = delete;
-            FieldGroup &operator=(FieldGroup &&other) = delete;
         };
-
-        std::vector<IFieldGroup *> _fieldGroups = { new FieldGroup() };
-
     public:
-        Meta() = default;
-        ~Meta() override = default;
-        Meta(const Meta &other) = delete;
-        Meta &operator=(const Meta &other) = delete;
-        Meta(Meta &&other) = delete;
-        Meta &operator=(Meta &&other) = delete;
-
-        [[nodiscard]] std::string getName() const override { return "Transform"; }
-        [[nodiscard]] std::string getDescription() const override { return "A component that represents the position and rotation of an object in a 3D space."; }
-        [[nodiscard]] bool isUnique() const override { return true; }
-        [[nodiscard]] bool canBeRemoved() const override { return false; }
-
-        [[nodiscard]] std::vector<IFieldGroup *> getFieldGroups() const override { return _fieldGroups; }
+        TransformMeta()
+            : AMeta("Transform", "The transform of the object.", true, false,
+            std::vector<IComponent::IMeta::IFieldGroup *>{ new FieldGroup() }) {}
     };
+
+    explicit Transform(IObject *owner) : AComponent(owner, TransformMeta()), position(0, 0, 0), rotation(0, 0, 0, 1), scale(1, 1, 1) {}
+
+    [[nodiscard]] Vector3 getPosition() const;
+    [[nodiscard]] glm::quat getRotation() const;
+    [[nodiscard]] Vector3 getScale() const;
+    void setPosition(Vector3 pos);
+    void translate(Vector3 pos);
+    void setRotation(glm::quat rot);
+    void rotate(Vector3 axis, float angle);
+    void setScale(Vector3 sca);
+    void scaleBy(Vector3 sca);
 };
 
 #endif //STELLARFORGE_TRANSFORM_HPP

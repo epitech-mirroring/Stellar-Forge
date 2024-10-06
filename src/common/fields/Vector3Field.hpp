@@ -8,26 +8,14 @@
 #ifndef STELLARFORGE_VECTOR3FIELD_HPP
 #define STELLARFORGE_VECTOR3FIELD_HPP
 
-#include "../IComponent.hpp"
+#include <utility>
 
-class Vector3Field : public IComponent::IMeta::IField {
-private:
-    const std::string _name;
-    const std::string _description;
-    const FieldType _type;
+#include "../AField.hpp"
 
+class Vector3Field : public AField {
 public:
-    Vector3Field() : _name("Vector3"), _description("A 3D vector."), _type(FieldType::VECTOR3) {}
-    Vector3Field(std::string &name, std::string &description) : _name(name), _description(description), _type(FieldType::VECTOR3) {}
-    ~Vector3Field() override = default;
-    Vector3Field(const Vector3Field &other) = delete;
-    Vector3Field &operator=(const Vector3Field &other) = delete;
-    Vector3Field(Vector3Field &&other) = delete;
-    Vector3Field &operator=(Vector3Field &&other) = delete;
-
-    [[nodiscard]] std::string getName() const override  { return _name; }
-    [[nodiscard]] std::string getDescription() const override { return _description; }
-    [[nodiscard]] FieldType getType() const override { return _type; }
+    Vector3Field(std::string name, std::string description)
+        : AField(std::move(name), std::move(description), IComponent::IMeta::IField::FieldType::VECTOR3) {}
 };
 
 #endif //STELLARFORGE_VECTOR3FIELD_HPP

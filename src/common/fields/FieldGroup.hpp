@@ -9,13 +9,26 @@
 #define STELLARFORGE_FIELDGROUP_HPP
 
 #include <utility>
-
 #include "../AFieldGroup.hpp"
 
+/**
+ * @class InvisibleFieldGroup
+ * @brief A field group that is invisible in the UI.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @details This class inherits from AFieldGroup and is used to create a group of fields that are not visible in the user interface.
+ */
 class InvisibleFieldGroup : public AFieldGroup {
 public:
+    /**
+     * @brief Constructor for InvisibleFieldGroup.
+     * @param fields A vector of pointers to IField objects representing the fields in this group.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @details Initializes the InvisibleFieldGroup with the given fields.
+     */
     explicit InvisibleFieldGroup(const std::vector<IComponent::IMeta::IField *> &fields)
-        : AFieldGroup("", "", fields) {}
+            : AFieldGroup("", "", fields) {}
 };
 
 #endif //STELLARFORGE_FIELDGROUP_HPP

@@ -7,6 +7,22 @@
 
 #include "Transform.hpp"
 
+Transform::Transform(IObject *owner)
+    : AComponent(owner, TransformMeta())
+{
+    position = {0, 0, 0};
+    rotation = glm::quat(1, 0, 0, 0);
+    scale = {1, 1, 1};
+}
+
+Transform::Transform(IObject *owner, Vector3 pos, glm::quat rot, Vector3 sca)
+    : AComponent(owner, TransformMeta())
+{
+    position = pos;
+    rotation = rot;
+    scale = sca;
+}
+
 [[nodiscard]] Vector3 Transform::getPosition() const
 {
     return position;

@@ -12,8 +12,6 @@
 #include <algorithm>
 #include <algorithmfwd.h>
 
-class TransformComponent; // TODO replace with actual TransformComponent
-
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),
     window(sf::VideoMode(width, height), title), currentScene(nullptr)
@@ -33,7 +31,7 @@ void Graphics::addAndSortObject(IObject *object) {
     float zValue = 0.0f;
     
     for (auto& component : object->getComponents()) {
-        if (auto* transform = dynamic_cast<TransformComponent*>(component.get())) {
+        if (auto* transform = dynamic_cast<Transform *>(component.get())) {
             zValue = transform->getPosition().z;
             break;
         }
@@ -44,10 +42,10 @@ void Graphics::addAndSortObject(IObject *object) {
         float currentZValue = 0.0f;
 
         for (auto& component : (*insertPos)->getComponents()) {
-            /*if (auto* transform = dynamic_cast<TransformComponent*>(component.get())) {
+            if (auto* transform = dynamic_cast<Transform *>(component.get())) {
                 currentZValue = transform->getPosition().z;
                 break;
-            }*/
+            }
         }
         if (zValue < currentZValue) {
             break;
@@ -75,10 +73,9 @@ void Graphics::render() {
     }
     for (auto object : sortedObjects) {
         for (auto& component : object->getComponents()) {
-            /*if (component->getMeta() == "graphics") {
-                auto* graphicsComponent = dynamic_cast<IGraphicsComponent*>(component.get());
-                graphicsComponent->render(renderer);
-            }*/
+            if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component.get())) {
+                graphicsComponent->render(window);
+            }
         }
     }
 

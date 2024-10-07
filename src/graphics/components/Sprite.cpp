@@ -2,12 +2,12 @@
 ** EPITECH PROJECT, 2024
 ** Stellar-Forge components
 ** File description:
-** SpriteComponent.cpp
+** Sprite.cpp
 **/
 
-#include "SpriteComponent.hpp"
+#include "Sprite.hpp"
 
-SpriteComponent::SpriteComponent(const char *path) : path(path)
+Sprite::Sprite(const char *path) : path(path)
 {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
@@ -18,7 +18,7 @@ SpriteComponent::SpriteComponent(const char *path) : path(path)
     meta = AMeta("sprite", "sprite component", true, false, {&fieldGroup});
 }
 
-void SpriteComponent::render(sf::RenderWindow *window)
+void Sprite::render(sf::RenderWindow *window)
 {
     for (auto &component : this->getOwner()->getComponents()) {
         if (component->getMeta().getName() == "Transform") {
@@ -31,7 +31,7 @@ void SpriteComponent::render(sf::RenderWindow *window)
     }
 }
 
-void SpriteComponent::setTexture(const char *path)
+void Sprite::setTexture(const char *path)
 {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
@@ -39,7 +39,7 @@ void SpriteComponent::setTexture(const char *path)
     sprite.setTexture(texture);
 }
 
-glm::vec2 SpriteComponent::getSize()
+glm::vec2 Sprite::getSize()
 {
     return glm::vec2(texture.getSize().x, texture.getSize().y);
 }

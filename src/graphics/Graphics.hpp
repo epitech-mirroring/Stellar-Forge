@@ -11,10 +11,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 #include <vector>
 #include <memory>
 #include "../common/IScene.hpp"
 #include "../common/IObject.hpp"
+#include "../common/components/Transform.hpp"
+#include "components/IGraphicsComponent.hpp"
 #include <RenderWindow.hpp>
 
 /**

@@ -2,45 +2,45 @@
 ** EPITECH PROJECT, 2024
 ** Stellar-Forge components
 ** File description:
-** SpriteComponent.hpp
+** Sprite.hpp
 **/
 
-#ifndef SPRITECOMPONENT_HPP
-#define SPRITECOMPONENT_HPP
+#ifndef SPRITE_HPP
+#define SPRITE_HPP
 
 #include "AGraphicsComponent.hpp"
 
 // TODO add meta data
 
 /**
- * @class SpriteComponent
+ * @class Sprite
  * @brief A graphics component that renders a sprite on the screen.
- * @details The SpriteComponent class is responsible for rendering a sprite on the screen using an sf::RenderWindow object.
+ * @details The Sprite class is responsible for rendering a sprite on the screen using an sf::RenderWindow object.
  *          It loads the texture from a file path and renders it at a specified position on the screen.
  * @version v0.1.0
  * @since v0.1.0
  * @author Aubane NOURRY
  */
-class SpriteComponent : public AGraphicsComponent {
+class Sprite : public AGraphicsComponent {
 public:
     /**
-     * @brief Constructor for the SpriteComponent class.
+     * @brief Constructor for the Sprite class.
      * @param path The file path to the sprite image.
-     * @details This constructor initializes the SpriteComponent with the specified file path.
+     * @details This constructor initializes the Sprite with the specified file path.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    SpriteComponent(const char *path);
+    Sprite(const char *path);
 
     /**
-     * @brief Destructor for the SpriteComponent class.
-     * @details Cleans up and releases any resources used by the SpriteComponent.
+     * @brief Destructor for the Sprite class.
+     * @details Cleans up and releases any resources used by the Sprite.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    ~SpriteComponent() = default;
+    ~Sprite() = default;
 
     /**
      * @brief Renders the sprite on the screen using the provided window.
@@ -79,4 +79,4 @@ private:
     AMeta meta; /**< The meta data for the component. */
 };
 
-#endif //SPRITECOMPONENT_HPP
+#endif //SPRITE_HPP

@@ -193,7 +193,7 @@ public:
    * @param box2 The second box.
    * @return True if the boxes collide, false otherwise.
    */
-  static bool BoxCollideBox(Box box1, Box box2);
+  static bool BoxCollideBox(const Box &box1, const Box &box2);
 
   /**
    * @brief Check if two spheres collide.
@@ -201,7 +201,7 @@ public:
    * @param sphere2 The second sphere.
    * @return True if the spheres collide, false otherwise.
    */
-  static bool SphereCollideSphere(Sphere sphere1, Sphere sphere2);
+  static bool SphereCollideSphere(const Sphere &sphere1, const Sphere &sphere2);
 
   /**
    * @brief Check if a box and a sphere collide.
@@ -209,7 +209,7 @@ public:
    * @param sphere The sphere.
    * @return True if the box and the sphere collide, false otherwise.
    */
-  static bool BoxCollideSphere(Box box, Sphere sphere);
+  static bool BoxCollideSphere(const Box &box, const Sphere &sphere);
 
   /**
    * @brief Check if a sphere and a box collide.
@@ -217,7 +217,7 @@ public:
    * @param box The box.
    * @return True if the sphere and the box collide, false otherwise.
    */
-  static bool SphereCollideBox(Sphere sphere, Box box);
+  static bool SphereCollideBox(const Sphere &sphere, const Box &box);
  };
 };
 

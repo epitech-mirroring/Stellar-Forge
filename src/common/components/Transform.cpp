@@ -15,17 +15,17 @@ Transform::Transform(IObject *owner, Vector3 pos, glm::quat rot, Vector3 sca): A
 {
 }
 
-[[nodiscard]] Vector3 Transform::getPosition() const
+Vector3 Transform::getPosition() const
 {
     return position;
 }
 
-[[nodiscard]] glm::quat Transform::getRotation() const
+glm::quat Transform::getRotation() const
 {
     return rotation;
 }
 
-[[nodiscard]] Vector3 Transform::getScale() const
+Vector3 Transform::getScale() const
 {
     return scale;
 }

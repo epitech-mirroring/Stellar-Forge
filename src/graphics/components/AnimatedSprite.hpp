@@ -10,8 +10,6 @@
 
 #include "AGraphicsComponent.hpp"
 
-//TODO add meta data
-
 class AnimatedSprite : public AGraphicsComponent {
 public:
     AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime = 0.1f, int frame = 0);
@@ -25,6 +23,12 @@ public:
     void nextFrame();
     void prevFrame();
     void setFrameTime(float frameTime);
+
+    class Meta : public AMeta
+    {
+    public:
+        Meta();
+    };
 
 private:
     sf::Texture texture;

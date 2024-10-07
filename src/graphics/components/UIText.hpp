@@ -10,8 +10,6 @@
 
 #include "AGraphicsComponent.hpp"
 
-//TODO add meta data
-
 class UIText : public AGraphicsComponent {
 public:
     UIText(IObject* owner, const char *text, int size, sf::Color color, const char *fontPath); //TODO add default font to arial: find
@@ -23,6 +21,12 @@ public:
     void setSize(int size);
     void setColor(sf::Color color);
     glm::vec2 getSize() override;
+
+    class Meta : public AMeta
+    {
+    public:
+        Meta();
+    };
 
 private:
     sf::Text text;

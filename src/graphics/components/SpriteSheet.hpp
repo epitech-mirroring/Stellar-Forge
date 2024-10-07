@@ -10,8 +10,6 @@
 
 #include "AGraphicsComponent.hpp"
 
-//TODO add meta data
-
 class SpriteSheet : public AGraphicsComponent {
 public:
     SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, int frame = 0);
@@ -24,6 +22,12 @@ public:
     void setFrame(int frame);
     void nextFrame();
     void prevFrame();
+
+    class Meta : public AMeta
+    {
+    public:
+        Meta();
+    };
 
 private:
     sf::Texture texture;

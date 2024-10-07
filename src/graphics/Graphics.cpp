@@ -10,7 +10,7 @@
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),
-    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false)
+    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false), sortedObjects()
 {
     if (!window.isOpen()) {
         throw GraphicsException("Failed to create window");

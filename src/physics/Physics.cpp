@@ -87,20 +87,3 @@ bool Physics::Collision::SphereCollideBox(const Sphere &sphere, const Box &box) 
     return BoxCollideSphere(box, sphere);
 }
 
-bool Physics::Box::Collide(ICollider *collider) {
-    if (dynamic_cast<Box *>(collider) != nullptr) {
-        return Physics::Collision::BoxCollideBox(*this, *dynamic_cast<Box *>(collider));
-    } else if (dynamic_cast<Sphere *>(collider) != nullptr) {
-        return Physics::Collision::BoxCollideSphere(*this, *dynamic_cast<Sphere *>(collider));
-    }
-    return false;
-}
-
-bool Physics::Sphere::Collide(Physics::ICollider *collider) {
-    if (dynamic_cast<Sphere *>(collider) != nullptr) {
-        return Physics::Collision::SphereCollideSphere(*this, *dynamic_cast<Sphere *>(collider));
-    } else if (dynamic_cast<Box *>(collider) != nullptr) {
-        return Physics::Collision::SphereCollideBox(*this, *dynamic_cast<Box *>(collider));
-    }
-    return false;
-}

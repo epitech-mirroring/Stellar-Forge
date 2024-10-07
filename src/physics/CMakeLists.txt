@@ -6,6 +6,8 @@ target_link_libraries(StellarForgePhysics glm::glm)
 target_sources(StellarForgePhysics
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/Physics.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Collider.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Physics.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Collider.cpp
 )

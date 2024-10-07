@@ -45,7 +45,7 @@ void UIText::render(sf::RenderWindow *window)
 
 void UIText::setText(const char *textStr)
 {
-    textString = text;
+    textString = textStr;
     text.setString(textString);
 }
 

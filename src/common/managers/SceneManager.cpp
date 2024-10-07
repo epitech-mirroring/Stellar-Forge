@@ -6,8 +6,12 @@
 */
 
 #include "SceneManager.hpp"
-
 #include "ManagerException.hpp"
+
+SceneManager &SceneManager::getInstance() {
+    static SceneManager instance;
+    return instance;
+}
 
 void SceneManager::addScene(const UUID &uuid,
                             IScene *scene,

@@ -23,23 +23,13 @@
 class SceneManager {
 public:
  /**
-  * @brief Default constructor for SceneManager.
-  * @details Initializes the SceneManager with no scenes and sets the current scene index to -1.
+  * @brief Retrieves the singleton instance of SceneManager.
+  * @return The single instance of SceneManager.
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
-  */
- SceneManager() = default;
-
- /**
-  * @brief Destructor for SceneManager.
-  * @details Cleans up the SceneManager when it is no longer in use.
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Aubane NOURRY
-  */
- ~SceneManager() = default;
-
+ */
+ static SceneManager &getInstance();
  /**
   * @brief Adds a scene to the manager.
   * @param uuid The unique identifier of the scene.
@@ -163,6 +153,24 @@ public:
  bool isSceneExist(const UUID &uuid) const;
 
 private:
+ /**
+  * @brief Default constructor for SceneManager private to prevent creation.
+  * @details Initializes the SceneManager with no scenes.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ SceneManager() = default;
+
+ /**
+  * @brief Destructor for SceneManager private to prevent deletion.
+  * @details Cleans up the SceneManager when it is no longer in use.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ ~SceneManager() = default;
+
  std::map<UUID, IScene *> _scenes; ///< Map of UUIDs to scenes.
  std::vector<UUID> _sceneOrder; ///< Order of the scenes.
  int _currentSceneIndex{-1}; ///< The index of the current scene.

@@ -8,7 +8,7 @@
 
 #ifndef PHYSICS_HPP
 #define PHYSICS_HPP
-#include <glm/vec3.hpp>
+#include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 
 /**

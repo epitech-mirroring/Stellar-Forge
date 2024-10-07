@@ -20,7 +20,7 @@
  * @class Graphics
  * @brief This class handles all graphics-related operations.
  * @details The Graphics class is responsible for initializing and managing the rendering
- *          of objects in the scenes, managing an SDL window and renderer, and ensuring 
+ *          of objects in the scenes, managing an internal list of objects to render. The 
  *          objects are sorted by their z-index for proper rendering order.
  * @version v0.1.0
  * @since v0.1.0
@@ -51,15 +51,6 @@ public:
     ~Graphics();
 
     /**
-     * @brief prepares the SDL window and renderer.
-     * @details This method prepares the SDL window and renderer based on the provided 
-     *          width, height, and title. It should be called before any rendering operations.
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void prepare();
-
-    /**
      * @brief Renders the objects in the current scene.
      * @details This method renders all objects in the current scene in the correct order
      *         based on their z-index. It should be called once per frame to render the
@@ -88,9 +79,8 @@ public:
     void present();
 
     /**
-     * @brief Cleans up the SDL resources used by the Graphics class.
-     * @details Destroys the SDL window and renderer, and cleans up any resources used
-     *          by the graphics system.
+     * @brief Cleans up the graphics system.
+     * @details Releases all resources used by the graphics system.
      * @since v0.1.0
      * @author Aubane NOURRY
      */

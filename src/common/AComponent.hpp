@@ -47,7 +47,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- bool isActive();
+ bool isActive() override;
 
  /**
   * @brief This function is used to set the state of the component

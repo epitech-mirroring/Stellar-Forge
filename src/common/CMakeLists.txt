@@ -1,13 +1,16 @@
 add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
 
-target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl)
+target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl glm::glm)
 
 target_sources(StellarForgeCommon
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/IComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IObject.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.hpp
@@ -26,6 +29,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/CPPMonoBehaviour.cpp

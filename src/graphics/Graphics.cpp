@@ -10,7 +10,7 @@
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),
-    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false), sortedObjects()
+    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false)
 {
     if (!window.isOpen()) {
         throw GraphicsException("Failed to create window");
@@ -66,11 +66,11 @@ void Graphics::render(void updateComponent(IObject *object)) {
     }
     clear();
 
-    std::vector<IObject *> objects = currentScene->getObjects();
-    for (auto object : objects) {
+    const std::vector<IObject *> objects = currentScene->getObjects();
+    for (auto *object : objects) {
         addAndSortObject(object);
     }
-    for (auto object : sortedObjects) {
+    for (auto *object : sortedObjects) {
         for (auto& component : object->getComponents()) {
             updateComponent(object);
             if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
@@ -88,7 +88,5 @@ void Graphics::clean() {
 
 void Graphics::setScene(IScene *scene) {
     currentScene = scene;
-    for (auto object : sortedObjects) {
-        delete object;
-    }
+    sortedObjects.clear();
 }

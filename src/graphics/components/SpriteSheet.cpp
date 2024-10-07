@@ -21,7 +21,7 @@ void SpriteSheet::render(sf::RenderWindow *window)
     for (auto &component : this->getOwner()->getComponents()) {
         if (component->getMeta().getName() == "Transform") {
             auto transformComponent = dynamic_cast<Transform *>(component);
-            if (transformComponent) {
+            if (transformComponent != nullptr) {
                 sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
                 sprite.setRotation(transformComponent->getRotation().x);
                 sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);

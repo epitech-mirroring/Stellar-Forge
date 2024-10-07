@@ -63,7 +63,7 @@ void Graphics::present() {
     window.display();
 }
 
-void Graphics::render() {
+void Graphics::render(void updateComponent(IObject *object)) {
     if (!prepared) return;
     clear();
 
@@ -73,6 +73,7 @@ void Graphics::render() {
     }
     for (auto object : sortedObjects) {
         for (auto& component : object->getComponents()) {
+            updateComponent(object);
             if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component.get())) {
                 graphicsComponent->render(window);
             }

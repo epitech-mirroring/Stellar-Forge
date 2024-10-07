@@ -56,13 +56,14 @@ public:
 
     /**
      * @brief Renders the objects in the current scene.
+     * @param updateComponent A function to update the component.
      * @details This method renders all objects in the current scene in the correct order
      *         based on their z-index. It should be called once per frame to render the
      *        scene.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void render();
+    void render(void updateComponent(IObject *object));
 
     /**
      * @brief Clears the current rendering target.

@@ -8,7 +8,8 @@
 #ifndef CPPMONOBEHAVIOUR_HPP
 #define CPPMONOBEHAVIOUR_HPP
 
-#include "AComponent.hpp"
+#include "../AComponent.hpp"
+#include "../AMeta.hpp"
 
 /**
  * @class CPPMonoBehaviour
@@ -70,7 +71,7 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- void before();
+ virtual void before();
 
  /**
   * @brief The after function of the component
@@ -92,7 +93,26 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- void after();
+ virtual void after();
+
+ /**
+  * @class Meta
+  * @brief The metaclass for the CPPMonoBehaviour
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ class Meta : public AMeta
+ {
+ public:
+  /**
+   * @brief The constructor of the Meta class for the CPPMonoBehaviour
+   * @version v0.1.0
+   * @since v0.1.0
+   * @author Marius PAIN
+   */
+  Meta();
+ };
 };
 
 #endif //CPPMONOBEHAVIOUR_HPP

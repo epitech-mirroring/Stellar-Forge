@@ -7,15 +7,17 @@
 
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char *path) : path(path)
+Sprite::Sprite(IObject* owner, const char *path) : AGraphicsComponent(owner), path(path)
 {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
     }
     sprite.setTexture(texture);
-    AField field = AField("path", "path to the sprite image", IComponent::IMeta::IField::FieldType::STRING);
-    AFieldGroup fieldGroup = AFieldGroup("path", "path to the sprite image", {&field});
-    meta = AMeta("sprite", "sprite component", true, false, {&fieldGroup});
+}
+
+Sprite::Meta::Meta(): AMeta("Sprite", "A sprite component that renders a sprite on the screen", true, false, {
+    new InvisibleFieldGroup({ new AField("path", "path to the sprite image", IComponent::IMeta::IField::FieldType::STRING)})})
+{
 }
 
 void Sprite::render(sf::RenderWindow *window)

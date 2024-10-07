@@ -11,6 +11,10 @@ AGraphicsComponent::AGraphicsComponent(IObject *owner, IMeta &meta) : _owner(own
 {
 }
 
+AGraphicsComponent::AGraphicsComponent(IObject *owner) : _owner(owner), _meta(*new AMeta("GraphicsComponent", "GraphicsComponent", true, false, {}))
+{
+}
+
 IObject *AGraphicsComponent::getOwner()
 {
     return this->_owner;

@@ -10,8 +10,6 @@
 
 #include "AGraphicsComponent.hpp"
 
-// TODO add meta data
-
 /**
  * @class Sprite
  * @brief A graphics component that renders a sprite on the screen.
@@ -25,13 +23,14 @@ class Sprite : public AGraphicsComponent {
 public:
     /**
      * @brief Constructor for the Sprite class.
+     * @param owner The owner of the component.
      * @param path The file path to the sprite image.
      * @details This constructor initializes the Sprite with the specified file path.
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    Sprite(const char *path);
+    Sprite(IObject* owner, const char *path);
 
     /**
      * @brief Destructor for the Sprite class.
@@ -72,11 +71,29 @@ public:
      */
     glm::vec2 getSize() override;
 
+    /**
+     * @class Meta
+     * @brief The metaclass for the Sprite class
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    class Meta : public AMeta
+    {
+    public:
+    /**
+     * @brief The constructor of the Meta class for the Sprite class
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    Meta();
+    };
+
 private:
     sf::Texture texture; /**< The texture of the sprite. */
     sf::Sprite sprite; /**< The sprite object to render. */
     const char *path; /**< The file path to the sprite image. */
-    AMeta meta; /**< The meta data for the component. */
 };
 
 #endif //SPRITE_HPP

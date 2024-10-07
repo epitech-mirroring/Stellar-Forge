@@ -94,6 +94,15 @@ protected:
  AGraphicsComponent(IObject* owner, IMeta& meta);
 
  /**
+  * @brief The constructor of the AGraphicsComponent class
+  * @param owner The owner of the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ AGraphicsComponent(IObject* owner);
+
+ /**
   * @brief The owner of the component
   * @version v0.1.0
   * @since v0.1.0

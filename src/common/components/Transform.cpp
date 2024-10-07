@@ -9,12 +9,10 @@
 
 Transform::Transform(IObject *owner): AComponent(owner, TransformMeta()), position({0, 0, 0}), rotation(glm::quat(1, 0, 0, 0)), scale({1, 1, 1})
 {
-    (void)0;
 }
 
 Transform::Transform(IObject *owner, Vector3 pos, glm::quat rot, Vector3 sca): AComponent(owner, TransformMeta()), position(pos), rotation(rot), scale(sca)
 {
-    (void)0;
 }
 
 [[nodiscard]] Vector3 Transform::getPosition() const
@@ -65,7 +63,6 @@ void Transform::scaleBy(Vector3 sca)
 Transform::TransformMeta::TransformMeta(): AMeta("Transform", "The transform of the object.", true, false,
         std::vector<IComponent::IMeta::IFieldGroup *>{ new TransformFieldGroup() })
 {
-    (void)0;
 }
 
 Transform::TransformMeta::TransformFieldGroup::TransformFieldGroup(): InvisibleFieldGroup({
@@ -74,5 +71,4 @@ Transform::TransformMeta::TransformFieldGroup::TransformFieldGroup(): InvisibleF
         new Vector3Field("Scale", "The scale of the object.")
     })
 {
-    (void)0;
 }

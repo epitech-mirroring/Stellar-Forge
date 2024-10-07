@@ -8,12 +8,15 @@
 #ifndef STELLARFORGE_TRANSFORM_HPP
 #define STELLARFORGE_TRANSFORM_HPP
 
-#include "../../physics/Physics.hpp"
 #include "../IComponent.hpp"
 #include "../fields/Vector3Field.hpp"
 #include "../fields/FieldGroup.hpp"
 #include "../AMeta.hpp"
 #include "../AComponent.hpp"
+#include <glm/gtc/quaternion.hpp>
+#include <glm/vec3.hpp>
+
+using Vector3 = glm::vec3;
 
 /**
  * @class Transform

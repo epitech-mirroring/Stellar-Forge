@@ -1,7 +1,7 @@
 add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
 
-target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl)
+target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl glm::glm)
 
 target_sources(StellarForgeCommon
         PUBLIC

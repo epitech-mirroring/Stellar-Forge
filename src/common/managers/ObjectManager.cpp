@@ -8,6 +8,11 @@
 #include "ObjectManager.hpp"
 #include "ManagerException.hpp"
 
+ObjectManager &ObjectManager::getInstance() {
+    static ObjectManager instance;
+    return instance;
+}
+
 std::unordered_map<UUID, IObject *> ObjectManager::getObjects() const {
     return _objects;
 }

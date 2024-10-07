@@ -8,8 +8,11 @@
 
 #include "Graphics.hpp"
 
-Graphics::Graphics(int width, int height, const char *title, bool precharge)
-    : width(width), height(height), title(title), precharge(precharge), initialized(false), currentScene(nullptr)
-{
-    window.create(sf::VideoMode(width, height), title);
+Graphics::Graphics(int width, int height, const char *title, bool precharge) {
+    this->width = width;
+    this->height = height;
+    this->title = title;
+    this->precharge = precharge;
+    this->window.create(sf::VideoMode(width, height), title);
+    this->window.setFramerateLimit(60);
 }

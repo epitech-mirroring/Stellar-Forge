@@ -29,6 +29,17 @@ public:
  ~AComponent() override = default;
 
  /**
+  * @brief The before function of the component
+  * This is meant to be runt by the parent object and update the component before the rendering
+  * @note This is not a pure virtual function and can be overriden in the child class
+  * @see IComponent::beforeRendering
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ void beforeRendering() override;
+
+ /**
   * @brief The update function of the component.
   * This is meant to be runt by the parent object and update the component every frame
   * @note This is a pure virtual function and must be implemented in the child class
@@ -38,6 +49,17 @@ public:
   * @author Marius PAIN
   */
  void runComponent() override = 0;
+
+ /**
+  * @brief The after function of the component
+  * This is meant to be runt by the parent object and update the component after the rendering
+  * @note This is not a pure virtual function and can be overriden in the child class
+  * @see IComponent::afterRendering
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ void afterRendering() override;
 
  /**
   * @brief Returns a non-owning and non-null pointer to the owner of the component

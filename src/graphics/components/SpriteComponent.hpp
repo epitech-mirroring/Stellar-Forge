@@ -62,6 +62,16 @@ public:
      */
     void setTexture(const char *path);
 
+    /**
+     * @brief Gets the size of the sprite on the screen.
+     * @return The size of the sprite as a glm::vec2.
+     * @details This method returns the size of the sprite on the screen as a glm::vec2, where x is the width and y is the height.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    glm::vec2 getSize() override;
+
 private:
     sf::Texture texture; /**< The texture of the sprite. */
     sf::Sprite sprite; /**< The sprite object to render. */

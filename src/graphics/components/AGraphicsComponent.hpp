@@ -12,6 +12,7 @@
 #include "../../common/AMeta.hpp"
 #include "../../common/AField.hpp"
 #include "../../common/AFieldGroup.hpp"
+#include "../../common/components/Transform.hpp"
 
 /**
  * @class AGraphicsComponent
@@ -62,6 +63,25 @@ public:
   */
  [[nodiscard]] IMeta& getMeta() const override;
 
+    /**
+    * @brief This function is used to check if the component is active
+    * @see IComponent::isActive
+    * @return True if the component is active, false otherwise
+    * @version v0.1.0
+    * @since v0.1.0
+    * @author Aubane NOURRY
+    */
+    bool isActive();
+
+    /**
+     * @brief This function is used to set the state of the component
+     * @param state The state of the component
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void setActive(bool state);
+
 protected:
  /**
   * @brief The constructor of the AGraphicsComponent class
@@ -88,6 +108,8 @@ protected:
   * @author Aubane NOURRY
   */
  IMeta& _meta;
+
+ bool _isActive;
 };
 
 #endif //AGRAPHICSCOMPONENT_HPP

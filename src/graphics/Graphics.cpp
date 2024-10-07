@@ -16,9 +16,13 @@ class TransformComponent; // TODO replace with actual TransformComponent
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),
-    window(sf::VideoMode(width, height), title), prepared(false), currentScene(nullptr)
+    window(sf::VideoMode(width, height), title), currentScene(nullptr)
 {
-    this->window.setFramerateLimit(60);
+    if (!window.isOpen()) {
+        throw GraphicsException("Failed to create window");
+    }
+    prepared = true;
+    window.setFramerateLimit(60);
 }
 
 Graphics::~Graphics() {
@@ -29,10 +33,10 @@ void Graphics::addAndSortObject(IObject *object) {
     float zValue = 0.0f;
     
     for (auto& component : object->getComponents()) {
-        /*if (auto* transform = dynamic_cast<TransformComponent*>(component.get())) {
+        if (auto* transform = dynamic_cast<TransformComponent*>(component.get())) {
             zValue = transform->getPosition().z;
             break;
-        }*/
+        }
     }
 
     auto insertPos = sortedObjects.begin();
@@ -53,14 +57,6 @@ void Graphics::addAndSortObject(IObject *object) {
     sortedObjects.insert(insertPos, object);
 }
 
-
-void Graphics::initialize() {
-    if (!window.isOpen()) {
-        throw GraphicsException("Failed to create window");
-    }
-    initialized = true;
-}
-
 void Graphics::clear() {
     window.clear(sf::Color::Black);
 }
@@ -70,7 +66,7 @@ void Graphics::present() {
 }
 
 void Graphics::render() {
-    if (!initialized) return;
+    if (!prepared) return;
     clear();
 
     std::vector<IObject *> objects = currentScene->getObjects();

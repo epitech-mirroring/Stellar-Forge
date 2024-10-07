@@ -20,3 +20,13 @@ IComponent::IMeta &AGraphicsComponent::getMeta() const
 {
     return this->_meta;
 }
+
+bool AGraphicsComponent::isActive()
+{
+    return this->_isActive;
+}
+
+void AGraphicsComponent::setActive(bool active)
+{
+    this->_isActive = active;
+}

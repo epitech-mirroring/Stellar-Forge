@@ -15,6 +15,7 @@
 #include <memory>
 #include "../common/IScene.hpp"
 #include "../common/IObject.hpp"
+#include <RenderWindow.hpp>
 
 /**
  * @class Graphics

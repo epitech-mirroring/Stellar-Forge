@@ -32,6 +32,7 @@ public:
      * @details This ensures that derived classes can be properly destroyed, releasing all resources 
      *          when an object is deleted.
      * @since v0.1.0
+     * @author Aubane NOURRY
      */
     virtual ~IGraphicsComponent() = default;
 
@@ -42,8 +43,19 @@ public:
      *          should be drawn on the screen. It is called each frame to render the visual aspects of the 
      *          component.
      * @since v0.1.0
+     * @author Aubane NOURRY
      */
     virtual void render(sf::RenderWindow *window) = 0;
+
+    /**
+     * @brief Gets the size of the component on the screen.
+     * @return The size of the component as a glm::vec2.
+     * @details This pure virtual function must be implemented by derived classes to return the size of the
+     *         component on the screen. The size is returned as a glm::vec2, where x is the width and y is the height.
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    virtual glm::vec2 getSize() = 0;
 };
 
 #endif //IGRAPHICALCOMPONENT_HPP

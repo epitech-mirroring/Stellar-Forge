@@ -7,8 +7,6 @@
 
 #include "SpriteComponent.hpp"
 
-using TransformComponent = TransformComponent; //TODO import Transform component
-
 SpriteComponent::SpriteComponent(const char *path) : path(path)
 {
     if (!texture.loadFromFile(path)) {
@@ -23,10 +21,11 @@ SpriteComponent::SpriteComponent(const char *path) : path(path)
 void SpriteComponent::render(sf::RenderWindow *window)
 {
     for (auto &component : this->getOwner()->getComponents()) {
-        if (component->getMeta().getName() == "transform") {
-            auto transformComponent = dynamic_cast<TransformComponent *>(component);
-            sprite.setPosition(transformComponent->getPosition());
+        if (component->getMeta().getName() == "Transform") {
+            auto transformComponent = dynamic_cast<Transform *>(component);
+            sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
             sprite.setRotation(transformComponent->getRotation().x);
+            sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
             window->draw(sprite);
         }
     }
@@ -38,4 +37,9 @@ void SpriteComponent::setTexture(const char *path)
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
     }
     sprite.setTexture(texture);
+}
+
+glm::vec2 SpriteComponent::getSize()
+{
+    return glm::vec2(texture.getSize().x, texture.getSize().y);
 }

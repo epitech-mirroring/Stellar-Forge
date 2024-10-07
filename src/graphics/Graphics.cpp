@@ -13,6 +13,11 @@
 #include <algorithmfwd.h>
 
 class TransformComponent; // TODO replace with actual TransformComponent
+Graphics::Graphics(int width, int height, const char *title, bool precharge)
+    : width(width), height(height), title(title), precharge(precharge), initialized(false), currentScene(nullptr)
+{
+    window.create(sf::VideoMode(width, height), title);
+}
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : window(nullptr), renderer(nullptr), width(width), height(height), title(title), initialized(false), precharge(precharge) {

@@ -9,7 +9,8 @@
 #ifndef GRAPHICS_HPP
 #define GRAPHICS_HPP
 
-#include <SDL2/SDL.h>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <vector>
 #include <memory>
 #include "../common/IScene.hpp"
@@ -117,8 +118,7 @@ public:
     void setScene(IScene *scene);
 
 private:
-    SDL_Window *window;                          /**< The SDL window used for rendering. */
-    SDL_Renderer *renderer;                      /**< The SDL renderer used to draw objects. */
+    sf::RenderWindow window;                     /**< The SFML window used for rendering. */
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */

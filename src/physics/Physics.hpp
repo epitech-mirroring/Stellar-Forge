@@ -110,6 +110,13 @@ public:
   static void applyImpulse(Vector3 &vel, const Vector3 &impulse);
  };
 
+ class ICollider {
+ public:
+  virtual ~ICollider() = default;
+
+  virtual bool Collide(ICollider *collider) = 0;
+ };
+
  /**
  * @class Box
  * @brief A class that represents a box in 3D space.
@@ -118,7 +125,7 @@ public:
  * @since v0.1.0
  * @author Landry GIGANT
  */
- class Box {
+ class Box : public ICollider {
  public:
   /**
    * @brief The position of the box in 3D space.
@@ -136,6 +143,8 @@ public:
    * @param size The size of the box in 3D space.
    */
   Box(Vector3 position, Vector3 size) : position(position), size(size) {};
+
+  bool Collide(ICollider *collider) override;
  };
 
 /**
@@ -146,7 +155,7 @@ public:
  * @since v0.1.0
  * @author Landry GIGANT
  */
- class Sphere {
+ class Sphere : public ICollider {
  public:
   /**
    * @brief The position of the sphere in 3D space.
@@ -164,6 +173,8 @@ public:
    * @param radius The radius of the sphere.
    */
   Sphere(Vector3 position, float radius) : position(position), radius(radius) {};
+
+  bool Collide(ICollider *collider) override;
  };
 
 /**

@@ -12,6 +12,10 @@ GraphicsException::GraphicsException(std::string message): _message{std::move(me
 {
 }
 
+GraphicsException::GraphicsException(const char* message): _message{message}
+{
+}
+
 const char* GraphicsException::what() const noexcept
 {
     return _message.c_str();

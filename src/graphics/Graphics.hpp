@@ -118,7 +118,7 @@ public:
     void setScene(IScene *scene);
 
 private:
-    sf::RenderWindow window;                     /**< The SFML window used for rendering. */
+    sf::RenderWindow window;                     /**< The SDL window used for rendering. */
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */

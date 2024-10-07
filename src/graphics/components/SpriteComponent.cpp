@@ -1,32 +1,30 @@
 /*
 ** EPITECH PROJECT, 2024
-** components
+** Stellar-Forge components
 ** File description:
 ** SpriteComponent.cpp
 **/
 
 #include "SpriteComponent.hpp"
 
+using TransformComponent = TransformComponent; //TODO import Transform component
+
 SpriteComponent::SpriteComponent(const char *path) : path(path)
 {
-    texture = nullptr;
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+    }
+    sprite.setTexture(texture);
 }
 
-SpriteComponent::~SpriteComponent()
+void SpriteComponent::render(sf::RenderWindow *window)
 {
-    if (texture) {
-        SDL_DestroyTexture(texture);
-        texture = nullptr;
+    for (auto &component : this->getOwner()->getComponents()) {
+        if (component->getMeta().getName() == "transform") {
+            auto transformComponent = dynamic_cast<TransformComponent *>(component);
+            sprite.setPosition(transformComponent->getPosition());
+            sprite.setRotation(transformComponent->getRotation().x);
+            window->draw(sprite);
+        }
     }
-}
-
-void SpriteComponent::render(SDL_Renderer *renderer)
-{
-    if (!texture) {
-        IMG_LoadTexture(renderer, path);
-        if (!texture) {
-            throw GraphicsException("IMG_LoadTexture Error: " + std::string(IMG_GetError()));
-    }
-    }
-    SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
 }

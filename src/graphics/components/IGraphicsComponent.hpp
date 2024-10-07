@@ -10,9 +10,10 @@
 #define IGRAPHICSCOMPONENT_HPP
 
 #include "../../common/IComponent.hpp"
+#include "../../common/IObject.hpp"
 #include "../GraphicsException.hpp"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <SFML/Graphics.hpp>
+#include <glm/ext/vector_float3.hpp>
 
 /**
  * @class IGraphicsComponent
@@ -35,14 +36,14 @@ public:
     virtual ~IGraphicsComponent() = default;
 
     /**
-     * @brief Renders the component using the provided SDL_Renderer.
-     * @param renderer A pointer to the SDL_Renderer object used for rendering.
+     * @brief Renders the component using the provided window.
+     * @param renderer A pointer to the window object used for rendering.
      * @details This pure virtual function must be implemented by derived classes to define how the component
      *          should be drawn on the screen. It is called each frame to render the visual aspects of the 
      *          component.
      * @since v0.1.0
      */
-    virtual void render(SDL_Renderer *renderer) = 0;
+    virtual void render(sf::RenderWindow *window) = 0;
 };
 
 #endif //IGRAPHICALCOMPONENT_HPP

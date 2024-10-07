@@ -27,8 +27,7 @@ public:
      * @since v0.1.0
      * @details Initializes the InvisibleFieldGroup with the given fields.
      */
-    explicit InvisibleFieldGroup(const std::vector<IComponent::IMeta::IField *> &fields)
-            : AFieldGroup("", "", fields) {}
+    explicit InvisibleFieldGroup(const std::vector<IComponent::IMeta::IField *> &fields);
 };
 
 #endif //STELLARFORGE_FIELDGROUP_HPP

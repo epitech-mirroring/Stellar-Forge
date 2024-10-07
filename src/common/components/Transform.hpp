@@ -43,7 +43,7 @@ public:
          * @version v0.1.0
          * @since v0.1.0
          */
-        class FieldGroup : public InvisibleFieldGroup {
+        class TransformFieldGroup : public InvisibleFieldGroup {
         public:
             /**
              * @brief Constructor for FieldGroup.
@@ -51,11 +51,7 @@ public:
              * @version v0.1.0
              * @since v0.1.0
              */
-            FieldGroup() : InvisibleFieldGroup({
-                                                       new Vector3Field("Position", "The position of the object."),
-                                                       new Vector3Field("Rotation", "The rotation of the object."),
-                                                       new Vector3Field("Scale", "The scale of the object.")
-                                               }) {}
+            TransformFieldGroup();
         };
     public:
         /**
@@ -64,9 +60,7 @@ public:
          * @version v0.1.0
          * @since v0.1.0
          */
-        TransformMeta()
-                : AMeta("Transform", "The transform of the object.", true, false,
-                        std::vector<IComponent::IMeta::IFieldGroup *>{ new FieldGroup() }) {}
+        TransformMeta();
     };
 
     /**

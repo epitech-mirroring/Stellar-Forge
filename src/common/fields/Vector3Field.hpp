@@ -28,8 +28,7 @@ public:
      * @since v0.1.0
      * @details Initializes the Vector3Field with the given name and description.
      */
-    Vector3Field(std::string name, std::string description)
-            : AField(std::move(name), std::move(description), IComponent::IMeta::IField::FieldType::VECTOR3) {}
+    Vector3Field(std::string name, std::string description);
 };
 
 #endif //STELLARFORGE_VECTOR3FIELD_HPP

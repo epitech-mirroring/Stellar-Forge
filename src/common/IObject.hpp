@@ -32,6 +32,35 @@ public:
  virtual ~IObject() = default;
 
  /**
+  * @brief The copy constructor of the object
+  * @param other The object to copy
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Axel ECKENBERG
+  */
+ IObject(const IObject &other) = default;
+
+ /**
+  * @brief The copy assignment operator of the object
+  * @param other The object to copy
+  * @return The new object
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Axel ECKENBERG
+  */
+ IObject &operator=(const IObject &other) = default;
+
+ /**
+  * @brief The comparison operator of the object
+  * @param other The object to compare
+  * @return True if the objects are the same, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual bool operator==(const IObject &other) const = 0;
+
+ /**
   * @brief Clone the object
   * @warning The object cloned will have the same components and children as the original object
   * but also all the same values.

@@ -8,4 +8,9 @@
 
 #include "Graphics.hpp"
 
-Graphics::Graphics() = default;
+Graphics::Graphics(int width, int height, const char *title, bool precharge)
+    : width(width), height(height), title(title), precharge(precharge),
+    window(sf::VideoMode(width, height), title), prepared(false), currentScene(nullptr)
+{
+    this->window.setFramerateLimit(60);
+}

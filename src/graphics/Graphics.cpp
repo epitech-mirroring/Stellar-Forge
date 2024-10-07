@@ -7,10 +7,6 @@
 */
 
 #include "Graphics.hpp"
-#include "GraphicsException.hpp"
-#include <iostream>
-#include <algorithm>
-#include <algorithmfwd.h>
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),

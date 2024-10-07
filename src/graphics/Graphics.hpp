@@ -9,16 +9,20 @@
 #ifndef GRAPHICS_HPP
 #define GRAPHICS_HPP
 
+#include "../common/IScene.hpp"
+#include "../common/IObject.hpp"
+#include "../common/components/Transform.hpp"
+#include "components/IGraphicsComponent.hpp"
+#include "GraphicsException.hpp"
+
+#include <iostream>
+#include <algorithm>
+#include <algorithmfwd.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <vector>
 #include <memory>
-#include "../common/IScene.hpp"
-#include "../common/IObject.hpp"
-#include "../common/components/Transform.hpp"
-#include "components/IGraphicsComponent.hpp"
-#include <RenderWindow.hpp>
 
 /**
  * @class Graphics

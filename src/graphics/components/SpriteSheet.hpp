@@ -13,13 +13,12 @@
 class SpriteSheet : public AGraphicsComponent {
 public:
     SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, int frame = 0);
-    ~SpriteSheet() override;
+    ~SpriteSheet() = default;
 
     void render(sf::RenderWindow *window) override;
     void setTexture(const char *path);
     void setFrames(std::vector<sf::IntRect> frames);
-    void setFrame(sf::IntRect frame);
-    void setFrame(int frame);
+    void setFrame(unsigned int frame);
     void nextFrame();
     void prevFrame();
 
@@ -34,6 +33,7 @@ private:
     sf::Sprite sprite;
     std::vector<sf::IntRect> frames;
     int currentFrame;
+    const char *path;
 };
 
 #endif //SPRITESHEET_HPP

@@ -8,7 +8,7 @@
 #ifndef SPRITECOMPONENT_HPP
 #define SPRITECOMPONENT_HPP
 
-#include "IGraphicsComponent.hpp"
+#include "AGraphicsComponent.hpp"
 
 // TODO add meta data
 
@@ -21,7 +21,7 @@
  * @since v0.1.0
  * @author Aubane NOURRY
  */
-class SpriteComponent : public IGraphicsComponent {
+class SpriteComponent : public AGraphicsComponent {
 public:
     /**
      * @brief Constructor for the SpriteComponent class.
@@ -52,10 +52,21 @@ public:
      */
     void render(sf::RenderWindow *window) override;
 
+    /**
+     * @brief Sets the texture of the sprite to the specified file path.
+     * @param path The file path to the new sprite image.
+     * @details This method loads the texture from the specified file path and sets it as the new sprite texture.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void setTexture(const char *path);
+
 private:
     sf::Texture texture; /**< The texture of the sprite. */
     sf::Sprite sprite; /**< The sprite object to render. */
     const char *path; /**< The file path to the sprite image. */
+    AMeta meta; /**< The meta data for the component. */
 };
 
 #endif //SPRITECOMPONENT_HPP

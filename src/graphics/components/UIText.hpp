@@ -12,11 +12,11 @@
 
 class UIText : public AGraphicsComponent {
 public:
-    UIText(IObject* owner, const char *text, int size, sf::Color color, const char *fontPath); //TODO add default font to arial: find
-    ~UIText() override;
+    UIText(IObject* owner, const char *textStr, int size, sf::Color color, const char *fontPath = "default");
+    ~UIText() = default;
 
     void render(sf::RenderWindow *window) override;
-    void setText(const char *text);
+    void setText(const char *textStr);
     void setFont(const char *fontPath);
     void setSize(int size);
     void setColor(sf::Color color);

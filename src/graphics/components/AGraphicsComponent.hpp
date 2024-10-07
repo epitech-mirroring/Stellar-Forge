@@ -13,6 +13,7 @@
 #include "../../common/AField.hpp"
 #include "../../common/AFieldGroup.hpp"
 #include "../../common/components/Transform.hpp"
+#include "../../common/fields/IntRectFieldGroup.hpp"
 
 /**
  * @class AGraphicsComponent

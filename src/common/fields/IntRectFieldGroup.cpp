@@ -8,7 +8,7 @@
 #include "IntRectFieldGroup.hpp"
 
 IntRectFieldGroup::IntRectFieldGroup(std::string name, std::string description)
-    : AFieldGroup(name, description, {
+    : AFieldGroup(std::move(name), std::move(description), {
         new AField("x", "The x-coordinate of the rectangle", AField::FieldType::INT), 
         new AField("y", "The y-coordinate of the rectangle", AField::FieldType::INT), 
         new AField("width", "The width of the rectangle", AField::FieldType::INT),

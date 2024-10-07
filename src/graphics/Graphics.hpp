@@ -34,7 +34,7 @@ public:
      * @param height The height of the window.
      * @param title The title of the window. Default is "Game".
      * @param precharge Whether to preload all objects in all scenes. Default is false.
-     * @details This initializes the window with the specified dimensions and title,
+     * @details This prepares the window with the specified dimensions and title,
      *          and optionally precharges all objects if the precharge flag is set to true.
      * @since v0.1.0
      * @author Aubane NOURRY
@@ -51,13 +51,13 @@ public:
     ~Graphics();
 
     /**
-     * @brief Initializes the SDL window and renderer.
-     * @details This method initializes the SDL window and renderer based on the provided 
+     * @brief prepares the SDL window and renderer.
+     * @details This method prepares the SDL window and renderer based on the provided 
      *          width, height, and title. It should be called before any rendering operations.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void initialize();
+    void prepare();
 
     /**
      * @brief Renders the objects in the current scene.
@@ -122,7 +122,7 @@ private:
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */
-    bool initialized;                            /**< Flag indicating if the graphics system is initialized. */
+    bool prepared;                            /**< Flag indicating if the graphics system is prepared. */
     std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
     IScene *currentScene;                        /**< The current scene being rendered. */

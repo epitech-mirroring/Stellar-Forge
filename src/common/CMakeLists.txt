@@ -10,7 +10,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.hpp
@@ -18,7 +20,6 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/CPPMonoBehaviour.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventData.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.hpp
@@ -31,10 +32,11 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/CPPMonoBehaviour.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.cpp

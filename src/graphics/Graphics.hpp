@@ -100,7 +100,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void addAndSortObject(IObject *object);
+    static void addAndSortObject(IObject *object);
 
     /**
      * @brief Changes the current scene to the specified scene.

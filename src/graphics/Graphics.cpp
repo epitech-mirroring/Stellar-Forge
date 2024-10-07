@@ -14,21 +14,22 @@
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
     : width(width), height(height), title(title), precharge(precharge),
-    window(sf::VideoMode(width, height), title), currentScene(nullptr)
+    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false)
 {
     if (!window.isOpen()) {
         throw GraphicsException("Failed to create window");
     }
     prepared = true;
     window.setFramerateLimit(60);
+    sortedObjects.reserve(100);
 }
 
 Graphics::~Graphics() {
     clean();
 }
 
-void Graphics::addAndSortObject(IObject *object) {
-    float zValue = 0.0f;
+static void Graphics::addAndSortObject(IObject *object) {
+    const float zValue = 0.0f;
     
     for (auto& component : object->getComponents()) {
         if (auto* transform = dynamic_cast<Transform *>(component.get())) {
@@ -39,7 +40,7 @@ void Graphics::addAndSortObject(IObject *object) {
 
     auto insertPos = sortedObjects.begin();
     for (; insertPos != sortedObjects.end(); ++insertPos) {
-        float currentZValue = 0.0f;
+        const float currentZValue = 0.0f;
 
         for (auto& component : (*insertPos)->getComponents()) {
             if (auto* transform = dynamic_cast<Transform *>(component.get())) {
@@ -64,7 +65,9 @@ void Graphics::present() {
 }
 
 void Graphics::render(void updateComponent(IObject *object)) {
-    if (!prepared) return;
+    if (!prepared) {
+        return;
+    }
     clear();
 
     std::vector<IObject *> objects = currentScene->getObjects();

@@ -7,7 +7,7 @@
 
 #include "AComponent.hpp"
 
-AComponent::AComponent(IObject *owner, IMeta &meta) : _owner(owner), _meta(meta), _isActive(true)
+AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta(meta), _isActive(true)
 {
 }
 
@@ -26,7 +26,7 @@ bool AComponent::isActive()
     return this->_isActive;
 }
 
-void AComponent::setActive(bool active)
+void AComponent::setActive(bool state)
 {
-    this->_isActive = active;
+    this->_isActive = state;
 }

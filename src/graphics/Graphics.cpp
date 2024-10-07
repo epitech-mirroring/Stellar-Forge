@@ -24,11 +24,11 @@ Graphics::~Graphics() {
     clean();
 }
 
-static void Graphics::addAndSortObject(IObject *object) {
-    const float zValue = 0.0f;
+void Graphics::addAndSortObject(IObject *object) {
+    float zValue = 0.0f;
     
     for (auto& component : object->getComponents()) {
-        if (auto* transform = dynamic_cast<Transform *>(component.get())) {
+        if (auto* transform = dynamic_cast<Transform *>(component)) {
             zValue = transform->getPosition().z;
             break;
         }
@@ -36,10 +36,10 @@ static void Graphics::addAndSortObject(IObject *object) {
 
     auto insertPos = sortedObjects.begin();
     for (; insertPos != sortedObjects.end(); ++insertPos) {
-        const float currentZValue = 0.0f;
+        float currentZValue = 0.0f;
 
         for (auto& component : (*insertPos)->getComponents()) {
-            if (auto* transform = dynamic_cast<Transform *>(component.get())) {
+            if (auto* transform = dynamic_cast<Transform *>(component)) {
                 currentZValue = transform->getPosition().z;
                 break;
             }
@@ -73,8 +73,8 @@ void Graphics::render(void updateComponent(IObject *object)) {
     for (auto object : sortedObjects) {
         for (auto& component : object->getComponents()) {
             updateComponent(object);
-            if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component.get())) {
-                graphicsComponent->render(window);
+            if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
+                graphicsComponent->render(&window);
             }
         }
     }

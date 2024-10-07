@@ -103,7 +103,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    static void addAndSortObject(IObject *object);
+    void addAndSortObject(IObject *object);
 
     /**
      * @brief Changes the current scene to the specified scene.
@@ -120,8 +120,8 @@ private:
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */
-    bool prepared;                            /**< Flag indicating if the graphics system is prepared. */
-    std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
+    bool prepared;                               /**< Flag indicating if the graphics system is prepared. */
+    std::vector<IObject *> sortedObjects;        /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
     IScene *currentScene;                        /**< The current scene being rendered. */
 };

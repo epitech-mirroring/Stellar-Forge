@@ -57,7 +57,7 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] IMeta& getMeta() const override;
+ [[nodiscard]] const IMeta& getMeta() const override;
 
 protected:
  /**
@@ -68,7 +68,7 @@ protected:
   * @since v0.1.0
   * @author Marius PAIN
   */
- AComponent(IObject* owner, IMeta& meta);
+ AComponent(IObject* owner, const IMeta& meta);
 
  /**
   * @brief The owner of the component
@@ -84,7 +84,7 @@ protected:
   * @since v0.1.0
   * @author Marius PAIN
   */
- IMeta& _meta;
+ const IMeta& _meta;
 };
 
 #endif //ACOMPONENT_HPP

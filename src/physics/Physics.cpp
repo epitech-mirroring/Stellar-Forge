@@ -8,6 +8,7 @@
 
 #include "Physics.hpp"
 #include <algorithm>
+#include <glm/geometric.hpp>
 
 void Physics::Movement::applyMovement(Vector3 &pos, const Vector3 &vel,
                                       const float deltaTime) {
@@ -86,4 +87,3 @@ bool Physics::Collision::BoxCollideSphere(const Box &box, const Sphere &sphere) 
 bool Physics::Collision::SphereCollideBox(const Sphere &sphere, const Box &box) {
     return BoxCollideSphere(box, sphere);
 }
-

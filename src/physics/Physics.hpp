@@ -8,9 +8,18 @@
 
 #ifndef PHYSICS_HPP
 #define PHYSICS_HPP
-
-#include <glm/glm.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include "Collider.hpp"
+
+/**
+ * @typedef Vector3
+ * @brief A type alias for glm::vec3, representing a 3D vector.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Landry GIGANT
+ */
+using Vector3 = glm::vec3;
 
 /**
  * @class Physics
@@ -21,15 +30,6 @@
  */
 class Physics {
 public:
- /**
-  * @typedef Vector3
-  * @brief A type alias for glm::vec3, representing a 3D vector.
-  * @version v0.1.0
-  * @since v0.1.0
-  * @author Landry GIGANT
-  */
- using Vector3 = glm::vec3;
-
  /**
   * @class Movement
   * @brief A nested class within Physics that provides static methods for applying physics principles.

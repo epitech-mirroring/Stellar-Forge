@@ -41,6 +41,7 @@ endif ()
 find_package(glm REQUIRED)
 find_package(stduuid REQUIRED)
 find_package(GSL REQUIRED)
+find_package(SFML REQUIRED)
 
 # Include subdirectories for common, physics, and graphics
 add_subdirectory(src/common)

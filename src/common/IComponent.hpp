@@ -257,7 +257,7 @@ public:
   * @see IComponent::IMeta
   * @author Axel ECKENBERG
   */
- [[nodiscard]] virtual IMeta &getMeta() const = 0;
+ [[nodiscard]] virtual const IMeta &getMeta() const = 0;
 };
 
 

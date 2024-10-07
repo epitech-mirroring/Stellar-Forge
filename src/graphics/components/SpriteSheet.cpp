@@ -69,6 +69,11 @@ void SpriteSheet::prevFrame()
     sprite.setTextureRect(frames[currentFrame]);
 }
 
+glm::vec2 SpriteSheet::getSize()
+{
+    return {frames[currentFrame].width, frames[currentFrame].height};
+}
+
 SpriteSheet::Meta::Meta(): AMeta("SpriteSheet", "A sprite sheet component that renders a sprite sheet on the screen", true, false, {
     new InvisibleFieldGroup({ new AField("path", "path to the sprite sheet image", IComponent::IMeta::IField::FieldType::STRING)}),
     new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet"), //TODO list all the frames

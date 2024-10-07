@@ -83,6 +83,11 @@ void AnimatedSprite::setFrameTime(float frameTime)
     this->frameTime = frameTime;
 }
 
+glm::vec2 AnimatedSprite::getSize()
+{
+    return {frames[currentFrame].width, frames[currentFrame].height};
+}
+
 AnimatedSprite::Meta::Meta(): AMeta("AnimatedSprite", "A sprite sheet component that renders a sprite sheet on the screen", true, false, {
     new InvisibleFieldGroup({ new AField("path", "path to the sprite sheet image", IComponent::IMeta::IField::FieldType::STRING)}),
     new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet"), //TODO list all the frames

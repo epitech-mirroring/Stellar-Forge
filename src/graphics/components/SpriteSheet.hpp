@@ -21,6 +21,7 @@ public:
     void setFrame(unsigned int frame);
     void nextFrame();
     void prevFrame();
+    glm::vec2 getSize() override;
 
     class Meta : public AMeta
     {

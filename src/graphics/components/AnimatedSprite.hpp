@@ -23,6 +23,7 @@ public:
     void nextFrame();
     void prevFrame();
     void setFrameTime(float frameTime);
+    glm::vec2 getSize() override;
 
     class Meta : public AMeta
     {

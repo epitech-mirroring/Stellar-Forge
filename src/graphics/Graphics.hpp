@@ -20,7 +20,7 @@
  * @class Graphics
  * @brief This class handles all graphics-related operations.
  * @details The Graphics class is responsible for initializing and managing the rendering
- *          of objects in the scenes, managing an SDL window and renderer, and ensuring 
+ *          of objects in the scenes, managing an internal list of objects to render. The 
  *          objects are sorted by their z-index for proper rendering order.
  * @version v0.1.0
  * @since v0.1.0
@@ -34,7 +34,7 @@ public:
      * @param height The height of the window.
      * @param title The title of the window. Default is "Game".
      * @param precharge Whether to preload all objects in all scenes. Default is false.
-     * @details This initializes the window with the specified dimensions and title,
+     * @details This prepares the window with the specified dimensions and title,
      *          and optionally precharges all objects if the precharge flag is set to true.
      * @since v0.1.0
      * @author Aubane NOURRY
@@ -49,15 +49,6 @@ public:
      * @author Aubane NOURRY
      */
     ~Graphics();
-
-    /**
-     * @brief Initializes the SDL window and renderer.
-     * @details This method initializes the SDL window and renderer based on the provided 
-     *          width, height, and title. It should be called before any rendering operations.
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void initialize();
 
     /**
      * @brief Renders the objects in the current scene.
@@ -88,9 +79,8 @@ public:
     void present();
 
     /**
-     * @brief Cleans up the SDL resources used by the Graphics class.
-     * @details Destroys the SDL window and renderer, and cleans up any resources used
-     *          by the graphics system.
+     * @brief Cleans up the graphics system.
+     * @details Releases all resources used by the graphics system.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
@@ -122,8 +112,8 @@ private:
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */
-    bool initialized;                            /**< Flag indicating if the graphics system is initialized. */
-    std::vector<IObject *> sortedObjects;        /**< List of objects sorted by z-index for rendering. */
+    bool prepared;                            /**< Flag indicating if the graphics system is prepared. */
+    std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
     IScene *currentScene;                        /**< The current scene being rendered. */
 };

@@ -7,7 +7,7 @@
 */
 
 #include "Physics.hpp"
-#include "glm/geometric.hpp"
+#include <glm/geometric.hpp>
 
 void Physics::Movement::applyMovement(Vector3 &pos, const Vector3 &vel,
                                       const float deltaTime) {

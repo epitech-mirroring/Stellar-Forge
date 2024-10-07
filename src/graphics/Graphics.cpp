@@ -15,10 +15,10 @@
 class TransformComponent; // TODO replace with actual TransformComponent
 
 Graphics::Graphics(int width, int height, const char *title, bool precharge)
-    : width(width), height(height), title(title), precharge(precharge), initialized(false), currentScene(nullptr)
+    : width(width), height(height), title(title), precharge(precharge),
+    window(sf::VideoMode(width, height), title), prepared(false), currentScene(nullptr)
 {
-    window.create(sf::VideoMode(width, height), title);
-    initialize();
+    this->window.setFramerateLimit(60);
 }
 
 Graphics::~Graphics() {

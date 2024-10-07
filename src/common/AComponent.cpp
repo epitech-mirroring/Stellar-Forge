@@ -16,7 +16,7 @@ IObject *AComponent::getOwner()
     return this->_owner;
 }
 
-IComponent::IMeta &AComponent::getMeta() const
+const IComponent::IMeta &AComponent::getMeta() const
 {
     return this->_meta;
 }

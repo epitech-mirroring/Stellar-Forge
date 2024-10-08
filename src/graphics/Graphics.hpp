@@ -87,12 +87,12 @@ public:
     void present();
 
     /**
-     * @brief Cleans up the graphics system.
-     * @details Releases all resources used by the graphics system.
+     * @brief Closes the graphics system.
+     * @details Releases all resources used by the graphics system, closes the window
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void clean();
+    void close();
 
     /**
      * @brief Adds an object to the sorted object list and maintains the correct order.

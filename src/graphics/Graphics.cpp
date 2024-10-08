@@ -82,8 +82,9 @@ void Graphics::render(void updateComponent(IObject *object)) {
     present();
 }
 
-void Graphics::clean() {
+void Graphics::close() {
     window.close();
+    prepared = false;
 }
 
 void Graphics::setScene(IScene *scene) {

@@ -60,7 +60,7 @@ void Graphics::present() {
     window.display();
 }
 
-void Graphics::render(void updateComponent(IObject *object)) {
+void Graphics::render(std::function<void(IObject *)> updateFunction) {
     if (!prepared) {
         return;
     }
@@ -72,7 +72,7 @@ void Graphics::render(void updateComponent(IObject *object)) {
     }
     for (auto *object : sortedObjects) {
         for (auto& component : object->getComponents()) {
-            updateComponent(object);
+            updateFunction(object);
             if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
                 graphicsComponent->render(&window);
             }

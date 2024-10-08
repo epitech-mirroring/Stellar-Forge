@@ -59,14 +59,14 @@ public:
 
     /**
      * @brief Renders the objects in the current scene.
-     * @param updateComponent A function to update the component.
+     * @param function A function to update the object before rendering.
      * @details This method renders all objects in the current scene in the correct order
      *         based on their z-index. It should be called once per frame to render the
      *        scene.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void render(void updateComponent(IObject *object));
+    void render(std::function<void(IObject *)> updateFunction);
 
     /**
      * @brief Clears the current rendering target.

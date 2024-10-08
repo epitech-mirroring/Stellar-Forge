@@ -73,6 +73,16 @@ public:
     void setFont(const char *fontPath);
 
     /**
+     * @brief Finds the default font path for the current OS.
+     * @return The default font path as a const char*.
+     * @details This method finds the default font path for the current operating system.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    const char *findDefaultFontPath();
+
+    /**
      * @brief Sets the font size for the text.
      * @param size The font size to use.
      * @details This method sets the font size to use for rendering the text on the screen.
@@ -80,7 +90,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void setSize(int size);
+    void setSize(unsigned int size);
 
     /**
      * @brief Sets the color of the text.

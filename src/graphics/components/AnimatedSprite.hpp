@@ -31,7 +31,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime = 0.1f, int frame = 0);
+    AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime = 0.1f, int currentFrame = 0);
 
     /**
      * @brief Destructor for the AnimatedSprite class.

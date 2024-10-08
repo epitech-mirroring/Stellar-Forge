@@ -83,6 +83,15 @@ public:
      */
     void setActive(bool state);
 
+    /**
+     * @brief This function is used to find the owner transform of the component
+     * @return The owner transform of the component
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    IComponent *findOwnerTransform();
+
 protected:
  /**
   * @brief The constructor of the AGraphicsComponent class
@@ -119,6 +128,12 @@ protected:
   */
  IMeta& _meta;
 
+    /**
+    * @brief The state of the component
+    * @version v0.1.0
+    * @since v0.1.0
+    * @author Aubane NOURRY
+    */
  bool _isActive;
 };
 

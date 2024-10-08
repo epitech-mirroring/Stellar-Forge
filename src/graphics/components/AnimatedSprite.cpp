@@ -7,7 +7,7 @@
 
 #include "AnimatedSprite.hpp"
 
-AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime, int frame)
+AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime, int currentFrame)
     : AGraphicsComponent(owner), path(path), frames(frames), frameTime(frameTime), currentFrame(frame), clock()
 {
     if (!texture.loadFromFile(path)) {
@@ -27,17 +27,13 @@ void AnimatedSprite::runComponent()
 
 void AnimatedSprite::render(sf::RenderWindow *window)
 {
-    for (auto &component : this->getOwner()->getComponents()) {
-        if (component->getMeta().getName() == "Transform") {
-            auto transformComponent = dynamic_cast<Transform *>(component);
-            if (transformComponent != nullptr) {
-                sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
-                sprite.setRotation(transformComponent->getRotation().x);
-                sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
-                sprite.setTextureRect(frames[currentFrame]);
-                window->draw(sprite);
-            }
-        }
+    auto transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+    if (transformComponent != nullptr) {
+        sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
+        sprite.setRotation(transformComponent->getRotation().x);
+        sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
+        sprite.setTextureRect(frames[currentFrame]);
+        window->draw(sprite);
     }
 }
 
@@ -56,6 +52,9 @@ void AnimatedSprite::setFrames(std::vector<sf::IntRect> frames)
 
 void AnimatedSprite::setFrame(unsigned int frame)
 {
+    if (frame >= frames.size()) {
+        throw GraphicsException("Frame index out of range");
+    }
     currentFrame = frame;
     sprite.setTextureRect(frames[currentFrame]);
 }

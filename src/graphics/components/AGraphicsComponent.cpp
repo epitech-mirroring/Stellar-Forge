@@ -34,3 +34,13 @@ void AGraphicsComponent::setActive(bool active)
 {
     this->_isActive = active;
 }
+
+IComponent *AGraphicsComponent::findOwnerTransform()
+{
+    for (auto &component : this->_owner->getComponents()) {
+        if (component->getMeta().getName() == "Transform") {
+            return component;
+        }
+    }
+    return nullptr;
+}

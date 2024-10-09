@@ -41,5 +41,5 @@ void Sprite::setTexture(const char *path)
 
 glm::vec2 Sprite::getSize()
 {
-    return glm::vec2(texture.getSize().x, texture.getSize().y);
+    return {texture.getSize().x, texture.getSize().y};
 }

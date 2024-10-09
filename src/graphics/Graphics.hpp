@@ -22,6 +22,7 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include <memory>
+#include <functional>
 
 /**
  * @class Graphics

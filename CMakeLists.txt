@@ -110,3 +110,5 @@ target_sources(StellarForge
 
 # Export headers in build directory
 file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)
+
+add_subdirectory(tests)

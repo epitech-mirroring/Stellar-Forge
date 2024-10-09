@@ -83,7 +83,7 @@ public:
  virtual std::vector<IComponent *> getComponents() const = 0;
 
  /**
- * @brief Returns the component of the object
+ * @brief Returns a component of the object based on its type
  * @return A pointer to the component. Can be null
  * @version v0.1.0
  * @since v0.1.0

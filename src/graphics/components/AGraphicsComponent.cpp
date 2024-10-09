@@ -25,7 +25,7 @@ IComponent::IMeta &AGraphicsComponent::getMeta() const
     return this->_meta;
 }
 
-bool AGraphicsComponent::isActive()
+bool AGraphicsComponent::isActive() const
 {
     return this->_isActive;
 }

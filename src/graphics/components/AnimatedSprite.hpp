@@ -31,7 +31,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime = 0.1f, int currentFrame = 0);
+    AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime = 0.1f, unsigned int currentFrame = 0);
 
     /**
      * @brief Destructor for the AnimatedSprite class.
@@ -146,7 +146,7 @@ private:
     sf::Texture texture; /**< The texture of the animated sprite. */
     sf::Sprite sprite; /**< The sprite object to render. */
     std::vector<sf::IntRect> frames; /**< The frames for the animation. */
-    int currentFrame; /**< The current frame index in the animation. */
+    unsigned int currentFrame; /**< The current frame index in the animation. */
     float frameTime; /**< Time duration each frame is displayed. */
     sf::Clock clock; /**< Internal clock to control frame timing. */
     const char *path; /**< The file path to the sprite image. */

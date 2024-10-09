@@ -34,7 +34,7 @@ const char *UIText::findDefaultFontPath() {
 
 void UIText::render(sf::RenderWindow *window)
 {
-    auto transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+    auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
     if (transformComponent) {
         text.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
         text.setRotation(transformComponent->getRotation().x);

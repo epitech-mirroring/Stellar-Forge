@@ -29,7 +29,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, int frame = 0);
+    SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, unsigned int frame = 0);
 
     /**
      * @brief Destructor for the SpriteSheet class.
@@ -125,7 +125,7 @@ private:
     sf::Texture texture; /**< The texture of the sprite sheet. */
     sf::Sprite sprite; /**< The sprite object to render. */
     std::vector<sf::IntRect> frames; /**< The frames from the sprite sheet. */
-    int currentFrame; /**< The current frame index. */
+    unsigned int currentFrame; /**< The current frame index. */
     const char *path; /**< The file path to the sprite sheet image. */
 };
 

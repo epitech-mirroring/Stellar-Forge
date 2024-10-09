@@ -18,7 +18,7 @@ SpriteSheet::SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRe
 
 void SpriteSheet::render(sf::RenderWindow *window)
 {
-    auto transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+    auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
     if (transformComponent != nullptr) {
         sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
         sprite.setRotation(transformComponent->getRotation().x);
@@ -38,7 +38,7 @@ void SpriteSheet::setTexture(const char *path)
 
 void SpriteSheet::setFrames(std::vector<sf::IntRect> frames)
 {
-    this->frames = frames;
+    this->frames = std::move(frames);
 }
 
 void SpriteSheet::setFrame(unsigned int frame)
@@ -60,7 +60,7 @@ void SpriteSheet::prevFrame()
 {
     currentFrame--;
     if (currentFrame < 0) {
-        currentFrame = frames.size() - 1;
+        currentFrame = (unsigned int) frames.size() - 1;
     }
     sprite.setTextureRect(frames[currentFrame]);
 }

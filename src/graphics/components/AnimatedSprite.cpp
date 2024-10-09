@@ -7,8 +7,8 @@
 
 #include "AnimatedSprite.hpp"
 
-AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime, int currentFrame)
-    : AGraphicsComponent(owner), path(path), frames(frames), frameTime(frameTime), currentFrame(frame), clock()
+AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime, unsigned int currentFrame)
+    : AGraphicsComponent(owner), path(path), frames(frames), frameTime(frameTime), currentFrame(currentFrame)
 {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
@@ -27,7 +27,7 @@ void AnimatedSprite::runComponent()
 
 void AnimatedSprite::render(sf::RenderWindow *window)
 {
-    auto transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+    auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
     if (transformComponent != nullptr) {
         sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
         sprite.setRotation(transformComponent->getRotation().x);
@@ -47,7 +47,7 @@ void AnimatedSprite::setTexture(const char *path)
 
 void AnimatedSprite::setFrames(std::vector<sf::IntRect> frames)
 {
-    this->frames = frames;
+    this->frames = std::move(frames);
 }
 
 void AnimatedSprite::setFrame(unsigned int frame)
@@ -72,7 +72,7 @@ void AnimatedSprite::prevFrame()
 {
     currentFrame--;
     if (currentFrame < 0) {
-        currentFrame = frames.size() - 1;
+        currentFrame = (unsigned int) frames.size() - 1;
     }
     sprite.setTextureRect(frames[currentFrame]);
 }

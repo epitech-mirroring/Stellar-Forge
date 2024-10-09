@@ -11,7 +11,15 @@ AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta
 {
 }
 
-IObject *AComponent::getOwner()
+void AComponent::beforeRendering()
+{
+}
+
+void AComponent::afterRendering()
+{
+}
+
+IObject* AComponent::getOwner()
 {
     return this->_owner;
 }

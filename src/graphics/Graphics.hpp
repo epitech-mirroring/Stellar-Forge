@@ -78,7 +78,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    static const std::string keyToString(sf::Keyboard::Key key);
+    const std::string keyToString(sf::Keyboard::Key key);
 
     /**
      * @brief Checks for and handles any events.

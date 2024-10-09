@@ -61,7 +61,7 @@ void Graphics::present() {
     window.display();
 }
 
-const std::string Graphics::keyToString(sf::Keyboard::Key key) {
+std::string Graphics::keyToString(sf::Keyboard::Key key) {
     static const std::unordered_map<sf::Keyboard::Key, std::string> keyMap = {
         {sf::Keyboard::Unknown, "unknown"},
         {sf::Keyboard::A, "a"},
@@ -179,10 +179,10 @@ void Graphics::catchEvents() {
         if (event.type == sf::Event::Closed) {
             close();
         } if (event.type == sf::Event::KeyPressed) {
-            std::string keyName = keyToString(event.key.code);
+            const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_pressed", nullptr);
         } if (event.type == sf::Event::KeyReleased) {
-            std::string keyName = keyToString(event.key.code);
+            const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_released", nullptr);
         }
     }

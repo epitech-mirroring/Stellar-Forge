@@ -7,6 +7,12 @@
 
 #include "EventSystem.hpp"
 
+EventSystem& EventSystem::getInstance()
+{
+    static EventSystem instance;
+    return instance;
+}
+
 EventSystem::EventSystem(): _listeners({})
 {
     _event_system = this;
@@ -88,13 +94,4 @@ bool EventSystem::_triggerEventFromEventName(const std::string& eventName, const
         handled = true;
     }
     return handled;
-}
-
-EventSystem* EventSystem::getInstance()
-{
-    if (_event_system == nullptr)
-    {
-        return nullptr;
-    }
-    return _event_system;
 }

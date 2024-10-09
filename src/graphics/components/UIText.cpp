@@ -7,7 +7,7 @@
 
 #include "UIText.hpp"
 
-UIText::UIText(IObject* owner, const char *textStr, int size, sf::Color color, const char *fontPath)
+UIText::UIText(IObject* owner, const char *textStr, unsigned int size, sf::Color color, const char *fontPath)
     : AGraphicsComponent(owner), textString(textStr), fontSize(size), color(color), fontPath(fontPath)
 {
     if (std::string(fontPath) == "default") {
@@ -35,7 +35,7 @@ const char *UIText::findDefaultFontPath() {
 void UIText::render(sf::RenderWindow *window)
 {
     auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
-    if (transformComponent) {
+    if (transformComponent != nullptr) {
         text.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
         text.setRotation(transformComponent->getRotation().x);
         text.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
@@ -75,5 +75,5 @@ void UIText::setColor(sf::Color color)
 
 glm::vec2 UIText::getSize()
 {
-    return glm::vec2(text.getGlobalBounds().width, text.getGlobalBounds().height);
+    return {text.getGlobalBounds().width, text.getGlobalBounds().height};
 }

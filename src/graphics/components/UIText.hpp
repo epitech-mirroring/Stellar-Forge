@@ -31,7 +31,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    UIText(IObject* owner, const char *textStr, int size, sf::Color color, const char *fontPath = "default");
+    UIText(IObject* owner, const char *textStr, unsigned int size, sf::Color color, const char *fontPath = "default");
 
     /**
      * @brief Destructor for the UIText class.
@@ -80,7 +80,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    const char *findDefaultFontPath();
+    static const char *findDefaultFontPath();
 
     /**
      * @brief Sets the font size for the text.
@@ -130,7 +130,7 @@ private:
     sf::Font font; /**< The font object to use for rendering the text. */
     const char *textString; /**< The string to display. */
     const char *fontPath; /**< The file path to the font. */
-    int fontSize; /**< The font size to use. */
+    unsigned int fontSize; /**< The font size to use. */
     sf::Color color; /**< The color of the text. */
 };
 

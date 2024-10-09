@@ -15,7 +15,6 @@ EventSystem& EventSystem::getInstance()
 
 EventSystem::EventSystem(): _listeners({})
 {
-    _event_system = this;
 }
 
 EventSystem::~EventSystem()

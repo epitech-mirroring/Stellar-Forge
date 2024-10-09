@@ -12,7 +12,7 @@ using namespace json;
 JsonNull::JsonNull(std::string name) noexcept: _name(std::move(name)) {
 }
 
-JsonNull::operator nullptr_t() const {
+JsonNull::operator std::nullptr_t() const {
     return nullptr;
 }
 
@@ -34,9 +34,9 @@ std::string JsonNull::getName() const {
     return this->_name;
 }
 
-nullptr_t JsonNull::getValue() const {
+std::nullptr_t JsonNull::getValue() const {
     return nullptr;
 }
 
-void JsonNull::setValue(const nullptr_t & /*value*/) {
+void JsonNull::setValue(const std::nullptr_t & /*value*/) {
 }

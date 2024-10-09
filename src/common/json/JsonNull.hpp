@@ -11,7 +11,7 @@
 #include "IJsonPrimitiveObject.hpp"
 
 namespace json {
-    class JsonNull final : public IJsonPrimitiveObject<nullptr_t> {
+    class JsonNull final : public IJsonPrimitiveObject<std::nullptr_t> {
     protected:
         std::string _name;
 
@@ -28,11 +28,11 @@ namespace json {
 
         [[nodiscard]] std::string getName() const override;
 
-        [[nodiscard]] nullptr_t getValue() const override;
+        [[nodiscard]] std::nullptr_t getValue() const override;
 
-        void setValue(const nullptr_t &value) override;
+        void setValue(const std::nullptr_t &value) override;
 
-        explicit operator nullptr_t() const override;
+        explicit operator std::nullptr_t() const override;
     };
 }
 

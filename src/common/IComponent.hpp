@@ -33,6 +33,15 @@ public:
  virtual ~IComponent() = default;
 
  /**
+  * @brief The start function of the component
+  * This is meant to be runt by the parent object and initialize the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ virtual void beforeRendering() = 0;
+
+ /**
   * @brief The update function of the component.
   * This is meant to be runt by the parent object and update the component every frame
   * @version v0.1.0
@@ -42,6 +51,15 @@ public:
  virtual void runComponent() = 0;
 
  /**
+  * @brief The after function of the component
+  * This is meant to be runt by the parent object and update the component after the rendering
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Marius PAIN
+  */
+ virtual void afterRendering() = 0;
+
+ /**
   * @brief Returns a non-owning and non-null pointer to the owner of the component
   * @return the owner of the component
   * @version v0.1.0
@@ -49,6 +67,15 @@ public:
   * @author Axel ECKENBERG
   */
  virtual IObject *getOwner() = 0;
+
+ /**
+  * @brief This function is used to check if the component is active
+  * @return True if the component is active, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual bool isActive() = 0;
 
  /**
   * @class IComponent::IMeta

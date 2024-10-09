@@ -7,7 +7,7 @@
 
 #include "SpriteSheet.hpp"
 
-SpriteSheet::SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, int frame) : AGraphicsComponent(owner), path(path), frames(frames), currentFrame(frame)
+SpriteSheet::SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, unsigned int frame) : AGraphicsComponent(owner), path(path), frames(frames), currentFrame(frame)
 {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
@@ -72,7 +72,7 @@ glm::vec2 SpriteSheet::getSize()
 
 SpriteSheet::Meta::Meta(): AMeta("SpriteSheet", "A sprite sheet component that renders a sprite sheet on the screen", true, false, {
     new InvisibleFieldGroup({ new AField("path", "path to the sprite sheet image", IComponent::IMeta::IField::FieldType::STRING)}),
-    new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet"), //TODO list all the frames
+    new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet") //TODO list all the frames
 })
 {
 }

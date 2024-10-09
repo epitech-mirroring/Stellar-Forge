@@ -11,6 +11,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#ifndef __APPLE__
+#include <memory>
+#endif
 #include "common/IScene.hpp"
 #include "common/IObject.hpp"
 

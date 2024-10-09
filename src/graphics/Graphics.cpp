@@ -21,7 +21,7 @@ Graphics::Graphics(int width, int height, const char *title, bool precharge)
 }
 
 Graphics::~Graphics() {
-    clean();
+    close();
 }
 
 void Graphics::addAndSortObject(IObject *object) {
@@ -60,7 +60,7 @@ void Graphics::present() {
     window.display();
 }
 
-void Graphics::render(std::function<void(IObject *)> updateFunction) {
+void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     if (!prepared) {
         return;
     }

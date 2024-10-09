@@ -66,7 +66,7 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void render(std::function<void(IObject *)> updateFunction);
+    void render(const std::function<void(IObject *)> &updateFunction);
 
     /**
      * @brief Clears the current rendering target.

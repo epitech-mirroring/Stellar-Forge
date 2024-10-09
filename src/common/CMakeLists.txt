@@ -10,7 +10,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.hpp
@@ -30,7 +32,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp

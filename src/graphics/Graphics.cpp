@@ -15,7 +15,7 @@ Graphics::Graphics(int width, int height, const char *title, bool precharge)
     if (!window.isOpen()) {
         throw GraphicsException("Failed to create window");
     }
-    EventSystem::getInstance()->triggerEvents("window_opened", nullptr);
+    EventSystem::getInstance().triggerEvents("window_opened", nullptr);
     prepared = true;
     window.setFramerateLimit(60);
     sortedObjects.reserve(100);
@@ -180,10 +180,10 @@ void Graphics::catchEvents() {
             close();
         } if (event.type == sf::Event::KeyPressed) {
             std::string keyName = keyToString(event.key.code);
-            EventSystem::getInstance()->triggerEvents(keyName + "_pressed", nullptr);
+            EventSystem::getInstance().triggerEvents(keyName + "_pressed", nullptr);
         } if (event.type == sf::Event::KeyReleased) {
             std::string keyName = keyToString(event.key.code);
-            EventSystem::getInstance()->triggerEvents(keyName + "_released", nullptr);
+            EventSystem::getInstance().triggerEvents(keyName + "_released", nullptr);
         }
     }
 }
@@ -211,7 +211,7 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
 }
 
 void Graphics::close() {
-    EventSystem::getInstance()->triggerEvents("window_closed", nullptr);
+    EventSystem::getInstance().triggerEvents("window_closed", nullptr);
     window.close();
     prepared = false;
 }

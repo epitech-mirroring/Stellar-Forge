@@ -6,13 +6,10 @@
 */
 
 #include "GraphicsException.hpp"
-#include <utility>
 
-GraphicsException::GraphicsException(std::string message): _message{std::move(message)}
-{
+GraphicsException::GraphicsException(std::string message): _message{std::move(message)} {
 }
 
-const char* GraphicsException::what() const noexcept
-{
+const char *GraphicsException::what() const noexcept {
     return _message.c_str();
 }

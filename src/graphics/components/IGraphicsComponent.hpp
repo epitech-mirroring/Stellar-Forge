@@ -9,8 +9,12 @@
 #ifndef IGRAPHICSCOMPONENT_HPP
 #define IGRAPHICSCOMPONENT_HPP
 
-#include "../common/IComponent.hpp"
-#include <SDL2/SDL.h>
+#include "../../common/IComponent.hpp"
+#include "../../common/IObject.hpp"
+#include "../GraphicsException.hpp"
+#include <SFML/Graphics.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_float2.hpp>
 
 /**
  * @class IGraphicsComponent
@@ -29,27 +33,30 @@ public:
      * @details This ensures that derived classes can be properly destroyed, releasing all resources 
      *          when an object is deleted.
      * @since v0.1.0
+     * @author Aubane NOURRY
      */
     virtual ~IGraphicsComponent() = default;
 
     /**
-     * @brief Runs the logic associated with the graphics component.
-     * @details This pure virtual function should contain any logic that the component needs to execute 
-     *          during each frame, such as updating its state or preparing for rendering. It must be implemented
-     *          by any derived class.
-     * @since v0.1.0
-     */
-    virtual void runComponent() = 0;
-
-    /**
-     * @brief Renders the component using the provided SDL_Renderer.
-     * @param renderer A pointer to the SDL_Renderer object used for rendering.
+     * @brief Renders the component using the provided window.
+     * @param renderer A pointer to the window object used for rendering.
      * @details This pure virtual function must be implemented by derived classes to define how the component
      *          should be drawn on the screen. It is called each frame to render the visual aspects of the 
      *          component.
      * @since v0.1.0
+     * @author Aubane NOURRY
      */
-    virtual void render(SDL_Renderer *renderer) = 0;
+    virtual void render(sf::RenderWindow *window) = 0;
+
+    /**
+     * @brief Gets the size of the component on the screen.
+     * @return The size of the component as a glm::vec2.
+     * @details This pure virtual function must be implemented by derived classes to return the size of the
+     *         component on the screen. The size is returned as a glm::vec2, where x is the width and y is the height.
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    virtual glm::vec2 getSize() = 0;
 };
 
 #endif //IGRAPHICALCOMPONENT_HPP

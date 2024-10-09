@@ -69,6 +69,15 @@ public:
  virtual IObject *getOwner() = 0;
 
  /**
+  * @brief This function is used to check if the component is active
+  * @return True if the component is active, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual bool isActive() = 0;
+
+ /**
   * @class IComponent::IMeta
   * @brief The interface for components meta
   * @version v0.1.0

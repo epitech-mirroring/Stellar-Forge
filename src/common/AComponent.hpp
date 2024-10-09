@@ -62,6 +62,25 @@ public:
  void afterRendering() override;
 
  /**
+  * @brief This function is used to check if the component is active
+  * @see IComponent::isActive
+  * @return True if the component is active, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ bool isActive() override;
+
+ /**
+  * @brief This function is used to set the state of the component
+  * @param state The state of the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ void setActive(bool state);
+
+ /**
   * @brief Returns a non-owning and non-null pointer to the owner of the component
   * @see IComponent::getOwner
   * @return the owner of the component
@@ -107,6 +126,8 @@ protected:
   * @author Marius PAIN
   */
  const IMeta& _meta;
+
+ bool _isActive; //< The state of the component
 };
 
 #endif //ACOMPONENT_HPP

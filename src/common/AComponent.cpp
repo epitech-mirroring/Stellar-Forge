@@ -7,7 +7,7 @@
 
 #include "AComponent.hpp"
 
-AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta(meta)
+AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta(meta), _isActive(true)
 {
 }
 
@@ -27,4 +27,14 @@ IObject* AComponent::getOwner()
 const IComponent::IMeta &AComponent::getMeta() const
 {
     return this->_meta;
+}
+
+bool AComponent::isActive()
+{
+    return this->_isActive;
+}
+
+void AComponent::setActive(bool state)
+{
+    this->_isActive = state;
 }

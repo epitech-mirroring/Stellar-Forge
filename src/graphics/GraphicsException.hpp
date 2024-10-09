@@ -33,6 +33,16 @@ public:
     explicit GraphicsException(std::string message);
 
     /**
+     * @brief Default constructor
+     * @details This constructor initializes the GraphicsException with a message
+     * @param message const char*, the message
+     * @version 0.1.0
+     * @since 0.1.0
+     * @author Aubane NOURRY
+     */
+    explicit GraphicsException(const char* message);
+
+    /**
      * @brief Default destructor
      * @details This destructor clears the GraphicsException
      * @version 0.1.0

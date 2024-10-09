@@ -61,7 +61,7 @@ void Graphics::present() {
     window.display();
 }
 
-std::string Graphics::keyToString(sf::Keyboard::Key key) {
+const std::string Graphics::keyToString(sf::Keyboard::Key key) {
     static const std::unordered_map<sf::Keyboard::Key, std::string> keyMap = {
         {sf::Keyboard::Unknown, "unknown"},
         {sf::Keyboard::A, "a"},
@@ -164,16 +164,16 @@ std::string Graphics::keyToString(sf::Keyboard::Key key) {
         {sf::Keyboard::Pause, "pause"}
     };
 
-    auto it = keyMap.find(key);
-    if (it != keyMap.end()) {
-        return it->second;
+    auto keyStr = keyMap.find(key);
+    if (keyStr != keyMap.end()) {
+        return keyStr->second;
     } else {
         return "unknown-key";
     }
 }
 
 void Graphics::catchEvents() {
-    sf::Event event;
+    sf::Event event = sf::Event();
 
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {

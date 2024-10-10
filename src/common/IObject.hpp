@@ -83,6 +83,17 @@ public:
  virtual std::vector<IComponent *> getComponents() const = 0;
 
  /**
+ * @brief Returns a component of the object based on its type
+ * @param type The type of the component to get
+ * @return A pointer to the component. Can be null
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author landry GIGANT
+ */
+ [[nodiscard]]
+ virtual IComponent *getComponent(const std::type_info *type) const = 0;
+
+ /**
   * @brief Returns all the children of the object
   * @return A vector of pointers to objects. Can be empty
   * @version v0.1.0

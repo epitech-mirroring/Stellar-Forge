@@ -13,8 +13,10 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/IntRectFieldGroup.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.hpp
@@ -37,8 +39,10 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/IntRectFieldGroup.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/event/EventSystem.cpp

@@ -8,7 +8,6 @@
 #ifndef STELLARFORGE_VECTOR3FIELD_HPP
 #define STELLARFORGE_VECTOR3FIELD_HPP
 
-#include <utility>
 #include "../AField.hpp"
 
 /**

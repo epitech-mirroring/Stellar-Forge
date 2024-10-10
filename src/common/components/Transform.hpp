@@ -93,7 +93,7 @@ public:
      * @version v0.1.0
      * @since v0.1.0
      */
-    [[nodiscard]] Vector3 getPosition() const;
+    [[nodiscard]] Vector3 &getPosition();
 
     /**
      * @brief Gets the rotation of the object.
@@ -101,7 +101,7 @@ public:
      * @version v0.1.0
      * @since v0.1.0
      */
-    [[nodiscard]] glm::quat getRotation() const;
+    [[nodiscard]] glm::quat &getRotation();
 
     /**
      * @brief Gets the scale of the object.
@@ -109,7 +109,7 @@ public:
      * @version v0.1.0
      * @since v0.1.0
      */
-    [[nodiscard]] Vector3 getScale() const;
+    [[nodiscard]] Vector3 &getScale();
 
     /**
      * @brief Sets the position of the object.

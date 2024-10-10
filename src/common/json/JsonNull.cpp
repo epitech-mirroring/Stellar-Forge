@@ -7,6 +7,7 @@
 */
 
 #include "JsonNull.hpp"
+#include <stdexcept>
 using namespace json;
 
 JsonNull::JsonNull(std::string name) noexcept: _name(std::move(name)) {

@@ -5,17 +5,9 @@
 ** No file there , just an epitech header example .
 */
 
-#include "Collider.hpp"
+#include "Sphere.hpp"
+#include "Box.hpp"
 #include "Physics.hpp"
-
-bool Box::Collide(ICollider *collider) {
-    if (dynamic_cast<Box *>(collider) != nullptr) {
-        return Physics::Collision::BoxCollideBox(*this, *dynamic_cast<Box *>(collider));
-    } else if (dynamic_cast<Sphere *>(collider) != nullptr) {
-        return Physics::Collision::BoxCollideSphere(*this, *dynamic_cast<Sphere *>(collider));
-    }
-    return false;
-}
 
 bool Sphere::Collide(ICollider *collider) {
     if (dynamic_cast<Sphere *>(collider) != nullptr) {

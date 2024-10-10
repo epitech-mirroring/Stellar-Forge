@@ -21,3 +21,4 @@ Checks: >
   -misc-include-cleaner,
   -*-special-member-functions,
   -*-pro-type-union-access,
+  -boost-*,

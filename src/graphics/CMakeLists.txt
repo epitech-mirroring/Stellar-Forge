@@ -1,7 +1,7 @@
 add_library(StellarForgeGraphics STATIC)
 add_library(StellarForge::Graphics ALIAS StellarForgeGraphics)
 add_dependencies(StellarForgeGraphics StellarForgeCommon)
-target_link_libraries(StellarForgeGraphics sfml::sfml glm::glm)
+target_link_libraries(StellarForgeGraphics PUBLIC stduuid::stduuid sfml::sfml glm::glm)
 
 target_sources(StellarForgeGraphics
         PUBLIC

@@ -9,7 +9,7 @@
 #include "Box.hpp"
 #include "Physics.hpp"
 
-bool Box::Collide(ICollider *collider) {
+bool Box::collide(ICollider *collider) {
     if (dynamic_cast<Box *>(collider) != nullptr) {
         return Physics::Collision::BoxCollideBox(*this, *dynamic_cast<Box *>(collider));
     } else if (dynamic_cast<Sphere *>(collider) != nullptr) {

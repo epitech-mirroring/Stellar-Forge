@@ -42,7 +42,7 @@ public:
      * @param collider The collider to check for collision.
      * @return True if the sphere collides with the collider, false otherwise.
      */
-    bool Collide(ICollider *collider) override;
+    bool collide(ICollider *collider) override;
 };
 
 #endif //STELLARFORGE_SPHERE_HPP

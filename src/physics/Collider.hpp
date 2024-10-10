@@ -38,7 +38,7 @@ public:
      * @since v0.1.0
      * @author Landry GIGANT
      */
-    virtual bool Collide(ICollider *collider) = 0;
+    virtual bool collide(ICollider *collider) = 0;
 };
 
 #endif //STELLARFORGE_COLLIDER_HPP

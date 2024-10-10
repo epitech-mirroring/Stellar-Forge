@@ -16,8 +16,13 @@
 #include "common/json/JsonParser.hpp"
 #include "common/json/JsonString.hpp"
 
-namespace json {
-    class JsonBoolean;
+TEST(JsonParser, parse_empty) {
+    json::JsonParser const parser;
+    const auto *const tmp = parser.parse(R"({})");
+    ASSERT_EQ(tmp->getType(), json::OBJECT);
+    ASSERT_EQ(tmp->getName(), "");
+    const auto *const obj = dynamic_cast<const json::JsonObject *>(tmp);
+    ASSERT_EQ(obj->getValue<json::JsonBoolean>("key"), nullptr);
 }
 
 TEST(JsonParser, parse_string) {
@@ -113,4 +118,16 @@ TEST(JsonParser, parse_array_nested) {
     const auto *const arr = obj->getValue<json::JsonArray<json::JsonObject> >("key");
     const auto *const nested = arr->at(0);
     ASSERT_STREQ(nested->getValue<json::JsonString>("key")->getValue().c_str(), "value");
+}
+
+TEST(JsonParser, root_array) {
+    json::JsonParser const parser;
+    const auto *const tmp = parser.parse(R"([1, 2, 3])");
+    ASSERT_EQ(tmp->getType(), json::ARRAY);
+    ASSERT_EQ(tmp->getName(), "");
+    const auto *const arr = dynamic_cast<const json::JsonArray<json::JsonNumber> *>(tmp);
+    ASSERT_EQ(arr->size(), 3);
+    ASSERT_EQ(arr->at(0)->getIntValue(), 1);
+    ASSERT_EQ(arr->at(1)->getIntValue(), 2);
+    ASSERT_EQ(arr->at(2)->getIntValue(), 3);
 }

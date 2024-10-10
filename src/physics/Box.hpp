@@ -35,7 +35,7 @@ public:
      * @param position The position of the box in 3D space.
      * @param size The size of the box in 3D space.
      */
-    Box(Vector3 position, Vector3 size) : position(position), size(size) {};
+    Box(Vector3 position, Vector3 size);
 
     /**
      * @brief Check if the box collides with another collider.

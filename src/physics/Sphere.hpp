@@ -35,7 +35,7 @@ public:
      * @param position The position of the sphere in 3D space.
      * @param radius The radius of the sphere.
      */
-    Sphere(Vector3 position, float radius) : position(position), radius(radius) {};
+    Sphere(Vector3 position, float radius);
 
     /**
      * @brief Check if the sphere collides with another collider.

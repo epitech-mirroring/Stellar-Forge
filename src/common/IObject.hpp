@@ -174,6 +174,15 @@ public:
  virtual void runObject() = 0;
 
  /**
+  * @brief This function is used to check if the object is active.
+  * @return True if the object is active, false otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual bool isActive() = 0;
+
+ /**
   * @class IMeta
   * @brief This is the interface for the object's meta class.
   * @details This class is used to get all the meta information of the object.

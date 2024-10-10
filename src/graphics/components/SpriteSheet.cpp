@@ -1,0 +1,78 @@
+/*
+** EPITECH PROJECT, 2024
+** Stellar-Forge components
+** File description:
+** SpriteSheet.cpp
+**/
+
+#include "SpriteSheet.hpp"
+
+SpriteSheet::SpriteSheet(IObject* owner, const char *path, std::vector<sf::IntRect> frames, unsigned int frame) : AGraphicsComponent(owner), path(path), frames(frames), currentFrame(frame)
+{
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+    }
+    sprite.setTexture(texture);
+    sprite.setTextureRect(frames[currentFrame]);
+}
+
+void SpriteSheet::render(sf::RenderWindow *window)
+{
+    auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+    if (transformComponent != nullptr) {
+        sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
+        sprite.setRotation(transformComponent->getRotation().x);
+        sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
+        sprite.setTextureRect(frames[currentFrame]);
+        window->draw(sprite);
+    }
+}
+
+void SpriteSheet::setTexture(const char *path)
+{
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+    }
+    sprite.setTexture(texture);
+}
+
+void SpriteSheet::setFrames(std::vector<sf::IntRect> frames)
+{
+    this->frames = std::move(frames);
+}
+
+void SpriteSheet::setFrame(unsigned int frame)
+{
+    currentFrame = frame;
+    sprite.setTextureRect(frames[currentFrame]);
+}
+
+void SpriteSheet::nextFrame()
+{
+    currentFrame++;
+    if (currentFrame >= frames.size()) {
+        currentFrame = 0;
+    }
+    sprite.setTextureRect(frames[currentFrame]);
+}
+
+void SpriteSheet::prevFrame()
+{
+    currentFrame--;
+    if (currentFrame < 0) {
+        currentFrame = (unsigned int) frames.size() - 1;
+    }
+    sprite.setTextureRect(frames[currentFrame]);
+}
+
+glm::vec2 SpriteSheet::getSize()
+{
+    return {frames[currentFrame].width, frames[currentFrame].height};
+}
+
+SpriteSheet::Meta::Meta(): AMeta("SpriteSheet", "A sprite sheet component that renders a sprite sheet on the screen", true, false, {
+    new InvisibleFieldGroup({ new AField("path", "path to the sprite sheet image", IComponent::IMeta::IField::FieldType::STRING)}),
+    new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet") //TODO list all the frames
+})
+{
+}

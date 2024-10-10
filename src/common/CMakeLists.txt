@@ -1,7 +1,8 @@
 add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
+target_link_libraries(StellarForgeCommon PUBLIC stduuid::stduuid GSL::gsl glm::glm)
 
-target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl glm::glm)
+add_subdirectory(json)
 
 target_sources(StellarForgeCommon
         PUBLIC
@@ -10,8 +11,11 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/IScene.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/IntRectFieldGroup.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IError.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
@@ -25,6 +29,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ManagerException.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UncertainBool.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.cpp
@@ -32,8 +37,11 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AFieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/Vector3Field.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/FileField.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/fields/IntRectFieldGroup.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/fields/FloatField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/Transform.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/components/CPPMonoBehaviour.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/components/RigidBody.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp

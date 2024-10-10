@@ -9,11 +9,11 @@
 #define AGRAPHICSCOMPONENT_HPP
 
 #include "IGraphicsComponent.hpp"
-#include "../../common/AMeta.hpp"
-#include "../../common/AField.hpp"
-#include "../../common/AFieldGroup.hpp"
-#include "../../common/components/Transform.hpp"
-#include "../../common/fields/IntRectFieldGroup.hpp"
+#include "common/AMeta.hpp"
+#include "common/AField.hpp"
+#include "common/AFieldGroup.hpp"
+#include "common/components/Transform.hpp"
+#include "common/fields/IntRectFieldGroup.hpp"
 
 /**
  * @class AGraphicsComponent

@@ -9,8 +9,8 @@
 #ifndef IGRAPHICSCOMPONENT_HPP
 #define IGRAPHICSCOMPONENT_HPP
 
-#include "../../common/IComponent.hpp"
-#include "../../common/IObject.hpp"
+#include "common/IComponent.hpp"
+#include "common/IObject.hpp"
 #include "../GraphicsException.hpp"
 #include <SFML/Graphics.hpp>
 #include <glm/ext/vector_float3.hpp>
@@ -28,25 +28,26 @@
  */
 class IGraphicsComponent : public IComponent {
 public:
-    /**
-     * @brief Virtual destructor for the IGraphicsComponent class.
-     * @details This ensures that derived classes can be properly destroyed, releasing all resources 
-     *          when an object is deleted.
-     * @since v0.1.0
-     * @author Aubane NOURRY
+ /**
+  * @brief Virtual destructor for the IGraphicsComponent class.
+  * @details This ensures that derived classes can be properly destroyed, releasing all resources
+  *          when an object is deleted.
+  * @since v0.1.0
+  * @author Aubane NOURRY
      */
-    virtual ~IGraphicsComponent() = default;
+ virtual ~IGraphicsComponent() = default;
 
-    /**
-     * @brief Renders the component using the provided window.
-     * @param renderer A pointer to the window object used for rendering.
-     * @details This pure virtual function must be implemented by derived classes to define how the component
-     *          should be drawn on the screen. It is called each frame to render the visual aspects of the 
-     *          component.
-     * @since v0.1.0
-     * @author Aubane NOURRY
+ /**
+
+  * @brief Renders the component using the provided window.
+  * @param renderer A pointer to the window object used for rendering.
+  * @details This pure virtual function must be implemented by derived classes to define how the component
+  *          should be drawn on the screen. It is called each frame to render the visual aspects of the
+  *          component.
+  * @since v0.1.0
+  *@author Aubane NOURRY
      */
-    virtual void render(sf::RenderWindow *window) = 0;
+ virtual void render(sf::RenderWindow *window) = 0;
 
     /**
      * @brief Gets the size of the component on the screen.

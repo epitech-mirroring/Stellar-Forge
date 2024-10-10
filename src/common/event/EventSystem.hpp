@@ -74,7 +74,7 @@ private:
   * @details Initializes the EventSystem with no listeners.
   * @version v0.1.0
   * @since v0.1.0
-  * @author Aubane NOURRY
+  * @authors Aubane NOURRY, Marius PAIN
   */
  EventSystem();
 
@@ -83,7 +83,7 @@ private:
   * @details Cleans up the EventSystem when it is no longer in use.
   * @version v0.1.0
   * @since v0.1.0
-  * @author Aubane NOURRY
+  * @authors Aubane NOURRY, Marius PAIN
   */
  ~EventSystem();
  /**

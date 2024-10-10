@@ -9,12 +9,20 @@
 #ifndef GRAPHICS_HPP
 #define GRAPHICS_HPP
 
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <vector>
-#include <memory>
 #include "../common/IScene.hpp"
 #include "../common/IObject.hpp"
+#include "../common/components/Transform.hpp"
+#include "components/IGraphicsComponent.hpp"
+#include "GraphicsException.hpp"
+
+#include <iostream>
+#include <algorithm>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <vector>
+#include <memory>
+#include <functional>
 
 /**
  * @class Graphics
@@ -52,13 +60,14 @@ public:
 
     /**
      * @brief Renders the objects in the current scene.
+     * @param function A function to update the object before rendering.
      * @details This method renders all objects in the current scene in the correct order
      *         based on their z-index. It should be called once per frame to render the
      *        scene.
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void render();
+    void render(const std::function<void(IObject *)> &updateFunction);
 
     /**
      * @brief Clears the current rendering target.
@@ -79,12 +88,12 @@ public:
     void present();
 
     /**
-     * @brief Cleans up the graphics system.
-     * @details Releases all resources used by the graphics system.
+     * @brief Closes the graphics system.
+     * @details Releases all resources used by the graphics system, closes the window
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    void clean();
+    void close();
 
     /**
      * @brief Adds an object to the sorted object list and maintains the correct order.
@@ -108,12 +117,12 @@ public:
     void setScene(IScene *scene);
 
 private:
-    sf::RenderWindow window;                     /**< The SFML window used for rendering. */
+    sf::RenderWindow window;                     /**< The SDL window used for rendering. */
     int width;                                   /**< The width of the window. */
     int height;                                  /**< The height of the window. */
     const char *title;                           /**< The title of the window. */
-    bool prepared;                            /**< Flag indicating if the graphics system is prepared. */
-    std::vector<std::shared_ptr<IObject>> sortedObjects; /**< List of objects sorted by z-index for rendering. */
+    bool prepared;                               /**< Flag indicating if the graphics system is prepared. */
+    std::vector<IObject *> sortedObjects;        /**< List of objects sorted by z-index for rendering. */
     bool precharge;                              /**< Flag to indicate if all objects should be preloaded in all scenes. */
     IScene *currentScene;                        /**< The current scene being rendered. */
 };

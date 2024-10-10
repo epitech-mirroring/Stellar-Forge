@@ -22,24 +22,6 @@ class EventSystem
 {
 public:
  /**
-  * @brief Default constructor
-  * @details This constructor initializes the event system
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- EventSystem();
-
- /**
-  * @brief Default destructor
-  * @details This destructor clears the event system
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- ~EventSystem();
-
- /**
   * @brief Register a listener for an event
   * @details This function registers a listener for an event
   * @param name std::string, the name of the event
@@ -79,14 +61,31 @@ public:
  /**
   * @brief Get the instance of the event system
   * @details This function returns an instance of the event system
-  * @return EventSystem*, the instance of the event system
+  * @return EventSystem&, the instance of the event system
   * @version 0.1.0
   * @since 0.1.0
-  * @author Marius PAIN
+  * @author Aubane NOURRY
   */
- static EventSystem* getInstance();
+ static EventSystem &getInstance();
 
 private:
+ /**
+  * @brief Default constructor for EventSystem private to prevent creation.
+  * @details Initializes the EventSystem with no listeners.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @authors Aubane NOURRY, Marius PAIN
+  */
+ EventSystem();
+
+ /**
+  * @brief Destructor for EventSystem private to prevent deletion.
+  * @details Cleans up the EventSystem when it is no longer in use.
+  * @version v0.1.0
+  * @since v0.1.0
+  * @authors Aubane NOURRY, Marius PAIN
+  */
+ ~EventSystem();
  /**
   * @brief Trigger an event from the event name
   * @details This function triggers an event from the event name
@@ -110,15 +109,6 @@ private:
   * @author Marius PAIN
   */
  std::unordered_map<std::string, std::vector<std::pair<UUID, EventConsumer>>> _listeners;
-
- /**
-  * @brief Event manager
-  * @details This static pointer contains the event manager
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- static EventSystem* _event_system;
 };
 
 #endif // EVENTSYSTEM_HPP

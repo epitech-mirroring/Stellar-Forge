@@ -1,7 +1,8 @@
 add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
+target_link_libraries(StellarForgeCommon PUBLIC stduuid::stduuid GSL::gsl glm::glm)
 
-target_link_libraries(StellarForgeCommon stduuid::stduuid GSL::gsl glm::glm)
+add_subdirectory(json)
 
 target_sources(StellarForgeCommon
         PUBLIC
@@ -26,6 +27,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ObjectManager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/SceneManager.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/managers/ManagerException.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UncertainBool.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AMeta.cpp

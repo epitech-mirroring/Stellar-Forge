@@ -9,6 +9,7 @@
 #ifndef IJSONREADER_HPP
 #define IJSONREADER_HPP
 #include <iostream>
+#include <sstream>
 
 #include "IJsonObject.hpp"
 
@@ -17,12 +18,17 @@ namespace json {
     public:
         virtual ~IJsonReader() = default;
 
-        IJsonObject *operator<<(std::istream &input) {
+        IJsonObject *operator<<(std::istream &input) const {
             return this->read(input);
         }
 
+        IJsonObject *operator<<(const char *input) const {
+            std::istringstream stream(input);
+            return this->read(stream);
+        }
+
         [[nodiscard]]
-        virtual IJsonObject *read(std::istream &input) = 0;
+        virtual IJsonObject *read(std::istream &input) const = 0;
     };
 }
 

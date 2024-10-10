@@ -12,6 +12,9 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonNumber.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonNull.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonParser.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonWriter.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonPrettyWriter.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonReader.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonArray.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonObject.cpp
@@ -20,4 +23,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonNumber.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonNull.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/JsonParser.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonWriter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonPrettyWriter.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/JsonReader.cpp
 )

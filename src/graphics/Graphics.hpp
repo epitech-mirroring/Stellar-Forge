@@ -11,6 +11,7 @@
 
 #include "common/IScene.hpp"
 #include "common/IObject.hpp"
+#include "common/event/EventSystem.hpp"
 #include "common/components/Transform.hpp"
 #include "components/IGraphicsComponent.hpp"
 #include "GraphicsException.hpp"
@@ -74,6 +75,25 @@ public:
  void render(const std::function<void(IObject *)> &updateFunction);
 
  /**
+     * @brief Translates an SFM key code to a string.
+     * @param key The SFML key code to translate.
+     * @return The string representation of the key in lowercase and spaces replaced with dashes.
+     * @details This method translates an SFML key code to a string representation of the key.
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    static std::string keyToString(sf::Keyboard::Key key);
+
+    /**
+     * @brief Checks for and handles any events.
+     * @details This method checks for any events that have occurred since the last frame
+     *         and handles them accordingly.
+     * @since v0.1.0
+     * @author Aubane NOURRY
+     */
+    void catchEvents();
+
+    /**
   * @brief Clears the current rendering target.
   * @details Clears the renderer's drawing surface, typically called at the beginning of a frame
   *          before rendering the objects.

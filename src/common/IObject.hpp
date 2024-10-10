@@ -84,10 +84,11 @@ public:
 
  /**
  * @brief Returns a component of the object based on its type
+ * @param type The type of the component to get
  * @return A pointer to the component. Can be null
  * @version v0.1.0
  * @since v0.1.0
- * @author Axel ECKENBERG
+ * @author landry GIGANT
  */
  [[nodiscard]]
  virtual IComponent *getComponent(const std::type_info *type) const = 0;

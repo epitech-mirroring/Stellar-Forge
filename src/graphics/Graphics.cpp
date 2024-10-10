@@ -194,6 +194,7 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     }
     clear();
 
+    catchEvents();
     const std::vector<IObject *> objects = currentScene->getObjects();
     for (auto *object : objects) {
         addAndSortObject(object);

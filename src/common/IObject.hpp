@@ -10,6 +10,7 @@
 #define IOBJECT_HPP
 #include "IComponent.hpp"
 #include <optional>
+#include <typeinfo>
 #include <string>
 #include <vector>
 

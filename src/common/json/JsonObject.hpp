@@ -49,5 +49,8 @@ namespace json {
         void add(IJsonObject *value);
 
         void setValue(const std::string &key, IJsonObject *value);
+
+        [[nodiscard]]
+        bool contains(const std::string &key) const;
     };
 }

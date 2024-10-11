@@ -7,9 +7,23 @@
 
 #include "AnimatedSprite.hpp"
 
-AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf::IntRect> frames, float frameTime, unsigned int currentFrame)
-    : AGraphicsComponent(owner), path(path), frames(frames), frameTime(frameTime), currentFrame(currentFrame)
-{
+#include "common/components/Transform.hpp"
+#include "common/fields/FileField.hpp"
+#include "common/json/JsonArray.hpp"
+#include "common/json/JsonNumber.hpp"
+#include "common/json/JsonString.hpp"
+
+namespace json {
+    class JsonString;
+}
+
+AnimatedSprite::AnimatedSprite(IObject *owner, const std::string &path,
+                               const std::vector<sf::IntRect> &frames,
+                               const float frameTime,
+                               const unsigned int currentFrame)
+    : AComponent(owner, new Meta(this)), frames(frames), currentFrame(currentFrame),
+      frameTime(frameTime),
+      path(path) {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
     }
@@ -17,41 +31,43 @@ AnimatedSprite::AnimatedSprite(IObject* owner, const char *path, std::vector<sf:
     sprite.setTextureRect(frames[currentFrame]);
 }
 
-void AnimatedSprite::runComponent()
-{
+AnimatedSprite::AnimatedSprite(IObject *owner, const json::JsonObject *data): AComponent(
+        owner, new Meta(this), data), frames({}), currentFrame(0), frameTime(0.1f) {
+}
+
+
+void AnimatedSprite::runComponent() {
     if (clock.getElapsedTime().asSeconds() >= frameTime) {
         nextFrame();
         clock.restart();
     }
 }
 
-void AnimatedSprite::render(sf::RenderWindow *window)
-{
-    auto *transformComponent = dynamic_cast<Transform *>(findOwnerTransform());
+void AnimatedSprite::render(sf::RenderWindow *window) {
+    const auto *transformComponent = getParentComponent<Transform>();
     if (transformComponent != nullptr) {
-        sprite.setPosition(transformComponent->getPosition().x, transformComponent->getPosition().y);
+        sprite.setPosition(transformComponent->getPosition().x,
+                           transformComponent->getPosition().y);
         sprite.setRotation(transformComponent->getRotation().x);
-        sprite.setScale(transformComponent->getScale().x, transformComponent->getScale().y);
+        sprite.setScale(transformComponent->getScale().x,
+                        transformComponent->getScale().y);
         sprite.setTextureRect(frames[currentFrame]);
         window->draw(sprite);
     }
 }
 
-void AnimatedSprite::setTexture(const char *path)
-{
+void AnimatedSprite::setTexture(const std::string &path) {
     if (!texture.loadFromFile(path)) {
         throw GraphicsException("Failed to load texture from file: " + std::string(path));
     }
     sprite.setTexture(texture);
 }
 
-void AnimatedSprite::setFrames(std::vector<sf::IntRect> frames)
-{
+void AnimatedSprite::setFrames(std::vector<sf::IntRect> frames) {
     this->frames = std::move(frames);
 }
 
-void AnimatedSprite::setFrame(unsigned int frame)
-{
+void AnimatedSprite::setFrame(const unsigned int frame) {
     if (frame >= frames.size()) {
         throw GraphicsException("Frame index out of range");
     }
@@ -59,8 +75,7 @@ void AnimatedSprite::setFrame(unsigned int frame)
     sprite.setTextureRect(frames[currentFrame]);
 }
 
-void AnimatedSprite::nextFrame()
-{
+void AnimatedSprite::nextFrame() {
     currentFrame++;
     if (currentFrame >= frames.size()) {
         currentFrame = 0;
@@ -68,28 +83,83 @@ void AnimatedSprite::nextFrame()
     sprite.setTextureRect(frames[currentFrame]);
 }
 
-void AnimatedSprite::prevFrame()
-{
+void AnimatedSprite::prevFrame() {
     currentFrame--;
     if (currentFrame < 0) {
-        currentFrame = (unsigned int) frames.size() - 1;
+        currentFrame = static_cast<unsigned int>(frames.size()) - 1;
     }
     sprite.setTextureRect(frames[currentFrame]);
 }
 
-void AnimatedSprite::setFrameTime(float frameTime)
-{
+void AnimatedSprite::setFrameTime(const float frameTime) {
     this->frameTime = frameTime;
 }
 
-glm::vec2 AnimatedSprite::getSize()
-{
+glm::vec2 AnimatedSprite::getSize() {
     return {frames[currentFrame].width, frames[currentFrame].height};
 }
 
-AnimatedSprite::Meta::Meta(): AMeta("AnimatedSprite", "A sprite sheet component that renders a sprite sheet on the screen", true, false, {
-    new InvisibleFieldGroup({ new AField("path", "path to the sprite sheet image", IComponent::IMeta::IField::FieldType::STRING)}),
-    new IntRectFieldGroup("currentFrame", "The current frame of the sprite sheet"), //TODO list all the frames
-})
-{
+AnimatedSprite::Meta::Meta(AnimatedSprite *owner): IMeta(), _owner(owner),
+                                                   _fieldGroup({}) {
+    auto fields = std::vector<IField *>();
+    auto *field = new FileField("Sprite", "The sprite file to use",
+                                [this](const std::string &value) {
+                                    this->_owner->path = value;
+                                    this->_owner->setTexture(value);
+                                },
+                                [this]() { return this->_owner->path; });
+    fields.push_back(field);
+    this->_fieldGroup = InvisibleFieldGroup(fields);
+}
+
+std::string AnimatedSprite::Meta::getName() const {
+    return "Animated Sprite";
+}
+
+std::string AnimatedSprite::Meta::getDescription() const {
+    return "Animate a sprite on the screen";
+}
+
+bool AnimatedSprite::Meta::isUnique() const {
+    return false;
+}
+
+bool AnimatedSprite::Meta::canBeRemoved() const {
+    return true;
+}
+
+std::vector<const IComponent::IMeta::IFieldGroup *>
+AnimatedSprite::Meta::getFieldGroups() const {
+    return {&_fieldGroup};
+}
+
+void AnimatedSprite::deserialize(const json::IJsonObject *data) {
+    if (data != nullptr && data->getType() == json::OBJECT) {
+        const auto *const obj = dynamic_cast<const json::JsonObject *>(data);
+        if (obj->contains("path")) {
+            this->path = obj->getValue<json::JsonString>("path")->getValue();
+            this->setTexture(this->path);
+        }
+        if (obj->contains("frames")) {
+            auto frames = std::vector<sf::IntRect>();
+            for (const auto *const frame: obj->getValue<json::JsonArray<
+                     json::JsonObject> >("frames")->getValues()) {
+                auto left = frame->getValue<json::JsonNumber>("left")->getFloatValue();
+                auto top = frame->getValue<json::JsonNumber>("top")->getFloatValue();
+                auto width = frame->getValue<json::JsonNumber>("width")->getFloatValue();
+                auto height = frame->getValue<json::JsonNumber>("height")->
+                        getFloatValue();
+                frames.emplace_back(left, top, width, height);
+            }
+            this->setFrames(frames);
+        }
+        if (obj->contains("frameTime")) {
+            this->frameTime = obj->getValue<json::JsonNumber>("frameTime")->
+                    getFloatValue();
+        }
+        if (obj->contains("currentFrame")) {
+            this->currentFrame = obj->getValue<json::JsonNumber>("currentFrame")->
+                    getIntValue();
+        }
+    }
 }

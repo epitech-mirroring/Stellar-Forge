@@ -8,10 +8,10 @@
 
 #ifndef IOBJECT_HPP
 #define IOBJECT_HPP
-#include "IComponent.hpp"
 #include <optional>
 #include <string>
 #include <vector>
+#include "IComponent.hpp"
 
 /**
  * @class IObject

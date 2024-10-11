@@ -7,9 +7,8 @@
 
 #ifndef CPPMONOBEHAVIOUR_HPP
 #define CPPMONOBEHAVIOUR_HPP
-
-#include "../AComponent.hpp"
-#include "../AMeta.hpp"
+#include "AComponent.hpp"
+#include "common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**
  * @class CPPMonoBehaviour
@@ -18,9 +17,19 @@
  * @since v0.1.0
  * @author Marius PAIN
  */
-class CPPMonoBehaviour : virtual public AComponent
-{
+class CPPMonoBehaviour : public AComponent {
+protected:
+ std::string file_path;
+
 public:
+ /**
+  * @brief The constructor of the CPPMonoBehaviour class
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Axel ECKENBERG
+  */
+ explicit CPPMonoBehaviour(IObject *owner);
+
  /**
   * @brief The destructor of the CPPMonoBehaviour class
   * @version v0.1.0
@@ -102,16 +111,25 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- class Meta : public AMeta
- {
+ class Meta final : public IMeta {
+ private:
+  CPPMonoBehaviour *_owner;
+  InvisibleFieldGroup _fieldGroup;
+
  public:
-  /**
-   * @brief The constructor of the Meta class for the CPPMonoBehaviour
-   * @version v0.1.0
-   * @since v0.1.0
-   * @author Marius PAIN
-   */
-  Meta();
+  explicit Meta(CPPMonoBehaviour *owner);
+
+  ~Meta() override = default;
+
+  [[nodiscard]] std::string getName() const override;
+
+  [[nodiscard]] std::string getDescription() const override;
+
+  [[nodiscard]] bool isUnique() const override;
+
+  [[nodiscard]] bool canBeRemoved() const override;
+
+  [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
  };
 };
 

@@ -7,8 +7,8 @@
 
 #ifndef ACOMPONENT_HPP
 #define ACOMPONENT_HPP
-
-#include "IComponent.hpp"
+#include "common/IComponent.hpp"
+#include "common/json/JsonObject.hpp"
 
 /**
  * @class AComponent
@@ -17,8 +17,7 @@
  * @since v0.1.0
  * @author Marius PAIN
  */
-class AComponent : virtual public IComponent
-{
+class AComponent : virtual public IComponent {
 public:
  /**
   * @brief The destructor of the AComponent class
@@ -26,7 +25,7 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- ~AComponent() override = default;
+ ~AComponent() override;
 
  /**
   * @brief The before function of the component
@@ -88,7 +87,7 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] IObject* getOwner() override;
+ [[nodiscard]] IObject *getOwner() override;
 
  /**
   * @brief Get the meta of the component
@@ -98,18 +97,28 @@ public:
   * @since v0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] const IMeta& getMeta() const override;
+ [[nodiscard]] const IMeta &getMeta() const override;
+
+ template<typename T>
+ T *getParentComponent();
+
+ [[nodiscard]] json::IJsonObject *serialize() final;
+
+ [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
+
+ virtual void deserialize(const json::IJsonObject *data) = 0;
 
 protected:
  /**
   * @brief The constructor of the AComponent class
   * @param owner The owner of the component
   * @param meta The meta of the component
+  * @param data The data of the component
   * @version v0.1.0
   * @since v0.1.0
   * @author Marius PAIN
   */
- AComponent(IObject* owner, const IMeta& meta);
+ AComponent(IObject *owner, const IMeta *meta, const json::JsonObject *data = nullptr);
 
  /**
   * @brief The owner of the component
@@ -117,7 +126,7 @@ protected:
   * @since v0.1.0
   * @author Marius PAIN
  */
- IObject* _owner;
+ IObject *_owner;
 
  /**
   * @brief The meta of the component
@@ -125,7 +134,7 @@ protected:
   * @since v0.1.0
   * @author Marius PAIN
   */
- const IMeta& _meta;
+ const IMeta *_meta;
 
  bool _isActive; //< The state of the component
 };

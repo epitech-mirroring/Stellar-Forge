@@ -9,6 +9,11 @@
 #include "../fields/FieldGroup.hpp"
 #include "../fields/FileField.hpp"
 
+void CPPMonoBehaviour::onStart()
+{
+    start();
+}
+
 void CPPMonoBehaviour::beforeRendering()
 {
     before();

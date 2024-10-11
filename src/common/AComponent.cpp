@@ -11,6 +11,10 @@ AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta
 {
 }
 
+void AComponent::onStart()
+{
+}
+
 void AComponent::beforeRendering()
 {
 }

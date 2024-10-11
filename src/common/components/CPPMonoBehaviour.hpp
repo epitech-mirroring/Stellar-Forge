@@ -40,6 +40,17 @@ public:
   */
   void onStart() final;
 
+  /**
+  * @brief The delete function of the component
+  * This is meant to be runt by the parent object and initialize the component
+  * @note This is not supposed to be overriden in the child class (you should modify the delete function instead)
+  * @see IComponent::onDelete
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+  void onDelete() final;
+
  /**
   * @brief The before function of the component
   * This is meant to be runt by the parent object and update the component before the rendering
@@ -83,6 +94,17 @@ public:
   * @author Aubane NOURRY
   */
  virtual void start() = 0;
+
+ /**
+  * @brief The delete function of the component
+  * This is meant to be runt by the parent object and delete the component
+  * @note This is a pure virtual function and must be implemented in the child class
+  * @see IComponent::onDelete
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual void end() = 0;
 
  /**
   * @brief The start function of the component

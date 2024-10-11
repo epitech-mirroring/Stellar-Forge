@@ -14,6 +14,11 @@ void CPPMonoBehaviour::onStart()
     start();
 }
 
+void CPPMonoBehaviour::onDelete()
+{
+    end();
+}
+
 void CPPMonoBehaviour::beforeRendering()
 {
     before();

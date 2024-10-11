@@ -15,6 +15,10 @@ void AComponent::onStart()
 {
 }
 
+void AComponent::onDelete()
+{
+}
+
 void AComponent::beforeRendering()
 {
 }

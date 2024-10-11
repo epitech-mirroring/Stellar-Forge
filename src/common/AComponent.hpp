@@ -29,26 +29,26 @@ public:
  ~AComponent() override = default;
 
  /**
-  * @brief The start function of the component
+  * @brief The creation function of the component
   * * This is meant to be runt by the parent object and initialize the component
   * @note This is not a pure virtual function and can be overriden in the child class
-  * @see IComponent::onStart
+  * @see IComponent::onCreation
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
-  void onStart() override;
+  void onCreation() override;
 
   /**
-  * @brief The delete function of the component
+  * @brief The deletion function of the component
   * * This is meant to be runt by the parent object and delete the component
   * @note This is not a pure virtual function and can be overriden in the child class
-  * @see IComponent::onDelete
+  * @see IComponent::onDeletion
   * @version v0.1.0
   * @since v0.1.0
   * @author Aubane NOURRY
   */
-  void onDelete() override;
+  void onDeletion() override;
 
  /**
   * @brief The before function of the component

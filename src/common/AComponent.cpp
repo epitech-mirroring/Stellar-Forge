@@ -11,11 +11,11 @@ AComponent::AComponent(IObject *owner, const IMeta &meta) : _owner(owner), _meta
 {
 }
 
-void AComponent::onStart()
+void AComponent::onCreation()
 {
 }
 
-void AComponent::onDelete()
+void AComponent::onDeletion()
 {
 }
 

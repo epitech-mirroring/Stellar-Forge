@@ -9,12 +9,12 @@
 #include "../fields/FieldGroup.hpp"
 #include "../fields/FileField.hpp"
 
-void CPPMonoBehaviour::onStart()
+void CPPMonoBehaviour::onCreation()
 {
     start();
 }
 
-void CPPMonoBehaviour::onDelete()
+void CPPMonoBehaviour::onDeletion()
 {
     end();
 }

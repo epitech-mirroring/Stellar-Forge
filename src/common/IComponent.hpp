@@ -339,6 +339,8 @@ public:
   * @see json::IJsonObject
   */
  [[nodiscard]] virtual json::IJsonObject *serialize() = 0;
+
+ [[nodiscard]] virtual IComponent *clone(IObject *owner) const = 0;
 };
 
 template<typename T>

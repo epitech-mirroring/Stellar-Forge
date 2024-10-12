@@ -189,6 +189,8 @@ public:
  [[nodiscard]] json::IJsonObject *serializeData() override;
 
  void deserialize(const json::IJsonObject *data) override;
+
+ [[nodiscard]] Transform *clone(IObject *owner) const override;
 };
 
 #endif //STELLARFORGE_TRANSFORM_HPP

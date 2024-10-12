@@ -113,6 +113,8 @@ public:
 
  void deserialize(const json::IJsonObject *data) override;
 
+ [[nodiscard]] Sprite *clone(IObject *owner) const override;
+
 private:
  sf::Texture texture; /**< The texture of the sprite. */
  sf::Sprite sprite; /**< The sprite object to render. */

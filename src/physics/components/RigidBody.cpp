@@ -75,3 +75,7 @@ json::IJsonObject *RigidBody::serializeData() {
 
 void RigidBody::deserialize(const json::IJsonObject *data) {
 }
+
+RigidBody *RigidBody::clone(IObject *owner) const {
+    return new RigidBody(owner);
+}

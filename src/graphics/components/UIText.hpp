@@ -148,6 +148,8 @@ public:
 
  void deserialize(const json::IJsonObject *data) override;
 
+ [[nodiscard]] UIText *clone(IObject *owner) const override;
+
 private:
  sf::Text text; /**< The text object to render. */
  sf::Font font; /**< The font object to use for rendering the text. */

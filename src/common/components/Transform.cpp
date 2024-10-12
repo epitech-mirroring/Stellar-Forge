@@ -177,3 +177,8 @@ glm::quat &Transform::getRotation() {
 Vector3 &Transform::getScale() {
     return this->_scale;
 }
+
+Transform *Transform::clone(IObject *owner) const {
+    return new Transform(owner, this->_position,
+                         this->_rotation, this->_scale);
+}

@@ -129,3 +129,7 @@ void SpriteSheet::deserialize(const json::IJsonObject *data) {
         }
     }
 }
+
+SpriteSheet *SpriteSheet::clone(IObject *owner) const {
+    return new SpriteSheet(owner, path, frames, currentFrame);
+}

@@ -177,3 +177,7 @@ json::IJsonObject *AnimatedSprite::serializeData() {
     obj->add(new json::JsonNumber(static_cast<int>(currentFrame), "currentFrame"));
     return obj;
 }
+
+AnimatedSprite *AnimatedSprite::clone(IObject *owner) const {
+    return new AnimatedSprite(owner, path, frames, frameTime, currentFrame);
+}

@@ -92,3 +92,8 @@ void Sprite::deserialize(const json::IJsonObject *data) {
         setTexture(path);
     }
 }
+
+Sprite *Sprite::clone(IObject *owner) const {
+    return new Sprite(owner, path);
+}
+

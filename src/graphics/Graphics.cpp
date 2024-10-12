@@ -202,11 +202,30 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
         addAndSortObject(object);
     }
     for (auto *object: sortedObjects) {
+        if (!object->isActive()) {
+            continue;
+        }
         for (auto *const component: object->getComponents()) {
-            updateFunction(object);
+            component->beforeRendering();
+        }
+    }
+    for (auto *object: sortedObjects) {
+        if (!object->isActive()) {
+            continue;
+        }
+        updateFunction(object);
+        for (auto *const component: object->getComponents()) {
             if (auto *graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
                 graphicsComponent->render(&window);
             }
+        }
+    }
+    for (auto *object: sortedObjects) {
+        if (!object->isActive()) {
+            continue;
+        }
+        for (auto *const component: object->getComponents()) {
+            component->afterRendering();
         }
     }
 

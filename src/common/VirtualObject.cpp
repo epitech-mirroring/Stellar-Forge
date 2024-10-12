@@ -17,7 +17,14 @@ VirtualObject::VirtualObject(IMeta *meta): _parent(nullptr), _children({}),
 }
 
 IObject *VirtualObject::clone() const {
-    return nullptr;
+    auto *const newObject = new VirtualObject(new Meta(_meta->getName()));
+    for (const auto *const component: _components) {
+        newObject->addComponent(component->clone(newObject));
+    }
+    for (const auto *const child: _children) {
+        newObject->addChild(child->clone());
+    }
+    return newObject;
 }
 
 std::vector<IComponent *> VirtualObject::getComponents() const {
@@ -89,7 +96,7 @@ bool VirtualObject::isActive() {
     return _active;
 }
 
-void VirtualObject::setActive(bool active) {
+void VirtualObject::setActive(const bool active) {
     _active = active;
 }
 

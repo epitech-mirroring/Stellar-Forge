@@ -114,6 +114,8 @@ public:
 
  void deserialize(const json::IJsonObject *data) override;
 
+ [[nodiscard]] RigidBody *clone(IObject *owner) const override;
+
 protected:
  [[nodiscard]] json::IJsonObject *serializeData() override;
 };

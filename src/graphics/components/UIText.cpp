@@ -177,3 +177,7 @@ void UIText::deserialize(const json::IJsonObject *data) {
         text.setFillColor(color);
     }
 }
+
+UIText *UIText::clone(IObject *owner) const {
+    return new UIText(owner, textString, fontSize, color, fontPath);
+}

@@ -2,16 +2,16 @@
 ** EPITECH PROJECT, 2024
 ** StellarForge
 ** File description:
-** No file there , just an epitech header example .
-** You can even have multiple lines if you want !
+** No file there, just an epitech header example.
+** You can even have multiple lines if you want!
 */
 
 #include "Graphics.hpp"
 
-Graphics::Graphics(int width, int height, const char *title, bool precharge)
-    : width(width), height(height), title(title), precharge(precharge),
-    window(sf::VideoMode(width, height), title), currentScene(nullptr), prepared(false)
-{
+Graphics::Graphics(const int width, const int height, const std::string &title,
+                   bool precharge)
+    : window(sf::VideoMode(width, height), title), width(width), height(height),
+      title(title), prepared(false), precharge(precharge), currentScene(nullptr) {
     if (!window.isOpen()) {
         throw GraphicsException("Failed to create window");
     }
@@ -27,9 +27,9 @@ Graphics::~Graphics() {
 
 void Graphics::addAndSortObject(IObject *object) {
     float zValue = 0.0f;
-    
-    for (auto& component : object->getComponents()) {
-        if (auto* transform = dynamic_cast<Transform *>(component)) {
+
+    for (auto &component: object->getComponents()) {
+        if (auto *transform = dynamic_cast<Transform *>(component)) {
             zValue = transform->getPosition().z;
             break;
         }
@@ -39,8 +39,8 @@ void Graphics::addAndSortObject(IObject *object) {
     for (; insertPos != sortedObjects.end(); ++insertPos) {
         float currentZValue = 0.0f;
 
-        for (auto& component : (*insertPos)->getComponents()) {
-            if (auto* transform = dynamic_cast<Transform *>(component)) {
+        for (auto &component: (*insertPos)->getComponents()) {
+            if (auto *transform = dynamic_cast<Transform *>(component)) {
                 currentZValue = transform->getPosition().z;
                 break;
             }
@@ -178,10 +178,12 @@ void Graphics::catchEvents() {
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
             close();
-        } if (event.type == sf::Event::KeyPressed) {
+        }
+        if (event.type == sf::Event::KeyPressed) {
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_pressed", nullptr);
-        } if (event.type == sf::Event::KeyReleased) {
+        }
+        if (event.type == sf::Event::KeyReleased) {
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_released", nullptr);
         }
@@ -196,13 +198,13 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
 
     catchEvents();
     const std::vector<IObject *> objects = currentScene->getObjects();
-    for (auto *object : objects) {
+    for (auto *object: objects) {
         addAndSortObject(object);
     }
-    for (auto *object : sortedObjects) {
-        for (auto& component : object->getComponents()) {
+    for (auto *object: sortedObjects) {
+        for (auto *const component: object->getComponents()) {
             updateFunction(object);
-            if (auto* graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
+            if (auto *graphicsComponent = dynamic_cast<IGraphicsComponent *>(component)) {
                 graphicsComponent->render(&window);
             }
         }

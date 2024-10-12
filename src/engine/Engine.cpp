@@ -28,6 +28,7 @@
 #include "graphics/components/SpriteSheet.hpp"
 #include "graphics/components/UIText.hpp"
 #include "common/managers/SceneManager.hpp"
+#include "graphics/Graphics.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -37,19 +38,28 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(UIText);
 }
 
-Engine::Engine(const std::function<void()> &initComponents) {
+Engine::Engine(const std::function<void()> &initComponents, const std::string &gameName) : _isRunning(true) {
     _registerComponents();
     initComponents();
     SceneManager::getInstance();
     ObjectManager::getInstance();
     _loadObjects("./assets/objects/");
-    for (auto [_, obj] : _objects)
-    {
-        for (auto childUUID : obj.second)
-        {
-            auto* child = _objects[childUUID].first;
+    for (auto [_, obj]: _objects) {
+        for (auto childUUID: obj.second) {
+            auto *child = _objects[childUUID].first;
             obj.first->addChild(child);
         }
+    }
+    _loadScenes("./assets/scenes/");
+    auto graphics = Graphics(1920, 1080, gameName);
+    EventSystem::getInstance().registerListener("window_closed",
+                                                [this](const EventData & /*data*/) {
+                                                    this->_isRunning = false;
+                                                });
+    while (_isRunning) {
+        graphics.render([](IObject *object) {
+            object->runObject();
+        });
     }
 }
 
@@ -84,8 +94,7 @@ bool Engine::_isValideScene(const json::IJsonObject *data) {
     if (uid == nullptr) {
         return false;
     }
-    if (uid->getType() != json::STRING)
-    {
+    if (uid->getType() != json::STRING) {
         return false;
     }
     auto const *const objs = obj->getValue<json::IJsonObject>("objects");
@@ -211,54 +220,44 @@ void Engine::_loadObject(const std::string &path) {
     this->_objects[uuid] = std::make_pair(object, children);
 }
 
-void Engine::_loadScenes(const std::string& pathName)
-{
+void Engine::_loadScenes(const std::string &pathName) {
     std::filesystem::path const path(pathName);
     const std::filesystem::directory_iterator start(path);
     const std::filesystem::directory_iterator end;
-    for (auto ite = start; ite != end; ++ite)
-    {
-        if (ite->is_directory())
-        {
+    for (auto ite = start; ite != end; ++ite) {
+        if (ite->is_directory()) {
             _loadScenes(ite->path().string());
-        }
-        else if (ite->is_regular_file() && ite->path().extension() == ".json")
-        {
+        } else if (ite->is_regular_file() && ite->path().extension() == ".json") {
             _loadScene(ite->path().string());
         }
     }
 }
 
-void Engine::_loadScene(const std::string& path)
-{
+void Engine::_loadScene(const std::string &path) {
     std::ifstream file(path);
-    if (!file.is_open())
-    {
+    if (!file.is_open()) {
         std::cerr << "Failed to open file: " << path << '\n';
         return;
     }
-    auto* const parser = new json::JsonParser();
+    auto *const parser = new json::JsonParser();
     const auto reader = json::JsonReader(parser);
-    const json::IJsonObject* const raw = reader << file;
-    if (raw == nullptr)
-    {
+    const json::IJsonObject *const raw = reader << file;
+    if (raw == nullptr) {
         std::cerr << "Failed to parse file: " << path << '\n';
         return;
     }
-    if (!_isValideScene(raw))
-    {
+    if (!_isValideScene(raw)) {
         std::cerr << "Invalid scene file: " << path << '\n';
         return;
     }
-    auto const* const obj = dynamic_cast<const json::JsonObject*>(raw);
-    auto const* const uid = obj->getValue<json::JsonString>("id");
-    auto const* const objs = obj->getValue<json::JsonArray<json::JsonString>>("objects");
-    UUID sceneUuid = UUID();
+    auto const *const obj = dynamic_cast<const json::JsonObject *>(raw);
+    auto const *const uid = obj->getValue<json::JsonString>("id");
+    auto const *const objs = obj->getValue<json::JsonArray<json::JsonString> >("objects");
+    auto sceneUuid = UUID();
     sceneUuid.setUuidFromString(uid->getValue());
-    auto* scene = new VirtualScene();
-    for (int i = 0; i < objs->size(); i++)
-    {
-        const auto* const objData = objs->getValue(i);
+    auto *scene = new VirtualScene();
+    for (int i = 0; i < objs->size(); i++) {
+        const auto *const objData = objs->getValue(i);
         UUID objUuid;
         objUuid.setUuidFromString(objData->getValue());
         scene->addObject(_objects[objUuid].first);

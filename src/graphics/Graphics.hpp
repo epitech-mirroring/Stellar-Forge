@@ -52,7 +52,8 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- Graphics(int width, int height, const char *title = "Game", bool precharge = false);
+ Graphics(int width, int height, const std::string &title = "Game",
+          bool precharge = false);
 
  /**
   * @brief Destructor for the Graphics class.
@@ -82,24 +83,24 @@ public:
      * @since v0.1.0
      * @author Aubane NOURRY
      */
-    static std::string keyToString(sf::Keyboard::Key key);
+ static std::string keyToString(sf::Keyboard::Key key);
 
-    /**
-     * @brief Checks for and handles any events.
-     * @details This method checks for any events that have occurred since the last frame
-     *         and handles them accordingly.
-     * @since v0.1.0
-     * @author Aubane NOURRY
-     */
-    void catchEvents();
-
-    /**
-  * @brief Clears the current rendering target.
-  * @details Clears the renderer's drawing surface, typically called at the beginning of a frame
-  *          before rendering the objects.
+ /**
+  * @brief Checks for and handles any events.
+  * @details This method checks for any events that have occurred since the last frame
+  *         and handles them accordingly.
   * @since v0.1.0
   * @author Aubane NOURRY
   */
+ void catchEvents();
+
+ /**
+* @brief Clears the current rendering target.
+* @details Clears the renderer's drawing surface, typically called at the beginning of a frame
+*          before rendering the objects.
+* @since v0.1.0
+* @author Aubane NOURRY
+*/
  void clear();
 
  /**
@@ -144,7 +145,7 @@ private:
  sf::RenderWindow window; /**< The SDL window used for rendering. */
  int width; /**< The width of the window. */
  int height; /**< The height of the window. */
- const char *title; /**< The title of the window. */
+ const std::string title; /**< The title of the window. */
  bool prepared; /**< Flag indicating if the graphics system is prepared. */
  std::vector<IObject *> sortedObjects;
  /**< List of objects sorted by z-index for rendering. */

@@ -38,18 +38,10 @@ public:
     [[nodiscard]]
     static IComponent *create(const std::string &typeName,
                               IObject *owner,
-                              const json::JsonObject *data) {
-        if (registry().find(typeName) != registry().end()) {
-            return registry()[typeName](owner, data);
-        }
-        return nullptr;
-    }
+                              const json::JsonObject *data);
 
 private:
-    static std::unordered_map<std::string, Constructor> &registry() {
-        static std::unordered_map<std::string, Constructor> reg;
-        return reg;
-    }
+    static std::unordered_map<std::string, Constructor> &registry();
 
     template<typename T>
     static IComponent *construct(IObject *owner,

@@ -13,10 +13,6 @@
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
 
-namespace json {
-    class JsonString;
-}
-
 AnimatedSprite::AnimatedSprite(IObject *owner, const std::string &path,
                                const std::vector<sf::IntRect> &frames,
                                const float frameTime,
@@ -162,4 +158,22 @@ void AnimatedSprite::deserialize(const json::IJsonObject *data) {
                     getIntValue();
         }
     }
+}
+
+json::IJsonObject *AnimatedSprite::serializeData() {
+    auto *obj = new json::JsonObject("data");
+    obj->add(new json::JsonString("path", path));
+    auto *frames = new json::JsonArray<json::JsonObject>("frames");
+    for (const auto &frame: this->frames) {
+        auto *frameObj = new json::JsonObject("");
+        frameObj->add(new json::JsonNumber(frame.left, "left"));
+        frameObj->add(new json::JsonNumber(frame.top, "top"));
+        frameObj->add(new json::JsonNumber(frame.width, "width"));
+        frameObj->add(new json::JsonNumber(frame.height, "height"));
+        frames->add(frameObj);
+    }
+    obj->add(frames);
+    obj->add(new json::JsonNumber(frameTime, "frameTime"));
+    obj->add(new json::JsonNumber(static_cast<int>(currentFrame), "currentFrame"));
+    return obj;
 }

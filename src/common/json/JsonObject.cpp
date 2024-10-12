@@ -92,5 +92,3 @@ void JsonObject::setValue(const std::string &key, IJsonObject *value) {
 bool JsonObject::contains(const std::string &key) const {
     return this->_objects.find(key) != this->_objects.end();
 }
-
-

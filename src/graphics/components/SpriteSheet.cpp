@@ -6,9 +6,7 @@
 **/
 
 #include <SFML/Graphics/Rect.hpp>
-
 #include "SpriteSheet.hpp"
-
 #include "Sprite.hpp"
 #include "common/components/AComponent.hpp"
 #include "common/components/Transform.hpp"

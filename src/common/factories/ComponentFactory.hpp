@@ -8,6 +8,11 @@
 
 #ifndef COMPONENTFACTORY_HPP
 #define COMPONENTFACTORY_HPP
+
+#include <functional>
+#ifndef __APPLE__
+#include <memory>
+#endif
 #include "common/IComponent.hpp"
 #include "common/components/AComponent.hpp"
 #include "common/json/JsonObject.hpp"

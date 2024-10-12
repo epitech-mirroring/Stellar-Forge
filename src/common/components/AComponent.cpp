@@ -8,6 +8,7 @@
 #include "AComponent.hpp"
 
 #include "common/IObject.hpp"
+#include "common/Utils.hpp"
 #include "common/json/JsonBoolean.hpp"
 #include "common/json/JsonObject.hpp"
 #include "common/json/JsonString.hpp"
@@ -62,7 +63,9 @@ T *AComponent::getParentComponent() {
 
 json::IJsonObject *AComponent::serialize() {
     auto *const obj = new json::JsonObject();
-    obj->add(new json::JsonString(typeid(*this).name(), "type"));
+    obj->add(new json::JsonString(get_typename(this), "type")
+    );
     obj->add(new json::JsonBoolean(this->_isActive, "isActive"));
+    obj->add(this->serializeData());
     return obj;
 }

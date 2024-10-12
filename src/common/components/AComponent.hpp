@@ -104,8 +104,6 @@ public:
 
  [[nodiscard]] json::IJsonObject *serialize() final;
 
- [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
-
  virtual void deserialize(const json::IJsonObject *data) = 0;
 
 protected:
@@ -137,6 +135,8 @@ protected:
  const IMeta *_meta;
 
  bool _isActive; //< The state of the component
+
+ [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
 };
 
 #endif //ACOMPONENT_HPP

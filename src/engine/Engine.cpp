@@ -29,6 +29,7 @@
 #include "graphics/components/UIText.hpp"
 #include "common/managers/SceneManager.hpp"
 #include "graphics/Graphics.hpp"
+#include "physics/components/RigidBody.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -36,6 +37,7 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Sprite);
     REGISTER_COMPONENT(SpriteSheet);
     REGISTER_COMPONENT(UIText);
+    REGISTER_COMPONENT(RigidBody);
 }
 
 Engine::Engine(const std::function<void()> &initComponents,

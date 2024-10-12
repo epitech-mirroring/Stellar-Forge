@@ -166,3 +166,14 @@ void Transform::deserialize(const json::IJsonObject *data) {
     }
 }
 
+Vector3 &Transform::getPosition() {
+    return this->_position;
+}
+
+glm::quat &Transform::getRotation() {
+    return this->_rotation;
+}
+
+Vector3 &Transform::getScale() {
+    return this->_scale;
+}

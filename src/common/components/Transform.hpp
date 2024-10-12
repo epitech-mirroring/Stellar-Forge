@@ -112,6 +112,30 @@ public:
  [[nodiscard]] Vector3 getScale() const;
 
  /**
+  * @brief Gets the position of the object.
+  * @return The position as a Vector3.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ [[nodiscard]] Vector3 &getPosition();
+
+ /**
+  * @brief Gets the rotation of the object.
+  * @return The rotation as a quaternion.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ [[nodiscard]] glm::quat &getRotation();
+
+ /**
+  * @brief Gets the scale of the object.
+  * @return The scale as a Vector3.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ [[nodiscard]] Vector3 &getScale();
+
+ /**
   * @brief Sets the position of the object.
   * @param pos The new position as a Vector3.
   * @version v0.1.0

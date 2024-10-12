@@ -17,7 +17,7 @@ std::string get_typename([[maybe_unused]] T *object) {
 }
 
 #else
-#if defined(_WIN32)
+#if defined(_WIN32) || defined(_WIN64)
 #include <Windows.h>
 #include <dbghelp.h>
 
@@ -26,16 +26,29 @@ auto get_typename() {
     auto type_info = typeid(T);
     char *name = nullptr;
     auto status = UnDecorateSymbolName(type_info.name(), name, 0, 0);
+    std::string result;
     if (status == 0) {
-        return std::string(type_info.name());
+        result = std::string(type_info.name());
     }
-    return std::string(name);
+    result = std::string(name);
+    if (result.find("class ") != std::string::npos) {
+        result.erase(0, 6);
+    } else if (result.find("struct ") != std::string::npos) {
+        result.erase(0, 7);
+    }
+    return result;
 }
 #endif
 
 template<typename T>
 std::string get_typename([[maybe_unused]] T *object) {
-    return typeid(*object).name();
+    std::string name = typeid(*object).name();
+    if (name.find("class ") != std::string::npos) {
+        name.erase(0, 6);
+    } else if (name.find("struct ") != std::string::npos) {
+        name.erase(0, 7);
+    }
+    return name;
 }
 
 #endif

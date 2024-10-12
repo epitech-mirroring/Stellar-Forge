@@ -105,6 +105,50 @@ public:
  virtual void after();
 
  /**
+   * @brief The creation function of the component
+   * This is meant to be runt by the parent object and initialize the component
+   * @note This is not supposed to be overriden in the child class (you should modify the start function instead)
+   * @see IComponent::onCreation
+   * @version v0.1.0
+   * @since v0.1.0
+   * @author Aubane NOURRY
+   */
+ void onCreation() final;
+
+ /**
+ * @brief The deletion function of the component
+ * This is meant to be runt by the parent object and delete the component
+ * @note This is not supposed to be overriden in the child class (you should modify the delete function instead)
+ * @see IComponent::onDelete
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ void onDeletion() final;
+
+ /**
+ * @brief The start function of the component
+ * This is meant to be runt by the parent object and initialize the component
+ * @note This is a pure virtual function and must be implemented in the child class
+ * @see IComponent::onStart
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ virtual void start() = 0;
+
+ /**
+  * @brief The delete function of the component
+  * This is meant to be runt by the parent object and delete the component
+  * @note This is a pure virtual function and must be implemented in the child class
+  * @see IComponent::onDelete
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual void end() = 0;
+
+ /**
   * @class Meta
   * @brief The metaclass for the CPPMonoBehaviour
   * @version v0.1.0

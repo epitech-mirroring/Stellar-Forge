@@ -38,7 +38,8 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(UIText);
 }
 
-Engine::Engine(const std::function<void()> &initComponents, const std::string &gameName) : _isRunning(true) {
+Engine::Engine(const std::function<void()> &initComponents,
+               const std::string &gameName) : _isRunning(true) {
     _registerComponents();
     initComponents();
     SceneManager::getInstance();

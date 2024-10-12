@@ -106,6 +106,28 @@ public:
 
  virtual void deserialize(const json::IJsonObject *data) = 0;
 
+ /**
+ * @brief The creation function of the component
+ * * This is meant to be runt by the parent object and initialize the component
+ * @note This is not a pure virtual function and can be overriden in the child class
+ * @see IComponent::onCreation
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ void onCreation() override;
+
+ /**
+ * @brief The deletion function of the component
+ * * This is meant to be runt by the parent object and delete the component
+ * @note This is not a pure virtual function and can be overriden in the child class
+ * @see IComponent::onDeletion
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ void onDeletion() override;
+
 protected:
  /**
   * @brief The constructor of the AComponent class

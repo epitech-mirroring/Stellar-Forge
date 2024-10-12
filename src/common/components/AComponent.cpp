@@ -50,6 +50,12 @@ void AComponent::setActive(const bool state) {
     this->_isActive = state;
 }
 
+void AComponent::onCreation() {
+}
+
+void AComponent::onDeletion() {
+}
+
 template<typename T>
 T *AComponent::getParentComponent() {
     static_assert(std::is_base_of_v<IComponent, T>, "T must inherit from IComponent");

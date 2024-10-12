@@ -37,8 +37,26 @@ public:
  virtual ~IComponent() = default;
 
  /**
-  * @brief The start function of the component
+  * @brief The creation function of the component
   * This is meant to be runt by the parent object and initialize the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual void onCreation() = 0;
+
+ /**
+  * @brief The deletion function of the component
+  * This is meant to be runt by the parent object and deletion the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Aubane NOURRY
+  */
+ virtual void onDeletion() = 0;
+
+ /**
+  * @brief The start function of the component
+  * This is meant to be runt before the rendering of the component
   * @version v0.1.0
   * @since v0.1.0
   * @author Marius PAIN

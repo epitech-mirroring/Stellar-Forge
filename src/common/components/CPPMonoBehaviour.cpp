@@ -64,3 +64,10 @@ CPPMonoBehaviour::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
+void CPPMonoBehaviour::onCreation() {
+    start();
+}
+
+void CPPMonoBehaviour::onDeletion() {
+    end();
+}

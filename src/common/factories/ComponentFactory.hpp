@@ -10,9 +10,6 @@
 #define COMPONENTFACTORY_HPP
 
 #include <functional>
-#ifndef __APPLE__
-#include <memory>
-#endif
 #include "common/IComponent.hpp"
 #include "common/components/AComponent.hpp"
 #include "common/json/JsonObject.hpp"
@@ -20,27 +17,28 @@
 
 class ComponentFactory {
 public:
-    using Constructor = std::function<std::unique_ptr<IComponent>(
+    using Constructor = std::function<IComponent *(
         IObject *, const json::JsonObject *)>;
 
     template<typename T>
     static void registerComponent(const std::string &typeName) {
         registry()[typeName] = [
                 ](IObject *owner,
-                  const json::JsonObject *data) -> std::unique_ptr<IComponent> {
+                  const json::JsonObject *data) -> IComponent *{
                     auto comp = construct<T>(owner, data);
                     if (data->contains("data") && std::is_base_of_v<AComponent, T>) {
                         const auto *customData = data->getValue<
                             json::JsonObject>("data");
-                        dynamic_cast<AComponent *>(comp.get())->deserialize(customData);
+                        dynamic_cast<AComponent *>(comp)->deserialize(customData);
                     }
                     return comp;
                 };
     }
 
-    static std::unique_ptr<IComponent> create(const std::string &typeName,
-                                              IObject *owner,
-                                              const json::JsonObject *data) {
+    [[nodiscard]]
+    static IComponent *create(const std::string &typeName,
+                              IObject *owner,
+                              const json::JsonObject *data) {
         if (registry().find(typeName) != registry().end()) {
             return registry()[typeName](owner, data);
         }
@@ -54,9 +52,9 @@ private:
     }
 
     template<typename T>
-    static std::unique_ptr<IComponent> construct(IObject *owner,
-                                                 const json::JsonObject *data) {
-        return std::make_unique<T>(owner, data);
+    static IComponent *construct(IObject *owner,
+                                 const json::JsonObject *data) {
+        return new T(owner, data);
     }
 };
 

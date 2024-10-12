@@ -18,7 +18,7 @@ std::string get_typename([[maybe_unused]] T *object) {
 
 #else
 #if defined(_WIN32)
-
+#include <Windows.h>
 #include <dbghelp.h>
 
 template<typename T>

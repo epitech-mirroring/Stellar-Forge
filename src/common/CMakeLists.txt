@@ -4,13 +4,7 @@ target_link_libraries(StellarForgeCommon PUBLIC stduuid::stduuid GSL::gsl glm::g
 
 # If windows add DbgHelp for stack traces
 IF (WIN32 OR WIN64)
-    find_library(DbgHelp DbgHelp)
-    IF (DbgHelp)
-        message(STATUS "Found DbgHelp: ${DbgHelp}")
-        target_link_libraries(StellarForgeCommon PUBLIC DbgHelp)
-    ELSE ()
-        message(FATAL_ERROR "DbgHelp not found")
-    ENDIF ()
+    target_link_libraries(StellarForgeCommon PUBLIC DbgHelp)
 ENDIF ()
 
 add_subdirectory(json)

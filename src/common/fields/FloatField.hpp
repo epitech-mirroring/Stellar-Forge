@@ -10,6 +10,8 @@
 #define FLOATFIELD_HPP
 #include "AField.hpp"
 
+#include <functional>
+
 
 class FloatField final : public AField {
 protected:

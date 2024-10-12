@@ -8,6 +8,7 @@
 
 #include "VirtualObject.hpp"
 
+#include <algorithm>
 #include <utility>
 
 VirtualObject::VirtualObject(IMeta *meta): _parent(nullptr), _children({}),

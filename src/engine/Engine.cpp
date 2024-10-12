@@ -14,6 +14,7 @@
 #include <filesystem>
 
 #include "common/VirtualObject.hpp"
+#include "common/VirtualScene.hpp"
 #include "common/components/Transform.hpp"
 #include "common/factories/ComponentFactory.hpp"
 #include "common/json/JsonArray.hpp"
@@ -42,6 +43,14 @@ Engine::Engine(const std::function<void()> &initComponents) {
     SceneManager::getInstance();
     ObjectManager::getInstance();
     _loadObjects("./assets/objects/");
+    for (auto [_, obj] : _objects)
+    {
+        for (auto childUUID : obj.second)
+        {
+            auto* child = _objects[childUUID].first;
+            obj.first->addChild(child);
+        }
+    }
 }
 
 void Engine::_loadObjects(const std::string &pathName) {
@@ -75,7 +84,8 @@ bool Engine::_isValideScene(const json::IJsonObject *data) {
     if (uid == nullptr) {
         return false;
     }
-    if (uid->getType() != json::NUMBER) {
+    if (uid->getType() != json::STRING)
+    {
         return false;
     }
     auto const *const objs = obj->getValue<json::IJsonObject>("objects");
@@ -200,3 +210,60 @@ void Engine::_loadObject(const std::string &path) {
     }
     this->_objects[uuid] = std::make_pair(object, children);
 }
+
+void Engine::_loadScenes(const std::string& pathName)
+{
+    std::filesystem::path const path(pathName);
+    const std::filesystem::directory_iterator start(path);
+    const std::filesystem::directory_iterator end;
+    for (auto ite = start; ite != end; ++ite)
+    {
+        if (ite->is_directory())
+        {
+            _loadScenes(ite->path().string());
+        }
+        else if (ite->is_regular_file() && ite->path().extension() == ".json")
+        {
+            _loadScene(ite->path().string());
+        }
+    }
+}
+
+void Engine::_loadScene(const std::string& path)
+{
+    std::ifstream file(path);
+    if (!file.is_open())
+    {
+        std::cerr << "Failed to open file: " << path << '\n';
+        return;
+    }
+    auto* const parser = new json::JsonParser();
+    const auto reader = json::JsonReader(parser);
+    const json::IJsonObject* const raw = reader << file;
+    if (raw == nullptr)
+    {
+        std::cerr << "Failed to parse file: " << path << '\n';
+        return;
+    }
+    if (!_isValideScene(raw))
+    {
+        std::cerr << "Invalid scene file: " << path << '\n';
+        return;
+    }
+    auto const* const obj = dynamic_cast<const json::JsonObject*>(raw);
+    auto const* const uid = obj->getValue<json::JsonString>("id");
+    auto const* const objs = obj->getValue<json::JsonArray<json::JsonString>>("objects");
+    UUID sceneUuid = UUID();
+    sceneUuid.setUuidFromString(uid->getValue());
+    auto* scene = new VirtualScene();
+    for (int i = 0; i < objs->size(); i++)
+    {
+        const auto* const objData = objs->getValue(i);
+        UUID objUuid;
+        objUuid.setUuidFromString(objData->getValue());
+        scene->addObject(_objects[objUuid].first);
+    }
+    SceneManager::getInstance().addScene(sceneUuid, scene); // TODO : Add scene position ?
+    this->_scenes[sceneUuid] = scene;
+}
+

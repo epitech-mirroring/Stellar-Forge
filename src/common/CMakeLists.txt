@@ -20,8 +20,10 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/UncertainBool.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Utils.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/VirtualObject.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/VirtualScene.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UUIDException.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/VirtualObject.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/VirtualScene.cpp
 )

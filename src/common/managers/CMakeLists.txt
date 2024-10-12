@@ -1,0 +1,10 @@
+target_sources(StellarForgeCommon
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/ManagerException.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ObjectManager.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.hpp
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/ManagerException.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ObjectManager.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.cpp
+)

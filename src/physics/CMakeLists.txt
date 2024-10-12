@@ -3,6 +3,8 @@ add_library(StellarForge::Physics ALIAS StellarForgePhysics)
 add_dependencies(StellarForgePhysics StellarForgeCommon)
 target_link_libraries(StellarForgePhysics PUBLIC glm::glm StellarForge::Common)
 
+add_subdirectory(components)
+
 target_sources(StellarForgePhysics
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/Physics.hpp

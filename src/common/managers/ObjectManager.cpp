@@ -88,15 +88,15 @@ void ObjectManager::clearObjects() {
     _objects.clear();
 }
 
-void ObjectManager::duplicateObject(const UUID &uuid) {
+UUID ObjectManager::duplicateObject(const UUID &uuid) {
     const auto object = _objects.find(uuid);
     if (object != _objects.end()) {
         IObject *newObject = object->second->clone();
         auto newId = UUID(uuid);
         newId.generateUuid();
         addObject(newId, newObject);
-    } else {
-        throw ManagerException(
-            "Object with UUID " + uuid.getUuidString() + " not found.");
+        return newId;
     }
+    throw ManagerException(
+        "Object with UUID " + uuid.getUuidString() + " not found.");
 }

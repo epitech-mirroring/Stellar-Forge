@@ -55,6 +55,11 @@ Engine::Engine(const std::function<void()> &initComponents,
             obj.first->addChild(child);
         }
     }
+    for (const auto &[uuid, obj]: _objects) {
+        if (obj.first->getParent() == nullptr) {
+            ObjectManager::getInstance().addObject(uuid, obj.first);
+        }
+    }
     _loadScenes(assetsPath + "scenes/");
     startGraphics(gameName);
 }

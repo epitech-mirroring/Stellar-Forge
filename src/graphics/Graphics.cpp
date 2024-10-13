@@ -27,32 +27,25 @@ Graphics::~Graphics() {
     close();
 }
 
+template <typename T>
+T *getObjComponent(IObject *object) {
+    for (auto *component: object->getComponents()) {
+        if (auto *comp = dynamic_cast<T *>(component)) {
+            return comp;
+        }
+    }
+    return nullptr;
+}
+
 void Graphics::addAndSortObject(IObject *object) {
-    float zValue = 0.0f;
-
-    for (auto &component: object->getComponents()) {
-        if (auto *transform = dynamic_cast<Transform *>(component)) {
-            zValue = transform->getPosition().z;
-            break;
-        }
+    if (sortedObjects.empty()) {
+        sortedObjects.push_back(object);
+        return;
     }
-
-    auto insertPos = sortedObjects.begin();
-    for (; insertPos != sortedObjects.end(); ++insertPos) {
-        float currentZValue = 0.0f;
-
-        for (auto &component: (*insertPos)->getComponents()) {
-            if (auto *transform = dynamic_cast<Transform *>(component)) {
-                currentZValue = transform->getPosition().z;
-                break;
-            }
-        }
-        if (zValue < currentZValue) {
-            break;
-        }
+    auto it = std::find(sortedObjects.begin(), sortedObjects.end(), object);
+    if (it == sortedObjects.end()) {
+        sortedObjects.push_back(object);
     }
-
-    sortedObjects.insert(insertPos, object);
 }
 
 void Graphics::clear() {
@@ -223,6 +216,15 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     for (auto *object: objects) {
         addAndSortObject(object);
     }
+    std::sort(sortedObjects.begin(), sortedObjects.end(),
+              [](IObject *a, IObject *b) {
+                  Transform *aTransform = getObjComponent<Transform>(a);
+                  Transform *bTransform = getObjComponent<Transform>(b);
+                  if (aTransform == nullptr || bTransform == nullptr) {
+                      return false;
+                  }
+                  return aTransform->getPosition().z < bTransform->getPosition().z;
+              });
     for (auto *object: sortedObjects) {
         if (!object->isActive()) {
             continue;

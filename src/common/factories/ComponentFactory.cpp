@@ -11,7 +11,9 @@
 IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner,
                                      const json::JsonObject *data) {
     if (registry().find(typeName) != registry().end()) {
-        return registry()[typeName](owner, data);
+        auto *comp = registry()[typeName](owner, data);
+        comp->onCreation();
+        return comp;
     }
     return nullptr;
 }

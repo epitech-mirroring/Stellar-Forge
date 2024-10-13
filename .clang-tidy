@@ -25,3 +25,4 @@ Checks: >
   -*-pro-type-union-access,
   -boost-*,
   -*-no-recursion,
+  -*-function-cognitive-complexity,

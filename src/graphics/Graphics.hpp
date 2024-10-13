@@ -14,6 +14,7 @@
 #include "common/event/EventSystem.hpp"
 #include "common/components/Transform.hpp"
 #include "components/IGraphicsComponent.hpp"
+#include "common/managers/SceneManager.hpp"
 #include "GraphicsException.hpp"
 
 #include <iostream>

@@ -19,6 +19,7 @@ Graphics::Graphics(const int width, const int height, const std::string &title,
     prepared = true;
     window.setFramerateLimit(60);
     sortedObjects.reserve(100);
+    currentScene = SceneManager::getInstance().getCurrentScene();
 }
 
 Graphics::~Graphics() {
@@ -193,6 +194,9 @@ void Graphics::catchEvents() {
 void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     if (!prepared) {
         return;
+    }
+    if (currentScene == nullptr) {
+        currentScene = SceneManager::getInstance().getCurrentScene();
     }
     clear();
 

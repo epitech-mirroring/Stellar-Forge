@@ -147,14 +147,14 @@ bool Engine::_isValideObject(const json::IJsonObject *data) {
     if (!obj->contains("child")) {
         return false;
     }
-    if (!obj->contains("active")) {
+    if (!obj->contains("isActive")) {
         return false;
     }
     auto const *const uid = obj->getValue<json::IJsonObject>("id");
     auto const *const meta = obj->getValue<json::IJsonObject>("meta");
     auto const *const child = obj->getValue<json::IJsonObject>("child");
     auto const *const comps = obj->getValue<json::IJsonObject>("components");
-    auto const *const active = obj->getValue<json::IJsonObject>("active");
+    auto const *const active = obj->getValue<json::IJsonObject>("isActive");
 
     if (uid == nullptr) {
         return false;

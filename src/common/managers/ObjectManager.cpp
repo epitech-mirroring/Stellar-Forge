@@ -95,6 +95,7 @@ UUID ObjectManager::duplicateObject(const UUID &uuid) {
         auto newId = UUID(uuid);
         newId.generateUuid();
         addObject(newId, newObject);
+        SceneManager::getInstance().getCurrentScene()->addObject(newObject);
         return newId;
     }
     throw ManagerException(

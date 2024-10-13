@@ -19,38 +19,33 @@ Graphics::Graphics(const int width, const int height, const std::string &title,
     prepared = true;
     window.setFramerateLimit(60);
     sortedObjects.reserve(100);
+    currentScene = SceneManager::getInstance().getCurrentScene();
+    keysPressed.reserve(10);
 }
 
 Graphics::~Graphics() {
     close();
 }
 
+template <typename T>
+static T *getObjComponent(IObject *object) {
+    for (auto *component: object->getComponents()) {
+        if (auto *comp = dynamic_cast<T *>(component)) {
+            return comp;
+        }
+    }
+    return nullptr;
+}
+
 void Graphics::addAndSortObject(IObject *object) {
-    float zValue = 0.0f;
-
-    for (auto &component: object->getComponents()) {
-        if (auto *transform = dynamic_cast<Transform *>(component)) {
-            zValue = transform->getPosition().z;
-            break;
-        }
+    if (sortedObjects.empty()) {
+        sortedObjects.push_back(object);
+        return;
     }
-
-    auto insertPos = sortedObjects.begin();
-    for (; insertPos != sortedObjects.end(); ++insertPos) {
-        float currentZValue = 0.0f;
-
-        for (auto &component: (*insertPos)->getComponents()) {
-            if (auto *transform = dynamic_cast<Transform *>(component)) {
-                currentZValue = transform->getPosition().z;
-                break;
-            }
-        }
-        if (zValue < currentZValue) {
-            break;
-        }
+    auto obj = std::find(sortedObjects.begin(), sortedObjects.end(), object);
+    if (obj == sortedObjects.end()) {
+        sortedObjects.push_back(object);
     }
-
-    sortedObjects.insert(insertPos, object);
 }
 
 void Graphics::clear() {
@@ -180,12 +175,29 @@ void Graphics::catchEvents() {
             close();
         }
         if (event.type == sf::Event::KeyPressed) {
+            bool alreadyPressed = false;
+            for (auto key: keysPressed) {
+                if (key == event.key.code) {
+                    alreadyPressed = true;
+                    break;
+                }
+            }
+            if (alreadyPressed) {
+                continue;
+            }
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_pressed", nullptr);
+            keysPressed.push_back(event.key.code);
         }
         if (event.type == sf::Event::KeyReleased) {
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_released", nullptr);
+            for (auto key = keysPressed.begin(); key != keysPressed.end(); ++key) {
+                if (*key == event.key.code) {
+                    keysPressed.erase(key);
+                    break;
+                }
+            }
         }
     }
 }
@@ -194,6 +206,9 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     if (!prepared) {
         return;
     }
+    if (currentScene == nullptr) {
+        currentScene = SceneManager::getInstance().getCurrentScene();
+    }
     clear();
 
     catchEvents();
@@ -201,6 +216,15 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
     for (auto *object: objects) {
         addAndSortObject(object);
     }
+    std::sort(sortedObjects.begin(), sortedObjects.end(),
+              [](IObject *obja, IObject *objb) {
+                  auto *aTransform = getObjComponent<Transform>(obja);
+                  auto *bTransform = getObjComponent<Transform>(objb);
+                  if (aTransform == nullptr || bTransform == nullptr) {
+                      return false;
+                  }
+                  return aTransform->getPosition().z < bTransform->getPosition().z;
+              });
     for (auto *object: sortedObjects) {
         if (!object->isActive()) {
             continue;

@@ -153,6 +153,7 @@ private:
  bool precharge;
  /**< Flag to indicate if all objects should be preloaded in all scenes. */
  IScene *currentScene; /**< The current scene being rendered. */
+ std::vector<sf::Keyboard::Key> keysPressed; /**< The keys currently pressed. */
 };
 
 #endif // GRAPHICS_HPP

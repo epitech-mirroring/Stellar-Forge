@@ -20,6 +20,7 @@ Graphics::Graphics(const int width, const int height, const std::string &title,
     window.setFramerateLimit(60);
     sortedObjects.reserve(100);
     currentScene = SceneManager::getInstance().getCurrentScene();
+    keysPressed.reserve(10);
 }
 
 Graphics::~Graphics() {
@@ -181,12 +182,29 @@ void Graphics::catchEvents() {
             close();
         }
         if (event.type == sf::Event::KeyPressed) {
+            bool alreadyPressed = false;
+            for (auto key: keysPressed) {
+                if (key == event.key.code) {
+                    alreadyPressed = true;
+                    break;
+                }
+            }
+            if (alreadyPressed) {
+                continue;
+            }
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_pressed", nullptr);
+            keysPressed.push_back(event.key.code);
         }
         if (event.type == sf::Event::KeyReleased) {
             const std::string keyName = keyToString(event.key.code);
             EventSystem::getInstance().triggerEvents(keyName + "_released", nullptr);
+            for (auto key = keysPressed.begin(); key != keysPressed.end(); ++key) {
+                if (*key == event.key.code) {
+                    keysPressed.erase(key);
+                    break;
+                }
+            }
         }
     }
 }

@@ -13,6 +13,7 @@
 #include "common/fields/FileField.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
+#include "graphics/GraphicsException.hpp"
 
 SpriteSheet::SpriteSheet(IObject *owner, const std::string &path,
                          const std::vector<sf::IntRect> &frames,

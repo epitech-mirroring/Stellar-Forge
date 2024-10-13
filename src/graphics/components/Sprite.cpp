@@ -10,6 +10,7 @@
 #include "common/components/Transform.hpp"
 #include "common/fields/FileField.hpp"
 #include "common/json/JsonString.hpp"
+#include "graphics/GraphicsException.hpp"
 
 Sprite::Sprite(IObject *owner, const std::string &path) : AComponent(
                                                               owner, new Meta(this)),

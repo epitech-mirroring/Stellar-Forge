@@ -98,3 +98,6 @@ Sprite *Sprite::clone(IObject *owner) const {
     return new Sprite(owner, path);
 }
 
+std::string Sprite::getPath() const {
+    return path;
+}

@@ -78,7 +78,11 @@ foreach (source IN LISTS StellarForgeGraphics_SOURCES)
     endif ()
 endforeach ()
 
-# Export headers in build directory
-file(COPY ${StellarForge_HEADERS} DESTINATION ${CMAKE_BINARY_DIR}/includes/StellarForge)
+foreach (header IN LISTS StellarForge_HEADERS)
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/src/" "" new_header ${header})
+    set(new_header "StellarForge/${new_header}")
+    get_filename_component(header_dir ${new_header} DIRECTORY)
+    file(COPY ${header} DESTINATION include/${header_dir})
+endforeach ()
 
 add_subdirectory(tests)

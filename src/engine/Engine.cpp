@@ -41,25 +41,32 @@ void Engine::_registerComponents() {
 }
 
 Engine::Engine(const std::function<void()> &initComponents,
-               const std::string &gameName) : _isRunning(true) {
+               const std::string &gameName,
+               const std::string &assetsPath,
+               const std::function<void(const std::string &gameName)> &startGraphics) {
     _registerComponents();
     initComponents();
     SceneManager::getInstance();
     ObjectManager::getInstance();
-    _loadObjects("./assets/objects/");
+    _loadObjects(assetsPath + "objects/");
     for (auto [_, obj]: _objects) {
         for (auto childUUID: obj.second) {
             auto *child = _objects[childUUID].first;
             obj.first->addChild(child);
         }
     }
-    _loadScenes("./assets/scenes/");
+    _loadScenes(assetsPath + "scenes/");
+    startGraphics(gameName);
+}
+
+void Engine::_startGraphics(const std::string &gameName) {
+    bool isRunning = true;
     auto graphics = Graphics(1920, 1080, gameName);
     EventSystem::getInstance().registerListener("window_closed",
-                                                [this](const EventData & /*data*/) {
-                                                    this->_isRunning = false;
+                                                [&isRunning](const EventData &data) {
+                                                    isRunning = false;
                                                 });
-    while (_isRunning) {
+    while (isRunning) {
         graphics.render([](IObject *object) {
             object->runObject();
         });
@@ -68,6 +75,10 @@ Engine::Engine(const std::function<void()> &initComponents,
 
 void Engine::_loadObjects(const std::string &pathName) {
     std::filesystem::path const path(pathName);
+    if (!exists(path)) {
+        std::cerr << "Path does not exist: " << absolute(path) << '\n';
+        return;
+    }
     const std::filesystem::directory_iterator start(path);
     const std::filesystem::directory_iterator end;
     for (auto ite = start; ite != end; ++ite) {
@@ -207,18 +218,23 @@ void Engine::_loadObject(const std::string &path) {
         name = rawName->getValue();
     }
     auto *object = new VirtualObject(new VirtualObject::Meta(name));
-    for (int i = 0; i < comps->size(); i++) {
-        const auto *const compData = comps->getValue(i);
-        const auto compName = compData->getValue<json::JsonString>("name")->getValue();
-        auto *comp = ComponentFactory::create(compName, object, compData);
-        object->addComponent(comp);
+    if (comps != nullptr) {
+        for (int i = 0; i < comps->size(); i++) {
+            const auto *const compData = comps->at(i);
+            const auto compName = compData->getValue<json::JsonString>("name")->
+                    getValue();
+            auto *comp = ComponentFactory::create(compName, object, compData);
+            object->addComponent(comp);
+        }
     }
     std::vector<UUID> children;
-    for (int i = 0; i < child->size(); i++) {
-        const auto *const childData = child->getValue(i);
-        UUID childUuid;
-        childUuid.setUuidFromString(childData->getValue());
-        children.push_back(childUuid);
+    if (child != nullptr) {
+        for (int i = 0; i < child->size(); i++) {
+            const auto *const childData = child->getValue(i);
+            UUID childUuid;
+            childUuid.setUuidFromString(childData->getValue());
+            children.push_back(childUuid);
+        }
     }
     this->_objects[uuid] = std::make_pair(object, children);
 }
@@ -259,11 +275,13 @@ void Engine::_loadScene(const std::string &path) {
     auto sceneUuid = UUID();
     sceneUuid.setUuidFromString(uid->getValue());
     auto *scene = new VirtualScene();
-    for (int i = 0; i < objs->size(); i++) {
-        const auto *const objData = objs->getValue(i);
-        UUID objUuid;
-        objUuid.setUuidFromString(objData->getValue());
-        scene->addObject(_objects[objUuid].first);
+    if (objs != nullptr) {
+        for (int i = 0; i < objs->size(); i++) {
+            const auto *const objData = objs->getValue(i);
+            UUID objUuid;
+            objUuid.setUuidFromString(objData->getValue());
+            scene->addObject(_objects[objUuid].first);
+        }
     }
     SceneManager::getInstance().addScene(sceneUuid, scene); // TODO : Add scene position ?
     this->_scenes[sceneUuid] = scene;

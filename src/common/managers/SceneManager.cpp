@@ -15,7 +15,7 @@ SceneManager &SceneManager::getInstance() {
 
 void SceneManager::addScene(const UUID &uuid,
                             IScene *scene,
-                            int position) {
+                            const int position) {
     if (isSceneExist(uuid)) {
         throw ManagerException(
             "Scene with UUID " + uuid.getUuidString() + " already exists.");

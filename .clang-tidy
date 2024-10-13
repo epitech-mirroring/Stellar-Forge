@@ -26,3 +26,4 @@ Checks: >
   -boost-*,
   -*-no-recursion,
   -*-function-cognitive-complexity,
+  -*-use-anonymous-namespace,

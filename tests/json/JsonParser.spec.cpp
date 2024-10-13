@@ -131,3 +131,16 @@ TEST(JsonParser, root_array) {
     ASSERT_EQ(arr->at(1)->getIntValue(), 2);
     ASSERT_EQ(arr->at(2)->getIntValue(), 3);
 }
+
+TEST(JsonParser, array_of_objects) {
+    json::JsonParser const parser;
+    const auto *const tmp = parser.parse(R"([{"key": "value1"}, {"key": "value2"}])");
+    ASSERT_EQ(tmp->getType(), json::ARRAY);
+    ASSERT_EQ(tmp->getName(), "");
+    const auto *const arr = dynamic_cast<const json::JsonArray<json::JsonObject> *>(tmp);
+    ASSERT_EQ(arr->size(), 2);
+    ASSERT_STREQ(arr->at(0)->getValue<json::JsonString>("key")->getValue().c_str(),
+                 "value1");
+    ASSERT_STREQ(arr->at(1)->getValue<json::JsonString>("key")->getValue().c_str(),
+                 "value2");
+}

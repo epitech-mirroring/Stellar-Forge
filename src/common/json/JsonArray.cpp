@@ -53,7 +53,7 @@ void JsonArray<T>::parse(const IJsonParser &parser, const std::string &string) {
 
     this->_values.clear();
     while (start < len) {
-        std::size_t end = parser.findContextEnd(cleaned, start);
+        std::size_t end = parser.findContextEnd(cleaned, start, false);
         if (end == len) {
             end--;
         }

@@ -13,6 +13,7 @@
 #include "common/fields/StringField.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
+#include "graphics/GraphicsException.hpp"
 
 UIText::UIText(IObject *owner, std::string textStr, const unsigned int size,
                const sf::Color color, const std::string &fontPath)

@@ -5,6 +5,7 @@
 ** SceneManager.cpp
 */
 
+#include <algorithm>
 #include "SceneManager.hpp"
 #include "ManagerException.hpp"
 
@@ -15,16 +16,20 @@ SceneManager &SceneManager::getInstance() {
 
 void SceneManager::addScene(const UUID &uuid,
                             IScene *scene,
-                            int position) {
+                            const int position) {
     if (isSceneExist(uuid)) {
         throw ManagerException(
             "Scene with UUID " + uuid.getUuidString() + " already exists.");
     }
     _scenes[uuid] = scene;
-    _sceneOrder.insert(
-        _sceneOrder.begin() + std::min(position,
-                                       static_cast<int>(_sceneOrder.size())),
-        uuid);
+    if (position == -1) {
+        _sceneOrder.push_back(uuid);
+    } else {
+        _sceneOrder.insert(
+            _sceneOrder.begin() + std::min(position,
+                                           static_cast<int>(_sceneOrder.size())),
+            uuid);
+    }
     if (_currentSceneIndex == -1) {
         _currentSceneIndex = 0;
     }
@@ -127,4 +132,3 @@ void SceneManager::clearScenes() {
 bool SceneManager::isSceneExist(const UUID &uuid) const {
     return _scenes.find(uuid) != _scenes.end();
 }
-

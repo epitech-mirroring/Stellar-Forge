@@ -106,17 +106,17 @@ std::function<IJsonObject *(const std::string &)> JsonParser::getParser(
 }
 
 std::size_t
-JsonParser::findContextEnd(const std::string &string, const std::size_t start) const {
+JsonParser::findContextEnd(const std::string &string, const std::size_t start,
+                           const bool skipToColon) const {
     int nb_braces = 0;
     bool in_string = false;
     std::size_t const len = string.length();
     std::size_t current = start;
 
-    while (string[current] != ':' && current < len) {
-        if (string[current] == ',') {
-            return current;
+    if (skipToColon) {
+        while (string[current] != ':' && current < len) {
+            current++;
         }
-        current++;
     }
     while (current < len && (nb_braces > 0 || string[current] != ',' || in_string)) {
         if (string[current] == '"') {

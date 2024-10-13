@@ -12,6 +12,7 @@
 #include "common/json/JsonArray.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
+#include "graphics/GraphicsException.hpp"
 
 AnimatedSprite::AnimatedSprite(IObject *owner, const std::string &path,
                                const std::vector<sf::IntRect> &frames,

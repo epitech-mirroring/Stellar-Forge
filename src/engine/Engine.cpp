@@ -18,6 +18,7 @@
 #include "common/components/Transform.hpp"
 #include "common/factories/ComponentFactory.hpp"
 #include "common/json/JsonArray.hpp"
+#include "common/json/JsonBoolean.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonParser.hpp"
 #include "common/json/JsonReader.hpp"
@@ -223,6 +224,10 @@ void Engine::_loadObject(const std::string &path) {
         name = rawName->getValue();
     }
     auto *object = new VirtualObject(new VirtualObject::Meta(name));
+    if (obj->contains("isActive")) {
+        auto const *const active = obj->getValue<json::JsonBoolean>("isActive");
+        object->setActive(active->getValue());
+    }
     if (comps != nullptr) {
         for (int i = 0; i < comps->size(); i++) {
             const auto *const compData = comps->at(i);

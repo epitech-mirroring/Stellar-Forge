@@ -28,7 +28,7 @@ Graphics::~Graphics() {
 }
 
 template <typename T>
-T *getObjComponent(IObject *object) {
+static T *getObjComponent(IObject *object) {
     for (auto *component: object->getComponents()) {
         if (auto *comp = dynamic_cast<T *>(component)) {
             return comp;
@@ -42,8 +42,8 @@ void Graphics::addAndSortObject(IObject *object) {
         sortedObjects.push_back(object);
         return;
     }
-    auto it = std::find(sortedObjects.begin(), sortedObjects.end(), object);
-    if (it == sortedObjects.end()) {
+    auto obj = std::find(sortedObjects.begin(), sortedObjects.end(), object);
+    if (obj == sortedObjects.end()) {
         sortedObjects.push_back(object);
     }
 }
@@ -217,9 +217,9 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
         addAndSortObject(object);
     }
     std::sort(sortedObjects.begin(), sortedObjects.end(),
-              [](IObject *a, IObject *b) {
-                  Transform *aTransform = getObjComponent<Transform>(a);
-                  Transform *bTransform = getObjComponent<Transform>(b);
+              [](IObject *obja, IObject *objb) {
+                  auto *aTransform = getObjComponent<Transform>(obja);
+                  auto *bTransform = getObjComponent<Transform>(objb);
                   if (aTransform == nullptr || bTransform == nullptr) {
                       return false;
                   }

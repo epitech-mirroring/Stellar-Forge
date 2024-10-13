@@ -69,7 +69,7 @@ void Engine::_startGraphics(const std::string &gameName) {
     bool isRunning = true;
     auto graphics = Graphics(1920, 1080, gameName);
     EventSystem::getInstance().registerListener("window_closed",
-                                                [&isRunning](const EventData &data) {
+                                                [&isRunning](const EventData &) {
                                                     isRunning = false;
                                                 });
     while (isRunning) {

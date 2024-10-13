@@ -56,16 +56,7 @@ void AComponent::onCreation() {
 void AComponent::onDeletion() {
 }
 
-template<typename T>
-T *AComponent::getParentComponent() {
-    static_assert(std::is_base_of_v<IComponent, T>, "T must inherit from IComponent");
-    for (auto &component: this->_owner->getComponents()) {
-        if (dynamic_cast<T *>(component) != nullptr) {
-            return dynamic_cast<T *>(component);
-        }
-    }
-    return nullptr;
-}
+
 
 json::IJsonObject *AComponent::serialize() {
     auto *const obj = new json::JsonObject();

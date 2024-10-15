@@ -8,8 +8,9 @@
 #ifndef UUID_HPP
 #define UUID_HPP
 
+#include <array>
 #include <string>
-#include <uuid.h>
+#include <random>
 
 /**
  * @brief UUID class
@@ -19,7 +20,8 @@
  * @since 0.1.0
  * @author Marius PAIN
  */
-class UUID {
+class UUID
+{
 public:
  /**
   * @brief Default constructor
@@ -28,7 +30,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID() = default;
+ UUID();
 
  /**
   * @brief Copy constructor
@@ -38,7 +40,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID(const UUID &uuid) = default;
+ UUID(const UUID& uuid) = default;
 
  /**
   * @brief Move constructor
@@ -48,7 +50,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID(const UUID &&uuid) noexcept;
+ UUID(UUID&& uuid) noexcept;
 
  /**
   * @brief Default destructor
@@ -58,16 +60,6 @@ public:
   * @author Marius PAIN
   */
  ~UUID() = default;
-
- /**
-  * @brief Get the UUID
-  * @details This function returns the UUID
-  * @return const uuids::uuid&, the UUID
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Marius PAIN
-  */
- [[nodiscard]] const uuids::uuid &getUuid() const;
 
  /**
   * @brief Get the UUID as a string
@@ -97,7 +89,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- void copyUuid(const UUID &uuid);
+ void copyUuid(const UUID& uuid);
 
  /**
   * @brief Compare a UUID
@@ -108,7 +100,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- [[nodiscard]] bool compareUuid(const UUID &uuid) const;
+ [[nodiscard]] bool compareUuid(const UUID& uuid) const;
 
  /**
   * @brief Check if the UUID is a nil UUID
@@ -129,7 +121,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- void setUuidFromString(const std::string &uuid);
+ void setUuidFromString(const std::string& uuid);
 
  /**
   * @brief Assignment operator
@@ -140,7 +132,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID &operator=(const UUID &uuid);
+ UUID& operator=(const UUID& uuid);
 
  /**
   * @brief Equality operator
@@ -151,7 +143,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- UUID &operator=(UUID &&uuid) noexcept;
+ UUID& operator=(UUID&& uuid) noexcept;
 
  /**
   * @brief Equality operator
@@ -162,7 +154,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- bool operator==(const UUID &uuid) const;
+ bool operator==(const UUID& uuid) const;
 
  /**
   * @brief Inequality operator
@@ -173,7 +165,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- bool operator!=(const UUID &uuid) const;
+ bool operator!=(const UUID& uuid) const;
 
  /**
   * @brief Less than operator
@@ -184,7 +176,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- bool operator<(const UUID &uuid) const;
+ bool operator<(const UUID& uuid) const;
 
  /**
   * @brief Output stream operator
@@ -196,7 +188,7 @@ public:
   * @since 0.1.0
   * @author Marius PAIN
   */
- friend std::ostream &operator<<(std::ostream &ostream, const UUID &uuid);
+ friend std::ostream& operator<<(std::ostream& ostream, const UUID& uuid);
 
 private:
  /**
@@ -206,12 +198,14 @@ private:
   * @since 0.1.0
   * @author Marius PAIN
   */
- uuids::uuid _uuid;
+ std::array<char, 36> _uuid{};
 };
 
-template<>
-struct std::hash<UUID> {
- std::size_t operator()(const UUID &uuid) const noexcept {
+template <>
+struct std::hash<UUID>
+{
+ std::size_t operator()(const UUID& uuid) const noexcept
+ {
   // Use the built-in hash function of uuids::uuid or hash based on its string representation
   return std::hash<std::string>{}(uuid.getUuidString());
  }

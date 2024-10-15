@@ -1,6 +1,6 @@
 add_library(StellarForgeCommon STATIC)
 add_library(StellarForge::Common ALIAS StellarForgeCommon)
-target_link_libraries(StellarForgeCommon PUBLIC stduuid::stduuid GSL::gsl glm::glm)
+target_link_libraries(StellarForgeCommon PUBLIC glm::glm)
 
 # If windows add DbgHelp for stack traces
 IF (WIN32 OR WIN64)

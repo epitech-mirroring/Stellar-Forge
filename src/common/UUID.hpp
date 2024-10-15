@@ -9,7 +9,7 @@
 #define UUID_HPP
 
 #include <array>
-#include <string>
+#include <iostream>
 #include <random>
 
 /**

@@ -8,28 +8,50 @@
 #include "UUID.hpp"
 #include "UUIDException.hpp"
 
-UUID::UUID(const UUID &&uuid) noexcept : _uuid(uuid._uuid) {
+UUID::UUID() {
+    this->_uuid.fill('0');
+    this->_uuid.at(8) = '-';
+    this->_uuid.at(13) = '-';
+    this->_uuid.at(18) = '-';
+    this->_uuid.at(23) = '-';
 }
 
-const uuids::uuid &UUID::getUuid() const {
-    return this->_uuid;
+UUID::UUID(UUID &&uuid) noexcept : _uuid(uuid._uuid) {
+    uuid._uuid.fill('0');
+    uuid._uuid.at(8) = '-';
+    uuid._uuid.at(13) = '-';
+    uuid._uuid.at(18) = '-';
+    uuid._uuid.at(23) = '-';
 }
 
 std::string UUID::getUuidString() const {
-    return to_string(this->_uuid);
+    std::string uuidString;
+    for (const auto &character: this->_uuid) {
+        uuidString += character;
+    }
+    return uuidString;
 }
 
 void UUID::generateUuid() {
     try {
         std::random_device randD;
-        auto seedData = std::array<int, std::mt19937::state_size>{};
-        std::generate(std::begin(seedData), std::end(seedData),
-                      std::ref(randD));
-        std::seed_seq seq(std::begin(seedData), std::end(seedData));
-        std::mt19937 generator(seq);
-        uuids::uuid_random_generator gen{generator};
+        std::mt19937 gen(randD());
+        unsigned int currentGen = 0;
+        char currentChar = 0;
 
-        this->_uuid = gen();
+        for (auto &elem: this->_uuid) {
+            currentGen = (static_cast<unsigned int>(gen())) % 16;
+            if (currentGen < 10) {
+                currentChar = static_cast<char>(48 + currentGen);
+            } else {
+                currentChar = static_cast<char>(97 + (currentGen - 10));
+            }
+            elem = currentChar;
+        }
+        this->_uuid.at(8) = '-';
+        this->_uuid.at(13) = '-';
+        this->_uuid.at(18) = '-';
+        this->_uuid.at(23) = '-';
     } catch (const std::exception &e) {
         throw UUIDException(
             "Error while generating UUID : " + std::string(e.what()));
@@ -45,21 +67,31 @@ bool UUID::compareUuid(const UUID &uuid) const {
 }
 
 bool UUID::isNullUuid() const {
-    return this->_uuid.is_nil();
+    return this->getUuidString() == "00000000-0000-0000-0000-000000000000";
 }
 
 void UUID::setUuidFromString(const std::string &uuid) {
-    try {
-        const std::optional<uuids::uuid> optUuid =
-                uuids::uuid::from_string(uuid);
-        if (!optUuid.has_value()) {
-            throw UUIDException(
-                "Error while setting UUID from string : invalid UUID");
+    if (uuid.size() != 36) {
+        throw UUIDException("Invalid UUID format");
+    }
+    for (size_t i = 0; i < uuid.size(); i++) {
+        switch (i) {
+        case 8:
+        case 13:
+        case 18:
+        case 23:
+            if (uuid.at(i) != '-') {
+                throw UUIDException("Invalid UUID format");
+            }
+            this->_uuid.at(i) = '-';
+            break;
+        default:
+            if ((uuid.at(i) < '0' || uuid.at(i) > '9') &&
+                (uuid.at(i) < 'a' || uuid.at(i) > 'f')) {
+                throw UUIDException("Invalid UUID format");
+            }
+            this->_uuid.at(i) = uuid.at(i);
         }
-        this->_uuid = optUuid.value();
-    } catch (const std::exception &e) {
-        throw UUIDException(
-            "Error while setting UUID from string : " + std::string(e.what()));
     }
 }
 
@@ -80,7 +112,15 @@ bool UUID::operator!=(const UUID &uuid) const {
 }
 
 bool UUID::operator<(const UUID &uuid) const {
-    return this->_uuid < uuid._uuid;
+    for (size_t i = 0; i < this->_uuid.size(); i++) {
+        if (this->_uuid.at(i) < uuid._uuid.at(i)) {
+            return true;
+        }
+        if (this->_uuid.at(i) > uuid._uuid.at(i)) {
+            return false;
+        }
+    }
+    return false;
 }
 
 std::ostream &operator<<(std::ostream &ostream, const UUID &uuid) {
@@ -91,8 +131,11 @@ std::ostream &operator<<(std::ostream &ostream, const UUID &uuid) {
 UUID &UUID::operator=(UUID &&uuid) noexcept {
     if (this != &uuid) {
         this->_uuid = uuid._uuid;
-        uuid._uuid = {};
+        uuid._uuid.fill('0');
+        uuid._uuid.at(8) = '-';
+        uuid._uuid.at(13) = '-';
+        uuid._uuid.at(18) = '-';
+        uuid._uuid.at(23) = '-';
     }
-
     return *this;
 }

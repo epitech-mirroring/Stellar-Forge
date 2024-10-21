@@ -41,8 +41,6 @@ endif ()
 
 # Libraries
 find_package(glm REQUIRED)
-find_package(stduuid REQUIRED)
-find_package(GSL REQUIRED)
 find_package(SFML REQUIRED)
 
 include_directories(src)

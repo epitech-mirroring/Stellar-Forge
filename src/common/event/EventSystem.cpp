@@ -6,6 +6,7 @@
 */
 
 #include "EventSystem.hpp"
+#include <ctime>
 
 EventSystem &EventSystem::getInstance() {
     static EventSystem instance;
@@ -28,7 +29,7 @@ UUID EventSystem::registerListener(const std::string &name,
     uuid.generateUuid();
 
     if (this->_listeners.find(name) == this->_listeners.end()) {
-        this->_listeners[name] = std::vector<std::pair<UUID, EventConsumer> >();
+        this->_listeners[name] = std::vector<std::pair<UUID, EventConsumer>>();
     }
     this->_listeners[name].emplace_back(uuid, listener);
     return uuid;
@@ -50,7 +51,7 @@ bool EventSystem::unregisterListener(const UUID &uuid) {
 }
 
 bool EventSystem::triggerEvents(const std::string &eventName, void *data) {
-    auto const eventData = EventData{eventName, std::time(nullptr), data};
+    auto const eventData = EventData{eventName, time(nullptr), data};
     bool handled = false;
 
     if (this->_listeners.find(eventName) != this->_listeners.end()) {

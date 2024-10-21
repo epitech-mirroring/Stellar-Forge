@@ -7,12 +7,12 @@
 */
 
 #include <gtest/gtest.h>
-
+#include <unordered_set>
 #include "common/UUID.hpp"
 #include "common/UUIDException.hpp"
 
-TEST(UUID, constructor)
-{
+// NOLINTBEGIN
+TEST(UUID, constructor) {
     const UUID uuid;
     ASSERT_EQ(uuid.isNullUuid(), true);
     ASSERT_EQ(uuid.getUuidString(), "00000000-0000-0000-0000-000000000000");
@@ -20,8 +20,7 @@ TEST(UUID, constructor)
     ASSERT_EQ(uuid.operator==(uuid2), true);
 }
 
-TEST(UUID, copyConstructor)
-{
+TEST(UUID, copyConstructor) {
     UUID uuid;
     uuid.generateUuid();
     const UUID uuid2(uuid);
@@ -30,8 +29,7 @@ TEST(UUID, copyConstructor)
     ASSERT_EQ(uuid.getUuidString(), uuid2.getUuidString());
 }
 
-TEST(UUID, moveConstructor)
-{
+TEST(UUID, moveConstructor) {
     UUID uuid;
     uuid.generateUuid();
     const UUID uuid2(std::move(uuid));
@@ -39,24 +37,21 @@ TEST(UUID, moveConstructor)
     ASSERT_EQ(uuid2.isNullUuid(), false);
 }
 
-TEST(UUID, generateUuid)
-{
+TEST(UUID, generateUuid) {
     UUID uuid;
     uuid.generateUuid();
     ASSERT_EQ(uuid.isNullUuid(), false);
     ASSERT_EQ(uuid.getUuidString().size(), 36);
 }
 
-TEST(UUID, setUuidFromString)
-{
+TEST(UUID, setUuidFromString) {
     UUID uuid;
     uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02b2c3d479");
     ASSERT_EQ(uuid.isNullUuid(), false);
     ASSERT_EQ(uuid.getUuidString(), "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 }
 
-TEST(UUID, setUuidFromStringException)
-{
+TEST(UUID, setUuidFromStringException) {
     UUID uuid;
     ASSERT_THROW(uuid.setUuidFromString("1"), UUIDException);
     ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02b2c3d4791"), UUIDException);
@@ -64,8 +59,7 @@ TEST(UUID, setUuidFromStringException)
     ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02z2c3d479"), UUIDException);
 }
 
-TEST(UUID, copyUuid)
-{
+TEST(UUID, copyUuid) {
     UUID uuid;
     UUID uuid2;
     uuid.generateUuid();
@@ -76,8 +70,7 @@ TEST(UUID, copyUuid)
     ASSERT_EQ(uuid.getUuidString(), uuid2.getUuidString());
 }
 
-TEST(UUID, operatorEqual)
-{
+TEST(UUID, operatorEqual) {
     UUID uuid;
     UUID uuid2;
     ASSERT_EQ(uuid.operator==(uuid2), true);
@@ -87,8 +80,7 @@ TEST(UUID, operatorEqual)
     ASSERT_EQ(uuid.operator==(uuid2), true);
 }
 
-TEST(UUID, operatorNotEqual)
-{
+TEST(UUID, operatorNotEqual) {
     UUID uuid;
     UUID uuid2;
     ASSERT_EQ(uuid.operator!=(uuid2), false);
@@ -98,8 +90,7 @@ TEST(UUID, operatorNotEqual)
     ASSERT_EQ(uuid.operator!=(uuid2), false);
 }
 
-TEST(UUID, compareUuid)
-{
+TEST(UUID, compareUuid) {
     UUID uuid;
     UUID uuid2;
     ASSERT_EQ(uuid.compareUuid(uuid2), true);
@@ -109,8 +100,7 @@ TEST(UUID, compareUuid)
     ASSERT_EQ(uuid.compareUuid(uuid2), true);
 }
 
-TEST(UUID, copyOperator)
-{
+TEST(UUID, copyOperator) {
     UUID uuid;
     UUID uuid2;
     uuid.generateUuid();
@@ -127,8 +117,7 @@ TEST(UUID, copyOperator)
     ASSERT_EQ(uuid.getUuidString(), uuid2.getUuidString());
 }
 
-TEST(UUID, moveOperator)
-{
+TEST(UUID, moveOperator) {
     UUID uuid;
     UUID uuid2;
     uuid.generateUuid();
@@ -140,8 +129,7 @@ TEST(UUID, moveOperator)
     ASSERT_EQ(uuid2.isNullUuid(), false);
 }
 
-TEST(UUID, lesserOperator)
-{
+TEST(UUID, lesserOperator) {
     UUID uuid;
     UUID uuid2;
     uuid.setUuidFromString("11111111-1111-1111-1111-111111111111");
@@ -153,11 +141,22 @@ TEST(UUID, lesserOperator)
     ASSERT_EQ(uuid2 < uuid, false);
 }
 
-TEST(UUID, ostreamOperator)
-{
+TEST(UUID, ostreamOperator) {
     UUID uuid;
     uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02b2c3d479");
     std::stringstream ss;
     ss << uuid;
     ASSERT_EQ(ss.str(), "f47ac10b-58cc-4372-a567-0e02b2c3d479");
 }
+
+TEST(UUID, checkUniqueness) {
+    std::unordered_set<UUID> uuids;
+
+    for (int i = 0; i < 100; i++) {
+        UUID uuid;
+        uuid.generateUuid();
+        uuids.insert(uuid);
+    }
+    ASSERT_EQ(uuids.size(), 100);
+}
+// NOLINTEND

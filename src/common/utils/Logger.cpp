@@ -32,7 +32,7 @@ static std::string getCurrentTimeToString() {
 #include <time.h>
     struct tm timeinfo;
     __int64 now_c = std::chrono::system_clock::to_time_t(now);
-    gmtime_s(&timeinfo, &now_c);
+    localtime_s(&timeinfo, &now_c);
     std::stringstream inSS;
     inSS << std::put_time(&timeinfo, "%Y-%m-%d %H:%M:%S");
     return inSS.str();

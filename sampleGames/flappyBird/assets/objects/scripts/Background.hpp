@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2024
-** R-Type-Reborn
+** StellarForge
 ** File description:
 ** Background.hpp
 */

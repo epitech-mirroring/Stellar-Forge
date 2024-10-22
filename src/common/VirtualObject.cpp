@@ -69,6 +69,11 @@ void VirtualObject::removeChild(IObject *child) {
 }
 
 void VirtualObject::addComponent(IComponent *component) {
+    if (_hasRun) {
+        LOG.error("Cannot add component after object has been run. Object: " +
+                  _meta->getName());
+        return;
+    }
     if (std::find(_components.begin(), _components.end(), component) != _components.
         end()) {
         return;
@@ -77,6 +82,11 @@ void VirtualObject::addComponent(IComponent *component) {
 }
 
 void VirtualObject::removeComponent(IComponent *component) {
+    if (_hasRun) {
+        LOG.error << "Cannot remove component after object has been run. Object: " +
+                _meta->getName();
+        return;
+    }
     const auto ite = std::find(_components.begin(), _components.end(), component);
     if (ite == _components.end()) {
         return;
@@ -85,6 +95,12 @@ void VirtualObject::removeComponent(IComponent *component) {
 }
 
 void VirtualObject::runObject() {
+    if (!_hasRun) {
+        for (auto *const component: _components) {
+            component->onCreation();
+        }
+        _hasRun = true;
+    }
     if (!_active) {
         return;
     }

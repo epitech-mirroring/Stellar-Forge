@@ -18,6 +18,7 @@ protected:
     std::vector<IComponent *> _components;
     IMeta *_meta;
     bool _active;
+    bool _hasRun;
     const static Logger LOG;
 
 public:

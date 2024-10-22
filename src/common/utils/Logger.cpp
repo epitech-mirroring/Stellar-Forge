@@ -19,8 +19,8 @@ Logger::Logger(std::ostream *output, std::ostream *error) noexcept: _output(outp
 
 static std::string getCurrentTimeToString() {
     const auto now = std::chrono::system_clock::now();
-    std::time_t const now_c = std::chrono::system_clock::to_time_t(now);
 #if defined(__APPLE__) || defined(__linux__)
+    std::time_t const now_c = std::chrono::system_clock::to_time_t(now);
     tm time{};
     tm *time_ptr = &time;
     time_ptr = localtime_r(&now_c, time_ptr);

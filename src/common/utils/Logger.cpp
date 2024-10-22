@@ -10,6 +10,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <chrono>
 
 Logger::Logger(std::ostream *output, std::ostream *error) noexcept: _output(output),
     _error(error), debug(DebugLevel(output)), info(InfoLevel(output)),

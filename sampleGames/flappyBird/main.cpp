@@ -7,6 +7,7 @@
 */
 
 #include "assets/objects/scripts/Background.hpp"
+#include "assets/objects/scripts/Bird.hpp"
 #include "../../src/engine/Engine.hpp"
 #include "../../src/common/factories/ComponentFactory.hpp"
 #include <iostream>
@@ -17,6 +18,7 @@ int main(int argc, char* argv[])
     try {
         Engine const engine([]() {
             REGISTER_COMPONENT(Background);
+            REGISTER_COMPONENT(Bird);
         }, "FlappyBird");
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;

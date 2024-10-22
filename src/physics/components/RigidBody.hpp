@@ -13,6 +13,7 @@
 #include <glm/vec3.hpp>
 
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "../Collider.hpp"
 
 /**
  * @class RigidBody
@@ -22,10 +23,12 @@
  * @author landry GIGANT
  */
 class RigidBody final : public AComponent {
+public:
  glm::vec3 _velocity; ///< The velocity of the rigid body.
  glm::vec3 _acceleration; ///< The acceleration of the rigid body.
  float _terminalVelocity; ///< The terminal velocity of the rigid body.
  float _drag; ///< The drag coefficient of the rigid body.
+ ICollider *_collider; ///< The collider of the rigid body.
 
 public:
  /**
@@ -109,6 +112,8 @@ public:
   * @author landry GIGANT
   */
  void applyImpulse(const glm::vec3 &impulse);
+
+ std::vector<IObject *> collidingObjects();
 
  void runComponent() override;
 

@@ -10,6 +10,7 @@
 #include "common/components/Transform.hpp"
 #include "common/json/JsonNull.hpp"
 #include "physics/Physics.hpp"
+#include "common/managers/SceneManager.hpp"
 
 RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup({}) {
 }
@@ -40,6 +41,23 @@ void RigidBody::applyForce(const float deltaTime) {
 
 void RigidBody::applyImpulse(const Vector3 &impulse) {
     Physics::Movement::applyImpulse(_velocity, impulse);
+}
+
+std::vector<IObject *> RigidBody::collidingObjects() {
+    std::vector<IObject *> colliding_objects;
+    for (auto &object : SceneManager::getInstance().getCurrentScene()->getObjects()) {
+        if (object == this->getOwner()) {
+            continue;
+        }
+        auto *other_body = object->getComponent<RigidBody>();
+        if (other_body == nullptr) {
+            continue;
+        }
+        if (other_body->_collider->collide(_collider)) {
+            colliding_objects.push_back(object);
+        }
+    }
+    return colliding_objects;
 }
 
 void RigidBody::runComponent() {

@@ -107,6 +107,15 @@ void AbstractLoggerLevel::operator()(const int number) const {
     *this << number << '\n';
 }
 
+const ILoggerLevel &AbstractLoggerLevel::operator<<(
+    const std::filesystem::path &path) const {
+    return this->operator<<(path.string());
+}
+
+void AbstractLoggerLevel::operator()(const std::filesystem::path &path) const {
+    *this << path.string() << '\n';
+}
+
 const ILoggerLevel &AbstractLoggerLevel::operator
 <<(const std::exception &exception) const {
     return this->operator<<(exception.what());

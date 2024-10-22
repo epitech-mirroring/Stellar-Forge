@@ -12,6 +12,7 @@
 #include <string>
 #include <exception>
 #include <sstream>
+#include <filesystem>
 
 class ILoggerLevel {
 public:
@@ -36,6 +37,10 @@ public:
     virtual const ILoggerLevel &operator<<(int number) const = 0;
 
     virtual void operator()(int number) const = 0;
+
+    virtual const ILoggerLevel &operator<<(const std::filesystem::path &path) const = 0;
+
+    virtual void operator()(const std::filesystem::path &path) const = 0;
 };
 
 class AbstractLoggerLevel : public virtual ILoggerLevel {
@@ -69,6 +74,10 @@ public:
     const ILoggerLevel &operator<<(int number) const override;
 
     void operator()(int number) const override;
+
+    const ILoggerLevel &operator<<(const std::filesystem::path &path) const override;
+
+    void operator()(const std::filesystem::path &path) const override;
 
     void flush() const;
 };

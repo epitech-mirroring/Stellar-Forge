@@ -9,11 +9,15 @@
 #include "VirtualObject.hpp"
 
 #include <algorithm>
-#include <utility>
+
+const Logger VirtualObject::LOG = Logger();
 
 VirtualObject::VirtualObject(IMeta *meta): _parent(nullptr), _children({}),
                                            _components({}),
-                                           _meta(meta), _active(true) {
+                                           _meta(meta), _active(true), _hasRun(false) {
+    if (_meta == nullptr) {
+        LOG.error("Meta cannot be null");
+    }
 }
 
 IObject *VirtualObject::clone() const {

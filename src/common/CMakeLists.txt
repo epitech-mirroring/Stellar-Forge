@@ -13,6 +13,7 @@ add_subdirectory(fields)
 add_subdirectory(components)
 add_subdirectory(event)
 add_subdirectory(managers)
+add_subdirectory(utils)
 
 target_sources(StellarForgeCommon
         PUBLIC

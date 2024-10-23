@@ -38,6 +38,18 @@ public:
     Box(Vector3 position, Vector3 size);
 
     /**
+     * @brief Set the position of the box.
+     * @param position The new position of the box.
+     */
+    void setPosition(Vector3 position) override;
+
+    /**
+     * @brief Get the position of the box.
+     * @return The position of the box.
+     */
+    [[nodiscard]] Vector3 getPosition() const override;
+
+    /**
      * @brief Check if the box collides with another collider.
      * @param collider The collider to check for collision.
      * @return True if the box collides with the collider, false otherwise.

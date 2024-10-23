@@ -33,7 +33,7 @@ void Physics::Movement::applyMovement(Vector3 &pos, Vector3 &vel,
 
     const float distance = length(vel);
 
-    if (distance > terminalVelocity) {
+    if (terminalVelocity != 0 && distance > terminalVelocity) {
         vel *= terminalVelocity / distance;
     }
 }

@@ -38,6 +38,18 @@ public:
     Sphere(Vector3 position, float radius);
 
     /**
+     * @brief Set the position of the sphere.
+     * @param position The new position of the sphere.
+     */
+    void setPosition(Vector3 position) override;
+
+    /**
+     * @brief Get the position of the sphere.
+     * @return The position of the sphere.
+     */
+    [[nodiscard]] Vector3 getPosition() const override;
+
+    /**
      * @brief Check if the sphere collides with another collider.
      * @param collider The collider to check for collision.
      * @return True if the sphere collides with the collider, false otherwise.

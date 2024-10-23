@@ -27,3 +27,4 @@ Checks: >
   -*-no-recursion,
   -*-function-cognitive-complexity,
   -*-use-anonymous-namespace,
+  -cppcoreguidelines-interfaces-global-init,

@@ -32,6 +32,8 @@
 #include "graphics/Graphics.hpp"
 #include "physics/components/RigidBody.hpp"
 
+const Logger Engine::LOG = Logger();
+
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
     REGISTER_COMPONENT(AnimatedSprite);
@@ -82,7 +84,7 @@ void Engine::_startGraphics(const std::string &gameName) {
 void Engine::_loadObjects(const std::string &pathName) {
     std::filesystem::path const path(pathName);
     if (!exists(path)) {
-        std::cerr << "Path does not exist: " << absolute(path) << '\n';
+        LOG.error << "Path does not exist: " << absolute(path) << '\n';
         return;
     }
     const std::filesystem::directory_iterator start(path);
@@ -196,18 +198,18 @@ bool Engine::_isValideObject(const json::IJsonObject *data) {
 void Engine::_loadObject(const std::string &path) {
     std::ifstream file(path);
     if (!file.is_open()) {
-        std::cerr << "Failed to open file: " << path << '\n';
+        LOG.error << "Failed to open file: " << path << '\n';
         return;
     }
     auto *const parser = new json::JsonParser();
     const auto reader = json::JsonReader(parser);
     const json::IJsonObject *const raw = reader << file;
     if (raw == nullptr) {
-        std::cerr << "Failed to parse file: " << path << '\n';
+        LOG.error << "Failed to parse file: " << path << '\n';
         return;
     }
     if (!_isValideObject(raw)) {
-        std::cerr << "Invalid object file: " << path << '\n';
+        LOG.error << "Invalid object file: " << path << '\n';
         return;
     }
     auto const *const obj = dynamic_cast<const json::JsonObject *>(raw);
@@ -265,18 +267,18 @@ void Engine::_loadScenes(const std::string &pathName) {
 void Engine::_loadScene(const std::string &path) {
     std::ifstream file(path);
     if (!file.is_open()) {
-        std::cerr << "Failed to open file: " << path << '\n';
+        LOG.error << "Failed to open file: " << path << '\n';
         return;
     }
     auto *const parser = new json::JsonParser();
     const auto reader = json::JsonReader(parser);
     const json::IJsonObject *const raw = reader << file;
     if (raw == nullptr) {
-        std::cerr << "Failed to parse file: " << path << '\n';
+        LOG.error << "Failed to parse file: " << path << '\n';
         return;
     }
     if (!_isValideScene(raw)) {
-        std::cerr << "Invalid scene file: " << path << '\n';
+        LOG.error << "Invalid scene file: " << path << '\n';
         return;
     }
     auto const *const obj = dynamic_cast<const json::JsonObject *>(raw);

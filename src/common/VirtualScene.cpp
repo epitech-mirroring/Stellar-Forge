@@ -13,6 +13,15 @@ VirtualScene::VirtualScene(std::vector<IObject*> objects) : _objects(std::move(o
 {
 }
 
+VirtualScene::~VirtualScene()
+{
+    for (const auto& object : _objects)
+    {
+        removeObject(object);
+        delete object;
+    }
+}
+
 void VirtualScene::runScene()
 {
     for (const auto& object : _objects)
@@ -37,6 +46,14 @@ void VirtualScene::removeObject(IObject* object)
     {
         if (*ite == object)
         {
+            for (const auto& component : object->getComponents())
+            {
+                component->onDeletion();
+            }
+            for (const auto& child : object->getChildren())
+            {
+                removeObject(child);
+            }
             _objects.erase(ite);
             return;
         }

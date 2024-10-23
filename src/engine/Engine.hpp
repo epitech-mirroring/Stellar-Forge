@@ -14,12 +14,14 @@
 #include "common/IScene.hpp"
 #include "common/UUID.hpp"
 #include "common/json/IJsonObject.hpp"
+#include "common/utils/Logger.hpp"
 
 class Engine {
 protected:
     std::unordered_map<UUID, std::pair<IObject *, std::vector<UUID> > > _objects;
 
     std::unordered_map<UUID, IScene *> _scenes;
+    static const Logger LOG;
 
 public:
     Engine(const std::function<void()> &initComponents, const std::string &gameName,

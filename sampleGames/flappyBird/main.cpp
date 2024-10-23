@@ -12,7 +12,6 @@
 #include "../../src/engine/Engine.hpp"
 #include "../../src/common/factories/ComponentFactory.hpp"
 #include <iostream>
-#include <thread>
 
 int main(int argc, char* argv[])
 {

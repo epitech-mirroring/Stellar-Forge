@@ -36,11 +36,11 @@ void Pipes::spawnPipe(float offset)
     rigidbody->_drag = 0;
     if (500 + offset > 0) {
         transform->rotate2D(180);
-        rigidbody->_collider = new Box(Vector3(0, 0, 0), Vector3(-140, -890, 0));
-        transform->setPosition(Vector3(1500 + 140, 500 + offset + 890, 0));
+        rigidbody->_collider = new Box(Vector3(0, 0, 0), Vector3(-140, -890, -1));
+        transform->setPosition(Vector3(2000 + 140, 500 + offset + 890, 1));
     } else {
-        rigidbody->_collider = new Box(Vector3(0, 0, 0), Vector3(140, 890, 0));
-        transform->setPosition(Vector3(1500, 500 + offset, 0));
+        rigidbody->_collider = new Box(Vector3(0, 0, 0), Vector3(140, 890, -1));
+        transform->setPosition(Vector3(2000, 500 + offset, 1));
     }
 }
 

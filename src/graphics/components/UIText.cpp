@@ -42,7 +42,7 @@ std::string UIText::findDefaultFontPath() {
 #ifdef _WIN32
         return "C:\\Windows\\Fonts\\arial.ttf";
 #elif defined(__linux__)
-        return "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+        return "/usr/share/fonts/liberation-sans/LiberationSans-Regular.ttf";
 #else
     throw GraphicsException("Unknown OS: No default font available");
 #endif
@@ -56,6 +56,7 @@ void UIText::render(sf::RenderWindow *window) {
         text.setRotation(transformComponent->getRotation().x);
         text.setScale(transformComponent->getScale().x,
                       transformComponent->getScale().y);
+        text.setStyle(sf::Text::Regular);
         window->draw(text);
     }
 }
@@ -164,6 +165,13 @@ void UIText::deserialize(const json::IJsonObject *data) {
                 "Failed to load font from file: " + std::string(fontPath));
         }
         text.setFont(font);
+    } else {
+        fontPath = findDefaultFontPath();
+        if (!font.loadFromFile(fontPath)) {
+            throw GraphicsException(
+                "Failed to load font from file: " + std::string(fontPath));
+        }
+        text.setFont(font);
     }
     if (obj->contains("size")) {
         fontSize = obj->getValue<json::JsonNumber>("size")->getIntValue();
@@ -171,6 +179,7 @@ void UIText::deserialize(const json::IJsonObject *data) {
     }
     if (obj->contains("color")) {
         const auto *const colorData = obj->getValue<json::JsonObject>("color");
+        color = sf::Color();
         color.r = colorData->getValue<json::JsonNumber>("r")->getIntValue();
         color.g = colorData->getValue<json::JsonNumber>("g")->getIntValue();
         color.b = colorData->getValue<json::JsonNumber>("b")->getIntValue();

@@ -1,0 +1,14 @@
+{
+  "id": "2527ff15-35f9-44e3-a649-69f3ba25aff1",
+  "meta": {
+    "name": "Pipe Spawner"
+  },
+  "isActive": true,
+  "child": [],
+  "components": [
+    {
+      "name": "Pipes",
+      "data": null
+    }
+  ]
+}

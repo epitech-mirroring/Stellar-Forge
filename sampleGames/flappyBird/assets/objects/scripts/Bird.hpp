@@ -8,12 +8,12 @@
 #ifndef STELLARFORGE_BIRD_HPP
 #define STELLARFORGE_BIRD_HPP
 
-#include <chrono>
 #include "common/components/CPPMonoBehaviour.hpp"
 #include "common/components/Transform.hpp"
 #include "physics/components/RigidBody.hpp"
 #include "common/json/JsonObject.hpp"
 #include "common/event/EventSystem.hpp"
+#include "physics/Box.hpp"
 
 class Bird : public CPPMonoBehaviour {
     public:
@@ -33,10 +33,8 @@ class Bird : public CPPMonoBehaviour {
         void end() override;
         json::IJsonObject *serializeData() override;
     private:
-        float jumpForce = 200.0f;
+        float jumpForce = 250.0f;
         bool isDead = false;
-        std::chrono::time_point<std::chrono::system_clock> startTime;
-        std::chrono::time_point<std::chrono::system_clock> actualTime;
 };
 
 #endif //STELLARFORGE_BIRD_HPP

@@ -10,6 +10,7 @@
 #include "common/components/Transform.hpp"
 #include "common/json/JsonNull.hpp"
 #include "physics/Physics.hpp"
+#include "common/managers/SceneManager.hpp"
 
 RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup({}) {
 }
@@ -18,7 +19,10 @@ RigidBody::RigidBody(IObject *owner, const json::JsonObject *data) : AComponent(
         owner, new Meta(this), data),
     _velocity(glm::vec3(0.0f)),
     _acceleration(glm::vec3(0.0f)),
-    _terminalVelocity(0.0f), _drag(0.0f) {
+    _terminalVelocity(0.0f),
+    _drag(0.0f),
+    _collider(nullptr)
+{
 }
 
 void RigidBody::applyMovement(const float deltaTime) {
@@ -40,6 +44,28 @@ void RigidBody::applyForce(const float deltaTime) {
 
 void RigidBody::applyImpulse(const Vector3 &impulse) {
     Physics::Movement::applyImpulse(_velocity, impulse);
+}
+
+std::vector<IObject *> RigidBody::collidingObjects() {
+    std::vector<IObject *> colliding_objects;
+    for (auto &object : SceneManager::getInstance().getCurrentScene()->getObjects()) {
+        if (object == this->getOwner()) {
+            continue;
+        }
+        auto *other_body = object->getComponent<RigidBody>();
+        if (other_body == nullptr || other_body->_collider == nullptr) {
+            continue;
+        }
+        //TODO: use the collider position relative to the object
+        const Vector3 pos = this->getParentComponent<Transform>()->getPosition();
+        const Vector3 pos2 = object->getComponent<Transform>()->getPosition();
+        _collider->setPosition(pos);
+        other_body->_collider->setPosition(pos2);
+        if (other_body->_collider->collide(_collider)) {
+            colliding_objects.push_back(object);
+        }
+    }
+    return colliding_objects;
 }
 
 void RigidBody::runComponent() {

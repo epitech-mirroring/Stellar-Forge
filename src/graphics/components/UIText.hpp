@@ -67,6 +67,16 @@ public:
  void setText(const std::string &textStr);
 
  /**
+ * @brief Sets the text to display.
+ * @details This method sets the text to display on the screen.
+ * @return The sf::Text object.
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ sf::Text *getText();
+
+ /**
   * @brief Sets the font to use for the text.
   * @param fontPath The file path to the font, as a std::string.
   * @details This method sets the font to use for rendering the text on the screen.

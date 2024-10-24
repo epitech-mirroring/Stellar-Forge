@@ -13,6 +13,14 @@ Sphere::Sphere(Vector3 position, float radius) : position(position), radius(radi
 {
 }
 
+void Sphere::setPosition(Vector3 position) {
+    this->position = position;
+}
+
+[[nodiscard]] Vector3 Sphere::getPosition() const {
+    return position;
+}
+
 bool Sphere::collide(ICollider *collider) {
     if (dynamic_cast<Sphere *>(collider) != nullptr) {
         return Physics::Collision::sphereCollideSphere(*this, *dynamic_cast<Sphere *>(collider));

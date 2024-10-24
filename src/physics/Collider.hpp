@@ -31,6 +31,24 @@ public:
     virtual ~ICollider() = default;
 
     /**
+     * @brief Set the position of the collider.
+     * @param position
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Landry GIGANT
+     */
+    virtual void setPosition(Vector3 position) = 0;
+
+    /**
+     * @brief Get the position of the collider.
+     * @return The position of the collider.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Landry GIGANT
+     */
+    [[nodiscard]] virtual Vector3 getPosition() const = 0;
+
+    /**
      * @brief Check if this collider collides with another collider.
      * @param collider Pointer to the other collider.
      * @return True if the colliders collide, false otherwise.

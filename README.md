@@ -18,6 +18,7 @@
 - [Supported Platforms](#supported-platforms)
 - [Build Instructions](#build-instructions)
 - [Usage Instructions](#usage-instructions)
+- [Example Games](#example-games)
 - [Authors & Contact](#authors--contact)
 - [Useful Links](#useful-links)
 
@@ -50,6 +51,12 @@ You can install the dependencies using your platform's package manager or follow
 ## Usage Instructions
 
 (To be completed)
+
+## Example Games
+
+**Stellar Forge** can be used to create a wide range of games, from classic arcade shooters to modern multiplayer experiences. Here are some examples of games that can be built using **Stellar Forge**:
+- Flappy-Bird-Reborn is a clone of the iconic game named Flappy Bird. Your goal is to survive and avoid the pipes that appears near you. [click here](https://github.com/epitech-mirroring/Flappy-Bird-Reborn) to try this game!
+- R-Type-Reborn is a modern reimagining of the classic arcade shoot 'em up, combining nostalgic gameplay with new features and enhancements. [click here](https://github.com/epitech-mirroring/R-Type-Reborn) to try this game!
 
 ## Authors & Contact
 

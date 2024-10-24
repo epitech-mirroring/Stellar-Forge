@@ -30,7 +30,7 @@ void Sprite::render(sf::RenderWindow *window) {
     if (transformComponent != nullptr) {
         sprite.setPosition(transformComponent->getPosition().x,
                            transformComponent->getPosition().y);
-        sprite.setRotation(transformComponent->getRotation().x);
+        sprite.setRotation(transformComponent->getRotation2D());
         sprite.setScale(transformComponent->getScale().x,
                         transformComponent->getScale().y);
         window->draw(sprite);

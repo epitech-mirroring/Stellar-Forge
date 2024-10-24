@@ -86,6 +86,3 @@ foreach (header IN LISTS StellarForge_HEADERS)
 endforeach ()
 
 add_subdirectory(tests)
-
-# Add StellarForge game samples
-add_subdirectory(sampleGames/flappyBird)

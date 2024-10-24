@@ -20,7 +20,6 @@ void Bird::start()
     rigidbody->_drag = 10;
     rigidbody->_collider = new Box(Vector3(0, 0, 0), Vector3(10, 60, 0));
 
-
     EventSystem::getInstance().registerListener("space_pressed", [this](const EventData& data) {
         if (!isDead) {
             jump();
@@ -43,8 +42,7 @@ void Bird::update()
     if (transform->getPosition().y < 0 || transform->getPosition().y > 1000) {
         die();
     }
-    const std::vector<IObject *> colliding_objects = rigidbody->collidingObjects();
-    if (!colliding_objects.empty()) {
+    if (const std::vector<IObject *> colliding_objects = rigidbody->collidingObjects(); !colliding_objects.empty()) {
         die();
     }
 }
@@ -62,7 +60,7 @@ void Bird::die()
     rigidbody->_velocity = Vector3(0, 100, 0);
     rigidbody->_acceleration = Vector3(0, 1000, 0);
     rigidbody->_terminalVelocity = 0;
-
+    EventSystem::getInstance().triggerEvents("bird_died", nullptr);
 }
 
 void Bird::setJumpForce(float newJumpForce)

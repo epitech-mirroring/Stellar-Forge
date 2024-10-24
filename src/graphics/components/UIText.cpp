@@ -61,6 +61,10 @@ void UIText::render(sf::RenderWindow *window) {
     }
 }
 
+sf::Text *UIText::getText() {
+    return &text;
+}
+
 void UIText::setText(const std::string &textStr) {
     textString = textStr;
     text.setString(textString);

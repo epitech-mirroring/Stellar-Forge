@@ -12,6 +12,7 @@
 #include "common/components/CPPMonoBehaviour.hpp"
 #include "common/components/Transform.hpp"
 #include "common/json/JsonObject.hpp"
+#include "common/event/EventSystem.hpp"
 
 class Background final : public CPPMonoBehaviour {
     public:
@@ -20,6 +21,7 @@ class Background final : public CPPMonoBehaviour {
 
         void start() override;
         void update() override;
+        void onGameLost(const EventData &data);
 
         void setSpeed(float newSpeed);
         [[nodiscard]] float getSpeed() const;
@@ -32,6 +34,7 @@ class Background final : public CPPMonoBehaviour {
         float speed = 1.00f;
         std::chrono::time_point<std::chrono::system_clock> startTime;
         std::chrono::time_point<std::chrono::system_clock> actualTime;
+        bool gameLost = false;
 };
 
 #endif //BACKGROUND_HPP

@@ -32,6 +32,8 @@ class Pipes : public CPPMonoBehaviour {
 
         void spawnPipe(float offset);
 
+        void onGameLost(const EventData &data);
+
         IComponent *clone(IObject *owner) const override;
         void deserialize(const json::IJsonObject *data) override;
         void end() override;
@@ -41,6 +43,8 @@ class Pipes : public CPPMonoBehaviour {
         float spawnRate = 2.00f;
         std::chrono::time_point<std::chrono::system_clock> startTime;
         std::chrono::time_point<std::chrono::system_clock> actualTime;
+        std::vector<UUID> pipes;
+        bool gameLost = false;
 };
 
 #endif //STELLARFORGE_PIPES_HPP

@@ -1,4 +1,5 @@
-add_executable(flappy-bird)
+add_executable(flappy-bird
+        assets/objects/scripts/Score.hpp)
 
 target_link_libraries(flappy-bird PUBLIC StellarForge StellarForgeGraphics StellarForgePhysics StellarForgeCommon sfml::sfml glm::glm)
 
@@ -7,9 +8,11 @@ target_sources(flappy-bird
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Background.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Bird.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Pipes.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Score.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Background.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Bird.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Pipes.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/assets/objects/scripts/Score.cpp
 )

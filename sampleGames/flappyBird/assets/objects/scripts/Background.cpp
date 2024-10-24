@@ -14,11 +14,19 @@ void Background::start() {
     actualTime = std::chrono::high_resolution_clock::now();
     auto *transform = getParentComponent<Transform>();
     transform->setPosition(Vector3(0, 0, 0));
+    EventSystem::getInstance().registerListener("bird_died", [this](const EventData& data) {
+        onGameLost(data);
+    });
+}
+
+void Background::onGameLost(const EventData &data)
+{
+    gameLost = true;
 }
 
 void Background::update() {
     actualTime = std::chrono::high_resolution_clock::now();
-    if (std::chrono::duration<float, std::chrono::seconds::period>(actualTime - startTime).count() >= 0.01f) {
+    if (std::chrono::duration<float>(actualTime - startTime).count() >= 0.01f && !gameLost) {
         auto *transform = getParentComponent<Transform>();
         transform->setPosition(Vector3(transform->getPosition().x - 5, transform->getPosition().y, -10));
         if (transform->getPosition().x <= -1920) {

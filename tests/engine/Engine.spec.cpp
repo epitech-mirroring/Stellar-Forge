@@ -52,10 +52,9 @@ TEST(Engine, ally) {
     ASSERT_EQ(objectsInScene.at(0)->getMeta().getName(), "Ally");
 }
 
-TEST(Engine, DynamicComponentLoader) {
-    auto engine = Engine([]() {
-                             auto loader = DynamicComponentLoader(
-                                 "./assets/components/");
+TEST(Engine, dynamicComponentLoader) {
+    auto loader = DynamicComponentLoader("./assets/components/");
+    auto engine = Engine([&loader]() {
                              loader.loadComponents();
                          }, "test", "./assets/",
                          [](const std::string &/*gameName*/) {

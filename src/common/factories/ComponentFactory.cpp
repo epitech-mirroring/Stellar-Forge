@@ -8,6 +8,8 @@
 
 #include "ComponentFactory.hpp"
 
+const Logger ComponentFactory::LOG = Logger();
+
 IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner,
                                      const json::JsonObject *data) {
     if (registry.find(typeName) != registry.end()) {
@@ -17,8 +19,23 @@ IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner
     return nullptr;
 }
 
+ComponentFactory::~ComponentFactory() {
+    for (auto &[typeName, constructor]: registry) {
+        LOG.info << "Unregistering component: " << typeName << '\n';
+    }
+}
+
 bool ComponentFactory::hasComponent(const std::string &typeName) const {
     return registry.find(typeName) != registry.end();
 }
+
+void ComponentFactory::safeUnregisterComponent(const std::string &typeName) {
+    if (!hasComponent(typeName)) {
+        return;
+    }
+    LOG.info << "Unregistering component: " << typeName << '\n';
+    registry.erase(typeName);
+}
+
 
 ComponentFactory *ComponentFactory::INSTANCE = new ComponentFactory();

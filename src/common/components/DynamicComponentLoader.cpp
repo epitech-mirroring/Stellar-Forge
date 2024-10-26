@@ -19,9 +19,16 @@ DynamicComponentLoader::DynamicComponentLoader(std::string path)
 }
 
 DynamicComponentLoader::~DynamicComponentLoader() {
-    for (auto *const handle: this->_handles) {
+    for (auto &[handle, components]: this->_handles) {
+        for (const auto &component: components) {
+            ComponentFactory::getInstance().safeUnregisterComponent(component);
+        }
         if (dlclose(handle) != 0) {
-            LOG.error << "Failed to close handle: " << dlerror() << '\n';
+            LOG.error << "Failed to close handle: " << dlerror() << " with components: ";
+            for (const auto &component: components) {
+                LOG.error << component << ' ';
+            }
+            LOG.error << '\n';
         }
     }
 }
@@ -74,6 +81,7 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
                 '\n';
         return;
     }
+    this->_handles.push_back({handle, {}});
     auto *getComponentNames = reinterpret_cast<const char **(*)()>(dlsym(
         handle, "getComponentName"));
     auto *registerComponents = reinterpret_cast<void (*)()>(dlsym(
@@ -94,7 +102,7 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
                     '\n';
         } else {
             LOG.info << "Component: " << componentNames[i] << " registered." << '\n';
+            this->_handles.back().second.emplace_back(componentNames[i]);
         }
     }
-    this->_handles.push_back(handle);
 }

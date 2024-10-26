@@ -13,11 +13,13 @@
 #include "common/IComponent.hpp"
 #include "common/components/AComponent.hpp"
 #include "common/json/JsonObject.hpp"
+#include "common/utils/Logger.hpp"
 
 
 class ComponentFactory {
 private:
     static ComponentFactory *INSTANCE;
+    static const Logger LOG;
 
 public:
     using Constructor = std::function<IComponent *(
@@ -25,10 +27,14 @@ public:
 
     ComponentFactory() = default;
 
-    ~ComponentFactory() = default;
+    ~ComponentFactory();
 
     template<typename T>
     void registerComponent(const std::string &typeName) {
+        if (registry.find(typeName) != registry.end()) {
+            LOG.warn << "Component already registered: " << typeName << '\n';
+            return;
+        }
         registry[typeName] = [
                 ](IObject *owner,
                   const json::JsonObject *data) -> IComponent *{
@@ -40,6 +46,7 @@ public:
                     }
                     return comp;
                 };
+        LOG.info << "Registering component: " << typeName << '\n';
     }
 
     [[nodiscard]]
@@ -53,6 +60,8 @@ public:
     static ComponentFactory &getInstance() {
         return *INSTANCE;
     }
+
+    void safeUnregisterComponent(const std::string &typeName);
 
 private:
     std::unordered_map<std::string, Constructor> registry;

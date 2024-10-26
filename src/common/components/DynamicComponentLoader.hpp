@@ -17,7 +17,7 @@ class DynamicComponentLoader {
 protected:
     std::string _directoryPath;
     static const Logger LOG;
-    std::vector<void *> _handles;
+    std::vector<std::pair<void *, std::vector<std::string> > > _handles;
 
     void _loadComponentsDirectory(const std::filesystem::path &path);
 

@@ -6,8 +6,7 @@ project(StellarForge
         VERSION 0.1.0
         DESCRIPTION "A simple 2D game engine"
 )
-
-add_compile_options(-fPIE)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Check if clang-tidy is installed
 # If it is, set it as the C++ clang-tidy checker

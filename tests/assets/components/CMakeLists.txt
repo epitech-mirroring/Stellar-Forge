@@ -1,2 +1,3 @@
 add_library(test_dynamic SHARED test_dynamic.cpp)
 target_link_libraries(test_dynamic PUBLIC StellarForgeCommon)
+set_target_properties(test_dynamic PROPERTIES POSITION_INDEPENDENT_CODE ON)

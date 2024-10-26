@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 
+#include "common/components/DynamicComponentLoader.hpp"
 #include "common/components/Transform.hpp"
 #include "common/managers/ObjectManager.hpp"
 #include "common/managers/SceneManager.hpp"
@@ -49,4 +50,17 @@ TEST(Engine, ally) {
     const auto objectsInScene = scene->getObjects();
     ASSERT_EQ(objectsInScene.size(), 1);
     ASSERT_EQ(objectsInScene.at(0)->getMeta().getName(), "Ally");
+}
+
+TEST(Engine, DynamicComponentLoader) {
+    auto engine = Engine([]() {
+                             auto loader = DynamicComponentLoader(
+                                 "./assets/components/");
+                             loader.loadComponents();
+                         }, "test", "./assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Sprite"));
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Test1"));
 }

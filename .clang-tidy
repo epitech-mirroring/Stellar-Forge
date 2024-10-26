@@ -28,3 +28,7 @@ Checks: >
   -*-function-cognitive-complexity,
   -*-use-anonymous-namespace,
   -cppcoreguidelines-interfaces-global-init,
+  -*-mt-unsafe,
+  -*-pro-type-reinterpret-cast,
+  -*-pro-bounds-array-to-pointer-decay,
+  -*-pro-bounds-pointer-arithmetic,

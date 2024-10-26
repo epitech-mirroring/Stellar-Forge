@@ -41,7 +41,8 @@ TEST(ComponentDeserialization, Transform) {
     ASSERT_EQ(raw->getType(), json::OBJECT);
     ASSERT_EQ(raw->getName(), "");
     const auto *const data = dynamic_cast<const json::JsonObject *>(raw);
-    IComponent *r_component = ComponentFactory::create("Transform", nullptr, data);
+    IComponent *r_component = ComponentFactory::getInstance().create(
+        "Transform", nullptr, data);
     ASSERT_NE(r_component, nullptr);
     ASSERT_EQ(r_component->isActive(), true);
     ASSERT_NE(dynamic_cast<Transform *>(r_component), nullptr);

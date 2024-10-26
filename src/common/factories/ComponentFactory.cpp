@@ -10,16 +10,15 @@
 
 IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner,
                                      const json::JsonObject *data) {
-    if (registry().find(typeName) != registry().end()) {
-        auto *comp = registry()[typeName](owner, data);
+    if (registry.find(typeName) != registry.end()) {
+        auto *comp = registry[typeName](owner, data);
         return comp;
     }
     return nullptr;
 }
 
-std::unordered_map<std::string, ComponentFactory::Constructor> &
-ComponentFactory::registry() {
-    static std::unordered_map<std::string, Constructor> reg;
-    return reg;
+bool ComponentFactory::hasComponent(const std::string &typeName) const {
+    return registry.find(typeName) != registry.end();
 }
 
+ComponentFactory *ComponentFactory::INSTANCE = new ComponentFactory();

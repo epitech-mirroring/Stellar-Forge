@@ -16,13 +16,20 @@
 
 
 class ComponentFactory {
+private:
+    static ComponentFactory *INSTANCE;
+
 public:
     using Constructor = std::function<IComponent *(
         IObject *, const json::JsonObject *)>;
 
+    ComponentFactory() = default;
+
+    ~ComponentFactory() = default;
+
     template<typename T>
-    static void registerComponent(const std::string &typeName) {
-        registry()[typeName] = [
+    void registerComponent(const std::string &typeName) {
+        registry[typeName] = [
                 ](IObject *owner,
                   const json::JsonObject *data) -> IComponent *{
                     auto comp = construct<T>(owner, data);
@@ -36,12 +43,19 @@ public:
     }
 
     [[nodiscard]]
-    static IComponent *create(const std::string &typeName,
-                              IObject *owner,
-                              const json::JsonObject *data);
+    IComponent *create(const std::string &typeName,
+                       IObject *owner,
+                       const json::JsonObject *data);
+
+    [[nodiscard]]
+    bool hasComponent(const std::string &typeName) const;
+
+    static ComponentFactory &getInstance() {
+        return *INSTANCE;
+    }
 
 private:
-    static std::unordered_map<std::string, Constructor> &registry();
+    std::unordered_map<std::string, Constructor> registry;
 
     template<typename T>
     static IComponent *construct(IObject *owner,
@@ -53,7 +67,7 @@ private:
 
 #define REGISTER_COMPONENT(name) \
     static_assert(IsValidComponent<name>::value, "Check documentation for valid components"); \
-    ComponentFactory::registerComponent<name>(#name)
+    ComponentFactory::getInstance().registerComponent<name>(#name)
 
 
 #endif //COMPONENTFACTORY_HPP

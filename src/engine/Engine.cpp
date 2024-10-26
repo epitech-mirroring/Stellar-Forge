@@ -235,7 +235,8 @@ void Engine::_loadObject(const std::string &path) {
             const auto *const compData = comps->at(i);
             const auto compName = compData->getValue<json::JsonString>("name")->
                     getValue();
-            auto *comp = ComponentFactory::create(compName, object, compData);
+            auto *comp = ComponentFactory::getInstance().create(
+                compName, object, compData);
             object->addComponent(comp);
         }
     }

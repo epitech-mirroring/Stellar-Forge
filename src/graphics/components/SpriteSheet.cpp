@@ -111,7 +111,7 @@ SpriteSheet::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *SpriteSheet::serializeData() {
+json::IJsonObject *SpriteSheet::serializeData() const {
     auto *const data = new json::JsonObject("data");
     data->add(new json::JsonString(path, "path"));
     data->add(new json::JsonNumber(static_cast<int>(currentFrame), "currentFrame"));

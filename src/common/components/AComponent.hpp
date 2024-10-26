@@ -167,7 +167,7 @@ protected:
 
  bool _isActive; //< The state of the component
 
- [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
+ [[nodiscard]] virtual json::IJsonObject *serializeData() const = 0;
 };
 
 #endif //ACOMPONENT_HPP

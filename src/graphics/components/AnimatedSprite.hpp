@@ -166,7 +166,7 @@ public:
   [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
  };
 
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  void deserialize(const json::IJsonObject *data) override;
 

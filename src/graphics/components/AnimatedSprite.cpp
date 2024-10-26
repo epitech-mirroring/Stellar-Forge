@@ -161,7 +161,7 @@ void AnimatedSprite::deserialize(const json::IJsonObject *data) {
     }
 }
 
-json::IJsonObject *AnimatedSprite::serializeData() {
+json::IJsonObject *AnimatedSprite::serializeData() const {
     auto *obj = new json::JsonObject("data");
     obj->add(new json::JsonString("path", path));
     auto *frames = new json::JsonArray<json::JsonObject>("frames");

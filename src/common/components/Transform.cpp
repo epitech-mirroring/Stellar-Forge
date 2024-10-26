@@ -109,7 +109,7 @@ Transform::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Transform::serializeData() {
+json::IJsonObject *Transform::serializeData() const {
     auto *object = new json::JsonObject("data");
     auto *position = new json::JsonObject("position");
     auto *rotation = new json::JsonObject("rotation");

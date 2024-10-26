@@ -126,7 +126,7 @@ UIText::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *UIText::serializeData() {
+json::IJsonObject *UIText::serializeData() const {
     auto *const data = new json::JsonObject("data");
     data->add(new json::JsonString(textString, "text"));
     std::string fontName = fontPath;

@@ -186,7 +186,7 @@ public:
 
  void runComponent() override;
 
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  void deserialize(const json::IJsonObject *data) override;
 

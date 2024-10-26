@@ -82,7 +82,7 @@ std::vector<const IComponent::IMeta::IFieldGroup *> Sprite::Meta::getFieldGroups
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Sprite::serializeData() {
+json::IJsonObject *Sprite::serializeData() const {
     auto *const data = new json::JsonString(path, "data");
     return data;
 }

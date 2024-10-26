@@ -117,7 +117,7 @@ public:
  [[nodiscard]] RigidBody *clone(IObject *owner) const override;
 
 protected:
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 };
 
 #endif //STELLARFORGE_RIGIDBODY_HPP

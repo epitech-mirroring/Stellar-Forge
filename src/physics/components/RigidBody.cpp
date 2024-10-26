@@ -69,7 +69,7 @@ RigidBody::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *RigidBody::serializeData() {
+json::IJsonObject *RigidBody::serializeData() const {
     return new json::JsonNull();
 }
 

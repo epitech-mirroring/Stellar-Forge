@@ -9,6 +9,7 @@
 #ifndef COMPONENTLOADER_HPP
 #define COMPONENTLOADER_HPP
 #include <string>
+#include <vector>
 
 #include "common/utils/Logger.hpp"
 

@@ -11,6 +11,7 @@
 #include "common/components/AComponent.hpp"
 #include "common/components/Transform.hpp"
 #include "common/fields/FileField.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
 #include "graphics/GraphicsException.hpp"
@@ -29,6 +30,12 @@ SpriteSheet::SpriteSheet(IObject *owner, const std::string &path,
 
 SpriteSheet::SpriteSheet(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), frames({}), currentFrame(0) {
+    this->deserializeFields(data);
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+    }
+    sprite.setTexture(texture);
+    sprite.setTextureRect(frames[currentFrame]);
 }
 
 
@@ -112,23 +119,10 @@ SpriteSheet::Meta::getFieldGroups() const {
 }
 
 json::IJsonObject *SpriteSheet::serializeData() {
-    auto *const data = new json::JsonObject("data");
-    data->add(new json::JsonString(path, "path"));
-    data->add(new json::JsonNumber(static_cast<int>(currentFrame), "currentFrame"));
-    return data;
+    return new json::JsonNull();
 }
 
 void SpriteSheet::deserialize(const json::IJsonObject *data) {
-    if (data != nullptr && data->getType() == json::OBJECT) {
-        const auto *obj = dynamic_cast<const json::JsonObject *>(data);
-        if (obj->contains("path")) {
-            path = obj->getValue<json::JsonString>("path")->getValue();
-            setTexture(path);
-        }
-        if (obj->contains("currentFrame")) {
-            currentFrame = obj->getValue<json::JsonNumber>("currentFrame")->getIntValue();
-        }
-    }
 }
 
 SpriteSheet *SpriteSheet::clone(IObject *owner) const {

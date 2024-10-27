@@ -9,5 +9,5 @@
 
 InvisibleFieldGroup::InvisibleFieldGroup(
     const std::vector<IComponent::IMeta::IField *> &fields)
-    : AFieldGroup("", "", fields) {
+    : AFieldGroup("invisible", "", fields) {
 }

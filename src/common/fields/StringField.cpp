@@ -27,3 +27,15 @@ std::any StringField::getValue() const {
     }
     return "";
 }
+
+json::JsonString *StringField::serialize() const {
+    return new json::JsonString(std::any_cast<std::string>(getValue()), _name);
+}
+
+void StringField::deserialize(const json::IJsonObject *data) {
+    if (data->getType() == json::STRING) {
+        std::string const value = dynamic_cast<const json::JsonString *>(data)->
+                getValue();
+        updateValue(value);
+    }
+}

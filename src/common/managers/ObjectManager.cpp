@@ -7,6 +7,7 @@
 
 #include "ObjectManager.hpp"
 #include "ManagerException.hpp"
+#include "SceneManager.hpp"
 
 ObjectManager &ObjectManager::getInstance() {
     static ObjectManager instance;

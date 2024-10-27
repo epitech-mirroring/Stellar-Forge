@@ -9,13 +9,8 @@
 #include <gtest/gtest.h>
 
 #include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonObject.hpp"
 #include "common/json/JsonParser.hpp"
 #include "common/json/JsonPrettyWriter.hpp"
-#include "common/json/JsonString.hpp"
 
 TEST(JsonPrettyWriter, write_empty) {
   json::JsonParser const parser;

@@ -10,7 +10,6 @@
 #include "JsonObject.hpp"
 #include "IJsonParser.hpp"
 #include <fstream>
-#include <iostream>
 using namespace json;
 
 JsonType JsonObject::getType() const {

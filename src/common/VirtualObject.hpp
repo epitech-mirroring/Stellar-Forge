@@ -19,7 +19,7 @@ protected:
     IMeta *_meta;
     bool _active;
     bool _hasRun;
-    const static Logger LOG;
+    Logger LOG;
 
 public:
     explicit VirtualObject(IMeta *meta);

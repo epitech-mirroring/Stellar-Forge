@@ -104,7 +104,7 @@ AnimatedSprite::Meta::Meta(AnimatedSprite *owner): IMeta(), _owner(owner),
                                     this->_owner->path = value;
                                     this->_owner->setTexture(value);
                                 },
-                                [this]() { return this->_owner->path; });
+                                [this] { return this->_owner->path; });
     fields.push_back(field);
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }

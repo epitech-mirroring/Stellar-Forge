@@ -7,6 +7,9 @@
 
 #include <vector>
 #include <string>
+#ifndef __APPLE__
+#include <algorithm>
+#endif
 #include "AComponent.hpp"
 #include "common/IObject.hpp"
 #include "common/Utils.hpp"

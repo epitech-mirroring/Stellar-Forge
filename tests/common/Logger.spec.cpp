@@ -10,6 +10,8 @@
 #include <gtest/gtest.h>
 
 #include "common/utils/Logger.hpp"
+#include "common/utils/LoggerScopes.hpp"
+#include "common/utils/StringUtils.hpp"
 
 TEST(Logger, info) {
     const Logger logger;
@@ -129,4 +131,31 @@ TEST(Logger, errorException) {
         std::chrono::duration_cast<std::chrono::seconds>(now - timePoint).count() < 1);
     ASSERT_EQ(level, "ERROR");
     ASSERT_EQ(message, " test\n");
+}
+
+TEST(Logger, scopes) {
+    std::stringstream output;
+    std::stringstream error;
+    LoggerScopes::getInstance()->addScope("test", std::cout, std::cerr);
+    LoggerScopes::getInstance()->addScope("test2", output, error);
+
+    testing::internal::CaptureStdout();
+    testing::internal::CaptureStderr();
+
+    Logger const logger("test");
+    Logger const logger2("test2");
+
+    logger.info("30b9c3f1-109f-4da2-b9c3-f1109feda2df");
+    logger2.info("8de2a2d4-5940-4452-a2a2-d459405452ef");
+    logger.error("39de41f0-e787-4d15-9e41-f0e787ad151a");
+    logger2.error("f4c55f63-e22c-41e9-855f-63e22c11e95a");
+
+    ASSERT_TRUE(StringUtils::endsWith(testing::internal::GetCapturedStdout(),
+        "30b9c3f1-109f-4da2-b9c3-f1109feda2df\n"));
+    ASSERT_TRUE(StringUtils::endsWith(testing::internal::GetCapturedStderr(),
+        "39de41f0-e787-4d15-9e41-f0e787ad151a\n"));
+    ASSERT_TRUE(StringUtils::endsWith(output.str(),
+        "8de2a2d4-5940-4452-a2a2-d459405452ef\n"));
+    ASSERT_TRUE(StringUtils::endsWith(error.str(),
+        "f4c55f63-e22c-41e9-855f-63e22c11e95a\n"));
 }

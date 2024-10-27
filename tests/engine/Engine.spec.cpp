@@ -15,7 +15,7 @@
 #include "graphics/components/Sprite.hpp"
 
 TEST(Engine, ally) {
-    auto engine = Engine([]() {
+    auto engine = Engine([] {
                          }, "test", "./assets/",
                          [](const std::string &/*gameName*/) {
                          });

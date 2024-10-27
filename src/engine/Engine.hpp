@@ -21,7 +21,7 @@ protected:
     std::unordered_map<UUID, std::pair<IObject *, std::vector<UUID> > > _objects;
 
     std::unordered_map<UUID, IScene *> _scenes;
-    static const Logger LOG;
+    Logger LOG;
 
 public:
     Engine(const std::function<void()> &initComponents, const std::string &gameName,
@@ -35,6 +35,8 @@ private:
     static void _startGraphics(const std::string &gameName);
 
     static void _registerComponents();
+
+    static void _registerLoggerScopes();
 
     void _loadObjects(const std::string &pathName);
 

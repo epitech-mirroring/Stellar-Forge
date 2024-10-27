@@ -36,7 +36,7 @@ void SceneManager::addScene(const UUID &uuid,
 }
 
 void SceneManager::addScene(IScene *scene,
-                            int position) {
+                            const int position) {
     UUID uuid;
     uuid.generateUuid();
     addScene(uuid, scene, position);

@@ -10,11 +10,11 @@
 
 #include <algorithm>
 
-const Logger VirtualObject::LOG = Logger();
 
 VirtualObject::VirtualObject(IMeta *meta): _parent(nullptr), _children({}),
                                            _components({}),
                                            _meta(meta), _active(true), _hasRun(false) {
+    this->LOG = Logger("objects");
     if (_meta == nullptr) {
         LOG.error("Meta cannot be null");
     }

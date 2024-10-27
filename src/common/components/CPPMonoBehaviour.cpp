@@ -37,7 +37,7 @@ CPPMonoBehaviour::Meta::Meta(CPPMonoBehaviour *owner): _owner(owner), _fieldGrou
                                 [this](const std::string &value) {
                                     this->_owner->file_path = value;
                                 },
-                                [this]() { return this->_owner->file_path; });
+                                [this] { return this->_owner->file_path; });
     fields.push_back(field);
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }

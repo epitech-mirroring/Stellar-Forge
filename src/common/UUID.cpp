@@ -40,7 +40,7 @@ void UUID::generateUuid() {
         char currentChar = 0;
 
         for (auto &elem: this->_uuid) {
-            currentGen = (static_cast<unsigned int>(gen())) % 16;
+            currentGen = gen() % 16;
             if (currentGen < 10) {
                 currentChar = static_cast<char>(48 + currentGen);
             } else {
@@ -76,21 +76,21 @@ void UUID::setUuidFromString(const std::string &uuid) {
     }
     for (size_t i = 0; i < uuid.size(); i++) {
         switch (i) {
-        case 8:
-        case 13:
-        case 18:
-        case 23:
-            if (uuid.at(i) != '-') {
-                throw UUIDException("Invalid UUID format");
-            }
-            this->_uuid.at(i) = '-';
-            break;
-        default:
-            if ((uuid.at(i) < '0' || uuid.at(i) > '9') &&
-                (uuid.at(i) < 'a' || uuid.at(i) > 'f')) {
-                throw UUIDException("Invalid UUID format");
-            }
-            this->_uuid.at(i) = uuid.at(i);
+            case 8:
+            case 13:
+            case 18:
+            case 23:
+                if (uuid.at(i) != '-') {
+                    throw UUIDException("Invalid UUID format");
+                }
+                this->_uuid.at(i) = '-';
+                break;
+            default:
+                if ((uuid.at(i) < '0' || uuid.at(i) > '9') &&
+                    (uuid.at(i) < 'a' || uuid.at(i) > 'f')) {
+                    throw UUIDException("Invalid UUID format");
+                }
+                this->_uuid.at(i) = uuid.at(i);
         }
     }
 }

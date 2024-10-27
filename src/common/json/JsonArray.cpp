@@ -126,8 +126,8 @@ T *JsonArray<T>::at(const std::size_t &index) const {
     return this->getValue(index);
 }
 
-template class json::JsonArray<json::JsonNumber>;
-template class json::JsonArray<json::JsonObject>;
-template class json::JsonArray<json::JsonString>;
-template class json::JsonArray<json::JsonBoolean>;
-template class json::JsonArray<json::JsonNull>;
+template class json::JsonArray<JsonNumber>;
+template class json::JsonArray<JsonObject>;
+template class json::JsonArray<JsonString>;
+template class json::JsonArray<JsonBoolean>;
+template class json::JsonArray<JsonNull>;

@@ -9,7 +9,8 @@
 ![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 
-**Stellar Forge** is the custom game engine that powers **R-Type: Reborn**, designed from the ground up to support networked gameplay, modern graphics, and advanced game mechanics.
+**Stellar Forge** is the custom game engine that powers **R-Type: Reborn**, designed from
+the ground up to support networked gameplay, modern graphics, and advanced game mechanics.
 
 ## Table of Contents
 
@@ -23,9 +24,14 @@
 
 ## Project Purpose
 
-**Stellar Forge** is a custom-built game engine designed to power networked video games, like **R-Type: Reborn**. It was created to support modern game development techniques, such as multi-threading, network synchronization, and real-time 2D rendering, all while offering flexibility for game designers using the **Orion Editor**.
+**Stellar Forge** is a custom-built game engine designed to power networked video games,
+like **R-Type: Reborn**. It was created to support modern game development techniques,
+such as multi-threading, network synchronization, and real-time 2D rendering, all while
+offering flexibility for game designers using the **Orion Editor**.
 
-This engine allows us to modernize classic games like R-Type by enabling new game mechanics, improved graphics, and optimized performance, while demonstrating best practices in software engineering.
+This engine allows us to modernize classic games like R-Type by enabling new game
+mechanics, improved graphics, and optimized performance, while demonstrating best
+practices in software engineering.
 
 ## Dependencies & Requirements
 
@@ -34,9 +40,10 @@ To build and run **Stellar Forge**, you will need:
 - **C++** compiler supporting C++17 or later
 - **SDL2** (Simple DirectMedia Layer) library for graphics, audio, and input handling
 - **CMake** for building the project
-- **OTHER DEPENDENCIES** ...... (TO BE COMPLETED)
+- **OTHER DEPENDENCIES** … (TO BE COMPLETED)
 
-You can install the dependencies using your platform's package manager or follow the official documentation for each tool. (TO BE COMPLETED)
+You can install the dependencies using your platform's package manager or follow the
+official documentation for each tool. (TO BE COMPLETED)
 
 ## Supported Platforms
 
@@ -53,11 +60,16 @@ You can install the dependencies using your platform's package manager or follow
 
 ## Authors & Contact
 
-- **Marius PAIN** - [LinkedIn](https://www.linkedin.com/in/marius-pain/) - [GitHub](https://github.com/Marius-P1)
-- **Aubane NOURRY** - [LinkedIn](https://www.linkedin.com/in/aubane-nourry/) - [GitHub](https://github.com/AubaneNourry)
-- **Simon GANIER-LOMBARD** - [LinkedIn](https://www.linkedin.com/in/simon-ganier-lombard/) - [GitHub](https://github.com/6im0n)
-- **Axel ECKENBERG** - [LinkedIn](https://www.linkedin.com/in/axel-eckenberg-483061224/) - [GitHub](https://github.com/RenardFute)
-- **Landry GIGANT** - [LinkedIn](https://www.linkedin.com/in/landry-gigant-92004627b/) - [GitHub](https://github.com/landryarki)
+- **Marius PAIN
+  ** - [LinkedIn](https://www.linkedin.com/in/marius-pain/) - [GitHub](https://github.com/Marius-P1)
+- **Aubane NOURRY
+  ** - [LinkedIn](https://www.linkedin.com/in/aubane-nourry/) - [GitHub](https://github.com/AubaneNourry)
+- **Simon GANIER-LOMBARD
+  ** - [LinkedIn](https://www.linkedin.com/in/simon-ganier-lombard/) - [GitHub](https://github.com/6im0n)
+- **Axel ECKENBERG
+  ** - [LinkedIn](https://www.linkedin.com/in/axel-eckenberg-483061224/) - [GitHub](https://github.com/RenardFute)
+- **Landry GIGANT
+  ** - [LinkedIn](https://www.linkedin.com/in/landry-gigant-92004627b/) - [GitHub](https://github.com/landryarki)
 
 ## Useful Links
 

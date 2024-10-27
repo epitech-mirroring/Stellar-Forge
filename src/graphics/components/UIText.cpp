@@ -7,8 +7,9 @@
 
 #include "UIText.hpp"
 
+#ifndef __APPLE__
 #include <utility>
-
+#endif
 #include "common/components/Transform.hpp"
 #include "common/fields/StringField.hpp"
 #include "common/json/JsonNumber.hpp"
@@ -74,7 +75,7 @@ void UIText::setFont(const std::string &fontPath) {
     this->fontPath = fontPath;
 }
 
-void UIText::setSize(unsigned int size) {
+void UIText::setSize(const unsigned int size) {
     if (size <= 0) {
         throw GraphicsException("Font size must be greater than 0");
     }
@@ -82,7 +83,7 @@ void UIText::setSize(unsigned int size) {
     text.setCharacterSize(fontSize);
 }
 
-void UIText::setColor(sf::Color color) {
+void UIText::setColor(const sf::Color color) {
     this->color = color;
     text.setFillColor(color);
 }
@@ -101,7 +102,7 @@ UIText::Meta::Meta(UIText *owner)
                                   [this](const std::string &value) {
                                       this->_owner->setText(value);
                                   },
-                                  [this]() { return this->_owner->textString; });
+                                  [this] { return this->_owner->textString; });
     _fieldGroup = InvisibleFieldGroup({field});
 }
 

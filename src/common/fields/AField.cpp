@@ -7,13 +7,15 @@
 
 #include "AField.hpp"
 
+#ifndef __APPLE__
 #include <utility>
+#endif
 
 AField::AField(std::string name, std::string description,
-               const IComponent::IMeta::FieldType type): _type(type),
+               const IComponent::IMeta::FieldType type): _name(std::move(name)),
                                                          _description(
                                                              std::move(description)),
-                                                         _name(std::move(name)) {
+                                                         _type(type) {
 }
 
 std::string AField::getName() const {

@@ -15,7 +15,7 @@ StringField::StringField(std::string name, std::string description,
     _setCallback(setCallback), _getCallback(getCallback) {
 }
 
-void StringField::updateValue(std::any value) {
+void StringField::updateValue(const std::any value) {
     if (_setCallback) {
         _setCallback(std::any_cast<std::string>(value));
     }

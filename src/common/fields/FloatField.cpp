@@ -23,3 +23,17 @@ void FloatField::updateValue(const std::any value) {
 std::any FloatField::getValue() const {
     return _getCallback();
 }
+
+json::JsonNumber *FloatField::serialize() const {
+    return new json::JsonNumber(std::any_cast<float>(getValue()), _name);
+}
+
+void FloatField::deserialize(const json::IJsonObject *data) {
+    if (data->getType() == json::NUMBER) {
+        const auto *const valueField = dynamic_cast<const json::JsonNumber *>(data);
+        if (valueField == nullptr || !valueField->isFloat()) {
+            return;
+        }
+        updateValue(valueField->getFloatValue());
+    }
+}

@@ -10,6 +10,7 @@
 #include "common/IComponent.hpp"
 #include "common/IObject.hpp"
 #include "common/json/JsonObject.hpp"
+#include "common/utils/Logger.hpp"
 
 /**
  * @class AComponent
@@ -168,6 +169,10 @@ protected:
  bool _isActive; //< The state of the component
 
  [[nodiscard]] virtual json::IJsonObject *serializeData() const = 0;
+
+ void deserializeFields(const json::JsonObject *data) const;
+
+ Logger LOG;
 };
 
 #endif //ACOMPONENT_HPP

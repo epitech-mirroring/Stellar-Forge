@@ -73,8 +73,12 @@ Engine::Engine(const std::function<void()> &initComponents,
     }
     _loadScenes(assetsPath + "scenes/");
     startGraphics(gameName);
+}
+
+Engine::~Engine() {
     ComponentFactory::resetInstance();
 }
+
 
 void Engine::_startGraphics(const std::string &gameName) {
     bool isRunning = true;

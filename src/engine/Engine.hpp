@@ -29,7 +29,7 @@ public:
            const std::function<void(const std::string &gameName)> &startGraphics =
                    _startGraphics);
 
-    ~Engine() = default;
+    ~Engine();
 
 private:
     static void _startGraphics(const std::string &gameName);

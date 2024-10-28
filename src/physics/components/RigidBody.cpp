@@ -18,6 +18,7 @@ RigidBody::RigidBody(IObject *owner, const json::JsonObject *data) : AComponent(
     _velocity(glm::vec3(0.0f)),
     _acceleration(glm::vec3(0.0f)),
     _terminalVelocity(0.0f), _drag(0.0f) {
+    this->deserializeFields(data);
 }
 
 void RigidBody::applyMovement(const float deltaTime) {

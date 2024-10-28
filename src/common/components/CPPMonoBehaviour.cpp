@@ -9,7 +9,9 @@
 
 #include "common/fields/FileField.hpp"
 
-CPPMonoBehaviour::CPPMonoBehaviour(IObject *owner): AComponent(owner, new Meta(this)) {
+CPPMonoBehaviour::CPPMonoBehaviour(IObject *owner, const json::JsonObject *data)
+    : AComponent(owner, new Meta(this), data) {
+    this->deserializeFields(data);
 }
 
 

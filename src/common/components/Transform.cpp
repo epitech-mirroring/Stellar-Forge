@@ -9,12 +9,14 @@
 
 #include "common/fields/Vector3Field.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonObject.hpp"
 
 Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), _position(Vector3(0, 0, 0)),
     _rotation(glm::quat(1, 0, 0, 0)), _scale(Vector3(1, 1, 1)) {
+    this->deserializeFields(data);
 }
 
 Transform::Transform(IObject *owner, const Vector3 pos, const glm::quat rot,
@@ -110,60 +112,10 @@ Transform::Meta::getFieldGroups() const {
 }
 
 json::IJsonObject *Transform::serializeData() const {
-    auto *object = new json::JsonObject("data");
-    auto *position = new json::JsonObject("position");
-    auto *rotation = new json::JsonObject("rotation");
-    auto *scale = new json::JsonObject("scale");
-    position->add(new json::JsonNumber(this->_position.x, "x"));
-    position->add(new json::JsonNumber(this->_position.y, "y"));
-    position->add(new json::JsonNumber(this->_position.z, "z"));
-    const glm::vec3 euler = eulerAngles(this->_rotation);
-    rotation->add(new json::JsonNumber(euler.x, "x"));
-    rotation->add(new json::JsonNumber(euler.y, "y"));
-    rotation->add(new json::JsonNumber(euler.z, "z"));
-    scale->add(new json::JsonNumber(this->_scale.x, "x"));
-    scale->add(new json::JsonNumber(this->_scale.y, "y"));
-    scale->add(new json::JsonNumber(this->_scale.z, "z"));
-    object->add(position);
-    object->add(rotation);
-    object->add(scale);
-    return object;
+    return new json::JsonNull();
 }
 
 void Transform::deserialize(const json::IJsonObject *data) {
-    if (data != nullptr && data->getType() == json::OBJECT) {
-        const auto *obj = dynamic_cast<const json::JsonObject *>(data);
-        if (obj->contains("position")) {
-            this->_position = glm::vec3(
-                obj->getValue<json::JsonObject>("position")->getValue<
-                    json::JsonNumber>("x")->getFloatValue(),
-                obj->getValue<json::JsonObject>("position")->getValue<
-                    json::JsonNumber>("y")->getFloatValue(),
-                obj->getValue<json::JsonObject>("position")->getValue<
-                    json::JsonNumber>("z")->getFloatValue()
-            );
-        }
-        if (obj->contains("rotation")) {
-            this->_rotation = glm::quat(glm::vec3(
-                obj->getValue<json::JsonObject>("rotation")->getValue<
-                    json::JsonNumber>("x")->getFloatValue(),
-                obj->getValue<json::JsonObject>("rotation")->getValue<
-                    json::JsonNumber>("y")->getFloatValue(),
-                obj->getValue<json::JsonObject>("rotation")->getValue<
-                    json::JsonNumber>("z")->getFloatValue()
-            ));
-        }
-        if (obj->contains("scale")) {
-            this->_scale = glm::vec3(
-                obj->getValue<json::JsonObject>("scale")->getValue<json::JsonNumber>("x")
-                ->getFloatValue(),
-                obj->getValue<json::JsonObject>("scale")->getValue<json::JsonNumber>("y")
-                ->getFloatValue(),
-                obj->getValue<json::JsonObject>("scale")->getValue<json::JsonNumber>("z")
-                ->getFloatValue()
-            );
-        }
-    }
 }
 
 Vector3 &Transform::getPosition() {

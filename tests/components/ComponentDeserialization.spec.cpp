@@ -17,20 +17,22 @@ TEST(ComponentDeserialization, Transform) {
         "type": "Transform",
         "isActive": true,
         "data": {
-            "position": {
-                "x": 1.0,
-                "y": 2.0,
-                "z": 3.0
-            },
-            "rotation": {
-                "x": 4.0,
-                "y": 5.0,
-                "z": 6.0
-            },
-            "scale": {
-                "x": 7.0,
-                "y": 8.0,
-                "z": 9.0
+            "invisible": {
+                "Position": {
+                    "x": 1.0,
+                    "y": 2.0,
+                    "z": 3.0
+                },
+                "Rotation": {
+                    "x": 4.0,
+                    "y": 5.0,
+                    "z": 6.0
+                },
+                "Scale": {
+                    "x": 7.0,
+                    "y": 8.0,
+                    "z": 9.0
+                }
             }
         }
     })";

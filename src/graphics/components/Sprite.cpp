@@ -9,6 +9,7 @@
 
 #include "common/components/Transform.hpp"
 #include "common/fields/FileField.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/json/JsonString.hpp"
 #include "graphics/GraphicsException.hpp"
 
@@ -23,6 +24,11 @@ Sprite::Sprite(IObject *owner, const std::string &path) : AComponent(
 
 Sprite::Sprite(IObject *owner, const json::JsonObject *data) : AComponent(
     owner, new Meta(this), data) {
+    this->deserializeFields(data);
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+    }
+    sprite.setTexture(texture);
 }
 
 void Sprite::render(sf::RenderWindow *window) {
@@ -55,6 +61,7 @@ Sprite::Meta::Meta(Sprite *owner): _owner(owner), _fieldGroup({}) {
     auto fields = std::vector<IField *>();
     auto *field = new FileField("Texture", "The texture file to use",
                                 [this](const std::string &value) {
+                                    this->_owner->path = value;
                                     this->_owner->setTexture(value);
                                 },
                                 [this] { return this->_owner->path; });
@@ -83,15 +90,10 @@ std::vector<const IComponent::IMeta::IFieldGroup *> Sprite::Meta::getFieldGroups
 }
 
 json::IJsonObject *Sprite::serializeData() {
-    auto *const data = new json::JsonString(path, "data");
-    return data;
+    return new json::JsonNull();
 }
 
 void Sprite::deserialize(const json::IJsonObject *data) {
-    if (data != nullptr && data->getType() == json::STRING) {
-        path = dynamic_cast<const json::JsonString *>(data)->getValue();
-        setTexture(path);
-    }
 }
 
 Sprite *Sprite::clone(IObject *owner) const {

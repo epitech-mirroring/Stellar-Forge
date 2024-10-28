@@ -18,12 +18,12 @@
 * @since v0.1.0
 * @author Landry GIGANT
 */
-class Box : public ICollider {
+class Box final : public ICollider {
 public:
-    /**
-     * @brief The position of the box in 3D space.
-     */
-    Vector3 position;
+ /**
+  * @brief The position of the box in 3D space.
+  */
+ Vector3 position;
 
     /**
      * @brief The relative position of the box in 3D space.
@@ -35,12 +35,12 @@ public:
      */
     Vector3 size;
 
-    /**
-     * @brief Constructor for the Box class.
-     * @param position The position of the box in 3D space.
-     * @param size The size of the box in 3D space.
-     */
-    Box(Vector3 position, Vector3 size);
+ /**
+  * @brief Constructor for the Box class.
+  * @param position The position of the box in 3D space.
+  * @param size The size of the box in 3D space.
+  */
+ Box(Vector3 position, Vector3 size);
 
     /**
      * @brief Set the position of the box.

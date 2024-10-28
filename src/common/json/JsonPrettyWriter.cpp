@@ -10,7 +10,7 @@
 using namespace json;
 
 JsonPrettyWriter::JsonPrettyWriter(IJsonObject const *root,
-                                   std::size_t indent) : root(root), indent(indent) {
+                                   const std::size_t indent) : root(root), indent(indent) {
 }
 
 std::ostream &JsonPrettyWriter::write(std::ostream &output) const {

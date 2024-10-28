@@ -6,8 +6,9 @@
 */
 
 #include "AFieldGroup.hpp"
-
+#ifndef __APPLE__
 #include <utility>
+#endif
 
 AFieldGroup::AFieldGroup(std::string name, std::string description,
                          const std::vector<IComponent::IMeta::IField *> &

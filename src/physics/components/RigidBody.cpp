@@ -6,7 +6,6 @@
 */
 
 #include "RigidBody.hpp"
-#include "common/IObject.hpp"
 #include "common/components/Transform.hpp"
 #include "common/json/JsonNull.hpp"
 #include "physics/Physics.hpp"

@@ -18,12 +18,12 @@
  * @since v0.1.0
  * @author Landry GIGANT
  */
-class Sphere : public ICollider {
+class Sphere final : public ICollider {
 public:
-    /**
-     * @brief The position of the sphere in 3D space.
-     */
-    Vector3 position;
+ /**
+  * @brief The position of the sphere in 3D space.
+  */
+ Vector3 position;
 
     /**
      * @brief The relative position of the sphere in 3D space.
@@ -35,12 +35,12 @@ public:
      */
     float radius;
 
-    /**
-     * @brief Constructor for the Sphere class.
-     * @param position The position of the sphere in 3D space.
-     * @param radius The radius of the sphere.
-     */
-    Sphere(Vector3 position, float radius);
+ /**
+  * @brief Constructor for the Sphere class.
+  * @param position The position of the sphere in 3D space.
+  * @param radius The radius of the sphere.
+  */
+ Sphere(Vector3 position, float radius);
 
     /**
      * @brief Set the position of the sphere.

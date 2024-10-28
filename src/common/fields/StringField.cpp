@@ -15,7 +15,7 @@ StringField::StringField(std::string name, std::string description,
     _setCallback(setCallback), _getCallback(getCallback) {
 }
 
-void StringField::updateValue(std::any value) {
+void StringField::updateValue(const std::any value) {
     if (_setCallback) {
         _setCallback(std::any_cast<std::string>(value));
     }
@@ -26,4 +26,16 @@ std::any StringField::getValue() const {
         return _getCallback();
     }
     return "";
+}
+
+json::JsonString *StringField::serialize() const {
+    return new json::JsonString(std::any_cast<std::string>(getValue()), _name);
+}
+
+void StringField::deserialize(const json::IJsonObject *data) {
+    if (data->getType() == json::STRING) {
+        std::string const value = dynamic_cast<const json::JsonString *>(data)->
+                getValue();
+        updateValue(value);
+    }
 }

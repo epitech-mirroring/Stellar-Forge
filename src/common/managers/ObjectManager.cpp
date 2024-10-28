@@ -7,6 +7,7 @@
 
 #include "ObjectManager.hpp"
 #include "ManagerException.hpp"
+#include "SceneManager.hpp"
 
 ObjectManager &ObjectManager::getInstance() {
     static ObjectManager instance;
@@ -54,7 +55,7 @@ void ObjectManager::addObjects(const std::vector<IObject *> &objects) {
 }
 
 void ObjectManager::removeObject(const UUID &uuid) {
-    if (!objectExists(uuid)) {
+    if (!this->objectExists(uuid)) {
         throw ManagerException(
             "Object with UUID " + uuid.getUuidString() + " not found.");
     }
@@ -77,7 +78,7 @@ void ObjectManager::updateObject(const UUID &uuid, IObject *updatedObject) {
 }
 
 IObject *ObjectManager::getObjectById(const UUID &uuid) const {
-    if (!objectExists(uuid)) {
+    if (!this->objectExists(uuid)) {
         return nullptr;
     }
     return _objects.at(uuid);

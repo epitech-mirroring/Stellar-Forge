@@ -31,9 +31,12 @@ void Sphere::setRelativePosition(Vector3 RelativePosition) {
 
 bool Sphere::collide(ICollider *collider) {
     if (dynamic_cast<Sphere *>(collider) != nullptr) {
-        return Physics::Collision::sphereCollideSphere(*this, *dynamic_cast<Sphere *>(collider));
-    } else if (dynamic_cast<Box *>(collider) != nullptr) {
-        return Physics::Collision::sphereCollideBox(*this, *dynamic_cast<Box *>(collider));
+        return Physics::Collision::sphereCollideSphere(
+            *this, *dynamic_cast<Sphere *>(collider));
+    }
+    if (dynamic_cast<Box *>(collider) != nullptr) {
+        return Physics::Collision::sphereCollideBox(
+            *this, *dynamic_cast<Box *>(collider));
     }
     return false;
 }

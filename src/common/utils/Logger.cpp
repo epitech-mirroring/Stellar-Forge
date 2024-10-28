@@ -69,17 +69,17 @@ static std::string getCurrentTimeToString() {
 
 void Logger::log(const std::string &message, const Level level) const {
     switch (level) {
-        case Level::DEBUG:
+        case Level::LOG_DEBUG:
             this->debug << message;
             break;
         default:
-        case Level::INFO:
+        case Level::LOG_INFO:
             this->info << message;
             break;
-        case Level::WARNING:
+        case Level::LOG_WARNING:
             this->warn << message;
             break;
-        case Level::ERROR:
+        case Level::LOG_ERROR:
             this->error << message;
             break;
     }

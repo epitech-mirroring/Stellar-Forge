@@ -49,6 +49,24 @@ public:
     [[nodiscard]] virtual Vector3 getPosition() const = 0;
 
     /**
+     * @brief Set the relative position of the collider.
+     * @param position
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Landry GIGANT
+     */
+    virtual void setRelativePosition(Vector3 position) = 0;
+
+    /**
+     * @brief Get the relative position of the collider.
+     * @return The relative position of the collider.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Landry GIGANT
+     */
+    [[nodiscard]] virtual Vector3 getRelativePosition() const = 0;
+
+    /**
      * @brief Check if this collider collides with another collider.
      * @param collider Pointer to the other collider.
      * @return True if the colliders collide, false otherwise.

@@ -9,7 +9,7 @@
 #include "Box.hpp"
 #include "Physics.hpp"
 
-Sphere::Sphere(Vector3 position, float radius) : position(position), radius(radius)
+Sphere::Sphere(Vector3 position, float radius) : relativePosition(position), radius(radius), position(0, 0, 0)
 {
 }
 
@@ -19,6 +19,14 @@ void Sphere::setPosition(Vector3 position) {
 
 [[nodiscard]] Vector3 Sphere::getPosition() const {
     return position;
+}
+
+void Sphere::setRelativePosition(Vector3 RelativePosition) {
+    this->relativePosition = RelativePosition;
+}
+
+[[nodiscard]] Vector3 Sphere::getRelativePosition() const {
+    return relativePosition;
 }
 
 bool Sphere::collide(ICollider *collider) {

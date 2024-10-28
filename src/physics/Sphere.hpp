@@ -26,6 +26,11 @@ public:
     Vector3 position;
 
     /**
+     * @brief The relative position of the sphere in 3D space.
+     */
+    Vector3 relativePosition;
+
+    /**
      * @brief The radius of the sphere.
      */
     float radius;
@@ -48,6 +53,18 @@ public:
      * @return The position of the sphere.
      */
     [[nodiscard]] Vector3 getPosition() const override;
+
+    /**
+     * @brief Set the relative position of the sphere.
+     * @param position The new relative position of the sphere.
+     */
+    void setRelativePosition(Vector3 RelativePosition) override;
+
+    /**
+     * @brief Get the relative position of the sphere.
+     * @return The relative position of the sphere.
+     */
+    [[nodiscard]] Vector3 getRelativePosition() const override;
 
     /**
      * @brief Check if the sphere collides with another collider.

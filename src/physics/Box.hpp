@@ -26,6 +26,11 @@ public:
     Vector3 position;
 
     /**
+     * @brief The relative position of the box in 3D space.
+     */
+    Vector3 relativePosition;
+
+    /**
      * @brief The size of the box in 3D space.
      */
     Vector3 size;
@@ -48,6 +53,19 @@ public:
      * @return The position of the box.
      */
     [[nodiscard]] Vector3 getPosition() const override;
+
+    /**
+     * @brief Set the relative position of the box.
+     * @param position The new relative position of the box.
+     */
+    void setRelativePosition(Vector3 RelativePosition) override;
+
+    /**
+     * @brief Check if the box collides with another collider.
+     * @param collider The collider to check for collision.
+     * @return True if the box collides with the collider, false otherwise.
+     */
+    [[nodiscard]] Vector3 getRelativePosition() const override;
 
     /**
      * @brief Check if the box collides with another collider.

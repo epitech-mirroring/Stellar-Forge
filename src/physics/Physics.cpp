@@ -60,30 +60,40 @@ void Physics::Movement::applyImpulse(Vector3 &vel, const Vector3 &impulse) {
 
 bool Physics::Collision::boxCollideBox(const Box &box1, const Box &box2)
 {
-    return (std::min(box1.position.x, box1.position.x + box1.size.x) <= std::max(box2.position.x, box2.position.x + box2.size.x) &&
-            std::max(box1.position.x, box1.position.x + box1.size.x) >= std::min(box2.position.x, box2.position.x + box2.size.x) &&
-            std::min(box1.position.y, box1.position.y + box1.size.y) <= std::max(box2.position.y, box2.position.y + box2.size.y) &&
-            std::max(box1.position.y, box1.position.y + box1.size.y) >= std::min(box2.position.y, box2.position.y + box2.size.y) &&
-            std::min(box1.position.z, box1.position.z + box1.size.z) <= std::max(box2.position.z, box2.position.z + box2.size.z) &&
-            std::max(box1.position.z, box1.position.z + box1.size.z) >= std::min(box2.position.z, box2.position.z + box2.size.z));
+    const Vector3 box1RelativePosition = box1.relativePosition + box1.position;
+    const Vector3 box2RelativePosition = box2.relativePosition + box2.position;
+    const Vector3 box1Min = box1RelativePosition;
+    const Vector3 box1Max = box1RelativePosition + box1.size;
+    const Vector3 box2Min = box2RelativePosition;
+    const Vector3 box2Max = box2RelativePosition + box2.size;
+    return (std::min(box1Min.x, box1Max.x) <= std::max(box2Min.x, box2Max.x) &&
+            std::max(box1Min.x, box1Max.x) >= std::min(box2Min.x, box2Max.x) &&
+            std::min(box1Min.y, box1Max.y) <= std::max(box2Min.y, box2Max.y) &&
+            std::max(box1Min.y, box1Max.y) >= std::min(box2Min.y, box2Max.y) &&
+            std::min(box1Min.z, box1Max.z) <= std::max(box2Min.z, box2Max.z) &&
+            std::max(box1Min.z, box1Max.z) >= std::min(box2Min.z, box2Max.z));
 }
 
-bool Physics::Collision::sphereCollideSphere(const Sphere &sphere1, const Sphere &sphere2) {
+bool Physics::Collision::sphereCollideSphere(const Sphere &sphere1, const Sphere &sphere2)
+{
     return glm::distance(sphere1.position, sphere2.position) < sphere1.radius + sphere2.radius;
 }
 
-bool Physics::Collision::boxCollideSphere(const Box &box, const Sphere &sphere) {
-    const Vector3 closestPoint = glm::vec3(
-            glm::clamp(sphere.position.x, std::min(box.position.x, box.position.x + box.size.x),
-                       std::max(box.position.x, box.position.x + box.size.x)),
-            glm::clamp(sphere.position.y, std::min(box.position.y, box.position.y + box.size.y),
-                       std::max(box.position.y, box.position.y + box.size.y)),
-            glm::clamp(sphere.position.z, std::min(box.position.z, box.position.z + box.size.z),
-                       std::max(box.position.z, box.position.z + box.size.z))
+bool Physics::Collision::boxCollideSphere(const Box &box, const Sphere &sphere)
+{
+    const Vector3 boxRelativePosition = box.relativePosition + box.position;
+    const Vector3 boxMin = boxRelativePosition;
+    const Vector3 boxMax = boxRelativePosition + box.size;
+    const Vector3 sphereRelativePosition = sphere.relativePosition + sphere.position;
+    const Vector3 closestPoint = glm::vec3 (
+            glm::clamp(sphereRelativePosition.x, std::min(boxMin.x, boxMax.x), std::max(boxMin.x, boxMax.x)),
+            glm::clamp(sphereRelativePosition.y, std::min(boxMin.y, boxMax.y), std::max(boxMin.y, boxMax.y)),
+            glm::clamp(sphereRelativePosition.z, std::min(boxMin.z, boxMax.z), std::max(boxMin.z, boxMax.z))
     );
-    return glm::distance(sphere.position, closestPoint) < sphere.radius;
+    return glm::distance(sphereRelativePosition, closestPoint) < sphere.radius;
 }
 
-bool Physics::Collision::sphereCollideBox(const Sphere &sphere, const Box &box) {
+bool Physics::Collision::sphereCollideBox(const Sphere &sphere, const Box &box)
+{
     return boxCollideSphere(box, sphere);
 }

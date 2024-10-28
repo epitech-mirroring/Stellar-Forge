@@ -56,7 +56,6 @@ std::vector<IObject *> RigidBody::collidingObjects() {
         if (other_body == nullptr || other_body->_collider == nullptr) {
             continue;
         }
-        //TODO: use the collider position relative to the object
         const Vector3 pos = this->getParentComponent<Transform>()->getPosition();
         const Vector3 pos2 = object->getComponent<Transform>()->getPosition();
         _collider->setPosition(pos);

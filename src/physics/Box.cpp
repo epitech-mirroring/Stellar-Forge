@@ -9,7 +9,7 @@
 #include "Box.hpp"
 #include "Physics.hpp"
 
-Box::Box(Vector3 position, Vector3 size) : position(position), size(size)
+Box::Box(Vector3 position, Vector3 size) : relativePosition(position), size(size), position(0, 0, 0)
 {
 }
 
@@ -19,6 +19,14 @@ void Box::setPosition(Vector3 position) {
 
 [[nodiscard]] Vector3 Box::getPosition() const {
     return position;
+}
+
+void Box::setRelativePosition(Vector3 RelativePosition) {
+    this->relativePosition = RelativePosition;
+}
+
+[[nodiscard]] Vector3 Box::getRelativePosition() const {
+    return relativePosition;
 }
 
 bool Box::collide(ICollider *collider) {

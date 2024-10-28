@@ -12,10 +12,35 @@
 #include <sstream>
 #include <chrono>
 
+#include "LoggerScopes.hpp"
+
 Logger::Logger(std::ostream *output, std::ostream *error) noexcept: _output(output),
-    _error(error), debug(DebugLevel(output)), info(InfoLevel(output)),
-    warn(WarningLevel(output)), error(ErrorLevel(error)) {
+    _error(error), debug(DebugLevel(&_output)), info(InfoLevel(&_output)),
+    warn(WarningLevel(&_output)), error(ErrorLevel(&_error)) {
 }
+
+Logger::Logger(const Logger &other) : _output(other._output), _error(other._error),
+                                      debug(&_output),
+                                      info(&_output),
+                                      warn(&_output),
+                                      error(&_error) {
+}
+
+
+Logger::Logger(const std::string &scope): debug(DebugLevel(&_output)),
+                                          info(InfoLevel(&_output)),
+                                          warn(WarningLevel(&_output)),
+                                          error(ErrorLevel(&_error)) {
+    if (LoggerScopes::getInstance()->hasScope(scope)) {
+        auto [output, error] = LoggerScopes::getInstance()->getScope(scope);
+        _output = &output;
+        _error = &error;
+    } else {
+        _output = &std::cout;
+        _error = &std::cerr;
+    }
+}
+
 
 static std::string getCurrentTimeToString() {
     const auto now = std::chrono::system_clock::now();
@@ -60,7 +85,18 @@ void Logger::log(const std::string &message, const Level level) const {
     }
 }
 
-AbstractLoggerLevel::AbstractLoggerLevel(std::ostream *output) noexcept: _output(output) {
+Logger &Logger::operator=(const Logger &other) {
+    if (this == &other) {
+        return *this;
+    }
+    _output = other._output;
+    _error = other._error;
+    return *this;
+}
+
+
+AbstractLoggerLevel::AbstractLoggerLevel(
+    std::ostream **output) noexcept: _output(output) {
 }
 
 const ILoggerLevel &AbstractLoggerLevel::operator<<(const std::string &message) const {
@@ -72,7 +108,7 @@ const ILoggerLevel &AbstractLoggerLevel::operator<<(const std::string &message) 
 }
 
 void AbstractLoggerLevel::flush() const {
-    *_output << "[" << getCurrentTimeToString() << "] ";
+    **_output << "[" << getCurrentTimeToString() << "] ";
     _log(_buffer.str());
     _buffer.str("");
     _buffer.clear();
@@ -125,30 +161,30 @@ void AbstractLoggerLevel::operator()(const std::exception &exception) const {
     *this << exception.what() << '\n';
 }
 
-DebugLevel::DebugLevel(std::ostream *output) noexcept: AbstractLoggerLevel(output) {
+DebugLevel::DebugLevel(std::ostream **output) noexcept: AbstractLoggerLevel(output) {
 }
 
 void DebugLevel::_log(const std::string &message) const {
-    *_output << "[DEBUG] " << message;
+    **_output << "[DEBUG] " << message;
 }
 
-InfoLevel::InfoLevel(std::ostream *output) noexcept: AbstractLoggerLevel(output) {
+InfoLevel::InfoLevel(std::ostream **output) noexcept: AbstractLoggerLevel(output) {
 }
 
 void InfoLevel::_log(const std::string &message) const {
-    *_output << "[INFO] " << message;
+    **_output << "[INFO] " << message;
 }
 
-ErrorLevel::ErrorLevel(std::ostream *output) noexcept: AbstractLoggerLevel(output) {
+ErrorLevel::ErrorLevel(std::ostream **output) noexcept: AbstractLoggerLevel(output) {
 }
 
 void ErrorLevel::_log(const std::string &message) const {
-    *_output << "[ERROR] " << message;
+    **_output << "[ERROR] " << message;
 }
 
-WarningLevel::WarningLevel(std::ostream *output) noexcept: AbstractLoggerLevel(output) {
+WarningLevel::WarningLevel(std::ostream **output) noexcept: AbstractLoggerLevel(output) {
 }
 
 void WarningLevel::_log(const std::string &message) const {
-    *_output << "[WARNING] " << message;
+    **_output << "[WARNING] " << message;
 }

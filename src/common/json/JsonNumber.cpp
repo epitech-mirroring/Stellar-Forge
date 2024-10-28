@@ -13,7 +13,7 @@ using namespace json;
 
 JsonNumber::JsonNumber(std::string name): IJsonPrimitiveObject(),
                                           _name(std::move(name)),
-                                          _value({0}),
+                                          _value({}),
                                           _isFloat(UNCERTAIN) {
 }
 
@@ -25,8 +25,8 @@ JsonNumber::JsonNumber(const int value, std::string name): IJsonPrimitiveObject(
 
 JsonNumber::JsonNumber(const float value, std::string name): IJsonPrimitiveObject(),
     _name(std::move(name)),
-    _isFloat(TRUE),
-    _value({}) {
+    _value({}),
+    _isFloat(TRUE) {
     this->_value.f = value;
 }
 

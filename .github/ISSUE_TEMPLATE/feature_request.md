@@ -17,9 +17,9 @@ A clear and concise description of what you want to happen.
 A clear and concise description of any alternative solutions or features you've considered.
 
 **Issue Informations**
-- Type : (Feature, Documentation, Benchmark, DevOps, Improvement)
-- Priority : (Low, Medium, High, Urgent)
-- Size : (XS, S, M, L, XL)
+- Type: (Feature, Documentation, Benchmark, DevOps, Improvement)
+- Priority: (Low, Medium, High, Urgent)
+- Size: (XS, S, M, L, XL)
 (Refer to the [Issues Conventions](../../CONTRIBUTING.md#issues-conventions) for more information)
 
 **Additional context**

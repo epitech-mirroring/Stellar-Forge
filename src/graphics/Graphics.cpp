@@ -8,8 +8,13 @@
 
 #include "Graphics.hpp"
 
+#include "common/components/Transform.hpp"
+#include "common/event/EventSystem.hpp"
+#include "common/managers/SceneManager.hpp"
+#include "components/IGraphicsComponent.hpp"
+
 Graphics::Graphics(const int width, const int height, const std::string &title,
-                   bool precharge)
+                   const bool precharge)
     : window(sf::VideoMode(width, height), title), width(width), height(height),
       title(title), prepared(false), precharge(precharge), currentScene(nullptr) {
     if (!window.isOpen()) {
@@ -27,7 +32,7 @@ Graphics::~Graphics() {
     close();
 }
 
-template <typename T>
+template<typename T>
 static T *getObjComponent(IObject *object) {
     for (auto *component: object->getComponents()) {
         if (auto *comp = dynamic_cast<T *>(component)) {
@@ -56,7 +61,7 @@ void Graphics::present() {
     window.display();
 }
 
-std::string Graphics::keyToString(sf::Keyboard::Key key) {
+std::string Graphics::keyToString(const sf::Keyboard::Key key) {
     static const std::unordered_map<sf::Keyboard::Key, std::string> keyMap = {
         {sf::Keyboard::Unknown, "unknown"},
         {sf::Keyboard::A, "a"},
@@ -162,13 +167,12 @@ std::string Graphics::keyToString(sf::Keyboard::Key key) {
     auto keyStr = keyMap.find(key);
     if (keyStr != keyMap.end()) {
         return keyStr->second;
-    } else {
-        return "unknown-key";
     }
+    return "unknown-key";
 }
 
 void Graphics::catchEvents() {
-    sf::Event event = sf::Event();
+    auto event = sf::Event();
 
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed) {
@@ -176,7 +180,7 @@ void Graphics::catchEvents() {
         }
         if (event.type == sf::Event::KeyPressed) {
             bool alreadyPressed = false;
-            for (auto key: keysPressed) {
+            for (const auto key: keysPressed) {
                 if (key == event.key.code) {
                     alreadyPressed = true;
                     break;

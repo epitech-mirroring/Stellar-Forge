@@ -65,19 +65,19 @@ Transform::Meta::Meta(Transform *owner): _owner(owner),
         new Vector3Field("Position", "The position of the object",
                          [this](const Vector3 &pos) {
                              this->_owner->_position = pos;
-                         }, [this]() {
+                         }, [this] {
                              return this->_owner->_position;
                          }),
         new Vector3Field("Rotation", "The rotation of the object",
                          [this](const Vector3 &rot) {
                              this->_owner->_rotation = glm::quat(rot);
-                         }, [this]() {
+                         }, [this] {
                              return eulerAngles(this->_owner->_rotation);
                          }),
         new Vector3Field("Scale", "The scale of the object",
                          [this](const Vector3 &scale) {
                              this->_owner->_scale = scale;
-                         }, [this]() {
+                         }, [this] {
                              return this->_owner->_scale;
                          })
     };

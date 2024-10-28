@@ -45,13 +45,13 @@ public:
 
 class AbstractLoggerLevel : public virtual ILoggerLevel {
 protected:
-    std::ostream *_output;
+    std::ostream **_output;
     mutable std::stringstream _buffer;
 
     virtual void _log(const std::string &message) const = 0;
 
 public:
-    explicit AbstractLoggerLevel(std::ostream *output) noexcept;
+    explicit AbstractLoggerLevel(std::ostream **output) noexcept;
 
     ~AbstractLoggerLevel() override = default;
 
@@ -87,7 +87,7 @@ protected:
     void _log(const std::string &message) const override;
 
 public:
-    explicit DebugLevel(std::ostream *output = &std::cout) noexcept;
+    explicit DebugLevel(std::ostream **output) noexcept;
 
     ~DebugLevel() override = default;
 };
@@ -97,7 +97,7 @@ protected:
     void _log(const std::string &message) const override;
 
 public:
-    explicit InfoLevel(std::ostream *output = &std::cout) noexcept;
+    explicit InfoLevel(std::ostream **output) noexcept;
 
     ~InfoLevel() override = default;
 };
@@ -107,7 +107,7 @@ protected:
     void _log(const std::string &message) const override;
 
 public:
-    explicit WarningLevel(std::ostream *output = &std::cout) noexcept;
+    explicit WarningLevel(std::ostream **output) noexcept;
 
     ~WarningLevel() override = default;
 };
@@ -117,7 +117,7 @@ protected:
     void _log(const std::string &message) const override;
 
 public:
-    explicit ErrorLevel(std::ostream *output = &std::cerr) noexcept;
+    explicit ErrorLevel(std::ostream **output) noexcept;
 
     ~ErrorLevel() override = default;
 };
@@ -143,9 +143,15 @@ public:
     explicit Logger(std::ostream *output = &std::cout,
                     std::ostream *error = &std::cerr) noexcept;
 
+    explicit Logger(const std::string &scope);
+
+    Logger(const Logger &other);
+
     ~Logger() = default;
 
     void log(const std::string &message, Level level = Level::INFO) const;
+
+    Logger &operator=(const Logger &other);
 };
 
 #endif //LOGGER_HPP

@@ -9,17 +9,16 @@
 #include "Engine.hpp"
 
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <filesystem>
 
 #include "common/VirtualObject.hpp"
 #include "common/VirtualScene.hpp"
 #include "common/components/Transform.hpp"
+#include "common/event/EventSystem.hpp"
 #include "common/factories/ComponentFactory.hpp"
 #include "common/json/JsonArray.hpp"
 #include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonNumber.hpp"
 #include "common/json/JsonParser.hpp"
 #include "common/json/JsonReader.hpp"
 #include "common/json/JsonString.hpp"
@@ -29,10 +28,9 @@
 #include "graphics/components/SpriteSheet.hpp"
 #include "graphics/components/UIText.hpp"
 #include "common/managers/SceneManager.hpp"
+#include "common/utils/LoggerScopes.hpp"
 #include "graphics/Graphics.hpp"
 #include "physics/components/RigidBody.hpp"
-
-const Logger Engine::LOG = Logger();
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -43,10 +41,20 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(RigidBody);
 }
 
+void Engine::_registerLoggerScopes() {
+    LoggerScopes::getInstance()->addScope("engine");
+    LoggerScopes::getInstance()->addScope("objects");
+    LoggerScopes::getInstance()->addScope("components");
+    LoggerScopes::getInstance()->addScope("components.fields");
+    LoggerScopes::getInstance()->addScope("graphics");
+}
+
 Engine::Engine(const std::function<void()> &initComponents,
                const std::string &gameName,
                const std::string &assetsPath,
                const std::function<void(const std::string &gameName)> &startGraphics) {
+    _registerLoggerScopes();
+    this->LOG = Logger("engine");
     _registerComponents();
     initComponents();
     SceneManager::getInstance();

@@ -9,12 +9,7 @@
 #include <gtest/gtest.h>
 
 #include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonObject.hpp"
 #include "common/json/JsonParser.hpp"
-#include "common/json/JsonString.hpp"
 #include "common/json/JsonWriter.hpp"
 
 TEST(JsonWriter, write_empty) {

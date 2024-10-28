@@ -27,11 +27,11 @@ private:
   sf::Sound _sound; /**< The sound instance used for playback. */
   sf::SoundBuffer _buffer; /**< The buffer containing the audio data. */
   std::string _clipPath; /**< Path to the audio clip file. */
-  int _volume; /**< The playback volume level. */
-  bool _loop; /**< Flag for enabling/disabling audio looping. */
-  bool _isPlaying; /**< Status flag indicating if the audio is currently playing. */
-  bool _mute; /**< Flag to mute/unmute the audio. */
-  bool _playOnAwake; /**< Flag to play audio automatically on component initialization. */
+  float _volume{}; /**< The playback volume level. */
+  bool _loop{}; /**< Flag for enabling/disabling audio looping. */
+  bool _isPlaying{}; /**< Status flag indicating if the audio is currently playing. */
+  bool _mute{}; /**< Flag to mute/unmute the audio. */
+  bool _playOnAwake{}; /**< Flag to play audio automatically on component initialization. */
 
 public:
   /**
@@ -53,7 +53,7 @@ public:
    * @version v0.1.0
    * @since v0.1.0
    */
-  AudioSource(IObject *owner, const std::string &clipPath, int volume, bool loop, bool playOnAwake);
+  AudioSource(IObject *owner, std::string clipPath, float volume, bool loop, bool playOnAwake);
 
   /**
    * @brief Constructor that initializes AudioSource with JSON data.
@@ -133,7 +133,7 @@ public:
    * @version v0.1.0
    * @since v0.1.0
    */
-  void setVolume(int volume);
+  void setVolume(float volume);
 
   /**
    * @brief Configures looping for the audio clip.

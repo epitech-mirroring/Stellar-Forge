@@ -6,23 +6,28 @@
 **/
 
 #include "AudioSource.hpp"
-#include "common/fields/StringField.hpp"
-#include "common/json/JsonNumber.hpp"
+
+#include <utility>
+#include "common/fields/FileField.hpp"
+#include "common/fields/FloatField.hpp"
+#include "common/fields/BooleanField.hpp"
 #include "common/json/JsonString.hpp"
-#include "common/json/JsonBoolean.hpp"
+#include "common/json/JsonNull.hpp"
 
 AudioSource::AudioSource(IObject *owner, const json::JsonObject *data) : AComponent(
-    owner, new Meta(this), data), _clipPath(""), _volume(0), _loop(false), _playOnAwake(false) {
+    owner, new Meta(this), data) {
+    this->deserializeFields(data);
 }
 
-AudioSource::AudioSource(IObject *owner, const std::string &clipPath, int volume, bool loop, bool playOnAwake) : AComponent(
-    owner, new Meta(this)), _clipPath(clipPath), _volume(volume), _loop(loop), _playOnAwake(playOnAwake) {
+AudioSource::AudioSource(IObject *owner, std::string clipPath, const float volume, const bool loop, const bool playOnAwake)
+    : AComponent(owner, new Meta(this)), _clipPath(std::move(clipPath)), _volume(volume), _loop(loop), _playOnAwake(playOnAwake) {
     _buffer.loadFromFile(_clipPath);
     _sound.setBuffer(_buffer);
     _sound.setVolume(_volume);
     _sound.setLoop(_loop);
-    if (_playOnAwake)
+    if (_playOnAwake) {
         _sound.play();
+    }
 }
 
 AudioSource::AudioSource(IObject *owner) : AComponent(owner, new Meta(this)) {
@@ -30,14 +35,36 @@ AudioSource::AudioSource(IObject *owner) : AComponent(owner, new Meta(this)) {
 
 AudioSource::Meta::Meta(AudioSource *owner): _owner(owner), _fieldGroup({}) {
     auto fields = std::vector<IField *>();
-    auto *field = new StringField("ClipPath", "The path to the audio clip",
+    auto *field = new FileField("ClipPath", "The path to the audio clip",
                                   [this](const std::string &value) {
                                       this->_owner->_clipPath = value;
                                       this->_owner->_buffer.loadFromFile(value);
                                       this->_owner->_sound.setBuffer(this->_owner->_buffer);
                                   },
                                   [this] { return this->_owner->_clipPath; });
-    _fieldGroup = InvisibleFieldGroup({field});
+    auto *volumeField = new FloatField("Volume", "The volume of the audio clip",
+                                       [this](const float value) {
+                                           this->_owner->_volume = value;
+                                           this->_owner->_sound.setVolume(value);
+                                       },
+                                       [this] { return this->_owner->_volume; });
+    auto *loopField = new BooleanField("Loop", "Enable or disable looping of the audio clip",
+                                       [this](const bool value) {
+                                           this->_owner->_loop = value;
+                                           this->_owner->_sound.setLoop(value);
+                                       },
+                                       [this] { return this->_owner->_loop; });
+    auto *playOnAwakeField = new BooleanField("PlayOnAwake", "Enable or disable auto-plau of the audio clip on start",
+                                       [this](const bool value) {
+                                           this->_owner->_playOnAwake = value;
+                                           if (value) {
+                                               this->_owner->_sound.play();
+                                           }
+                                       },
+                                       [this] { return this->_owner->_playOnAwake; });
+
+
+    _fieldGroup = InvisibleFieldGroup({field, volumeField, loopField, playOnAwakeField});
 }
 
 std::string AudioSource::Meta::getName() const {
@@ -61,38 +88,10 @@ std::vector<const IComponent::IMeta::IFieldGroup *> AudioSource::Meta::getFieldG
 }
 
 json::IJsonObject *AudioSource::serializeData() {
-    auto *const data = new json::JsonObject("data");
-    data->add(new json::JsonString(_clipPath, "path"));
-    data->add(new json::JsonNumber(_volume, "volume"));
-    data->add(new json::JsonBoolean(_loop, "loop"));
-    data->add(new json::JsonBoolean(_playOnAwake, "playOnAwake"));
-    return data;
+    return new json::JsonNull();
 }
 
 void AudioSource::deserialize(const json::IJsonObject *data) {
-    if (data == nullptr || data->getType() != json::OBJECT) {
-        return;
-    }
-    const auto *const obj = dynamic_cast<const json::JsonObject *>(data);
-    if (obj->contains("path")) {
-        _clipPath = obj->getValue<json::JsonString>("path")->getValue();
-        _buffer.loadFromFile(_clipPath);
-    }
-    if (obj->contains("volume")) {
-        _volume = obj->getValue<json::JsonNumber>("volume")->getIntValue();
-    }
-    if (obj->contains("loop")) {
-        _loop = obj->getValue<json::JsonBoolean>("loop")->getValue();
-    }
-    if (obj->contains("playOnAwake")) {
-        _playOnAwake = obj->getValue<json::JsonBoolean>("playOnAwake")->getValue();
-    }
-    _sound.setBuffer(_buffer);
-    _sound.setVolume(_volume);
-    _sound.setLoop(_loop);
-    if (_playOnAwake) {
-        _sound.play();
-    }
 }
 
 AudioSource *AudioSource::clone(IObject *owner) const {
@@ -114,20 +113,21 @@ void AudioSource::stop() {
     _sound.stop();
 }
 
-void AudioSource::setVolume(int volume) {
+void AudioSource::setVolume(const float volume) {
     _volume = volume;
     _sound.setVolume(volume);
 }
 
-void AudioSource::setLoop(bool loop) {
+void AudioSource::setLoop(const bool loop) {
     _loop = loop;
     _sound.setLoop(loop);
 }
 
 void AudioSource::mute() {
     _mute = !_mute;
-    if (_mute)
+    if (_mute) {
         _sound.setVolume(0);
-    else
+    } else {
         _sound.setVolume(_volume);
+    }
 }

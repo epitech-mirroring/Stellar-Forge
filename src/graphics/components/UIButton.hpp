@@ -14,8 +14,9 @@
 
 #include "common/event/EventSystem.hpp"
 
-class UIButton : public AComponent {
-  UIButton(IObject *owner, int x, int y, int width, int height, std::string id);
+class UIButton final : public AComponent {
+public:
+  UIButton(IObject *owner, float rectX, float rectY, float width, float height, std::string buttonId);
   UIButton(IObject *owner, const json::JsonObject *data);
   ~UIButton() override = default;
 
@@ -23,8 +24,8 @@ class UIButton : public AComponent {
   void deserialize(const json::IJsonObject *data) override;
   [[nodiscard]] UIButton *clone(IObject *owner) const override;
 
-  void onPressed(const EventData &eventData);
-  void onReleased(const EventData &eventData);
+  void onPressed(const EventData &eventData) const;
+  void onReleased(const EventData &eventData) const;
 
   void runComponent() override;
 
@@ -44,11 +45,11 @@ class UIButton : public AComponent {
 
 private:
   sf::RectangleShape _shape;
-  int _x;
-  int _y;
-  int _width;
-  int _height;
-  std::string _id;
+  float _rectX{};
+  float _rectY{};
+  float _width{};
+  float _height{};
+  std::string _buttonId;
 };
 
 #endif // UIBUTTON_HPP

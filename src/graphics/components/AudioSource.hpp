@@ -10,7 +10,7 @@
 
 #include <SFML/Audio.hpp>
 
-#include "../../common/components/AComponent.hpp"
+#include "common/components/AComponent.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**

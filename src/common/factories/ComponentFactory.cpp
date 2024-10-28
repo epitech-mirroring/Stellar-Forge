@@ -8,7 +8,12 @@
 
 #include "ComponentFactory.hpp"
 
-const Logger ComponentFactory::LOG = Logger();
+ComponentFactory *ComponentFactory::INSTANCE = nullptr;
+
+ComponentFactory::ComponentFactory() {
+    LOG = Logger("components");
+}
+
 
 IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner,
                                      const json::JsonObject *data) {
@@ -36,6 +41,3 @@ void ComponentFactory::safeUnregisterComponent(const std::string &typeName) {
     LOG.info << "Unregistering component: " << typeName << '\n';
     registry.erase(typeName);
 }
-
-
-ComponentFactory *ComponentFactory::INSTANCE = new ComponentFactory();

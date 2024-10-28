@@ -84,8 +84,8 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
     this->_handles.push_back({handle, {}});
     auto *getComponentNames = reinterpret_cast<const char **(*)()>(dlsym(
         handle, "getComponentName"));
-    auto *registerComponents = reinterpret_cast<void (*)()>(dlsym(
-        handle, "registerComponent"));
+    auto *registerComponents = reinterpret_cast<void (*)(ComponentFactory *)>(dlsym(
+        handle, "registerComponents"));
     if (getComponentNames == nullptr || registerComponents == nullptr) {
         LOG.error << "Failed to load components: " << path << " - " << dlerror() << '\n';
         return;
@@ -94,7 +94,7 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
     for (auto i = 0; componentNames[i] != nullptr; i++) {
         LOG.info << "Loading component: " << componentNames[i] << '\n';
     }
-    registerComponents();
+    registerComponents(&ComponentFactory::getInstance());
 
     for (auto i = 0; componentNames[i] != nullptr; i++) {
         if (!ComponentFactory::getInstance().hasComponent(componentNames[i])) {

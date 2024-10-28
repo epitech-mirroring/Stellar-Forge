@@ -17,15 +17,14 @@
 
 
 class ComponentFactory {
-private:
     static ComponentFactory *INSTANCE;
-    static const Logger LOG;
+    Logger LOG;
 
 public:
     using Constructor = std::function<IComponent *(
         IObject *, const json::JsonObject *)>;
 
-    ComponentFactory() = default;
+    ComponentFactory();
 
     ~ComponentFactory();
 
@@ -58,7 +57,15 @@ public:
     bool hasComponent(const std::string &typeName) const;
 
     static ComponentFactory &getInstance() {
+        if (INSTANCE == nullptr) {
+            INSTANCE = new ComponentFactory();
+        }
         return *INSTANCE;
+    }
+
+    static void resetInstance() {
+        delete INSTANCE;
+        INSTANCE = nullptr;
     }
 
     void safeUnregisterComponent(const std::string &typeName);

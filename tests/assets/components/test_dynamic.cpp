@@ -80,6 +80,6 @@ protected:
     }
 };
 
-extern "C" void registerComponent() {
-    REGISTER_COMPONENT(Test1);
+extern "C" void registerComponents(ComponentFactory *factory) {
+    factory->registerComponent<Test1>("Test1");
 }

@@ -11,6 +11,9 @@
 #include "common/fields/IntField.hpp"
 #include "common/fields/StringField.hpp"
 
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+
 UIButton::UIButton(IObject *owner, int x, int y, int width, int height, std::string id)
     : AComponent(owner, new Meta(this)), _x(x), _y(y), _width(width), _height(height), _id(id) {
     this->_shape.setPosition(x, y);
@@ -49,14 +52,14 @@ UIButton *UIButton::clone(IObject *owner) const {
 }
 
 void UIButton::onPressed(const EventData &eventData) {
-    auto *mousePos = static_cast<sf::Vector2i *>(eventData.data);
+    sf::Event::MouseButtonEvent *mousePos = static_cast<sf::Event::MouseButtonEvent *>(eventData.data);
     if (this->_shape.getGlobalBounds().contains(mousePos->x, mousePos->y)) {
         EventSystem::getInstance().triggerEvents("button_" + this->_id + "_pressed", nullptr);
     }
 }
 
 void UIButton::onReleased(const EventData &eventData) {
-    auto *mousePos = static_cast<sf::Vector2i *>(eventData.data);
+    sf::Event::MouseButtonEvent *mousePos = static_cast<sf::Event::MouseButtonEvent *>(eventData.data);
     if (this->_shape.getGlobalBounds().contains(mousePos->x, mousePos->y)) {
         EventSystem::getInstance().triggerEvents("button_" + this->_id + "_released", nullptr);
     }

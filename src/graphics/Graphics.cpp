@@ -203,6 +203,12 @@ void Graphics::catchEvents() {
                 }
             }
         }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            EventSystem::getInstance().triggerEvents("mouse_pressed", &event.mouseButton);
+        }
+        if (event.type == sf::Event::MouseButtonReleased) {
+            EventSystem::getInstance().triggerEvents("mouse_released", &event.mouseButton);
+        }
     }
 }
 

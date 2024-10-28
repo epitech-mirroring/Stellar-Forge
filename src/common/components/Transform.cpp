@@ -10,7 +10,6 @@
 #include "common/fields/Vector3Field.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
 #include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
 #include "common/json/JsonObject.hpp"
 
 Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(

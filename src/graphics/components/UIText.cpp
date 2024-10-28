@@ -12,8 +12,8 @@
 #endif
 #include "common/components/Transform.hpp"
 #include "common/fields/StringField.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/json/JsonNumber.hpp"
-#include "common/json/JsonString.hpp"
 #include "graphics/GraphicsException.hpp"
 
 UIText::UIText(IObject *owner, std::string textStr, const unsigned int size,
@@ -37,6 +37,18 @@ UIText::UIText(IObject *owner, std::string textStr, const unsigned int size,
 UIText::UIText(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), fontPath(findDefaultFontPath()),
     fontSize(0), color(sf::Color::White) {
+    this->deserializeFields(data);
+    if (std::string(fontPath) == "default") {
+        this->fontPath = findDefaultFontPath();
+    }
+    if (!font.loadFromFile(fontPath)) {
+        throw GraphicsException(
+            "Failed to load font from file: " + std::string(fontPath));
+    }
+    text.setFont(font);
+    text.setString(textString);
+    text.setCharacterSize(fontSize);
+    text.setFillColor(color);
 }
 
 std::string UIText::findDefaultFontPath() {
@@ -128,56 +140,10 @@ UIText::Meta::getFieldGroups() const {
 }
 
 json::IJsonObject *UIText::serializeData() {
-    auto *const data = new json::JsonObject("data");
-    data->add(new json::JsonString(textString, "text"));
-    std::string fontName = fontPath;
-    if (fontName.find_last_of('/') != std::string::npos) {
-        fontName = fontName.substr(fontName.find_last_of('/') + 1);
-    }
-    if (fontName.find_last_of('.') != std::string::npos) {
-        fontName = fontName.substr(0, fontName.find_last_of('.'));
-    }
-    data->add(new json::JsonString(fontName, "font"));
-    data->add(new json::JsonNumber(static_cast<int>(fontSize), "size"));
-    auto *const colorData = new json::JsonObject("color");
-    colorData->add(new json::JsonNumber(color.r, "r"));
-    colorData->add(new json::JsonNumber(color.g, "g"));
-    colorData->add(new json::JsonNumber(color.b, "b"));
-    colorData->add(new json::JsonNumber(color.a, "a"));
-    data->add(colorData);
-    return data;
+    return new json::JsonNull();
 }
 
 void UIText::deserialize(const json::IJsonObject *data) {
-    if (data == nullptr || data->getType() != json::OBJECT) {
-        return;
-    }
-    const auto *const obj = dynamic_cast<const json::JsonObject *>(data);
-    if (obj->contains("text")) {
-        textString = obj->getValue<json::JsonString>("text")->getValue();
-        text.setString(textString);
-    }
-    if (obj->contains("font")) {
-        fontPath = obj->getValue<json::JsonString>("font")->getValue();
-        if (!font.loadFromFile(fontPath)) {
-            // TODO use font manager
-            throw GraphicsException(
-                "Failed to load font from file: " + std::string(fontPath));
-        }
-        text.setFont(font);
-    }
-    if (obj->contains("size")) {
-        fontSize = obj->getValue<json::JsonNumber>("size")->getIntValue();
-        text.setCharacterSize(fontSize);
-    }
-    if (obj->contains("color")) {
-        const auto *const colorData = obj->getValue<json::JsonObject>("color");
-        color.r = colorData->getValue<json::JsonNumber>("r")->getIntValue();
-        color.g = colorData->getValue<json::JsonNumber>("g")->getIntValue();
-        color.b = colorData->getValue<json::JsonNumber>("b")->getIntValue();
-        color.a = colorData->getValue<json::JsonNumber>("a")->getIntValue();
-        text.setFillColor(color);
-    }
 }
 
 UIText *UIText::clone(IObject *owner) const {

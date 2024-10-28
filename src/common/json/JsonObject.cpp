@@ -39,14 +39,21 @@ std::string JsonObject::getName() const {
     return this->_name;
 }
 
+void JsonObject::add(const std::string &key, IJsonObject *value) {
+    if (value == nullptr) {
+        return;
+    }
+    if (this->_objects.find(key) != this->_objects.end()) {
+        delete this->_objects[key];
+    }
+    this->_objects[key] = value;
+}
+
 void JsonObject::add(IJsonObject *value) {
     if (value == nullptr) {
         return;
     }
-    if (this->_objects.find(value->getName()) != this->_objects.end()) {
-        delete this->_objects[value->getName()];
-    }
-    this->_objects[value->getName()] = value;
+    this->add(value->getName(), value);
 }
 
 std::string JsonObject::stringify() const {

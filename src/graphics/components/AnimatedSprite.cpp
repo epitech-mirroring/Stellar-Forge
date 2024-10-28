@@ -10,6 +10,7 @@
 #include "common/components/Transform.hpp"
 #include "common/fields/FileField.hpp"
 #include "common/json/JsonArray.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonString.hpp"
 #include "graphics/GraphicsException.hpp"
@@ -30,6 +31,13 @@ AnimatedSprite::AnimatedSprite(IObject *owner, const std::string &path,
 
 AnimatedSprite::AnimatedSprite(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), frames({}), currentFrame(0), frameTime(0.1f) {
+    this->deserializeFields(data);
+    if (!texture.loadFromFile(path)) {
+        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+        // Todo: add sample texture and only log error
+    }
+    sprite.setTexture(texture);
+    sprite.setTextureRect(frames[currentFrame]);
 }
 
 
@@ -131,52 +139,10 @@ AnimatedSprite::Meta::getFieldGroups() const {
 }
 
 void AnimatedSprite::deserialize(const json::IJsonObject *data) {
-    if (data != nullptr && data->getType() == json::OBJECT) {
-        const auto *const obj = dynamic_cast<const json::JsonObject *>(data);
-        if (obj->contains("path")) {
-            this->path = obj->getValue<json::JsonString>("path")->getValue();
-            this->setTexture(this->path);
-        }
-        if (obj->contains("frames")) {
-            auto frames = std::vector<sf::IntRect>();
-            for (const auto *const frame: obj->getValue<json::JsonArray<
-                     json::JsonObject> >("frames")->getValues()) {
-                auto left = frame->getValue<json::JsonNumber>("left")->getFloatValue();
-                auto top = frame->getValue<json::JsonNumber>("top")->getFloatValue();
-                auto width = frame->getValue<json::JsonNumber>("width")->getFloatValue();
-                auto height = frame->getValue<json::JsonNumber>("height")->
-                        getFloatValue();
-                frames.emplace_back(left, top, width, height);
-            }
-            this->setFrames(frames);
-        }
-        if (obj->contains("frameTime")) {
-            this->frameTime = obj->getValue<json::JsonNumber>("frameTime")->
-                    getFloatValue();
-        }
-        if (obj->contains("currentFrame")) {
-            this->currentFrame = obj->getValue<json::JsonNumber>("currentFrame")->
-                    getIntValue();
-        }
-    }
 }
 
 json::IJsonObject *AnimatedSprite::serializeData() {
-    auto *obj = new json::JsonObject("data");
-    obj->add(new json::JsonString("path", path));
-    auto *frames = new json::JsonArray<json::JsonObject>("frames");
-    for (const auto &frame: this->frames) {
-        auto *frameObj = new json::JsonObject("");
-        frameObj->add(new json::JsonNumber(frame.left, "left"));
-        frameObj->add(new json::JsonNumber(frame.top, "top"));
-        frameObj->add(new json::JsonNumber(frame.width, "width"));
-        frameObj->add(new json::JsonNumber(frame.height, "height"));
-        frames->add(frameObj);
-    }
-    obj->add(frames);
-    obj->add(new json::JsonNumber(frameTime, "frameTime"));
-    obj->add(new json::JsonNumber(static_cast<int>(currentFrame), "currentFrame"));
-    return obj;
+    return new json::JsonNull();
 }
 
 AnimatedSprite *AnimatedSprite::clone(IObject *owner) const {

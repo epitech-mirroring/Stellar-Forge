@@ -32,8 +32,8 @@ public:
      * @details Initializes the FloatField with the given name and description.
      */
     BooleanField(const std::string &name, const std::string &description,
-               const std::function<void(float)> &setCallback = nullptr,
-               const std::function<float()> &getCallback = nullptr);
+               const std::function<void(bool)> &setCallback = nullptr,
+               const std::function<bool()> &getCallback = nullptr);
 
     void updateValue(std::any value) override;
 

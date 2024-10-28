@@ -9,9 +9,9 @@
 #include "BooleanField.hpp"
 
 BooleanField::BooleanField(const std::string &name, const std::string &description,
-                       const std::function<void(float)> &setCallback,
-                       const std::function<float()> &
-                       getCallback): AField(name, description, IComponent::IMeta::FLOAT),
+                       const std::function<void(bool)> &setCallback,
+                       const std::function<bool()> &
+                       getCallback): AField(name, description, IComponent::IMeta::BOOL),
                                      _setCallback(setCallback),
                                      _getCallback(getCallback) {
 }
@@ -25,7 +25,7 @@ std::any BooleanField::getValue() const {
 }
 
 json::JsonBoolean *BooleanField::serialize() const {
-    return new json::JsonBoolean(std::any_cast<float>(getValue()), _name);
+    return new json::JsonBoolean(std::any_cast<bool>(getValue()), _name);
 }
 
 void BooleanField::deserialize(const json::IJsonObject *data) {

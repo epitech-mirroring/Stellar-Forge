@@ -16,12 +16,12 @@
 
 class BooleanField final : public AField {
 protected:
-    std::function<void(float)> _setCallback;
-    std::function<float()> _getCallback;
+    std::function<void(bool)> _setCallback;
+    std::function<bool()> _getCallback;
 
 public:
     /**
-     * @brief Constructor for FloatField.
+     * @brief Constructor for BooleanField.
      * @param name The name of the field.
      * @param description A brief description of the field.
      * @param setCallback The callback function to set the value of the field.
@@ -29,7 +29,7 @@ public:
      * @version v0.1.0
      * @since v0.1.0
      * @author Aubane NOURRY
-     * @details Initializes the FloatField with the given name and description.
+     * @details Initializes the BooleanField with the given name and description.
      */
     BooleanField(const std::string &name, const std::string &description,
                const std::function<void(bool)> &setCallback = nullptr,

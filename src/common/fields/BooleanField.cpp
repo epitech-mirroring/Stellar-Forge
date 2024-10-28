@@ -17,7 +17,7 @@ BooleanField::BooleanField(const std::string &name, const std::string &descripti
 }
 
 void BooleanField::updateValue(const std::any value) {
-    _setCallback(std::any_cast<float>(value));
+    _setCallback(std::any_cast<bool>(value));
 }
 
 std::any BooleanField::getValue() const {

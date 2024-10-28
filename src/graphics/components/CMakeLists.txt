@@ -5,9 +5,11 @@ target_sources(StellarForgeGraphics
         ${CMAKE_CURRENT_SOURCE_DIR}/SpriteSheet.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AnimatedSprite.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIText.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UIButton.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Sprite.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/SpriteSheet.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AnimatedSprite.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIText.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/UIButton.cpp
 )

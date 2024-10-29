@@ -31,6 +31,7 @@
 #include "common/managers/SceneManager.hpp"
 #include "common/utils/LoggerScopes.hpp"
 #include "graphics/Graphics.hpp"
+#include "graphics/components/AudioSource.hpp"
 #include "physics/components/RigidBody.hpp"
 
 void Engine::_registerComponents() {
@@ -41,6 +42,7 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(UIText);
     REGISTER_COMPONENT(UIButton);
     REGISTER_COMPONENT(RigidBody);
+    REGISTER_COMPONENT(AudioSource);
 }
 
 void Engine::_registerLoggerScopes() {

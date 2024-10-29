@@ -5,6 +5,7 @@ cmake/3.29.7
 glm/1.0.1
 sfml/2.6.1
 gtest/1.15.0
+raylib/4.0.0
 
 [generators]
 CMakeDeps

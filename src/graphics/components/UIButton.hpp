@@ -74,6 +74,14 @@ public:
   static std::string findDefaultFontPath();
 
   /**
+   * @brief Hides or shows the rectangle of the UIButton.
+   * @param hide True to hide the rectangle, false to show it.
+   * @version v0.1.0
+   * @since v0.1.0
+   */
+  void hideRect(bool hide);
+
+  /**
    * @brief Clones the UIButton for a different owner.
    * @param owner The new owner for the cloned UIButton.
    * @return A pointer to the cloned UIButton instance.

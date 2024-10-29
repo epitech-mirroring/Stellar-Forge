@@ -52,6 +52,10 @@ std::string UIButton::findDefaultFontPath() {
 #endif
 }
 
+void UIButton::hideRect(const bool hide) {
+    _rect.setFillColor(hide ? sf::Color::Transparent : sf::Color(100, 100, 100));
+}
+
 void UIButton::render(sf::RenderWindow *window) {
     window->draw(_rect);
     window->draw(_text);

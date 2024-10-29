@@ -6,6 +6,7 @@ target_sources(StellarForgeGraphics
         ${CMAKE_CURRENT_SOURCE_DIR}/AnimatedSprite.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIText.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AudioSource.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Button.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIButton.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Sprite.cpp
@@ -13,5 +14,6 @@ target_sources(StellarForgeGraphics
         ${CMAKE_CURRENT_SOURCE_DIR}/AnimatedSprite.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIText.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/AudioSource.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Button.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/UIButton.cpp
 )

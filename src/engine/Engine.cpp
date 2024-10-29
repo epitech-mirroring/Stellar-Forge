@@ -27,6 +27,7 @@
 #include "graphics/components/Sprite.hpp"
 #include "graphics/components/SpriteSheet.hpp"
 #include "graphics/components/UIText.hpp"
+#include "graphics/components/Button.hpp"
 #include "graphics/components/UIButton.hpp"
 #include "common/managers/SceneManager.hpp"
 #include "common/utils/LoggerScopes.hpp"
@@ -40,6 +41,7 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Sprite);
     REGISTER_COMPONENT(SpriteSheet);
     REGISTER_COMPONENT(UIText);
+    REGISTER_COMPONENT(Button);
     REGISTER_COMPONENT(UIButton);
     REGISTER_COMPONENT(RigidBody);
     REGISTER_COMPONENT(AudioSource);

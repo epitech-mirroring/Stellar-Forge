@@ -9,13 +9,12 @@
 #define UIBUTTON_HPP
 
 #include "IGraphicsComponent.hpp"
-#include "common/components/AComponent.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/event/EventSystem.hpp"
+#include "Button.hpp"
 
 /**
  * @class UIButton
- * @brief A UI component representing an interactive button.
+ * @brief A UI button component: a clickable button with text and a colored rectangle.
  * @details UIButton provides the functionality for detecting clicks within its area,
  *          triggering events when pressed or released, and allowing for configuration
  *          using position, size, and a unique identifier.
@@ -23,164 +22,83 @@
  * @since v0.1.0
  * @author Aubane NOURRY
  */
-class UIButton final : public AComponent {
+class UIButton final : public Button, public IGraphicsComponent {
 public:
-  /**
-   * @brief Primary constructor for UIButton with specified dimensions.
-   * @param owner The owning object of this button component.
-   * @param rectX X-coordinate of the button's position.
-   * @param rectY Y-coordinate of the button's position.
-   * @param width Width of the button.
-   * @param height Height of the button.
-   * @param buttonId Identifier for the button.
-   * @details Initializes a UIButton instance with positional and sizing attributes.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  UIButton(IObject *owner, float rectX, float rectY, float width, float height, std::string buttonId);
-
-  /**
-   * @brief Constructor that initializes UIButton with JSON data.
-   * @param owner The owner of this button component.
-   * @param data JSON object with initialization parameters.
-   * @details Allows UIButton to be configured using JSON for added flexibility.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
+  UIButton(IObject *owner, float rectX, float rectY, float width, float height, const std::string& buttonId, std::string label, int charSize);
   UIButton(IObject *owner, const json::JsonObject *data);
-
-  /**
-   * @brief Destructor for UIButton.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  ~UIButton() override = default;
-
-  /**
-   * @brief Serializes the button component's data into JSON format.
-   * @return A pointer to the JSON representation of the component's data.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  [[nodiscard]] json::IJsonObject *serializeData() override;
-
-  /**
-   * @brief Deserializes the button component's data from JSON format.
-   * @param data JSON object with the component's data.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  void deserialize(const json::IJsonObject *data) override;
-
-  /**
-   * @brief Clones the UIButton component for a new owner.
-   * @param owner The new owner of the cloned button component.
-   * @return A pointer to the cloned UIButton instance.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
+  void render(sf::RenderWindow *window) override;
+  glm::vec2 getSize() override;
+  static std::string findDefaultFontPath();
   [[nodiscard]] UIButton *clone(IObject *owner) const override;
 
   /**
-   * @brief Handles the button press event.
-   * @param eventData Data associated with the press event.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  void onPressed(const EventData &eventData) const;
+  * @class Meta
+  * @brief Metadata class for UIButton.
+  * @details Provides metadata information and field groups for the UIButton component.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+   class Meta final : public IMeta {
+   protected:
+       UIButton *_owner; /**< Pointer to the owning UIButton instance. */
+       InvisibleFieldGroup _fieldGroup; /**< Field group for invisible fields. */
 
-  /**
-   * @brief Handles the button release event.
-   * @param eventData Data associated with the release event.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  void onReleased(const EventData &eventData) const;
+   public:
+       /**
+        * @brief Constructor for Meta.
+        * @param owner Pointer to the owning UIButton instance.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       explicit Meta(UIButton *owner);
 
-  /**
-   * @brief Checks if a given mouse position is within the button's area.
-   * @param mousePos Mouse position event data.
-   * @return True if the mouse position is within the button's area, false otherwise.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  bool inButton(const sf::Event::MouseButtonEvent *mousePos) const;
+       /**
+        * @brief Gets the name of the metadata.
+        * @return The name of the metadata.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       [[nodiscard]] std::string getName() const override;
 
-  /**
-   * @brief Runs the button component's logic.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  void runComponent() override;
+       /**
+        * @brief Gets the description of the metadata.
+        * @return The description of the metadata.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       [[nodiscard]] std::string getDescription() const override;
 
-  /**
-   * @class Meta
-   * @brief Metadata class for UIButton.
-   * @details Provides metadata information and field groups for the UIButton component.
-   * @version v0.1.0
-   * @since v0.1.0
-   */
-  class Meta final : public IMeta {
-  protected:
-    UIButton *_owner; /**< Pointer to the owning UIButton instance. */
-    InvisibleFieldGroup _fieldGroup; /**< Field group for invisible fields. */
+       /**
+        * @brief Checks if the metadata is unique.
+        * @return True if the metadata is unique, false otherwise.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       [[nodiscard]] bool isUnique() const override;
 
-  public:
-    /**
-     * @brief Constructor for Meta.
-     * @param owner Pointer to the owning UIButton instance.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    explicit Meta(UIButton *owner);
+       /**
+        * @brief Checks if the metadata can be removed.
+        * @return True if the metadata can be removed, false otherwise.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       [[nodiscard]] bool canBeRemoved() const override;
 
-    /**
-     * @brief Gets the name of the metadata.
-     * @return The name of the metadata.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    [[nodiscard]] std::string getName() const override;
-
-    /**
-     * @brief Gets the description of the metadata.
-     * @return The description of the metadata.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    [[nodiscard]] std::string getDescription() const override;
-
-    /**
-     * @brief Checks if the metadata is unique.
-     * @return True if the metadata is unique, false otherwise.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    [[nodiscard]] bool isUnique() const override;
-
-    /**
-     * @brief Checks if the metadata can be removed.
-     * @return True if the metadata can be removed, false otherwise.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    [[nodiscard]] bool canBeRemoved() const override;
-
-    /**
-     * @brief Gets the field groups associated with the metadata.
-     * @return A vector of pointers to the field groups.
-     * @version v0.1.0
-     * @since v0.1.0
-     */
-    [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
-  };
+       /**
+        * @brief Gets the field groups associated with the metadata.
+        * @return A vector of pointers to the field groups.
+        * @version v0.1.0
+        * @since v0.1.0
+        */
+       [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
+   };
 
 private:
-  float _rectX{}; /**< X-coordinate of the button's position. */
-  float _rectY{}; /**< Y-coordinate of the button's position. */
-  float _width{}; /**< Width of the button. */
-  float _height{}; /**< Height of the button. */
-  std::string _buttonId; /**< Identifier for the button. */
+  std::string _label;
+  sf::Font _font;
+  sf::Text _text;
+  sf::RectangleShape _rect;
+  int _charSize{};
 };
 
 #endif //UIBUTTON_HPP

@@ -57,7 +57,6 @@ bool UIButton::inButton(const sf::Event::MouseButtonEvent* mousePos) const
 void UIButton::onPressed(const EventData &eventData) const
 {
     if (inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data))) {
-        std::cout << "button id " << this->_buttonId << " pressed" << std::endl;
         EventSystem::getInstance().triggerEvents("button_" + this->_buttonId + "_pressed", nullptr);
     }
 }
@@ -65,7 +64,6 @@ void UIButton::onPressed(const EventData &eventData) const
 void UIButton::onReleased(const EventData &eventData) const
 {
     if (inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data))) {
-        std::cout << "button id " << this->_buttonId << " released" << std::endl;
         EventSystem::getInstance().triggerEvents("button_" + this->_buttonId + "_released", nullptr);
     }
 }

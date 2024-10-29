@@ -17,19 +17,19 @@
 
 class IntField final : public AField {
 protected:
-    std::function<void(float)> _setCallback;
-    std::function<float()> _getCallback;
+    std::function<void(int)> _setCallback;
+    std::function<int()> _getCallback;
 
 public:
     /**
-     * @brief Constructor for FloatField.
+     * @brief Constructor for IntField.
      * @param name The name of the field.
      * @param description A brief description of the field.
      * @param setCallback The callback function to set the value of the field.
      * @param getCallback The callback function to get the value of the field.
      * @version v0.1.0
      * @since v0.1.0
-     * @details Initializes the FloatField with the given name and description.
+     * @details Initializes the IntField with the given name and description.
      * @author Aubane NOURRY
      */
     IntField(const std::string &name, const std::string &description,

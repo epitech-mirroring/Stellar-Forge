@@ -17,11 +17,6 @@
 
 UIButton::UIButton(IObject *owner, const float rectX, const float rectY, const float width, const float height, std::string buttonId)
     : AComponent(owner, new Meta(this)), _rectX(rectX), _rectY(rectY), _width(width), _height(height), _buttonId(std::move(buttonId)) {
-    this->_shape.setPosition(rectX, rectY);
-    this->_shape.setSize(sf::Vector2f(width, height));
-    this->_shape.setFillColor(sf::Color::Transparent);
-    this->_shape.setOutlineColor(sf::Color::Transparent);
-    this->_shape.setOutlineThickness(1);
     EventSystem::getInstance().registerListener("mouse_pressed", [this](const EventData &eventData) {
         this->onPressed(eventData);
     });
@@ -52,16 +47,25 @@ UIButton *UIButton::clone(IObject *owner) const {
     return new UIButton(owner, this->_rectX, this->_rectY, this->_width, this->_height, this->_buttonId);
 }
 
+bool UIButton::inButton(const sf::Event::MouseButtonEvent* mousePos) const
+{
+    return static_cast<float>(mousePos->x) >= this->_rectX && static_cast<float>(mousePos->x) <= this->_rectX + this->_width &&
+        static_cast<float>(mousePos->y) >= this->_rectY && static_cast<float>(mousePos->y) <= this->_rectY + this->_height;
+}
+
+
 void UIButton::onPressed(const EventData &eventData) const
 {
-    if (const auto *mousePos = static_cast<sf::Event::MouseButtonEvent *>(eventData.data); this->_shape.getGlobalBounds().contains(static_cast<float>(mousePos->x), static_cast<float>(mousePos->y))) {
+    if (inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data))) {
+        std::cout << "button id " << this->_buttonId << " pressed" << std::endl;
         EventSystem::getInstance().triggerEvents("button_" + this->_buttonId + "_pressed", nullptr);
     }
 }
 
 void UIButton::onReleased(const EventData &eventData) const
 {
-    if (const auto *mousePos = static_cast<sf::Event::MouseButtonEvent *>(eventData.data); this->_shape.getGlobalBounds().contains(static_cast<float>(mousePos->x), static_cast<float>(mousePos->y))) {
+    if (inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data))) {
+        std::cout << "button id " << this->_buttonId << " released" << std::endl;
         EventSystem::getInstance().triggerEvents("button_" + this->_buttonId + "_released", nullptr);
     }
 }
@@ -79,32 +83,28 @@ UIButton::Meta::Meta(UIButton *owner)
     auto *field2 = new FloatField("x", "The x position of the button",
                                 [this](const float &value) {
                                     this->_owner->_rectX = value;
-                                    this->_owner->_shape.setPosition(value, this->_owner->_rectY);
                                 },
                                 [this] { return this->_owner->_rectX; });
     auto *field3 = new FloatField("y", "The y position of the button",
                                 [this](const float &value) {
                                     this->_owner->_rectY = value;
-                                    this->_owner->_shape.setPosition(this->_owner->_rectX, value);
                                 },
                                 [this] { return this->_owner->_rectY; });
     auto *field4 = new FloatField("width", "The width of the button",
                                 [this](const float &value) {
                                     this->_owner->_width = value;
-                                    this->_owner->_shape.setSize(sf::Vector2f(value, this->_owner->_height));
                                 },
                                 [this] { return this->_owner->_width; });
     auto *field5 = new FloatField("height", "The height of the button",
                                 [this](const float &value) {
                                     this->_owner->_height = value;
-                                    this->_owner->_shape.setSize(sf::Vector2f(this->_owner->_width, value));
                                 },
                                 [this] { return this->_owner->_height; });
     _fieldGroup = InvisibleFieldGroup({field, field2, field3, field4, field5});
 }
 
 std::string UIButton::Meta::getName() const {
-    return "Button";
+    return "UIButton";
 }
 
 std::string UIButton::Meta::getDescription() const {

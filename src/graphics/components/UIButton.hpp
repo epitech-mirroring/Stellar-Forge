@@ -27,6 +27,8 @@ public:
   void onPressed(const EventData &eventData) const;
   void onReleased(const EventData &eventData) const;
 
+  bool inButton(const sf::Event::MouseButtonEvent *mousePos) const;
+
   void runComponent() override;
 
   class Meta final : public IMeta {
@@ -44,7 +46,6 @@ public:
   };
 
 private:
-  sf::RectangleShape _shape;
   float _rectX{};
   float _rectY{};
   float _width{};

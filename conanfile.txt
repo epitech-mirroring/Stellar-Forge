@@ -8,6 +8,7 @@ gtest/1.15.0
 stellar-forge-common/rc-v0.1.0
 stellar-forge-graphics/rc-v0.1.0
 stellar-forge-physics/rc-v0.1.0
+stellar-forge/rc-v0.1.0
 
 [generators]
 CMakeDeps

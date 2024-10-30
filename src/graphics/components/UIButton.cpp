@@ -14,14 +14,16 @@
 #include "common/fields/Vector2Field.hpp"
 #include "common/fields/FileField.hpp"
 
-UIButton::UIButton(IObject *owner, const float rectX, const float rectY, const float width, const float height, const std::string& buttonId, std::string label, const int charSize)
+UIButton::UIButton(IObject *owner, const float rectX, const float rectY, const float width, const float height,
+                   const std::string &buttonId, std::string label, const int charSize)
     : Button(owner, rectX, rectY, width, height, buttonId), _label(std::move(label)) {
     _font.loadFromFile(findDefaultFontPath());
     _text.setFont(_font);
     _text.setString(_label);
     _text.setCharacterSize(charSize);
     _text.setFillColor(sf::Color::White);
-    _text.setPosition(rectX + (width / 2) - (_text.getGlobalBounds().width / 2), rectY + (height / 2) - (_text.getGlobalBounds().height / 2));
+    _text.setPosition(rectX + (width / 2) - (_text.getGlobalBounds().width / 2),
+                      rectY + (height / 2) - (_text.getGlobalBounds().height / 2));
     _rect.setSize(sf::Vector2f(width, height));
     _rect.setPosition(rectX, rectY);
     _rect.setFillColor(sf::Color(100, 100, 100));
@@ -34,9 +36,8 @@ UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(owner,
     _text.setString(_label);
     _text.setCharacterSize(_charSize);
     _text.setFillColor(sf::Color::White);
-    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2), _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
-    std::cout << "Text position: " << _text.getPosition().x << ", " << _text.getPosition().y << std::endl;
-    std::cout << "Text label " << _label << std::endl;
+    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
     _rect.setSize(sf::Vector2f(_width, _height));
     _rect.setPosition(_rectX, _rectY);
     _rect.setFillColor(sf::Color(100, 100, 100));
@@ -70,42 +71,37 @@ UIButton::Meta::Meta(UIButton *owner)
     const std::vector<IField *> fields = {
         new StringField("id", "The ID of the button",
                         [this](const std::string &value) {
-                            std::cout << "Setting button id to " << value << std::endl;
                             this->_owner->_buttonId = value;
-                        }, [this]
-                        {
+                        }, [this] {
                             return this->_owner->_buttonId;
                         }),
         new StringField("Text", "The text displayed on the button",
                         [this](const std::string &value) {
-                            std::cout << "Setting label text to " << value << std::endl;
                             this->_owner->_label = value;
-                        }, [this]
-                        {
+                        }, [this] {
                             return this->_owner->_label;
                         }),
         new IntField("TextSize", "The size of the text characters",
                      [this](const int &value) {
-                         std::cout << "Setting char size to " << value << std::endl;
                          this->_owner->_charSize = value;
-                     }, [this]
-                     {
+                     }, [this] {
                          return this->_owner->_charSize;
                      }),
         new Vector2Field("Position", "The position of the button",
                          [this](const glm::vec2 &pos) {
-                                this->_owner->_rectX = pos.x;
-                                this->_owner->_rectY = pos.y;
+                             this->_owner->_rectX = pos.x;
+                             this->_owner->_rectY = pos.y;
                          }, [this] {
                              return glm::vec2(this->_owner->_rectX, this->_owner->_rectY);
                          }),
         new Vector2Field("Dimensions", "Height and width of the button",
                          [this](const glm::vec2 &pos) {
-                                this->_owner->_width = pos.x;
-                                this->_owner->_height = pos.y;
+                             this->_owner->_width = pos.x;
+                             this->_owner->_height = pos.y;
                          }, [this] {
                              return glm::vec2(this->_owner->_rectX, this->_owner->_rectY);
-                         })};
+                         })
+    };
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }
 
@@ -125,8 +121,7 @@ bool UIButton::Meta::canBeRemoved() const {
     return true;
 }
 
-std::vector<const IComponent::IMeta::IFieldGroup *> UIButton::Meta::getFieldGroups() const
-{
+std::vector<const IComponent::IMeta::IFieldGroup *> UIButton::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 

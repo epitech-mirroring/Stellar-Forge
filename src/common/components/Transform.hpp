@@ -12,8 +12,8 @@
 #include <glm/vec3.hpp>
 
 #include "AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/factories/ComponentFactory.hpp"
+#include "../fields/groups/InvisibleFieldGroup.hpp"
+#include "../factories/ComponentFactory.hpp"
 
 using Vector3 = glm::vec3;
 

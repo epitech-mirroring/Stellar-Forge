@@ -7,7 +7,7 @@
 
 #ifndef AFIELDGROUP_HPP
 #define AFIELDGROUP_HPP
-#include "common/IComponent.hpp"
+#include "../../IComponent.hpp"
 
 /**
  * @class AFieldGroup

@@ -5,6 +5,9 @@ cmake/3.29.7
 glm/1.0.1
 sfml/2.6.1
 gtest/1.15.0
+stellar-forge-common/rc-v0.1.0
+stellar-forge-graphics/rc-v0.1.0
+stellar-forge-physics/rc-v0.1.0
 
 [generators]
 CMakeDeps

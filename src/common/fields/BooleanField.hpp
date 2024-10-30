@@ -12,7 +12,7 @@
 #include <functional>
 
 #include "AField.hpp"
-#include "common/json/JsonBoolean.hpp"
+#include "../json/JsonBoolean.hpp"
 
 class BooleanField final : public AField {
 protected:
@@ -32,8 +32,8 @@ public:
      * @details Initializes the BooleanField with the given name and description.
      */
     BooleanField(const std::string &name, const std::string &description,
-               const std::function<void(bool)> &setCallback = nullptr,
-               const std::function<bool()> &getCallback = nullptr);
+                 const std::function<void(bool)> &setCallback = nullptr,
+                 const std::function<bool()> &getCallback = nullptr);
 
     void updateValue(std::any value) override;
 

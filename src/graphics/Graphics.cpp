@@ -8,9 +8,9 @@
 
 #include "Graphics.hpp"
 
-#include "common/components/Transform.hpp"
-#include "common/event/EventSystem.hpp"
-#include "common/managers/SceneManager.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
 #include "components/IGraphicsComponent.hpp"
 
 Graphics::Graphics(const int width, const int height, const std::string &title,

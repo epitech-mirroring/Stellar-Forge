@@ -1,7 +1,19 @@
+cmake_minimum_required(VERSION 3.28)
+set(CMAKE_CXX_STANDARD 17)
+
+project(StellarForge::Physics
+        LANGUAGES CXX
+        VERSION 0.1.0
+        DESCRIPTION "Physics components for StellarForge"
+)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+find_package(glm REQUIRED)
+find_package(stellar-forge-common REQUIRED)
 add_library(StellarForgePhysics STATIC)
-add_library(StellarForge::Physics ALIAS StellarForgePhysics)
-add_dependencies(StellarForgePhysics StellarForgeCommon)
-target_link_libraries(StellarForgePhysics PUBLIC glm::glm StellarForge::Common)
+target_link_libraries(StellarForgePhysics PUBLIC glm::glm stellar-forge-common::stellar-forge-common)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(components)
 
@@ -15,4 +27,15 @@ target_sources(StellarForgePhysics
         ${CMAKE_CURRENT_SOURCE_DIR}/Physics.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Box.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Sphere.cpp
+)
+
+install(TARGETS StellarForgePhysics
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
+)
+
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+        DESTINATION include/StellarForge/Physics
+        FILES_MATCHING PATTERN "*.hpp"
 )

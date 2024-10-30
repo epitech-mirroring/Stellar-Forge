@@ -8,8 +8,8 @@
 #ifndef SPRITESHEET_HPP
 #define SPRITESHEET_HPP
 #include "IGraphicsComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**
  * @class SpriteSheet

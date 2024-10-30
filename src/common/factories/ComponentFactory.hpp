@@ -10,9 +10,9 @@
 #define COMPONENTFACTORY_HPP
 
 #include <functional>
-#include "common/IComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/json/JsonObject.hpp"
+#include "../IComponent.hpp"
+#include "../components/AComponent.hpp"
+#include "../json/JsonObject.hpp"
 
 
 class ComponentFactory {

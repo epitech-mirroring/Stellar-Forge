@@ -8,7 +8,11 @@
 
 #include "DynamicComponentLoader.hpp"
 #include <filesystem>
+#ifdef _WIN32
+    #include <windows.h>
+#else
 #include <dlfcn.h>
+#endif
 
 #include "common/factories/ComponentFactory.hpp"
 

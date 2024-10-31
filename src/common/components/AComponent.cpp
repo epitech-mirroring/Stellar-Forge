@@ -26,11 +26,21 @@ AComponent::AComponent(IObject *owner, const IMeta *meta,
         if (data->contains("isActive")) {
             this->_isActive = data->getValue<json::JsonBoolean>("isActive")->getValue();
         }
+        if (data->contains("uuid")) {
+            this->_uuid.setUuidFromString(data->getValue<json::JsonString>("uuid")->getValue());
+        } else {
+            this->_uuid.generateUuid();
+        }
+    } else {
+        this->_uuid.generateUuid();
     }
+    printf("UUID: %s\n", this->_uuid.getUuidString().c_str());
 }
 
 void AComponent::deserializeFields(const json::JsonObject *data) const {
+    std::cout << "AComponent::deserializeFields " << _meta->getName() << std::endl;
     if (data == nullptr) {
+        std::cout << "AComponent::deserializeFields data is null" << std::endl;
         return;
     }
     if (data->contains("data")) {
@@ -45,11 +55,13 @@ void AComponent::deserializeFields(const json::JsonObject *data) const {
                 if (!group->contains(field->getName())) {
                     continue;
                 }
+                std::cout << "Field: " << field->getName() << std::endl;
                 field->deserialize(
                     group->getValue<json::IJsonObject>(field->getName()));
             }
         }
     }
+    std::cout << "AComponent::deserializeFields end" << std::endl;
 }
 
 
@@ -91,6 +103,7 @@ json::IJsonObject *AComponent::serialize() {
     obj->add(new json::JsonString(get_typename(this), "type")
     );
     obj->add(new json::JsonBoolean(this->_isActive, "isActive"));
+    obj->add(new json::JsonString(this->_uuid.getUuidString(), "uuid"));
     auto *data = new json::JsonObject("data");
     std::vector<std::string> fieldGroupNames;
     for (const auto *fieldGroup: this->_meta->getFieldGroups()) {
@@ -111,4 +124,12 @@ json::IJsonObject *AComponent::serialize() {
     obj->add(data);
     obj->add("customData", this->serializeData());
     return obj;
+}
+
+UUID AComponent::getUUID() const {
+    return this->_uuid;
+}
+
+void AComponent::setUUID(UUID uuid) {
+    this->_uuid = uuid;
 }

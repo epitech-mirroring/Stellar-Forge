@@ -75,6 +75,15 @@ public:
      * @author Landry GIGANT
      */
     virtual bool collide(ICollider *collider) = 0;
+
+    /**
+     * @brief Scale the collider by a factor.
+     * @param scale The factor to scale the collider by.
+     * @version v0.1.0
+     * @since v0.1.0
+     * @author Landry GIGANT
+     */
+    virtual void scale(float scale) = 0;
 };
 
 #endif //STELLARFORGE_COLLIDER_HPP

@@ -6,12 +6,52 @@
 */
 
 #include "RigidBody.hpp"
-#include "common/components/Transform.hpp"
-#include "common/json/JsonNull.hpp"
+
 #include "physics/Physics.hpp"
+#include "common/components/Transform.hpp"
+#include "common/fields/Vector3Field.hpp"
+#include "common/fields/FloatField.hpp"
+#include "common/fields/ComponentField.hpp"
+#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "common/json/JsonNull.hpp"
 #include "common/managers/SceneManager.hpp"
 
-RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup({}) {
+
+RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup(InvisibleFieldGroup({})) {
+    const std::vector<IField *> &fields = {
+        new Vector3Field("Velocity", "The velocity of the object",
+                         [this](const Vector3 &velocity) {
+                            this->_owner->_velocity = velocity;
+                         }, [this]() {
+                            return this->_owner->_velocity;
+                         }),
+        new Vector3Field("Acceleration", "The acceleration of the object",
+                            [this](const Vector3 &acceleration) {
+                                this->_owner->_acceleration = acceleration;
+                            }, [this]() {
+                                return this->_owner->_acceleration;
+                            }),
+        new FloatField("Terminal Velocity", "The terminal velocity of the object",
+                          [this](const float &terminal_velocity) {
+                            this->_owner->_terminalVelocity = terminal_velocity;
+                          }, [this]() {
+                            return this->_owner->_terminalVelocity;
+                          }),
+        new FloatField("Drag", "The drag coefficient of the object",
+                            [this](const float &drag) {
+                                this->_owner->_drag = drag;
+                            }, [this]() {
+                                return this->_owner->_drag;
+                            }),
+        //TODO: Add Collider field
+        new ComponentField("Collider", "The collider of the object",
+                           [this](IComponent *collider) {
+                               this->_owner->_collider = dynamic_cast<ICollider *>(collider);
+                           }, [this]() {
+                               return dynamic_cast<IComponent *>(this->_owner->_collider);
+                           }),
+    };
+    _fieldGroup = InvisibleFieldGroup(fields);
 }
 
 RigidBody::RigidBody(IObject *owner, const json::JsonObject *data) : AComponent(
@@ -22,6 +62,7 @@ RigidBody::RigidBody(IObject *owner, const json::JsonObject *data) : AComponent(
     _drag(0.0f),
     _collider(nullptr)
 {
+    this->deserializeFields(data);
 }
 
 void RigidBody::applyMovement(const float deltaTime) {
@@ -47,6 +88,9 @@ void RigidBody::applyImpulse(const Vector3 &impulse) {
 
 std::vector<IObject *> RigidBody::collidingObjects() {
     std::vector<IObject *> colliding_objects;
+    if (_collider == nullptr) {
+        return colliding_objects;
+    }
     for (auto &object : SceneManager::getInstance().getCurrentScene()->getObjects()) {
         if (object == this->getOwner()) {
             continue;

@@ -43,6 +43,9 @@ static T *getObjComponent(IObject *object) {
 }
 
 void Graphics::addAndSortObject(IObject *object) {
+    if (object == nullptr) {
+        return;
+    }
     if (sortedObjects.empty()) {
         sortedObjects.push_back(object);
         return;
@@ -203,6 +206,12 @@ void Graphics::catchEvents() {
                 }
             }
         }
+        if (event.type == sf::Event::MouseButtonPressed) {
+            EventSystem::getInstance().triggerEvents("mouse_pressed", &event.mouseButton);
+        }
+        if (event.type == sf::Event::MouseButtonReleased) {
+            EventSystem::getInstance().triggerEvents("mouse_released", &event.mouseButton);
+        }
     }
 }
 
@@ -214,7 +223,6 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
         currentScene = SceneManager::getInstance().getCurrentScene();
     }
     clear();
-
     catchEvents();
     const std::vector<IObject *> objects = currentScene->getObjects();
     for (auto *object: objects) {
@@ -229,6 +237,9 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
                   }
                   return aTransform->getPosition().z < bTransform->getPosition().z;
               });
+    if (sortedObjects.empty()) {
+        return;
+    }
     for (auto *object: sortedObjects) {
         if (!object->isActive()) {
             continue;
@@ -256,7 +267,6 @@ void Graphics::render(const std::function<void(IObject *)> &updateFunction) {
             component->afterRendering();
         }
     }
-
     present();
 }
 

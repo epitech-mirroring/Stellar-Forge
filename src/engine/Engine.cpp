@@ -32,6 +32,8 @@
 #include "StellarForge/Graphics/Graphics.hpp"
 #include "StellarForge/Graphics/components/AudioSource.hpp"
 #include "StellarForge/Physics/components/RigidBody.hpp"
+#include "StellarForge/Graphics/components/Button.hpp"
+#include "StellarForge/Graphics/components/UIButton.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -39,6 +41,8 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Sprite);
     REGISTER_COMPONENT(SpriteSheet);
     REGISTER_COMPONENT(UIText);
+    REGISTER_COMPONENT(Button);
+    REGISTER_COMPONENT(UIButton);
     REGISTER_COMPONENT(RigidBody);
     REGISTER_COMPONENT(AudioSource);
 }

@@ -132,3 +132,9 @@ void SceneManager::clearScenes() {
 bool SceneManager::isSceneExist(const UUID &uuid) const {
     return _scenes.find(uuid) != _scenes.end();
 }
+
+void SceneManager::clearInstance() {
+    _scenes.clear();
+    _sceneOrder.clear();
+    _currentSceneIndex = -1;
+}

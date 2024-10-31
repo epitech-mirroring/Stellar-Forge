@@ -82,6 +82,8 @@ Engine::Engine(const std::function<void()> &initComponents,
 }
 
 Engine::~Engine() {
+    SceneManager::getInstance().clearInstance();
+    ObjectManager::getInstance().clearInstance();
     ComponentFactory::resetInstance();
 }
 

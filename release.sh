@@ -26,7 +26,7 @@ cd "build" && \
 conan install .. --build=missing && \
 cd .. && \
 conan create . --build=missing && \
-conan create . -s build_type=Debug --build=missing &&
+conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
 # Physics
@@ -36,7 +36,7 @@ cd "build" && \
 conan install .. --build=missing && \
 cd .. && \
 conan create . --build=missing && \
-conan create . -s build_type=Debug --build=missing &&
+conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
 # Graphics
@@ -46,7 +46,7 @@ cd "build" && \
 conan install .. --build=missing && \
 cd .. && \
 conan create . --build=missing && \
-conan create . -s build_type=Debug --build=missing &&
+conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
 # Engine
@@ -56,7 +56,7 @@ cd "build" && \
 conan install .. --build=missing && \
 cd .. && \
 conan create . --build=missing && \
-conan create . -s build_type=Debug --build=missing &&
+conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
 # Set-up the remote

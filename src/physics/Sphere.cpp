@@ -12,10 +12,6 @@
 #include "common/fields/FloatField.hpp"
 #include "common/json/JsonNull.hpp"
 
-//Sphere::Sphere(Vector3 position, float radius) : relativePosition(position), radius(radius), position(0, 0, 0)
-//{
-//}
-
 void Sphere::setPosition(Vector3 position) {
     this->position = position;
 }

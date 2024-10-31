@@ -11,10 +11,6 @@
 #include "common/fields/Vector3Field.hpp"
 #include "common/json/JsonNull.hpp"
 
-//Box::Box(Vector3 position, Vector3 size) : relativePosition(position), size(size), position(0, 0, 0)
-//{
-//}
-
 void Box::setPosition(Vector3 position) {
     this->position = position;
 }

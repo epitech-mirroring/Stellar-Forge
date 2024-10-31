@@ -26,13 +26,6 @@ public:
  Vector3 relativePosition; ///< The relative position of the sphere in 3D space, relative to the parent object.
  float radius; ///< The radius of the sphere.
 
- ///**
- // * @brief Constructor for the Sphere class.
- // * @param position The position of the sphere in 3D space.
- // * @param radius The radius of the sphere.
- // */
- //Sphere(Vector3 position, float radius);
-
  /**
   * @brief Set the position of the sphere.
   * @param position The new position of the sphere.

@@ -29,11 +29,11 @@ IObject *VirtualObject::clone() const {
     int posa = 0;
     for (auto *const component: _components) {
         int posb = 0;
-        for (auto *const fieldGroup: component->getMeta().getFieldGroups()) {
+        for (const auto *const fieldGroup: component->getMeta().getFieldGroups()) {
             int posc = 0;
             for (auto *const field: fieldGroup->getFields()) {
                 if (dynamic_cast<ComponentField *>(field) != nullptr) {
-                    UUID uuid = dynamic_cast<ComponentField *>(field)->_uuid;
+                    const UUID uuid = dynamic_cast<ComponentField *>(field)->_uuid;
                     int pos = 0;
                     for (const auto *const comp: _components) {
                         if (comp->getUUID() == uuid) {

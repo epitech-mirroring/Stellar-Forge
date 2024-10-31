@@ -43,7 +43,6 @@ RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup(InvisibleFie
                             }, [this]() {
                                 return this->_owner->_drag;
                             }),
-        //TODO: Add Collider field
         new ComponentField("Collider", "The collider of the object",
                            [this](IComponent *collider) {
                                this->_owner->_collider = dynamic_cast<ICollider *>(collider);

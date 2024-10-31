@@ -26,13 +26,6 @@ public:
  Vector3 relativePosition; ///< The relative position of the box in 3D space, relative to the parent object.
  Vector3 size; ///< The size of the box in 3D space.
 
- ///**
- // * @brief Constructor for the Box class.
- // * @param position The position of the box in 3D space.
- // * @param size The size of the box in 3D space.
- // */
- //Box(Vector3 position, Vector3 size);
-
  /**
   * @brief Set the position of the box.
   * @param position The new position of the box.

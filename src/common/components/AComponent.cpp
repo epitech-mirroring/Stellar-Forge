@@ -34,13 +34,10 @@ AComponent::AComponent(IObject *owner, const IMeta *meta,
     } else {
         this->_uuid.generateUuid();
     }
-    printf("UUID: %s\n", this->_uuid.getUuidString().c_str());
 }
 
 void AComponent::deserializeFields(const json::JsonObject *data) const {
-    std::cout << "AComponent::deserializeFields " << _meta->getName() << std::endl;
     if (data == nullptr) {
-        std::cout << "AComponent::deserializeFields data is null" << std::endl;
         return;
     }
     if (data->contains("data")) {
@@ -55,13 +52,11 @@ void AComponent::deserializeFields(const json::JsonObject *data) const {
                 if (!group->contains(field->getName())) {
                     continue;
                 }
-                std::cout << "Field: " << field->getName() << std::endl;
                 field->deserialize(
                     group->getValue<json::IJsonObject>(field->getName()));
             }
         }
     }
-    std::cout << "AComponent::deserializeFields end" << std::endl;
 }
 
 

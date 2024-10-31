@@ -34,8 +34,6 @@ IObject *VirtualObject::clone() const {
             for (auto *const field: fieldGroup->getFields()) {
                 if (dynamic_cast<ComponentField *>(field) != nullptr) {
                     UUID uuid = dynamic_cast<ComponentField *>(field)->_uuid;
-                    std::cout << "uuid = " << uuid.getUuidString() << std::endl;
-                    //find the pos (i) of the component with the same uuid in this->_components
                     int pos = 0;
                     for (const auto *const comp: _components) {
                         if (comp->getUUID() == uuid) {
@@ -47,16 +45,8 @@ IObject *VirtualObject::clone() const {
                         LOG.error("Component not found");
                         continue;
                     }
-                    std::cout << "i = " << pos << std::endl;
-                    //find the component with at the pos (i) in newObject->_components
                     auto *newComponent = newObject->_components[pos];
                     auto *newField = newObject->_components[posa]->getMeta().getFieldGroups()[posb]->getFields()[posc];
-                    std::cout << "newComponent: " << newComponent->getMeta().getName() << std::endl;
-                    std::cout << "newField: " << newField->getName() << std::endl;
-                    //dynamic_cast<ComponentField *>(field)->_uuid = newComponent->getUUID();
-                    //dynamic_cast<ComponentField *>(field)->link();
-                    //dynamic_cast<ComponentField *>(newField)->_uuid = newComponent->getUUID();
-                    //dynamic_cast<ComponentField *>(newField)->link();
                     dynamic_cast<ComponentField *>(newField)->_uuid = newComponent->getUUID();
                     dynamic_cast<ComponentField *>(newField)->updateValue(newComponent);
                 }

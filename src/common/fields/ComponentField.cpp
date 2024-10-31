@@ -46,29 +46,23 @@ json::IJsonObject *ComponentField::serialize() const
 
 void ComponentField::deserialize(const json::IJsonObject *data)
 {
-    std::cout << "ComponentField::deserialize" << std::endl;
-    std::cout << data->getType() << std::endl;
     if (data->getType() == json::STRING) {
         const auto *const obj = dynamic_cast<const json::JsonString *>(data);
         _uuid.setUuidFromString(obj->getValue());
-        printf("ComponentField::deserialize: %s\n", _uuid.getUuidString().c_str());
     }
 }
 
 void ComponentField::link()
 {
-    std::cout << "ComponentField::link" << std::endl;
     if (_uuid.getUuidString().empty()) {
         return;
     }
     for (auto [_, object] : ObjectManager::getInstance().getObjects()) {
         for (auto component : object->getComponents()) {
             if (component->getUUID() == _uuid) {
-                std::cout << "Component found" << std::endl;
                 updateValue(component);
                 return;
             }
         }
     }
-    std::cout << "Component not found" << std::endl;
 }

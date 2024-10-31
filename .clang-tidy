@@ -32,3 +32,4 @@ Checks: >
   -*-pro-type-reinterpret-cast,
   -*-pro-bounds-array-to-pointer-decay,
   -*-pro-bounds-pointer-arithmetic,
+  -hicpp-no-array-decay,

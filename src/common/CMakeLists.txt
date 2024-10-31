@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_CXX_STANDARD 17)
 
-project(StellarForge::Common
+project(StellarForgeCommon
         LANGUAGES CXX
         VERSION 0.1.0
         DESCRIPTION "Common components for StellarForge"

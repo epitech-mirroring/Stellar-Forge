@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 set(CMAKE_CXX_STANDARD 17)
 
-project(StellarForge::Engine
+project(StellarForgeEngine
         LANGUAGES CXX
         VERSION 0.1.0
         DESCRIPTION "2D game engine for StellarForge"

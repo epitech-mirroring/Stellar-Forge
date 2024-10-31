@@ -87,7 +87,7 @@ std::vector<const IComponent::IMeta::IFieldGroup *> AudioSource::Meta::getFieldG
     return {&_fieldGroup};
 }
 
-json::IJsonObject *AudioSource::serializeData() {
+json::IJsonObject *AudioSource::serializeData() const {
     return new json::JsonNull();
 }
 

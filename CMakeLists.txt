@@ -43,6 +43,7 @@ endif ()
 find_package(glm REQUIRED)
 find_package(SFML REQUIRED)
 find_package(raylib REQUIRED)
+find_package(glfw3 REQUIRED)
 
 include_directories(src)
 

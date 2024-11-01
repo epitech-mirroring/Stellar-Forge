@@ -33,6 +33,16 @@ Graphics3D::~Graphics3D() {
     close();
 }
 
+template<typename T>
+static T *getObjComponent(IObject *object) {
+    for (auto *component: object->getComponents()) {
+        if (auto *comp = dynamic_cast<T *>(component)) {
+            return comp;
+        }
+    }
+    return nullptr;
+}
+
 void Graphics3D::render(const std::function<void(IObject *)> &updateFunction) {
     if (!prepared) {
         return;
@@ -42,10 +52,11 @@ void Graphics3D::render(const std::function<void(IObject *)> &updateFunction) {
     if (currentScene == nullptr) {
         return;
     }
-
+    std::cout << "Rendering scene" << std::endl;
     catchEvents();
     BeginDrawing();
     ClearBackground(BLACK);
+    std::cout << "Rendering objects" << std::endl;
 
     sortedObjects = currentScene->getObjects();
     std::sort(sortedObjects.begin(), sortedObjects.end(),
@@ -57,17 +68,23 @@ void Graphics3D::render(const std::function<void(IObject *)> &updateFunction) {
                   }
                   return aTransform->getPosition().z < bTransform->getPosition().z;
               });
-
-    // Update and render each object
+    std::cout << "Sorted objects" << std::endl;
     for (auto *object : sortedObjects) {
         if (!object->isActive()) {
             continue;
         }
-        updateFunction(object);
-        if (auto *graphicsComponent = dynamic_cast<I3DGraphicsComponent *>(object->getComponent<I3DGraphicsComponent>())) {
-            graphicsComponent->render(camera);
+        std::cout << "Before update, object name: " << object->getMeta().getName() << std::endl;
+        //updateFunction(object);
+        std::cout << "After update" << std::endl;
+        for (auto *const component: object->getComponents()) {
+            if (auto *graphicsComponent = dynamic_cast<I3DGraphicsComponent *>(component)) {
+                std::cout << "Rendering object" << std::endl;
+                graphicsComponent->render(camera);
+                std::cout << "Object redered" << std::endl;
+            }
         }
     }
+    std::cout << "Rendering done" << std::endl;
     EndDrawing();
 }
 

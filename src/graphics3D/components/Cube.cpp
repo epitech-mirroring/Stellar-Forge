@@ -12,9 +12,13 @@
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
 #include "common/json/JsonNull.hpp"
 
-Cube::Cube(IObject *owner, float size, Color color): AComponent(owner, new Meta(this)), size(size), color(color), rotation({0, 0, 0}) {}
+Cube::Cube(IObject *owner, const float size, const Color color): AComponent(owner, new Meta(this)), size(size), color(color), rotation({0, 0, 0}) {}
 
-void Cube::render(Camera3D camera) {
+Cube::Cube(IObject *owner, const json::JsonObject *data): AComponent(owner, new Meta(this)) {
+    this->deserializeFields(data);
+}
+
+void Cube::render(const Camera3D camera) {
     BeginMode3D(camera);
 
     DrawCube({0, 0, 0}, size, size, size, color);
@@ -28,7 +32,6 @@ Cube *Cube::clone(IObject *owner) const {
 }
 
 void Cube::runComponent() {
-    rotation.y += 0.01f;
 }
 
 glm::vec2 Cube::getSize() {

@@ -77,9 +77,9 @@ public:
  [[nodiscard]] Cube *clone(IObject *owner) const override;
 
 private:
-    float size;       /**< Size of the cube. */
-    Color color;      /**< Color of the cube. */
-    Vector3 rotation; /**< Rotation axis and angle. */
+    float size{};       /**< Size of the cube. */
+    Color color{};      /**< Color of the cube. */
+    Vector3 rotation{}; /**< Rotation axis and angle. */
 };
 
 #endif //CUBE_HPP

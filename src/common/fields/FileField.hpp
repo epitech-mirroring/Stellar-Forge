@@ -11,7 +11,7 @@
 #include <functional>
 
 #include "AField.hpp"
-#include "common/json/JsonString.hpp"
+#include "../json/JsonString.hpp"
 
 /**
  * @class FileField

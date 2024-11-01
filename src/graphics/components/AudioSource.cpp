@@ -8,19 +8,21 @@
 #include "AudioSource.hpp"
 
 #include <utility>
-#include "common/fields/FileField.hpp"
-#include "common/fields/FloatField.hpp"
-#include "common/fields/BooleanField.hpp"
-#include "common/json/JsonString.hpp"
-#include "common/json/JsonNull.hpp"
+#include "StellarForge/Common/fields/FileField.hpp"
+#include "StellarForge/Common/fields/FloatField.hpp"
+#include "StellarForge/Common/fields/BooleanField.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
 
 AudioSource::AudioSource(IObject *owner, const json::JsonObject *data) : AComponent(
     owner, new Meta(this), data) {
     this->deserializeFields(data);
 }
 
-AudioSource::AudioSource(IObject *owner, std::string clipPath, const float volume, const bool loop, const bool playOnAwake)
-    : AComponent(owner, new Meta(this)), _clipPath(std::move(clipPath)), _volume(volume), _loop(loop), _playOnAwake(playOnAwake) {
+AudioSource::AudioSource(IObject *owner, std::string clipPath, const float volume,
+                         const bool loop, const bool playOnAwake)
+    : AComponent(owner, new Meta(this)), _clipPath(std::move(clipPath)), _volume(volume),
+      _loop(loop), _playOnAwake(playOnAwake) {
     _buffer.loadFromFile(_clipPath);
     _sound.setBuffer(_buffer);
     _sound.setVolume(_volume);
@@ -36,32 +38,36 @@ AudioSource::AudioSource(IObject *owner) : AComponent(owner, new Meta(this)) {
 AudioSource::Meta::Meta(AudioSource *owner): _owner(owner), _fieldGroup({}) {
     auto fields = std::vector<IField *>();
     auto *field = new FileField("ClipPath", "The path to the audio clip",
-                                  [this](const std::string &value) {
-                                      this->_owner->_clipPath = value;
-                                      this->_owner->_buffer.loadFromFile(value);
-                                      this->_owner->_sound.setBuffer(this->_owner->_buffer);
-                                  },
-                                  [this] { return this->_owner->_clipPath; });
+                                [this](const std::string &value) {
+                                    this->_owner->_clipPath = value;
+                                    this->_owner->_buffer.loadFromFile(value);
+                                    this->_owner->_sound.setBuffer(this->_owner->_buffer);
+                                },
+                                [this] { return this->_owner->_clipPath; });
     auto *volumeField = new FloatField("Volume", "The volume of the audio clip",
                                        [this](const float value) {
                                            this->_owner->_volume = value;
                                            this->_owner->_sound.setVolume(value);
                                        },
                                        [this] { return this->_owner->_volume; });
-    auto *loopField = new BooleanField("Loop", "Enable or disable looping of the audio clip",
-                                       [this](const bool value) {
-                                           this->_owner->_loop = value;
-                                           this->_owner->_sound.setLoop(value);
-                                       },
-                                       [this] { return this->_owner->_loop; });
-    auto *playOnAwakeField = new BooleanField("PlayOnAwake", "Enable or disable auto-plau of the audio clip on start",
-                                       [this](const bool value) {
-                                           this->_owner->_playOnAwake = value;
-                                           if (value) {
-                                               this->_owner->_sound.play();
-                                           }
-                                       },
-                                       [this] { return this->_owner->_playOnAwake; });
+    auto *loopField = new BooleanField(
+        "Loop", "Enable or disable looping of the audio clip",
+        [this](const bool value) {
+            this->_owner->_loop = value;
+            this->_owner->_sound.setLoop(value);
+        },
+        [this] { return this->_owner->_loop; });
+    auto *playOnAwakeField = new BooleanField("PlayOnAwake",
+                                              "Enable or disable auto-plau of the audio clip on start",
+                                              [this](const bool value) {
+                                                  this->_owner->_playOnAwake = value;
+                                                  if (value) {
+                                                      this->_owner->_sound.play();
+                                                  }
+                                              },
+                                              [this] {
+                                                  return this->_owner->_playOnAwake;
+                                              });
 
 
     _fieldGroup = InvisibleFieldGroup({field, volumeField, loopField, playOnAwakeField});
@@ -83,7 +89,8 @@ bool AudioSource::Meta::canBeRemoved() const {
     return true;
 }
 
-std::vector<const IComponent::IMeta::IFieldGroup *> AudioSource::Meta::getFieldGroups() const {
+std::vector<const IComponent::IMeta::IFieldGroup *>
+AudioSource::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 

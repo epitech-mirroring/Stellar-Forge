@@ -12,7 +12,7 @@
 
 #include <functional>
 
-#include "common/json/JsonNumber.hpp"
+#include "../json/JsonNumber.hpp"
 
 
 class IntField final : public AField {
@@ -33,8 +33,8 @@ public:
      * @author Aubane NOURRY
      */
     IntField(const std::string &name, const std::string &description,
-               const std::function<void(int)> &setCallback = nullptr,
-               const std::function<int()> &getCallback = nullptr);
+             const std::function<void(int)> &setCallback = nullptr,
+             const std::function<int()> &getCallback = nullptr);
 
     void updateValue(std::any value) override;
 

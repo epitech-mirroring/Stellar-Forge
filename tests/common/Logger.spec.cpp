@@ -9,9 +9,9 @@
 #include <iomanip>
 #include <gtest/gtest.h>
 
-#include "common/utils/Logger.hpp"
-#include "common/utils/LoggerScopes.hpp"
-#include "common/utils/StringUtils.hpp"
+#include "StellarForge/Common/utils/Logger.hpp"
+#include "StellarForge/Common/utils/LoggerScopes.hpp"
+#include "StellarForge/Common/utils/StringUtils.hpp"
 
 TEST(Logger, info) {
     const Logger logger;

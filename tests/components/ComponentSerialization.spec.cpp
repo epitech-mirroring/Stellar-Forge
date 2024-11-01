@@ -8,11 +8,11 @@
 
 #include <gtest/gtest.h>
 
-#include "common/components/Transform.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonString.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonBoolean.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
 
 TEST(ComponentSerialization, Transform) {
     Transform transform(nullptr);

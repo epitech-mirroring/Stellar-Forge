@@ -11,11 +11,11 @@
 #include <algorithm>
 #endif
 #include "AComponent.hpp"
-#include "common/IObject.hpp"
-#include "common/Utils.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonObject.hpp"
-#include "common/json/JsonString.hpp"
+#include "../IObject.hpp"
+#include "../Utils.hpp"
+#include "../json/JsonBoolean.hpp"
+#include "../json/JsonObject.hpp"
+#include "../json/JsonString.hpp"
 
 AComponent::AComponent(IObject *owner, const IMeta *meta,
                        const json::JsonObject *data): _owner(owner),

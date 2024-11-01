@@ -12,8 +12,8 @@
 
 #include <functional>
 
-#include "common/json/JsonString.hpp"
-#include "common/json/JsonNull.hpp"
+#include "../json/JsonString.hpp"
+#include "../json/JsonNull.hpp"
 
 /**
  * @class ComponentField

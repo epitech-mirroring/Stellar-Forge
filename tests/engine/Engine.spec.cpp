@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 
-#include "StellarForge/common/components/DynamicComponentLoader.hpp"
+#include "StellarForge/Common/components/DynamicComponentLoader.hpp"
 #include "StellarForge/Common/components/Transform.hpp"
 #include "StellarForge/Common/managers/ObjectManager.hpp"
 #include "StellarForge/Common/managers/SceneManager.hpp"

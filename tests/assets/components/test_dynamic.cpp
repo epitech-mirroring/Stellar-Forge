@@ -6,11 +6,11 @@
 ** You can even have multiple lines if you want!
 */
 
-#include "StellarForge/common/factories/ComponentFactory.hpp"
-#include "StellarForge/common/fields/StringField.hpp"
-#include "StellarForge/common/fields/groups/InvisibleFieldGroup.hpp"
-#include "StellarForge/common/json/JsonNull.hpp"
-#include "StellarForge/common/utils/Logger.hpp"
+#include "StellarForge/Common/factories/ComponentFactory.hpp"
+#include "StellarForge/Common/fields/StringField.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/utils/Logger.hpp"
 
 extern "C"  {
     SYMBOL const char **getComponentName() {

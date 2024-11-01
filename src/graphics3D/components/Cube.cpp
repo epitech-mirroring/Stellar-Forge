@@ -7,12 +7,13 @@
 
 #include "Cube.hpp"
 #include "common/fields/FloatField.hpp"
+#include "common/fields/ColorField.hpp"
 #include "common/components/Transform.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
 #include "common/json/JsonNull.hpp"
 #include "rlgl.h"
 
-Cube::Cube(IObject *owner, const float size, const Color color): AComponent(owner, new Meta(this)), size(size), color(color), rotation({0, 0, 0}) {}
+Cube::Cube(IObject *owner, const float size, Color *color): AComponent(owner, new Meta(this)), size(size), color(color) {}
 
 Cube::Cube(IObject *owner, const json::JsonObject *data): AComponent(owner, new Meta(this)) {
     this->deserializeFields(data);
@@ -29,7 +30,7 @@ void Cube::render(Camera3D *camera) {
     rlPushMatrix();
     rlMultMatrixf(MatrixToFloat(rotationMatrix));
 
-    DrawCubeV({position.x, position.y, position.z}, {size * scale.x, size * scale.y, size * scale.z}, RED);
+    DrawCubeV({position.x, position.y, position.z}, {size * scale.x, size * scale.y, size * scale.z}, *color);
     DrawCubeWiresV({position.x, position.y, position.z}, {size * scale.x, size * scale.y, size * scale.z}, BLACK);
 
     rlPopMatrix();
@@ -49,12 +50,30 @@ glm::vec2 Cube::getSize() {
 
 Cube::Meta::Meta(Cube *owner): _owner(owner), _fieldGroup({}) {
     auto fields = std::vector<IField *>();
-    auto *field = new FloatField("Size", "The size of the cube",
+    auto *colorField = new ColorField("Color", "The color of the cube",
+        [this](const std::vector<unsigned char> &color) {
+            this->_owner->color = new Color();
+            this->_owner->color->r = color[0];
+            this->_owner->color->g = color[1];
+            this->_owner->color->b = color[2];
+            this->_owner->color->a = color[3];
+            std::cout << "Color: " << (int)color[0] << " " << (int)color[1] << " " << (int)color[2] << " " << (int)color[3] << std::endl;
+            std::cout << "Stored color: " << (int)this->_owner->color->r << " " << (int)this->_owner->color->g << " " << (int)this->_owner->color->b << " " << (int)this->_owner->color->a << std::endl;
+         }, [this] {
+             return std::vector{
+                 this->_owner->color->r,
+                 this->_owner->color->g,
+                 this->_owner->color->b,
+                 this->_owner->color->a
+             };
+         });
+    auto *sizeField = new FloatField("Size", "The size of the cube",
                                  [this](const float value) {
                                      this->_owner->size = value;
                                  },
                                  [this] { return this->_owner->size; });
-    fields.push_back(field);
+    fields.push_back(sizeField);
+    fields.push_back(colorField);
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }
 

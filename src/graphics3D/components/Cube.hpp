@@ -24,7 +24,7 @@ public:
      * @param size The size of the cube.
      * @param color The color of the cube.
      */
-    Cube(IObject *owner, float size, Color color);
+    Cube(IObject *owner, float size, Color *color);
 
     Cube(IObject *owner, const json::JsonObject *data);
 
@@ -81,8 +81,7 @@ public:
 
 private:
     float size{};       /**< Size of the cube. */
-    Color color{};      /**< Color of the cube. */
-    Vector3 rotation{}; /**< Rotation axis and angle. */
+    Color *color = nullptr; /**< Color of the cube. */
 };
 
 #endif //CUBE_HPP

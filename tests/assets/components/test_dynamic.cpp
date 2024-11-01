@@ -12,12 +12,14 @@
 #include "common/json/JsonNull.hpp"
 #include "common/utils/Logger.hpp"
 
-extern "C" const char **getComponentName() {
-    static const char *components[] = {
-        "Test1",
-        nullptr
-    };
-    return components;
+extern "C"  {
+    SYMBOL const char **getComponentName() {
+        static const char *components[] = {
+            "Test1",
+            nullptr
+        };
+        return components;
+    }
 }
 
 class Test1 final : public AComponent {
@@ -80,6 +82,8 @@ protected:
     }
 };
 
-extern "C" void registerComponents(ComponentFactory *factory) {
-    factory->registerComponent<Test1>("Test1");
+extern "C" {
+    SYMBOL void registerComponents(ComponentFactory *factory) {
+        factory->registerComponent<Test1>("Test1");
+    }
 }

@@ -58,7 +58,7 @@ void ComponentField::link()
         return;
     }
     for (auto [_, object] : ObjectManager::getInstance().getObjects()) {
-        for (auto component : object->getComponents()) {
+        for (auto *component : object->getComponents()) {
             if (component->getUUID() == _uuid) {
                 updateValue(component);
                 return;

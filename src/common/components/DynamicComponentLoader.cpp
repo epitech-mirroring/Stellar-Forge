@@ -8,13 +8,7 @@
 
 #include "DynamicComponentLoader.hpp"
 #include <filesystem>
-#ifdef _WIN32
-    #include <windows.h>
-#else
-#include <dlfcn.h>
-#endif
 
-#include "common/factories/ComponentFactory.hpp"
 
 const Logger DynamicComponentLoader::LOG = Logger();
 
@@ -27,6 +21,15 @@ DynamicComponentLoader::~DynamicComponentLoader() {
         for (const auto &component: components) {
             ComponentFactory::getInstance().safeUnregisterComponent(component);
         }
+#ifdef _WIN32
+        if (FreeLibrary(handle) == 0) {
+            LOG.error << "Failed to close handle " << std::to_string(GetLastError()) << " with components: ";
+            for (const auto &component: components) {
+                LOG.error << component << ' ';
+            }
+            LOG.error << '\n';
+        }
+#else
         if (dlclose(handle) != 0) {
             LOG.error << "Failed to close handle: " << dlerror() << " with components: ";
             for (const auto &component: components) {
@@ -34,6 +37,7 @@ DynamicComponentLoader::~DynamicComponentLoader() {
             }
             LOG.error << '\n';
         }
+#endif
     }
 }
 
@@ -79,6 +83,7 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
         return;
     }
 
+#ifdef __linux__
     void *handle = dlopen(path.c_str(), RTLD_LAZY);
     if (handle == nullptr) {
         LOG.error << "Failed to load components in: " << path << " - " << dlerror() <<
@@ -94,6 +99,21 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
         LOG.error << "Failed to load components: " << path << " - " << dlerror() << '\n';
         return;
     }
+#else
+    const std::string filepath = path.string();
+    HINSTANCE handle = LoadLibrary(filepath.c_str());
+    if (handle == nullptr) {
+        LOG.error << "Failed to load components in: " << path << " - " << std::to_string(GetLastError()) << '\n';
+        return;
+    }
+    this->_handles.push_back({handle, {}});
+    auto *getComponentNames = reinterpret_cast<const char **(*)()>(GetProcAddress(handle, "getComponentName"));
+    auto *registerComponents = reinterpret_cast<void (*)(ComponentFactory *)>(GetProcAddress(handle, "registerComponents"));
+    if (getComponentNames == nullptr || registerComponents == nullptr) {
+        LOG.error << "Failed to load components: " << path << " - " << std::to_string(GetLastError()) << '\n';
+    }
+#endif
+
     const char **componentNames = getComponentNames();
     for (auto i = 0; componentNames[i] != nullptr; i++) {
         LOG.info << "Loading component: " << componentNames[i] << '\n';
@@ -109,4 +129,5 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
             this->_handles.back().second.emplace_back(componentNames[i]);
         }
     }
+
 }

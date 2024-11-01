@@ -111,7 +111,7 @@ Transform::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Transform::serializeData() {
+json::IJsonObject *Transform::serializeData() const {
     return new json::JsonNull();
 }
 

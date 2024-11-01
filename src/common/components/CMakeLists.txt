@@ -3,8 +3,10 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/CPPMonoBehaviour.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Transform.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DynamicComponentLoader.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/AComponent.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/CPPMonoBehaviour.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Transform.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/DynamicComponentLoader.cpp
 )

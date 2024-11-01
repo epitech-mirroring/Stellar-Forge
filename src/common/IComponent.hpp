@@ -16,6 +16,12 @@
 #include "json/IJsonObject.hpp"
 #include "json/JsonObject.hpp"
 
+#ifdef _WIN32
+    #define SYMBOL __declspec(dllexport)
+#else
+    #define SYMBOL
+#endif
+
 // Forward declaration of IObject
 class IObject;
 

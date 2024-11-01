@@ -141,7 +141,7 @@ AnimatedSprite::Meta::getFieldGroups() const {
 void AnimatedSprite::deserialize(const json::IJsonObject *data) {
 }
 
-json::IJsonObject *AnimatedSprite::serializeData() {
+json::IJsonObject *AnimatedSprite::serializeData() const {
     return new json::JsonNull();
 }
 

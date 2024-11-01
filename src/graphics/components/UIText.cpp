@@ -139,7 +139,7 @@ UIText::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *UIText::serializeData() {
+json::IJsonObject *UIText::serializeData() const {
     return new json::JsonNull();
 }
 

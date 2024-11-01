@@ -54,7 +54,7 @@ Button::Button(IObject *owner, const json::JsonObject *data): AComponent(
                                                 });
 }
 
-json::IJsonObject *Button::serializeData() {
+json::IJsonObject *Button::serializeData() const {
     return new json::JsonNull();
 }
 

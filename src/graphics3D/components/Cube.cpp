@@ -57,8 +57,6 @@ Cube::Meta::Meta(Cube *owner): _owner(owner), _fieldGroup({}) {
             this->_owner->color->g = color[1];
             this->_owner->color->b = color[2];
             this->_owner->color->a = color[3];
-            std::cout << "Color: " << (int)color[0] << " " << (int)color[1] << " " << (int)color[2] << " " << (int)color[3] << std::endl;
-            std::cout << "Stored color: " << (int)this->_owner->color->r << " " << (int)this->_owner->color->g << " " << (int)this->_owner->color->b << " " << (int)this->_owner->color->a << std::endl;
          }, [this] {
              return std::vector{
                  this->_owner->color->r,

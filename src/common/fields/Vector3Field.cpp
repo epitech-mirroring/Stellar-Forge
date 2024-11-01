@@ -7,7 +7,7 @@
 
 #include "Vector3Field.hpp"
 
-#include "common/json/JsonNumber.hpp"
+#include "../json/JsonNumber.hpp"
 
 Vector3Field::Vector3Field(std::string name, std::string description,
                            const std::function<void(glm::vec3)> &setCallback,

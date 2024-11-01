@@ -8,9 +8,9 @@
 
 #include <gtest/gtest.h>
 
-#include "common/components/Transform.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonParser.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
 
 TEST(ComponentDeserialization, Transform) {
     std::string const json = R"({
@@ -43,7 +43,8 @@ TEST(ComponentDeserialization, Transform) {
     ASSERT_EQ(raw->getType(), json::OBJECT);
     ASSERT_EQ(raw->getName(), "");
     const auto *const data = dynamic_cast<const json::JsonObject *>(raw);
-    IComponent *r_component = ComponentFactory::create("Transform", nullptr, data);
+    IComponent *r_component = ComponentFactory::getInstance().create(
+        "Transform", nullptr, data);
     ASSERT_NE(r_component, nullptr);
     ASSERT_EQ(r_component->isActive(), true);
     ASSERT_NE(dynamic_cast<Transform *>(r_component), nullptr);

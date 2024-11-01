@@ -8,13 +8,13 @@
 #include <SFML/Graphics/Rect.hpp>
 #include "SpriteSheet.hpp"
 #include "Sprite.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/components/Transform.hpp"
-#include "common/fields/FileField.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonString.hpp"
-#include "graphics/GraphicsException.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/FileField.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "../GraphicsException.hpp"
 
 SpriteSheet::SpriteSheet(IObject *owner, const std::string &path,
                          const std::vector<sf::IntRect> &frames,
@@ -118,7 +118,7 @@ SpriteSheet::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *SpriteSheet::serializeData() {
+json::IJsonObject *SpriteSheet::serializeData() const {
     return new json::JsonNull();
 }
 

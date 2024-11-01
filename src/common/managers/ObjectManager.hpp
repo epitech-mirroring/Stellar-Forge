@@ -9,8 +9,8 @@
 
 #include <unordered_map>
 #include <vector>
-#include "common/IObject.hpp"
-#include "common/UUID.hpp"
+#include "../IObject.hpp"
+#include "../UUID.hpp"
 
 /**
  * @class ObjectManager
@@ -151,6 +151,15 @@ public:
   * @author Aubane NOURRY
   */
  UUID duplicateObject(const UUID &uuid);
+
+ /**
+  * @brief Clears the instance of ObjectManager.
+  * This clears all objects from the manager.
+  * @version v0.2.0
+  * @since v0.2.0
+  * @author Marius PAIN
+  */
+ void clearInstance();
 
 private:
  /**

@@ -12,7 +12,7 @@
 
 #include <functional>
 
-#include "common/json/JsonNumber.hpp"
+#include "../json/JsonNumber.hpp"
 
 
 class FloatField final : public AField {

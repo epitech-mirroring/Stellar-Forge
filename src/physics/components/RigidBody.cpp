@@ -6,15 +6,14 @@
 */
 
 #include "RigidBody.hpp"
-
-#include "physics/Physics.hpp"
-#include "common/components/Transform.hpp"
-#include "common/fields/Vector3Field.hpp"
-#include "common/fields/FloatField.hpp"
-#include "common/fields/ComponentField.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/managers/SceneManager.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "../Physics.hpp"
+#include "StellarForge/Common/fields/Vector3Field.hpp"
+#include "StellarForge/Common/fields/FloatField.hpp"
+#include "StellarForge/Common/fields/ComponentField.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
 
 
 RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup(InvisibleFieldGroup({})) {
@@ -136,7 +135,7 @@ RigidBody::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *RigidBody::serializeData() {
+json::IJsonObject *RigidBody::serializeData() const {
     return new json::JsonNull();
 }
 

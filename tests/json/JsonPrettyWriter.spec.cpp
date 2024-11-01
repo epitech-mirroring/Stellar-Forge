@@ -8,9 +8,9 @@
 
 #include <gtest/gtest.h>
 
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonParser.hpp"
-#include "common/json/JsonPrettyWriter.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
+#include "StellarForge/Common/json/JsonPrettyWriter.hpp"
 
 TEST(JsonPrettyWriter, write_empty) {
   json::JsonParser const parser;

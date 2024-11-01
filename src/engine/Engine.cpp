@@ -12,31 +12,31 @@
 #include <string>
 #include <filesystem>
 
-#include "common/VirtualObject.hpp"
-#include "common/VirtualScene.hpp"
-#include "common/components/Transform.hpp"
-#include "common/event/EventSystem.hpp"
-#include "common/factories/ComponentFactory.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonParser.hpp"
-#include "common/json/JsonReader.hpp"
-#include "common/json/JsonString.hpp"
-#include "common/managers/ObjectManager.hpp"
-#include "graphics/components/AnimatedSprite.hpp"
-#include "graphics/components/Sprite.hpp"
-#include "graphics/components/SpriteSheet.hpp"
-#include "graphics/components/UIText.hpp"
-#include "graphics/components/Button.hpp"
-#include "graphics/components/UIButton.hpp"
-#include "common/managers/SceneManager.hpp"
-#include "common/utils/LoggerScopes.hpp"
-#include "graphics/Graphics.hpp"
-#include "graphics/components/AudioSource.hpp"
-#include "physics/components/RigidBody.hpp"
-#include "physics/Box.hpp"
-#include "physics/Sphere.hpp"
-#include "common/fields/ComponentField.hpp"
+#include "StellarForge/Common/VirtualObject.hpp"
+#include "StellarForge/Common/VirtualScene.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
+#include "StellarForge/Common/factories/ComponentFactory.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonBoolean.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
+#include "StellarForge/Common/json/JsonReader.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "StellarForge/Common/managers/ObjectManager.hpp"
+#include "StellarForge/Graphics/components/AnimatedSprite.hpp"
+#include "StellarForge/Graphics/components/Sprite.hpp"
+#include "StellarForge/Graphics/components/SpriteSheet.hpp"
+#include "StellarForge/Graphics/components/UIText.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
+#include "StellarForge/Common/utils/LoggerScopes.hpp"
+#include "StellarForge/Graphics/Graphics.hpp"
+#include "StellarForge/Graphics/components/AudioSource.hpp"
+#include "StellarForge/Physics/components/RigidBody.hpp"
+#include "StellarForge/Graphics/components/Button.hpp"
+#include "StellarForge/Graphics/components/UIButton.hpp"
+#include "StellarForge/Physics/Box.hpp"
+#include "StellarForge/Physics/Sphere.hpp"
+#include "StellarForge/Common/fields/ComponentField.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -97,6 +97,13 @@ Engine::Engine(const std::function<void()> &initComponents,
     _loadScenes(assetsPath + "scenes/");
     startGraphics(gameName);
 }
+
+Engine::~Engine() {
+    SceneManager::getInstance().clearInstance();
+    ObjectManager::getInstance().clearInstance();
+    ComponentFactory::resetInstance();
+}
+
 
 void Engine::_startGraphics(const std::string &gameName) {
     bool isRunning = true;
@@ -266,7 +273,8 @@ void Engine::_loadObject(const std::string &path) {
             const auto *const compData = comps->at(i);
             const auto compName = compData->getValue<json::JsonString>("name")->
                     getValue();
-            auto *comp = ComponentFactory::create(compName, object, compData);
+            auto *comp = ComponentFactory::getInstance().create(
+                compName, object, compData);
             object->addComponent(comp);
         }
     }

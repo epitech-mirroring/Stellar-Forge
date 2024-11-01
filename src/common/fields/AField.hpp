@@ -7,7 +7,7 @@
 
 #ifndef AFIELD_HPP
 #define AFIELD_HPP
-#include "common/IComponent.hpp"
+#include "../IComponent.hpp"
 
 /**
  * @class AField

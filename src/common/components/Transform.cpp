@@ -7,10 +7,11 @@
 
 #include "Transform.hpp"
 
-#include "common/fields/Vector3Field.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonObject.hpp"
+#include "../fields/Vector3Field.hpp"
+#include "../fields/groups/InvisibleFieldGroup.hpp"
+#include "../json/JsonNull.hpp"
+#include "../json/JsonNumber.hpp"
+#include "../json/JsonObject.hpp"
 
 Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), _position(Vector3(0, 0, 0)),
@@ -118,7 +119,7 @@ Transform::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Transform::serializeData() {
+json::IJsonObject *Transform::serializeData() const {
     return new json::JsonNull();
 }
 

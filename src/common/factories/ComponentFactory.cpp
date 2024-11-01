@@ -8,18 +8,36 @@
 
 #include "ComponentFactory.hpp"
 
+ComponentFactory *ComponentFactory::INSTANCE = nullptr;
+
+ComponentFactory::ComponentFactory() {
+    LOG = Logger("components");
+}
+
+
 IComponent *ComponentFactory::create(const std::string &typeName, IObject *owner,
                                      const json::JsonObject *data) {
-    if (registry().find(typeName) != registry().end()) {
-        auto *comp = registry()[typeName](owner, data);
+    if (registry.find(typeName) != registry.end()) {
+        auto *comp = registry[typeName](owner, data);
         return comp;
     }
     return nullptr;
 }
 
-std::unordered_map<std::string, ComponentFactory::Constructor> &
-ComponentFactory::registry() {
-    static std::unordered_map<std::string, Constructor> reg;
-    return reg;
+ComponentFactory::~ComponentFactory() {
+    for (auto &[typeName, constructor]: registry) {
+        LOG.info << "Unregistering component: " << typeName << '\n';
+    }
 }
 
+bool ComponentFactory::hasComponent(const std::string &typeName) const {
+    return registry.find(typeName) != registry.end();
+}
+
+void ComponentFactory::safeUnregisterComponent(const std::string &typeName) {
+    if (!hasComponent(typeName)) {
+        return;
+    }
+    LOG.info << "Unregistering component: " << typeName << '\n';
+    registry.erase(typeName);
+}

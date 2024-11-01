@@ -9,8 +9,8 @@
 #define SPRITE_HPP
 
 #include "IGraphicsComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**
  * @class Sprite
@@ -111,7 +111,7 @@ public:
   [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
  };
 
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  void deserialize(const json::IJsonObject *data) override;
 

@@ -8,7 +8,7 @@
 #ifndef CPPMONOBEHAVIOUR_HPP
 #define CPPMONOBEHAVIOUR_HPP
 #include "AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "../fields/groups/InvisibleFieldGroup.hpp"
 
 /**
  * @class CPPMonoBehaviour

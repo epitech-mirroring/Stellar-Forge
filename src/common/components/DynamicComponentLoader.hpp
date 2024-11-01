@@ -19,8 +19,8 @@
     #include <dlfcn.h>
 #endif
 
-#include "common/utils/Logger.hpp"
-#include "common/factories/ComponentFactory.hpp"
+#include "../utils/Logger.hpp"
+#include "../factories/ComponentFactory.hpp"
 
 class DynamicComponentLoader {
 protected:

@@ -10,10 +10,10 @@
 #define COMPONENTFACTORY_HPP
 
 #include <functional>
-#include "common/IComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/json/JsonObject.hpp"
-#include "common/utils/Logger.hpp"
+#include "../IComponent.hpp"
+#include "../components/AComponent.hpp"
+#include "../json/JsonObject.hpp"
+#include "../utils/Logger.hpp"
 
 
 class ComponentFactory {

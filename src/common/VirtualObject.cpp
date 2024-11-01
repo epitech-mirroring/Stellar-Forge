@@ -27,16 +27,16 @@ IObject *VirtualObject::clone() const {
         newObject->addComponent(component->clone(newObject));
     }
     int posa = 0;
-    for (auto *const component: _components) {
+    for (const auto *component: _components) {
         int posb = 0;
-        for (const auto *const fieldGroup: component->getMeta().getFieldGroups()) {
+        for (const auto *fieldGroup: component->getMeta().getFieldGroups()) {
             int posc = 0;
             for (auto *const field: fieldGroup->getFields()) {
-                if (dynamic_cast<ComponentField *>(field) != nullptr) {
-                    const UUID uuid = dynamic_cast<ComponentField *>(field)->_uuid;
+                auto *compField = dynamic_cast<ComponentField *>(field);
+                if (compField != nullptr) {
                     int pos = 0;
                     for (const auto *const comp: _components) {
-                        if (comp->getUUID() == uuid) {
+                        if (comp->getUUID() == compField->_uuid) {
                             break;
                         }
                         pos++;
@@ -46,9 +46,9 @@ IObject *VirtualObject::clone() const {
                         continue;
                     }
                     auto *newComponent = newObject->_components[pos];
-                    auto *newField = newObject->_components[posa]->getMeta().getFieldGroups()[posb]->getFields()[posc];
-                    dynamic_cast<ComponentField *>(newField)->_uuid = newComponent->getUUID();
-                    dynamic_cast<ComponentField *>(newField)->updateValue(newComponent);
+                    auto *newField = dynamic_cast<ComponentField *>(newObject->_components[posa]->getMeta().getFieldGroups()[posb]->getFields()[posc]);
+                    newField->_uuid = newComponent->getUUID();
+                    newField->updateValue(newComponent);
                 }
                 posc++;
             }

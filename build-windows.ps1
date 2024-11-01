@@ -134,4 +134,4 @@ Copy-Item -Path ".\build\lib\Release\StellarForge.lib" -Destination "StellarForg
 Copy-Item -Path ".\build\lib\Release\StellarForgeCommon.lib" -Destination "StellarForgeCommon.lib" -Force
 Copy-Item -Path ".\build\lib\Release\StellarForgeGraphics.lib" -Destination "StellarForgeGraphics.lib" -Force
 Copy-Item -Path ".\build\lib\Release\StellarForgePhysics.lib" -Destination "StellarForgePhysics.lib" -Force
-Write-Info "Binary copied successfully."
+Write-Info "Libs copied successfully."

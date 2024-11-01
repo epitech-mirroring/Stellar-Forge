@@ -7,10 +7,10 @@
 
 #ifndef ACOMPONENT_HPP
 #define ACOMPONENT_HPP
-#include "common/IComponent.hpp"
-#include "common/IObject.hpp"
-#include "common/json/JsonObject.hpp"
-#include "common/utils/Logger.hpp"
+#include "../IComponent.hpp"
+#include "../IObject.hpp"
+#include "../json/JsonObject.hpp"
+#include "../utils/Logger.hpp"
 
 /**
  * @class AComponent

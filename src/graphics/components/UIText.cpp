@@ -10,11 +10,11 @@
 #ifndef __APPLE__
 #include <utility>
 #endif
-#include "common/components/Transform.hpp"
-#include "common/fields/StringField.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "graphics/GraphicsException.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/StringField.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "../GraphicsException.hpp"
 
 UIText::UIText(IObject *owner, std::string textStr, const unsigned int size,
                const sf::Color color, const std::string &fontPath)

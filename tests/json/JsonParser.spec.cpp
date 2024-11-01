@@ -8,13 +8,13 @@
 
 #include <gtest/gtest.h>
 
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonObject.hpp"
-#include "common/json/JsonParser.hpp"
-#include "common/json/JsonString.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonBoolean.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "StellarForge/Common/json/JsonObject.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
 
 TEST(JsonParser, parse_empty) {
     json::JsonParser const parser;

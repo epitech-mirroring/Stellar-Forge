@@ -9,7 +9,7 @@
 #ifndef IGRAPHICSCOMPONENT_HPP
 #define IGRAPHICSCOMPONENT_HPP
 
-#include "common/IComponent.hpp"
+#include "StellarForge/Common/IComponent.hpp"
 #include <SFML/Graphics.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float2.hpp>

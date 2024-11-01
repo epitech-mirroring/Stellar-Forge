@@ -6,7 +6,7 @@
 */
 
 #include "Vector2Field.hpp"
-#include "common/json/JsonNumber.hpp"
+#include "../json/JsonNumber.hpp"
 
 Vector2Field::Vector2Field(std::string name, std::string description,
                            const std::function<void(glm::vec2)> &setCallback,

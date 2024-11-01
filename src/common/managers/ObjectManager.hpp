@@ -9,8 +9,8 @@
 
 #include <unordered_map>
 #include <vector>
-#include "common/IObject.hpp"
-#include "common/UUID.hpp"
+#include "../IObject.hpp"
+#include "../UUID.hpp"
 
 /**
  * @class ObjectManager

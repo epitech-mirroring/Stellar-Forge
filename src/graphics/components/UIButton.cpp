@@ -9,12 +9,14 @@
 
 #include <utility>
 
-#include "common/fields/IntField.hpp"
-#include "common/fields/StringField.hpp"
-#include "common/fields/Vector2Field.hpp"
-#include "common/fields/FileField.hpp"
+#include "StellarForge/Common/fields/IntField.hpp"
+#include "StellarForge/Common/fields/StringField.hpp"
+#include "StellarForge/Common/fields/Vector2Field.hpp"
+#include "StellarForge/Common/fields/FileField.hpp"
+#include "../GraphicsException.hpp"
 
-UIButton::UIButton(IObject *owner, const float rectX, const float rectY, const float width, const float height,
+UIButton::UIButton(IObject *owner, const float rectX, const float rectY,
+                   const float width, const float height,
                    const std::string &buttonId, std::string label, const int charSize)
     : Button(owner, rectX, rectY, width, height, buttonId), _label(std::move(label)) {
     _font.loadFromFile(findDefaultFontPath());
@@ -29,7 +31,8 @@ UIButton::UIButton(IObject *owner, const float rectX, const float rectY, const f
     _rect.setFillColor(sf::Color(100, 100, 100));
 }
 
-UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(owner, new Meta(this)) {
+UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(
+    owner, new Meta(this)) {
     this->deserializeFields(data);
     _font.loadFromFile(findDefaultFontPath());
     _text.setFont(_font);
@@ -121,10 +124,12 @@ bool UIButton::Meta::canBeRemoved() const {
     return true;
 }
 
-std::vector<const IComponent::IMeta::IFieldGroup *> UIButton::Meta::getFieldGroups() const {
+std::vector<const IComponent::IMeta::IFieldGroup *>
+UIButton::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
 UIButton *UIButton::clone(IObject *owner) const {
-    return new UIButton(owner, _rectX, _rectY, _width, _height, _buttonId, _label, _charSize);
+    return new UIButton(owner, _rectX, _rectY, _width, _height, _buttonId, _label,
+                        _charSize);
 }

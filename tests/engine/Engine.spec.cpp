@@ -8,12 +8,12 @@
 
 #include <gtest/gtest.h>
 
-#include "common/components/DynamicComponentLoader.hpp"
-#include "common/components/Transform.hpp"
-#include "common/managers/ObjectManager.hpp"
-#include "common/managers/SceneManager.hpp"
-#include "engine/Engine.hpp"
-#include "graphics/components/Sprite.hpp"
+#include "StellarForge/common/components/DynamicComponentLoader.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/managers/ObjectManager.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
+#include "StellarForge/Engine/Engine.hpp"
+#include "StellarForge/Graphics/components/Sprite.hpp"
 
 TEST(Engine, ally) {
     auto engine = Engine([] {

@@ -9,9 +9,9 @@
 #define BUTTON_HPP
 
 #include "IGraphicsComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/event/EventSystem.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
 
 /**
  * @class Button
@@ -37,7 +37,8 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- Button(IObject *owner, float rectX, float rectY, float width, float height, std::string buttonId);
+ Button(IObject *owner, float rectX, float rectY, float width, float height,
+        std::string buttonId);
 
  /**
   * @brief Constructor that initializes Button with JSON data.

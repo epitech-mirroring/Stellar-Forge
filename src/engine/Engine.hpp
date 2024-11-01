@@ -10,11 +10,11 @@
 #define ENGINE_HPP
 #include <functional>
 
-#include "common/IObject.hpp"
-#include "common/IScene.hpp"
-#include "common/UUID.hpp"
-#include "common/json/IJsonObject.hpp"
-#include "common/utils/Logger.hpp"
+#include "StellarForge/Common/IObject.hpp"
+#include "StellarForge/Common/IScene.hpp"
+#include "StellarForge/Common/UUID.hpp"
+#include "StellarForge/Common/json/IJsonObject.hpp"
+#include "StellarForge/Common/utils/Logger.hpp"
 
 class Engine {
 protected:

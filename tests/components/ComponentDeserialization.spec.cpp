@@ -8,9 +8,9 @@
 
 #include <gtest/gtest.h>
 
-#include "common/components/Transform.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonParser.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
 
 TEST(ComponentDeserialization, Transform) {
     std::string const json = R"({

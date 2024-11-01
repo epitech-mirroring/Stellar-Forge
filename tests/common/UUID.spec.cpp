@@ -8,8 +8,8 @@
 
 #include <gtest/gtest.h>
 #include <unordered_set>
-#include "common/UUID.hpp"
-#include "common/UUIDException.hpp"
+#include "StellarForge/Common/UUID.hpp"
+#include "StellarForge/Common/UUIDException.hpp"
 
 // NOLINTBEGIN
 TEST(UUID, constructor) {
@@ -54,9 +54,12 @@ TEST(UUID, setUuidFromString) {
 TEST(UUID, setUuidFromStringException) {
     UUID uuid;
     ASSERT_THROW(uuid.setUuidFromString("1"), UUIDException);
-    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02b2c3d4791"), UUIDException);
-    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567a0e02b2c3d479"), UUIDException);
-    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02z2c3d479"), UUIDException);
+    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02b2c3d4791"),
+                 UUIDException);
+    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567a0e02b2c3d479"),
+                 UUIDException);
+    ASSERT_THROW(uuid.setUuidFromString("f47ac10b-58cc-4372-a567-0e02z2c3d479"),
+                 UUIDException);
 }
 
 TEST(UUID, copyUuid) {
@@ -159,4 +162,5 @@ TEST(UUID, checkUniqueness) {
     }
     ASSERT_EQ(uuids.size(), 100);
 }
+
 // NOLINTEND

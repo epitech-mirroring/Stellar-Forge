@@ -1,0 +1,10 @@
+target_sources(StellarForgeCommon
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/Logger.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/LoggerScopes.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.hpp
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/LoggerScopes.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/StringUtils.cpp
+)

@@ -1,0 +1,8 @@
+.idea/*
+cmake-build-*/*
+build/*
+CMakeUserPresets.json
+conan_provider.cmake
+venv/*
+**/.DS_Store
+.env

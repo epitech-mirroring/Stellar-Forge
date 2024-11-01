@@ -11,7 +11,10 @@
 #include "I3DGraphicsComponent.hpp"
 #include "common/components/AComponent.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
+#define Transform RaylibTransform
+#include "raymath.h"
 #include "raylib.h"
+#undef Transform
 
 class Cube final : public AComponent, public I3DGraphicsComponent {
 public:
@@ -35,7 +38,7 @@ public:
      * @details This function handles the drawing of the cube in the scene, applying rotation.
      * @param camera The camera to render the cube from.
      */
-    void render(Camera3D camera) override;
+    void render(Camera3D *camera) override;
 
     void runComponent() override;
     glm::vec2 getSize() override;

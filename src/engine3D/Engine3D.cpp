@@ -28,7 +28,7 @@
 #include "graphics3D/components/Cube.hpp"
 
 void Engine3D::_registerComponents() {
-    REGISTER_COMPONENT(Component::Transform);
+    REGISTER_COMPONENT(Transform);
     REGISTER_COMPONENT(Cube);
 }
 

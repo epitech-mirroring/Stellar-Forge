@@ -10,7 +10,9 @@
 #define I3DGRAPHICSCOMPONENT_HPP
 
 #include "common/IComponent.hpp"
-#include <raylib.h>
+#define Transform RaylibTransform
+#include "raylib.h"
+#undef Transform
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_float2.hpp>
 
@@ -44,7 +46,7 @@ public:
      * @since v0.1.0
      *@author Aubane NOURRY
         */
-    virtual void render(Camera3D camera) = 0;
+    virtual void render(Camera3D *camera) = 0;
 
     /**
      * @brief Gets the size of the component on the screen.

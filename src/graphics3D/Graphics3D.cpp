@@ -23,14 +23,13 @@ Graphics3D::Graphics3D(const int width, const int height, const std::string &tit
     prepared = true;
     SetTargetFPS(60);
     EventSystem::getInstance().triggerEvents("window_created", nullptr);
-    camera.position = {0.0f, 10.0f, 10.0f};
-    camera.target = {0.0f, 0.0f, 0.0f};
-    camera.up = {0.0f, 1.0f, 0.0f};
+    camera = {0};
+    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.fovy = 45.0f;
+    camera.projection = CAMERA_PERSPECTIVE;
 
-}
-
-Graphics3D::~Graphics3D() {
-    close();
 }
 
 template<typename T>
@@ -52,39 +51,35 @@ void Graphics3D::render(const std::function<void(IObject *)> &updateFunction) {
     if (currentScene == nullptr) {
         return;
     }
-    std::cout << "Rendering scene" << std::endl;
     catchEvents();
+    if (WindowShouldClose()) {
+        return;
+    }
+    UpdateCamera(&camera);
     BeginDrawing();
     ClearBackground(BLACK);
-    std::cout << "Rendering objects" << std::endl;
 
     sortedObjects = currentScene->getObjects();
     std::sort(sortedObjects.begin(), sortedObjects.end(),
               [](IObject *obja, IObject *objb) {
-                  auto *aTransform = getObjComponent<Component::Transform>(obja);
-                  auto *bTransform = getObjComponent<Component::Transform>(objb);
+                  auto *aTransform = getObjComponent<Transform>(obja);
+                  auto *bTransform = getObjComponent<Transform>(objb);
                   if (aTransform == nullptr || bTransform == nullptr) {
                       return false;
                   }
                   return aTransform->getPosition().z < bTransform->getPosition().z;
               });
-    std::cout << "Sorted objects" << std::endl;
     for (auto *object : sortedObjects) {
         if (!object->isActive()) {
             continue;
         }
-        std::cout << "Before update, object name: " << object->getMeta().getName() << std::endl;
-        //updateFunction(object);
-        std::cout << "After update" << std::endl;
+        updateFunction(object);
         for (auto *const component: object->getComponents()) {
             if (auto *graphicsComponent = dynamic_cast<I3DGraphicsComponent *>(component)) {
-                std::cout << "Rendering object" << std::endl;
-                graphicsComponent->render(camera);
-                std::cout << "Object redered" << std::endl;
+                graphicsComponent->render(&camera);
             }
         }
     }
-    std::cout << "Rendering done" << std::endl;
     EndDrawing();
 }
 
@@ -103,9 +98,7 @@ void Graphics3D::catchEvents() {
 }
 
 void Graphics3D::close() {
-    if (IsWindowReady()) {
-        CloseWindow();
-        prepared = false;
-        EventSystem::getInstance().triggerEvents("window_closed", nullptr);
-    }
+    prepared = false;
+    EventSystem::getInstance().triggerEvents("window_closed", nullptr);
+    CloseWindow();
 }

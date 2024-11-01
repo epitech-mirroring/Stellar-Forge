@@ -12,12 +12,14 @@
 #include <functional>
 #include <vector>
 #include "common/IObject.hpp"
+#define Transform RaylibTransform
 #include "raylib.h"
+#undef Transform
 
 class Graphics3D {
 public:
     Graphics3D(int width, int height, const std::string &title = "Game", bool precharge = false);
-    ~Graphics3D();
+    ~Graphics3D() = default;
     void render(const std::function<void(IObject *)> &updateFunction);
 
 private:

@@ -6,11 +6,11 @@
 **/
 
 #include "Cube.hpp"
-#include "raymath.h"
-#include "raylib.h"
 #include "common/fields/FloatField.hpp"
+#include "common/components/Transform.hpp"
 #include "common/fields/groups/InvisibleFieldGroup.hpp"
 #include "common/json/JsonNull.hpp"
+#include "rlgl.h"
 
 Cube::Cube(IObject *owner, const float size, const Color color): AComponent(owner, new Meta(this)), size(size), color(color), rotation({0, 0, 0}) {}
 
@@ -18,12 +18,21 @@ Cube::Cube(IObject *owner, const json::JsonObject *data): AComponent(owner, new 
     this->deserializeFields(data);
 }
 
-void Cube::render(const Camera3D camera) {
-    BeginMode3D(camera);
+void Cube::render(Camera3D *camera) {
+    auto *transform = this->getParentComponent<Transform>();
+    const auto position = transform->getPosition();
+    const auto rotation = transform->getRotation();
+    const auto scale = transform->getScale();
+    BeginMode3D(*camera);
 
-    DrawCube({0, 0, 0}, size, size, size, color);
-    DrawCubeWires({0, 0, 0}, size, size, size, BLACK);
+    const Matrix rotationMatrix = MatrixRotateXYZ((Vector3){ rotation.x, rotation.y, rotation.z });
+    rlPushMatrix();
+    rlMultMatrixf(MatrixToFloat(rotationMatrix));
 
+    DrawCubeV({position.x, position.y, position.z}, {size * scale.x, size * scale.y, size * scale.z}, RED);
+    DrawCubeWiresV({position.x, position.y, position.z}, {size * scale.x, size * scale.y, size * scale.z}, BLACK);
+
+    rlPopMatrix();
     EndMode3D();
 }
 

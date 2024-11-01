@@ -13,55 +13,55 @@
 #include "common/json/JsonNumber.hpp"
 #include "common/json/JsonObject.hpp"
 
-Component::Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
+Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
         owner, new Meta(this), data), _position(glm::vec3(0, 0, 0)),
     _rotation(glm::quat(1, 0, 0, 0)), _scale(glm::vec3(1, 1, 1)) {
     this->deserializeFields(data);
 }
 
-Component::Transform::Transform(IObject *owner, const glm::vec3 pos, const glm::quat rot,
+Transform::Transform(IObject *owner, const glm::vec3 pos, const glm::quat rot,
                      const glm::vec3 scale): AComponent(owner, new Meta(this)),
                                            _position(pos),
                                            _rotation(rot), _scale(scale) {
 }
 
-glm::vec3 Component::Transform::getPosition() const {
+glm::vec3 Transform::getPosition() const {
     return this->_position;
 }
 
-glm::quat Component::Transform::getRotation() const {
+glm::quat Transform::getRotation() const {
     return this->_rotation;
 }
 
-glm::vec3 Component::Transform::getScale() const {
+glm::vec3 Transform::getScale() const {
     return this->_scale;
 }
 
-void Component::Transform::setPosition(const glm::vec3 pos) {
+void Transform::setPosition(const glm::vec3 pos) {
     this->_position = pos;
 }
 
-void Component::Transform::translate(const glm::vec3 pos) {
+void Transform::translate(const glm::vec3 pos) {
     this->_position += pos;
 }
 
-void Component::Transform::setRotation(const glm::quat rot) {
+void Transform::setRotation(const glm::quat rot) {
     this->_rotation = rot;
 }
 
-void Component::Transform::rotate(const glm::vec3 axis, const float angle) {
+void Transform::rotate(const glm::vec3 axis, const float angle) {
     this->_rotation = glm::rotate(this->_rotation, angle, axis);
 }
 
-void Component::Transform::setScale(const glm::vec3 scale) {
+void Transform::setScale(const glm::vec3 scale) {
     this->_scale = scale;
 }
 
-void Component::Transform::scaleBy(const glm::vec3 scale) {
+void Transform::scaleBy(const glm::vec3 scale) {
     this->_scale *= scale;
 }
 
-Component::Transform::Meta::Meta(Transform *owner): _owner(owner),
+Transform::Meta::Meta(Transform *owner): _owner(owner),
                                          _fieldGroup(InvisibleFieldGroup({})) {
     const std::vector<IField *> fields = {
         new Vector3Field("Position", "The position of the object",
@@ -86,51 +86,51 @@ Component::Transform::Meta::Meta(Transform *owner): _owner(owner),
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }
 
-void Component::Transform::runComponent() {
+void Transform::runComponent() {
 }
 
-std::string Component::Transform::Meta::getName() const {
+std::string Transform::Meta::getName() const {
     return "Transform";
 }
 
-std::string Component::Transform::Meta::getDescription() const {
+std::string Transform::Meta::getDescription() const {
     return
             "The Transform component is used to store the position, rotation and scale of an object.";
 }
 
-bool Component::Transform::Meta::isUnique() const {
+bool Transform::Meta::isUnique() const {
     return true;
 }
 
-bool Component::Transform::Meta::canBeRemoved() const {
+bool Transform::Meta::canBeRemoved() const {
     return false;
 }
 
 std::vector<const IComponent::IMeta::IFieldGroup *>
-Component::Transform::Meta::getFieldGroups() const {
+Transform::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Component::Transform::serializeData() {
+json::IJsonObject *Transform::serializeData() {
     return new json::JsonNull();
 }
 
-void Component::Transform::deserialize(const json::IJsonObject *data) {
+void Transform::deserialize(const json::IJsonObject *data) {
 }
 
-glm::vec3 &Component::Transform::getPosition() {
+glm::vec3 &Transform::getPosition() {
     return this->_position;
 }
 
-glm::quat &Component::Transform::getRotation() {
+glm::quat &Transform::getRotation() {
     return this->_rotation;
 }
 
-glm::vec3 &Component::Transform::getScale() {
+glm::vec3 &Transform::getScale() {
     return this->_scale;
 }
 
-Component::Transform *Component::Transform::clone(IObject *owner) const {
+Transform *Transform::clone(IObject *owner) const {
     return new Transform(owner, this->_position,
                          this->_rotation, this->_scale);
 }

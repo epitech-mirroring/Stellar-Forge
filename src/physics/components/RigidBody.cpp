@@ -22,7 +22,7 @@ RigidBody::RigidBody(IObject *owner, const json::JsonObject *data) : AComponent(
 }
 
 void RigidBody::applyMovement(const float deltaTime) {
-    auto *transform = this->getParentComponent<Component::Transform>();
+    auto *transform = this->getParentComponent<Transform>();
     if (transform == nullptr) {
         return;
     }

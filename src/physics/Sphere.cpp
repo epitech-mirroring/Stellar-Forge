@@ -8,9 +8,9 @@
 #include "Sphere.hpp"
 #include "Box.hpp"
 #include "Physics.hpp"
-#include "common/fields/Vector3Field.hpp"
-#include "common/fields/FloatField.hpp"
-#include "common/json/JsonNull.hpp"
+#include "StellarForge/Common/fields/Vector3Field.hpp"
+#include "StellarForge/Common/fields/FloatField.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
 
 void Sphere::setPosition(Vector3 position) {
     this->position = position;
@@ -89,7 +89,7 @@ Sphere::Sphere(IObject *owner, Vector3 pos, float radius) : AComponent(owner, ne
 void Sphere::runComponent() {
 }
 
-json::IJsonObject *Sphere::serializeData() {
+json::IJsonObject *Sphere::serializeData() const {
     return new json::JsonNull();
 }
 

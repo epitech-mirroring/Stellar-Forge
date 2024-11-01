@@ -9,8 +9,8 @@
 #define STELLARFORGE_BOX_HPP
 
 #include "Collider.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**
 * @class Box
@@ -82,7 +82,7 @@ public:
  Box(IObject *owner, Vector3 pos, Vector3 size);
 
  void runComponent() override;
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
  void deserialize(const json::IJsonObject *data) override;
  Box *clone(IObject *owner) const override;
 };

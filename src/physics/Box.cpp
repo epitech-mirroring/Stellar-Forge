@@ -8,8 +8,8 @@
 #include "Sphere.hpp"
 #include "Box.hpp"
 #include "Physics.hpp"
-#include "common/fields/Vector3Field.hpp"
-#include "common/json/JsonNull.hpp"
+#include "StellarForge/Common/fields/Vector3Field.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
 
 void Box::setPosition(Vector3 position) {
     this->position = position;
@@ -87,7 +87,7 @@ Box::Box(IObject *owner, Vector3 pos, Vector3 size) : AComponent(owner, new Meta
 void Box::runComponent() {
 }
 
-json::IJsonObject *Box::serializeData() {
+json::IJsonObject *Box::serializeData() const {
     return new json::JsonNull();
 }
 

@@ -72,7 +72,7 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  /**
   * @brief Deserializes the button component's data from JSON format.

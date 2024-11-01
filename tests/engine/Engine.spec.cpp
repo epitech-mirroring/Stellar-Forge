@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 
+#include "StellarForge/Common/components/DynamicComponentLoader.hpp"
 #include "StellarForge/Common/components/Transform.hpp"
 #include "StellarForge/Common/managers/ObjectManager.hpp"
 #include "StellarForge/Common/managers/SceneManager.hpp"
@@ -49,4 +50,16 @@ TEST(Engine, ally) {
     const auto objectsInScene = scene->getObjects();
     ASSERT_EQ(objectsInScene.size(), 1);
     ASSERT_EQ(objectsInScene.at(0)->getMeta().getName(), "Ally");
+}
+
+TEST(Engine, dynamicComponentLoader) {
+    auto loader = DynamicComponentLoader("./assets/components/");
+    auto engine = Engine([&loader]() {
+                             loader.loadComponents();
+                         }, "test", "./assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Sprite"));
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Test1"));
 }

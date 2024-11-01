@@ -152,6 +152,15 @@ public:
   */
  UUID duplicateObject(const UUID &uuid);
 
+ /**
+  * @brief Clears the instance of ObjectManager.
+  * This clears all objects from the manager.
+  * @version v0.2.0
+  * @since v0.2.0
+  * @author Marius PAIN
+  */
+ void clearInstance();
+
 private:
  /**
   * @brief Default constructor for ObjectManager private to prevent instantiation.

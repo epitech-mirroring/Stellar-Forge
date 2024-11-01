@@ -75,13 +75,13 @@ public:
   */
  ~AudioSource() override = default;
 
- /**
-  * @brief Serializes the audio component's data into a JSON format.
-  * @return A pointer to the JSON representation of the component's data.
-  * @version v0.1.0
-  * @since v0.1.0
-  */
- [[nodiscard]] json::IJsonObject *serializeData() override;
+  /**
+   * @brief Serializes the audio component's data into a JSON format.
+   * @return A pointer to the JSON representation of the component's data.
+   * @version v0.1.0
+   * @since v0.1.0
+   */
+  [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  /**
   * @brief Deserializes JSON data into the AudioSource component.

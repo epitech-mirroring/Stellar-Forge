@@ -81,6 +81,13 @@ Engine::Engine(const std::function<void()> &initComponents,
     startGraphics(gameName);
 }
 
+Engine::~Engine() {
+    SceneManager::getInstance().clearInstance();
+    ObjectManager::getInstance().clearInstance();
+    ComponentFactory::resetInstance();
+}
+
+
 void Engine::_startGraphics(const std::string &gameName) {
     bool isRunning = true;
     auto graphics = Graphics(1920, 1080, gameName);
@@ -249,7 +256,8 @@ void Engine::_loadObject(const std::string &path) {
             const auto *const compData = comps->at(i);
             const auto compName = compData->getValue<json::JsonString>("name")->
                     getValue();
-            auto *comp = ComponentFactory::create(compName, object, compData);
+            auto *comp = ComponentFactory::getInstance().create(
+                compName, object, compData);
             object->addComponent(comp);
         }
     }

@@ -152,6 +152,15 @@ public:
  [[nodiscard]]
  bool isSceneExist(const UUID &uuid) const;
 
+ /**
+  * @brief Clears the instance of SceneManager.
+  * This clears all scenes and resets the current scene index.
+  * @version v0.2.0
+  * @since v0.2.0
+  * @author Marius PAIN
+  */
+ void clearInstance();
+
 private:
  /**
   * @brief Default constructor for SceneManager private to prevent creation.

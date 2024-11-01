@@ -101,3 +101,7 @@ UUID ObjectManager::duplicateObject(const UUID &uuid) {
     throw ManagerException(
         "Object with UUID " + uuid.getUuidString() + " not found.");
 }
+
+void ObjectManager::clearInstance() {
+    _objects.clear();
+}

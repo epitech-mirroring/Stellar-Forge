@@ -118,7 +118,7 @@ SpriteSheet::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *SpriteSheet::serializeData() {
+json::IJsonObject *SpriteSheet::serializeData() const {
     return new json::JsonNull();
 }
 

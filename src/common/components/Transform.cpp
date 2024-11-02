@@ -14,18 +14,18 @@
 #include "../json/JsonObject.hpp"
 
 Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
-        owner, new Meta(this), data), _position(Vector3(0, 0, 0)),
-    _rotation(glm::quat(1, 0, 0, 0)), _scale(Vector3(1, 1, 1)) {
+        owner, new Meta(this), data), _position(glm::vec3(0, 0, 0)),
+    _rotation(glm::quat(1, 0, 0, 0)), _scale(glm::vec3(1, 1, 1)) {
     this->deserializeFields(data);
 }
 
-Transform::Transform(IObject *owner, const Vector3 pos, const glm::quat rot,
-                     const Vector3 scale): AComponent(owner, new Meta(this)),
+Transform::Transform(IObject *owner, const glm::vec3 pos, const glm::quat rot,
+                     const glm::vec3 scale): AComponent(owner, new Meta(this)),
                                            _position(pos),
                                            _rotation(rot), _scale(scale) {
 }
 
-Vector3 Transform::getPosition() const {
+glm::vec3 Transform::getPosition() const {
     return this->_position;
 }
 
@@ -37,15 +37,15 @@ float Transform::getRotation2D() const {
     return glm::degrees(glm::eulerAngles(this->_rotation).z);
 }
 
-Vector3 Transform::getScale() const {
+glm::vec3 Transform::getScale() const {
     return this->_scale;
 }
 
-void Transform::setPosition(const Vector3 pos) {
+void Transform::setPosition(const glm::vec3 pos) {
     this->_position = pos;
 }
 
-void Transform::translate(const Vector3 pos) {
+void Transform::translate(const glm::vec3 pos) {
     this->_position += pos;
 }
 
@@ -53,19 +53,19 @@ void Transform::setRotation(const glm::quat rot) {
     this->_rotation = rot;
 }
 
-void Transform::rotate(const Vector3 axis, const float angle) {
+void Transform::rotate(const glm::vec3 axis, const float angle) {
     this->_rotation = glm::rotate(this->_rotation, glm::radians(angle), axis);
 }
 
 void Transform::rotate2D(const float angle) {
-    this->_rotation = glm::rotate(this->_rotation, glm::radians(angle), Vector3(0, 0, 1));
+    this->_rotation = glm::rotate(this->_rotation, glm::radians(angle), glm::vec3(0, 0, 1));
 }
 
-void Transform::setScale(const Vector3 scale) {
+void Transform::setScale(const glm::vec3 scale) {
     this->_scale = scale;
 }
 
-void Transform::scaleBy(const Vector3 scale) {
+void Transform::scaleBy(const glm::vec3 scale) {
     this->_scale *= scale;
 }
 
@@ -73,19 +73,19 @@ Transform::Meta::Meta(Transform *owner): _owner(owner),
                                          _fieldGroup(InvisibleFieldGroup({})) {
     const std::vector<IField *> fields = {
         new Vector3Field("Position", "The position of the object",
-                         [this](const Vector3 &pos) {
+                         [this](const glm::vec3 &pos) {
                              this->_owner->_position = pos;
                          }, [this] {
                              return this->_owner->_position;
                          }),
         new Vector3Field("Rotation", "The rotation of the object",
-                         [this](const Vector3 &rot) {
+                         [this](const glm::vec3 &rot) {
                              this->_owner->_rotation = glm::quat(rot);
                          }, [this] {
                              return eulerAngles(this->_owner->_rotation);
                          }),
         new Vector3Field("Scale", "The scale of the object",
-                         [this](const Vector3 &scale) {
+                         [this](const glm::vec3 &scale) {
                              this->_owner->_scale = scale;
                          }, [this] {
                              return this->_owner->_scale;
@@ -126,7 +126,7 @@ json::IJsonObject *Transform::serializeData() const {
 void Transform::deserialize(const json::IJsonObject *data) {
 }
 
-Vector3 &Transform::getPosition() {
+glm::vec3 &Transform::getPosition() {
     return this->_position;
 }
 
@@ -134,7 +134,7 @@ glm::quat &Transform::getRotation() {
     return this->_rotation;
 }
 
-Vector3 &Transform::getScale() {
+glm::vec3 &Transform::getScale() {
     return this->_scale;
 }
 

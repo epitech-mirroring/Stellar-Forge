@@ -33,6 +33,10 @@ glm::quat Transform::getRotation() const {
     return this->_rotation;
 }
 
+float Transform::getRotation2D() const {
+    return glm::degrees(glm::eulerAngles(this->_rotation).z);
+}
+
 Vector3 Transform::getScale() const {
     return this->_scale;
 }
@@ -50,7 +54,11 @@ void Transform::setRotation(const glm::quat rot) {
 }
 
 void Transform::rotate(const Vector3 axis, const float angle) {
-    this->_rotation = glm::rotate(this->_rotation, angle, axis);
+    this->_rotation = glm::rotate(this->_rotation, glm::radians(angle), axis);
+}
+
+void Transform::rotate2D(const float angle) {
+    this->_rotation = glm::rotate(this->_rotation, glm::radians(angle), Vector3(0, 0, 1));
 }
 
 void Transform::setScale(const Vector3 scale) {

@@ -7,6 +7,7 @@
 */
 
 #include "VirtualObject.hpp"
+#include "fields/ComponentField.hpp"
 
 #include <algorithm>
 
@@ -24,6 +25,36 @@ IObject *VirtualObject::clone() const {
     auto *const newObject = new VirtualObject(new Meta(_meta->getName()));
     for (const auto *const component: _components) {
         newObject->addComponent(component->clone(newObject));
+    }
+    int posa = 0;
+    for (const auto *component: _components) {
+        int posb = 0;
+        for (const auto *fieldGroup: component->getMeta().getFieldGroups()) {
+            int posc = 0;
+            for (auto *const field: fieldGroup->getFields()) {
+                auto *compField = dynamic_cast<ComponentField *>(field);
+                if (compField != nullptr) {
+                    int pos = 0;
+                    for (const auto *const comp: _components) {
+                        if (comp->getUUID() == compField->_uuid) {
+                            break;
+                        }
+                        pos++;
+                    }
+                    if (pos == _components.size()) {
+                        LOG.error("Component not found");
+                        continue;
+                    }
+                    auto *newComponent = newObject->_components[pos];
+                    auto *newField = dynamic_cast<ComponentField *>(newObject->_components[posa]->getMeta().getFieldGroups()[posb]->getFields()[posc]);
+                    newField->_uuid = newComponent->getUUID();
+                    newField->updateValue(newComponent);
+                }
+                posc++;
+            }
+            posb++;
+        }
+        posa++;
     }
     for (const auto *const child: _children) {
         newObject->addChild(child->clone());

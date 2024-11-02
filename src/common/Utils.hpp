@@ -18,8 +18,10 @@ std::string get_typename([[maybe_unused]] T *object) {
 
 #else
 #if defined(_WIN32) || defined(_WIN64)
+#define UUID UUID_WINDOWS
 #include <Windows.h>
 #include <dbghelp.h>
+#undef UUID
 
 template<typename T>
 auto get_typename() {

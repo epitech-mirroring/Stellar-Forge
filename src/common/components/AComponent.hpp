@@ -7,10 +7,10 @@
 
 #ifndef ACOMPONENT_HPP
 #define ACOMPONENT_HPP
-#include "common/IComponent.hpp"
-#include "common/IObject.hpp"
-#include "common/json/JsonObject.hpp"
-#include "common/utils/Logger.hpp"
+#include "../IComponent.hpp"
+#include "../IObject.hpp"
+#include "../json/JsonObject.hpp"
+#include "../utils/Logger.hpp"
 
 /**
  * @class AComponent
@@ -168,7 +168,7 @@ protected:
 
  bool _isActive; //< The state of the component
 
- [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
+ [[nodiscard]] virtual json::IJsonObject *serializeData() const = 0;
 
  void deserializeFields(const json::JsonObject *data) const;
 

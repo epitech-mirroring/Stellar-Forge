@@ -9,10 +9,10 @@
 #ifndef STELLARFORGE_RIGIDBODY_HPP
 #define STELLARFORGE_RIGIDBODY_HPP
 
-#include "common/components/AComponent.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
 #include <glm/vec3.hpp>
 
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 
 /**
  * @class RigidBody
@@ -117,7 +117,7 @@ public:
  [[nodiscard]] RigidBody *clone(IObject *owner) const override;
 
 protected:
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 };
 
 #endif //STELLARFORGE_RIGIDBODY_HPP

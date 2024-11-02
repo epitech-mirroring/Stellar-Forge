@@ -6,9 +6,9 @@
 */
 
 #include "RigidBody.hpp"
-#include "common/components/Transform.hpp"
-#include "common/json/JsonNull.hpp"
-#include "physics/Physics.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "../Physics.hpp"
 
 RigidBody::Meta::Meta(RigidBody *owner): _owner(owner), _fieldGroup({}) {
 }
@@ -69,7 +69,7 @@ RigidBody::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *RigidBody::serializeData() {
+json::IJsonObject *RigidBody::serializeData() const {
     return new json::JsonNull();
 }
 

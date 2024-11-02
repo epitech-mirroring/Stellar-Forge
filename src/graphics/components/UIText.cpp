@@ -10,12 +10,12 @@
 #ifndef __APPLE__
 #include <utility>
 #endif
-#include "common/components/Transform.hpp"
-#include "common/fields/StringField.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "graphics/GraphicsException.hpp"
-#include "common/fields/ColorField.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/StringField.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "../GraphicsException.hpp"
+#include "StellarForge/Common/fields/ColorField.hpp"
 
 UIText::UIText(IObject *owner, std::string textStr, const unsigned int size, sf::Color *color, const std::string &fontPath)
     : AComponent(owner, new Meta(this)), textString(std::move(textStr)),
@@ -154,7 +154,7 @@ UIText::Meta::getFieldGroups() const {
     return {&_fieldGroup};
 }
 
-json::IJsonObject *UIText::serializeData() {
+json::IJsonObject *UIText::serializeData() const {
     return new json::JsonNull();
 }
 

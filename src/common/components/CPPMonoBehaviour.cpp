@@ -7,7 +7,7 @@
 
 #include "CPPMonoBehaviour.hpp"
 
-#include "common/fields/FileField.hpp"
+#include "../fields/FileField.hpp"
 
 CPPMonoBehaviour::CPPMonoBehaviour(IObject *owner, const json::JsonObject *data)
     : AComponent(owner, new Meta(this), data) {

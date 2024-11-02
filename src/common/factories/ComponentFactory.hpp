@@ -10,19 +10,31 @@
 #define COMPONENTFACTORY_HPP
 
 #include <functional>
-#include "common/IComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/json/JsonObject.hpp"
+#include "../IComponent.hpp"
+#include "../components/AComponent.hpp"
+#include "../json/JsonObject.hpp"
+#include "../utils/Logger.hpp"
 
 
 class ComponentFactory {
+    static ComponentFactory *INSTANCE;
+    Logger LOG;
+
 public:
     using Constructor = std::function<IComponent *(
         IObject *, const json::JsonObject *)>;
 
+    ComponentFactory();
+
+    ~ComponentFactory();
+
     template<typename T>
-    static void registerComponent(const std::string &typeName) {
-        registry()[typeName] = [
+    void registerComponent(const std::string &typeName) {
+        if (registry.find(typeName) != registry.end()) {
+            LOG.warn << "Component already registered: " << typeName << '\n';
+            return;
+        }
+        registry[typeName] = [
                 ](IObject *owner,
                   const json::JsonObject *data) -> IComponent *{
                     auto comp = construct<T>(owner, data);
@@ -34,15 +46,33 @@ public:
                     }
                     return comp;
                 };
+        LOG.info << "Registering component: " << typeName << '\n';
     }
 
     [[nodiscard]]
-    static IComponent *create(const std::string &typeName,
-                              IObject *owner,
-                              const json::JsonObject *data);
+    IComponent *create(const std::string &typeName,
+                       IObject *owner,
+                       const json::JsonObject *data);
+
+    [[nodiscard]]
+    bool hasComponent(const std::string &typeName) const;
+
+    static ComponentFactory &getInstance() {
+        if (INSTANCE == nullptr) {
+            INSTANCE = new ComponentFactory();
+        }
+        return *INSTANCE;
+    }
+
+    static void resetInstance() {
+        delete INSTANCE;
+        INSTANCE = nullptr;
+    }
+
+    void safeUnregisterComponent(const std::string &typeName);
 
 private:
-    static std::unordered_map<std::string, Constructor> &registry();
+    std::unordered_map<std::string, Constructor> registry;
 
     template<typename T>
     static IComponent *construct(IObject *owner,
@@ -54,7 +84,7 @@ private:
 
 #define REGISTER_COMPONENT(name) \
     static_assert(IsValidComponent<name>::value, "Check documentation for valid components"); \
-    ComponentFactory::registerComponent<name>(#name)
+    ComponentFactory::getInstance().registerComponent<name>(#name)
 
 
 #endif //COMPONENTFACTORY_HPP

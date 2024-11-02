@@ -7,13 +7,13 @@
 
 #include "AnimatedSprite.hpp"
 
-#include "common/components/Transform.hpp"
-#include "common/fields/FileField.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonNumber.hpp"
-#include "common/json/JsonString.hpp"
-#include "graphics/GraphicsException.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/FileField.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonNumber.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "../GraphicsException.hpp"
 
 AnimatedSprite::AnimatedSprite(IObject *owner, const std::string &path,
                                const std::vector<sf::IntRect> &frames,
@@ -141,7 +141,7 @@ AnimatedSprite::Meta::getFieldGroups() const {
 void AnimatedSprite::deserialize(const json::IJsonObject *data) {
 }
 
-json::IJsonObject *AnimatedSprite::serializeData() {
+json::IJsonObject *AnimatedSprite::serializeData() const {
     return new json::JsonNull();
 }
 

@@ -7,11 +7,11 @@
 
 #include "Sprite.hpp"
 
-#include "common/components/Transform.hpp"
-#include "common/fields/FileField.hpp"
-#include "common/json/JsonNull.hpp"
-#include "common/json/JsonString.hpp"
-#include "graphics/GraphicsException.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/FileField.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "../GraphicsException.hpp"
 
 Sprite::Sprite(IObject *owner, const std::string &path) : AComponent(
                                                               owner, new Meta(this)),
@@ -89,7 +89,7 @@ std::vector<const IComponent::IMeta::IFieldGroup *> Sprite::Meta::getFieldGroups
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Sprite::serializeData() {
+json::IJsonObject *Sprite::serializeData() const {
     return new json::JsonNull();
 }
 

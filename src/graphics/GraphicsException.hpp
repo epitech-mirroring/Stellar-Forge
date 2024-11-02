@@ -8,7 +8,7 @@
 #ifndef GRAPHICSEXCEPTION_HPP
 #define GRAPHICSEXCEPTION_HPP
 
-#include "common/IError.hpp"
+#include "StellarForge/Common/IError.hpp"
 #include <string>
 
 /**
@@ -39,15 +39,15 @@ public:
      * @since 0.1.0
      * @author Aubane NOURRY
      */
-    explicit GraphicsException(const char* message);
+ explicit GraphicsException(const char *message);
 
-    /**
-  * @brief Default destructor
-  * @details This destructor clears the GraphicsException
-  * @version 0.1.0
-  * @since 0.1.0
-  * @author Aubane NOURRY
-  */
+ /**
+* @brief Default destructor
+* @details This destructor clears the GraphicsException
+* @version 0.1.0
+* @since 0.1.0
+* @author Aubane NOURRY
+*/
  ~GraphicsException() override = default;
 
  /**

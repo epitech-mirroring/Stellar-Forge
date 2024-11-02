@@ -8,11 +8,12 @@
 
 #include <gtest/gtest.h>
 
-#include "common/components/Transform.hpp"
-#include "common/managers/ObjectManager.hpp"
-#include "common/managers/SceneManager.hpp"
-#include "engine/Engine.hpp"
-#include "graphics/components/Sprite.hpp"
+#include "StellarForge/Common/components/DynamicComponentLoader.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/managers/ObjectManager.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
+#include "StellarForge/Engine/Engine.hpp"
+#include "StellarForge/Graphics/components/Sprite.hpp"
 
 TEST(Engine, ally) {
     auto engine = Engine([] {
@@ -49,4 +50,16 @@ TEST(Engine, ally) {
     const auto objectsInScene = scene->getObjects();
     ASSERT_EQ(objectsInScene.size(), 1);
     ASSERT_EQ(objectsInScene.at(0)->getMeta().getName(), "Ally");
+}
+
+TEST(Engine, dynamicComponentLoader) {
+    auto loader = DynamicComponentLoader("./assets/components/");
+    auto engine = Engine([&loader]() {
+                             loader.loadComponents();
+                         }, "test", "./assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Sprite"));
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Test1"));
 }

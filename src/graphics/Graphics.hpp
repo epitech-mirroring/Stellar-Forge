@@ -9,8 +9,8 @@
 #ifndef GRAPHICS_HPP
 #define GRAPHICS_HPP
 
-#include "common/IScene.hpp"
-#include "common/IObject.hpp"
+#include "StellarForge/Common/IScene.hpp"
+#include "StellarForge/Common/IObject.hpp"
 #include "GraphicsException.hpp"
 
 #include <SFML/Graphics.hpp>

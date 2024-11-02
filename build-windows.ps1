@@ -105,6 +105,26 @@ conan create . --build=missing -s:a compiler.cppstd=17
 conan create . -s:a build_type=Debug --build=missing -s:a compiler.cppstd=17
 cd ../../
 
+# Graphics 3D
+cd ./src/graphics3D
+mkdir -p "build"
+cd "build"
+conan install .. --build=missing
+cd ..
+conan create . --build=missing
+conan create . -s:a build_type=Debug --build=missing
+cd ../../
+
+# Engine 3D
+cd ./src/engine3D
+mkdir -p "build"
+cd "build"
+conan install .. --build=missing
+cd ..
+conan create . --build=missing
+conan create . -s:a build_type=Debug --build=missing
+cd ../../
+
 # Remove 'build' directory if it exists, then recreate it
 $buildDir = "build"
 Write-Info "Preparing the build directory..."
@@ -134,4 +154,6 @@ Copy-Item -Path ".\build\lib\Release\StellarForge.lib" -Destination "StellarForg
 Copy-Item -Path ".\build\lib\Release\StellarForgeCommon.lib" -Destination "StellarForgeCommon.lib" -Force
 Copy-Item -Path ".\build\lib\Release\StellarForgeGraphics.lib" -Destination "StellarForgeGraphics.lib" -Force
 Copy-Item -Path ".\build\lib\Release\StellarForgePhysics.lib" -Destination "StellarForgePhysics.lib" -Force
+Copy-Item -Path ".\build\lib\Release\StellarForgeGraphics3D.lib" -Destination "StellarForgeGraphics3D.lib" -Force
+Copy-Item -Path ".\build\lib\Release\StellarForge3D.lib" -Destination "StellarForge3D.lib" -Force
 Write-Info "Libs copied successfully."

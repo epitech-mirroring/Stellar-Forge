@@ -127,6 +127,14 @@ public:
  [[nodiscard]] glm::quat &getRotation();
 
  /**
+ * @brief Gets the rotation of the object around the Z-axis.
+ * @return The rotation in degrees.
+ * @version v0.1.0
+ * @since v0.1.0
+ */
+ [[nodiscard]] float getRotation2D() const;
+
+ /**
   * @brief Gets the scale of the object.
   * @return The scale as a glm::vec3.
   * @version v0.1.0
@@ -166,6 +174,14 @@ public:
   * @since v0.1.0
   */
  void rotate(glm::vec3 axis, float angle);
+
+ /**
+ * @brief Rotates the transform around the Z-axis by a specified angle.
+ * @param angle The angle in degrees to rotate the transform.
+ * @version v0.1.0
+ * @since v0.1.0
+ */
+ void rotate2D(const float angle);
 
  /**
   * @brief Sets the scale of the object.

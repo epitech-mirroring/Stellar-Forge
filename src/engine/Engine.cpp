@@ -34,6 +34,9 @@
 #include "StellarForge/Physics/components/RigidBody.hpp"
 #include "StellarForge/Graphics/components/Button.hpp"
 #include "StellarForge/Graphics/components/UIButton.hpp"
+#include "StellarForge/Physics/Box.hpp"
+#include "StellarForge/Physics/Sphere.hpp"
+#include "StellarForge/Common/fields/ComponentField.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -44,6 +47,8 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Button);
     REGISTER_COMPONENT(UIButton);
     REGISTER_COMPONENT(RigidBody);
+    REGISTER_COMPONENT(Box);
+    REGISTER_COMPONENT(Sphere);
     REGISTER_COMPONENT(AudioSource);
 }
 
@@ -75,6 +80,18 @@ Engine::Engine(const std::function<void()> &initComponents,
     for (const auto &[uuid, obj]: _objects) {
         if (obj.first->getParent() == nullptr) {
             ObjectManager::getInstance().addObject(uuid, obj.first);
+        }
+    }
+    for (auto [_, obj]: ObjectManager::getInstance().getObjects()) {
+        for (auto *comp: obj->getComponents()) {
+            for (const auto *fieldGroup: comp->getMeta().getFieldGroups()) {
+                for (auto *field: fieldGroup->getFields()) {
+                    if (dynamic_cast<ComponentField *>(field) != nullptr) {
+                        auto *compField = dynamic_cast<ComponentField *>(field);
+                        compField->link();
+                    }
+                }
+            }
         }
     }
     _loadScenes(assetsPath + "scenes/");

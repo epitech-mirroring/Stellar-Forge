@@ -54,6 +54,25 @@ public:
  virtual std::vector<IComponent *> getComponents() const = 0;
 
  /**
+  * @brief Returns a component of the object
+  * @tparam T The type of the component to get
+  * @return A pointer to the component if it exists, nullptr otherwise
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Landry GIGANT
+  */
+ template<class T>
+ [[nodiscard]]
+ T *getComponent() const {
+  for (auto &component : getComponents()) {
+   if (dynamic_cast<T *>(component)) {
+    return dynamic_cast<T *>(component);
+   }
+  }
+  return nullptr;
+ }
+
+ /**
   * @brief Returns all the children of the object
   * @return A vector of pointers to objects. Can be empty
   * @version v0.1.0

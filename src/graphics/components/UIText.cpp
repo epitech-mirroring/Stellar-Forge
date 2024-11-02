@@ -55,7 +55,7 @@ std::string UIText::findDefaultFontPath() {
 #ifdef _WIN32
         return "C:\\Windows\\Fonts\\arial.ttf";
 #elif defined(__linux__)
-        return "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf";
+        return "/usr/share/fonts/liberation-sans/LiberationSans-Regular.ttf";
 #else
     throw GraphicsException("Unknown OS: No default font available");
 #endif
@@ -69,8 +69,13 @@ void UIText::render(sf::RenderWindow *window) {
         text.setRotation(transformComponent->getRotation().x);
         text.setScale(transformComponent->getScale().x,
                       transformComponent->getScale().y);
+        text.setStyle(sf::Text::Regular);
         window->draw(text);
     }
+}
+
+sf::Text *UIText::getText() {
+    return &text;
 }
 
 void UIText::setText(const std::string &textStr) {

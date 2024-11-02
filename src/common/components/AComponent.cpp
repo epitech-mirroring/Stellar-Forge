@@ -26,6 +26,13 @@ AComponent::AComponent(IObject *owner, const IMeta *meta,
         if (data->contains("isActive")) {
             this->_isActive = data->getValue<json::JsonBoolean>("isActive")->getValue();
         }
+        if (data->contains("uuid")) {
+            this->_uuid.setUuidFromString(data->getValue<json::JsonString>("uuid")->getValue());
+        } else {
+            this->_uuid.generateUuid();
+        }
+    } else {
+        this->_uuid.generateUuid();
     }
 }
 
@@ -91,6 +98,7 @@ json::IJsonObject *AComponent::serialize() {
     obj->add(new json::JsonString(get_typename(this), "type")
     );
     obj->add(new json::JsonBoolean(this->_isActive, "isActive"));
+    obj->add(new json::JsonString(this->_uuid.getUuidString(), "uuid"));
     auto *data = new json::JsonObject("data");
     std::vector<std::string> fieldGroupNames;
     for (const auto *fieldGroup: this->_meta->getFieldGroups()) {
@@ -111,4 +119,12 @@ json::IJsonObject *AComponent::serialize() {
     obj->add(data);
     obj->add("customData", this->serializeData());
     return obj;
+}
+
+UUID AComponent::getUUID() const {
+    return this->_uuid;
+}
+
+void AComponent::setUUID(UUID uuid) {
+    this->_uuid = uuid;
 }

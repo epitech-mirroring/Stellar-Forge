@@ -18,6 +18,15 @@ conan remove '*' -c
 conan cache clean '*'
 conan profile detect --force
 
+# Lua
+cd ./src/lua/Source && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../../
 
 # Common
 cd ./src/common && \
@@ -69,3 +78,4 @@ conan upload stellar-forge-common -r=Epitech-Mirroring
 conan upload stellar-forge-graphics -r=Epitech-Mirroring
 conan upload stellar-forge-physics -r=Epitech-Mirroring
 conan upload stellar-forge -r=Epitech-Mirroring
+conan upload lua-cpp -r=Epitech-Mirroring

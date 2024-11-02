@@ -31,6 +31,7 @@ class StellarForgeCommon(ConanFile):
 
     def requirements(self):
         self.requires("glm/1.0.1")
+        self.requires("lua-cpp/1.0.0")
 
     def generate(self):
         deps = CMakeDeps(self)

@@ -1,0 +1,3 @@
+[submodule "LuaCPP"]
+    path = src/lua
+    url = https://github.com/epitech-mirroring/luacpp.git

@@ -7,6 +7,8 @@
 
 #include "Button.hpp"
 
+#include <iostream>
+
 #include "StellarForge/Common/json/JsonNull.hpp"
 #include "StellarForge/Common/fields/FloatField.hpp"
 #include "StellarForge/Common/fields/StringField.hpp"

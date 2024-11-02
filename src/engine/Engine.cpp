@@ -37,6 +37,7 @@
 #include "StellarForge/Physics/Box.hpp"
 #include "StellarForge/Physics/Sphere.hpp"
 #include "StellarForge/Common/fields/ComponentField.hpp"
+#include "StellarForge/Graphics/components/UITextInputButton.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -50,6 +51,7 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Box);
     REGISTER_COMPONENT(Sphere);
     REGISTER_COMPONENT(AudioSource);
+    REGISTER_COMPONENT(UITextInputButton);
 }
 
 void Engine::_registerLoggerScopes() {

@@ -22,7 +22,7 @@
  * @since v0.1.0
  * @author Aubane NOURRY
  */
-class UIButton final : public Button, public IGraphicsComponent {
+class UIButton : public Button, public IGraphicsComponent {
 public:
  /**
   * @brief Constructor for UIButton.
@@ -48,6 +48,8 @@ public:
   * @since v0.1.0
   */
  UIButton(IObject *owner, const json::JsonObject *data);
+
+ UIButton(IObject *owner, const IMeta *meta);
 
  /**
   * @brief Renders the UIButton on the provided window.
@@ -153,7 +155,7 @@ public:
   [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
  };
 
-private:
+protected:
  std::string _label;
  sf::Font _font;
  sf::Text _text;

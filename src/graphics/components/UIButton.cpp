@@ -46,6 +46,10 @@ UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(
     _rect.setFillColor(sf::Color(100, 100, 100));
 }
 
+UIButton::UIButton(IObject *owner, const IMeta *meta) : Button(
+    owner, meta) {
+}
+
 std::string UIButton::findDefaultFontPath() {
 #ifdef _WIN32
     return "C:\\Windows\\Fonts\\arial.ttf";

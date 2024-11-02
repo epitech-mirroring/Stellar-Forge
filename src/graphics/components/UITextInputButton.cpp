@@ -14,6 +14,7 @@
 #include "StellarForge/Common/fields/StringField.hpp"
 #include "StellarForge/Common/fields/Vector2Field.hpp"
 #include "StellarForge/Common/fields/FileField.hpp"
+#include "StellarForge/Common/fields/ColorField.hpp"
 #include "../GraphicsException.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
@@ -45,12 +46,12 @@ UITextInputButton::UITextInputButton(IObject *owner, const json::JsonObject *dat
   _text.setFont(_font);
   _text.setString(_label);
   _text.setCharacterSize(_charSize);
-  _text.setFillColor(sf::Color::White);
+  _text.setFillColor(*_textColor);
   _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
                     _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
   _rect.setSize(sf::Vector2f(_width, _height));
   _rect.setPosition(_rectX, _rectY);
-  _rect.setFillColor(sf::Color(100, 100, 100));
+  _rect.setFillColor(*_rectColor);
     EventSystem::getInstance().registerListener("mouse_pressed",
       [this](const EventData &eventData) {
           this->toggleWriting(eventData);
@@ -103,6 +104,21 @@ UITextInputButton::Meta::Meta(UITextInputButton *owner)
                      }, [this] {
                          return this->_owner->_maxNbChar;
                      }),
+        new ColorField("TextColor", "The color of the text",
+         [this](const std::vector<unsigned char> &color) {
+             this->_owner->_textColor = new sf::Color();
+             this->_owner->_textColor->r = color[0];
+             this->_owner->_textColor->g = color[1];
+             this->_owner->_textColor->b = color[2];
+             this->_owner->_textColor->a = color[3];
+          }, [this] {
+              return std::vector{
+                  this->_owner->_textColor->r,
+                  this->_owner->_textColor->g,
+                  this->_owner->_textColor->b,
+                  this->_owner->_textColor->a
+              };
+          }),
         new Vector2Field("Position", "The position of the button",
                          [this](const glm::vec2 &pos) {
                              this->_owner->_rectX = pos.x;
@@ -116,7 +132,22 @@ UITextInputButton::Meta::Meta(UITextInputButton *owner)
                              this->_owner->_height = pos.y;
                          }, [this] {
                              return glm::vec2(this->_owner->_rectX, this->_owner->_rectY);
-                         })
+                         }),
+        new ColorField("Color", "The color of the cube",
+         [this](const std::vector<unsigned char> &color) {
+             this->_owner->_rectColor = new sf::Color();
+             this->_owner->_rectColor->r = color[0];
+             this->_owner->_rectColor->g = color[1];
+             this->_owner->_rectColor->b = color[2];
+             this->_owner->_rectColor->a = color[3];
+          }, [this] {
+              return std::vector{
+                  this->_owner->_rectColor->r,
+                  this->_owner->_rectColor->g,
+                  this->_owner->_rectColor->b,
+                  this->_owner->_rectColor->a
+              };
+          })
     };
     this->_fieldGroup = InvisibleFieldGroup(fields);
 }

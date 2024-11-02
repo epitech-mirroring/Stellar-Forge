@@ -161,6 +161,8 @@ protected:
  sf::Text _text;
  sf::RectangleShape _rect;
  int _charSize{};
+ sf::Color *_textColor;
+ sf::Color *_rectColor;
 };
 
 #endif //UIBUTTON_HPP

@@ -120,7 +120,7 @@ UIText::Meta::Meta(UIText *owner)
                                       this->_owner->setText(value);
                                   },
                                   [this] { return this->_owner->textString; });
-    auto *colorField = new ColorField("Color", "The color of the cube",
+    auto *colorField = new ColorField("Color", "The color of the text",
         [this](const std::vector<unsigned char> &color) {
             this->_owner->color = new sf::Color();
             this->_owner->color->r = color[0];

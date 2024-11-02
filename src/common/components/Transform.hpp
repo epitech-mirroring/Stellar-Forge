@@ -15,8 +15,6 @@
 #include "../fields/groups/InvisibleFieldGroup.hpp"
 #include "../factories/ComponentFactory.hpp"
 
-using Vector3 = glm::vec3;
-
 /**
  * @class Transform
  * @brief Represents the transformation (position, rotation, scale) of an object in 3D space.
@@ -24,11 +22,12 @@ using Vector3 = glm::vec3;
  * @since v0.1.0
  * @authors Landry GIGANT, Axel ECKENBERG
  */
+
 class Transform final : public AComponent {
 protected:
- Vector3 _position; ///< The position of the object in 3D space.
+ glm::vec3 _position; ///< The position of the object in 3D space.
  glm::quat _rotation; ///< The rotation of the object represented as a quaternion.
- Vector3 _scale; ///< The scale of the object in 3D space.
+ glm::vec3 _scale; ///< The scale of the object in 3D space.
 
 public:
  /**
@@ -85,15 +84,15 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- Transform(IObject *owner, Vector3 pos, glm::quat rot, Vector3 scale);
+ Transform(IObject *owner, glm::vec3 pos, glm::quat rot, glm::vec3 scale);
 
  /**
   * @brief Gets the position of the object.
-  * @return The position as a Vector3.
+  * @return The position as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] Vector3 getPosition() const;
+ [[nodiscard]] glm::vec3 getPosition() const;
 
  /**
   * @brief Gets the rotation of the object.
@@ -105,19 +104,19 @@ public:
 
  /**
   * @brief Gets the scale of the object.
-  * @return The scale as a Vector3.
+  * @return The scale as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] Vector3 getScale() const;
+ [[nodiscard]] glm::vec3 getScale() const;
 
  /**
   * @brief Gets the position of the object.
-  * @return The position as a Vector3.
+  * @return The position as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] Vector3 &getPosition();
+ [[nodiscard]] glm::vec3 &getPosition();
 
  /**
   * @brief Gets the rotation of the object.
@@ -128,20 +127,28 @@ public:
  [[nodiscard]] glm::quat &getRotation();
 
  /**
+ * @brief Gets the rotation of the object around the Z-axis.
+ * @return The rotation in degrees.
+ * @version v0.1.0
+ * @since v0.1.0
+ */
+ [[nodiscard]] float getRotation2D() const;
+
+ /**
   * @brief Gets the scale of the object.
-  * @return The scale as a Vector3.
+  * @return The scale as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] Vector3 &getScale();
+ [[nodiscard]] glm::vec3 &getScale();
 
  /**
   * @brief Sets the position of the object.
-  * @param pos The new position as a Vector3.
+  * @param pos The new position as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- void setPosition(Vector3 pos);
+ void setPosition(glm::vec3 pos);
 
  /**
   * @brief Translates the object by a given position.
@@ -149,7 +156,7 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- void translate(Vector3 pos);
+ void translate(glm::vec3 pos);
 
  /**
   * @brief Sets the rotation of the object.
@@ -166,15 +173,23 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- void rotate(Vector3 axis, float angle);
+ void rotate(glm::vec3 axis, float angle);
+
+ /**
+ * @brief Rotates the transform around the Z-axis by a specified angle.
+ * @param angle The angle in degrees to rotate the transform.
+ * @version v0.1.0
+ * @since v0.1.0
+ */
+ void rotate2D(const float angle);
 
  /**
   * @brief Sets the scale of the object.
-  * @param scale The new scale as a Vector3.
+  * @param scale The new scale as a glm::vec3.
   * @version v0.1.0
   * @since v0.1.0
   */
- void setScale(Vector3 scale);
+ void setScale(glm::vec3 scale);
 
  /**
   * @brief Scales the object by a given factor.
@@ -182,7 +197,7 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- void scaleBy(Vector3 scale);
+ void scaleBy(glm::vec3 scale);
 
  void runComponent() override;
 

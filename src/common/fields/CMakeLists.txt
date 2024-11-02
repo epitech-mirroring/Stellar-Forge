@@ -10,6 +10,7 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/FloatField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BooleanField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IntField.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ColorField.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ComponentField.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/AField.cpp
@@ -20,5 +21,6 @@ target_sources(StellarForgeCommon
         ${CMAKE_CURRENT_SOURCE_DIR}/FloatField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/BooleanField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/IntField.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ColorField.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ComponentField.cpp
 )

@@ -59,6 +59,26 @@ conan create . --build=missing && \
 conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
+# Graphics 3D
+cd ./src/graphics3D && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../
+
+# Engine 3D
+cd ./src/engine3D && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../
+
 # Set-up the remote
 conan remote add Epitech-Mirroring https://nexus.place2die.com/repository/Epitech-Mirroring/
 echo "Logging in to Epitech-Mirroring with user $NEXUS_USER"
@@ -69,3 +89,5 @@ conan upload stellar-forge-common -r=Epitech-Mirroring
 conan upload stellar-forge-graphics -r=Epitech-Mirroring
 conan upload stellar-forge-physics -r=Epitech-Mirroring
 conan upload stellar-forge -r=Epitech-Mirroring
+conan upload stellar-forge-graphics-3d -r=Epitech-Mirroring
+conan upload stellar-forge-3d -r=Epitech-Mirroring

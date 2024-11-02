@@ -32,7 +32,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- UIText(IObject *owner, std::string textStr, unsigned int size, sf::Color color,
+ UIText(IObject *owner, std::string textStr, unsigned int size, sf::Color *color,
         const std::string &fontPath = "default");
 
  UIText(IObject *owner, const json::JsonObject *data);
@@ -114,7 +114,7 @@ public:
   * @since v0.1.0
   * @author Aubane NOURRY
   */
- void setColor(sf::Color color);
+ void setColor(sf::Color *color);
 
  /**
   * @brief Gets the size of the text on the screen.
@@ -166,7 +166,7 @@ private:
  std::string textString; /**< The string to display. */
  std::string fontPath; /**< The file path to the font. */
  unsigned int fontSize; /**< The font size to use. */
- sf::Color color; /**< The color of the text. */
+ sf::Color *color; /**< The color of the text. */
 };
 
 #endif //UITEXT_HPP

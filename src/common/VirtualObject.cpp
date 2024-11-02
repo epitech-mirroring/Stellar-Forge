@@ -128,6 +128,9 @@ void VirtualObject::removeComponent(IComponent *component) {
 void VirtualObject::runObject() {
     if (!_hasRun) {
         for (auto *const component: _components) {
+            if (component == nullptr) {
+                continue;
+            }
             component->onCreation();
         }
         _hasRun = true;

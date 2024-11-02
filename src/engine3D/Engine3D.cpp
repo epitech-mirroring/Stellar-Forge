@@ -11,21 +11,21 @@
 #include <string>
 #include <filesystem>
 
-#include "common/VirtualObject.hpp"
-#include "common/VirtualScene.hpp"
-#include "common/components/Transform.hpp"
-#include "common/event/EventSystem.hpp"
-#include "common/factories/ComponentFactory.hpp"
-#include "common/json/JsonArray.hpp"
-#include "common/json/JsonBoolean.hpp"
-#include "common/json/JsonParser.hpp"
-#include "common/json/JsonReader.hpp"
-#include "common/json/JsonString.hpp"
-#include "common/managers/ObjectManager.hpp"
-#include "common/managers/SceneManager.hpp"
-#include "common/utils/LoggerScopes.hpp"
-#include "graphics3D/Graphics3D.hpp"
-#include "graphics3D/components/Cube.hpp"
+#include "StellarForge/Common/VirtualObject.hpp"
+#include "StellarForge/Common/VirtualScene.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
+#include "StellarForge/Common/factories/ComponentFactory.hpp"
+#include "StellarForge/Common/json/JsonArray.hpp"
+#include "StellarForge/Common/json/JsonBoolean.hpp"
+#include "StellarForge/Common/json/JsonParser.hpp"
+#include "StellarForge/Common/json/JsonReader.hpp"
+#include "StellarForge/Common/json/JsonString.hpp"
+#include "StellarForge/Common/managers/ObjectManager.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
+#include "StellarForge/Common/utils/LoggerScopes.hpp"
+#include "StellarForge/Graphics3D/Graphics3D.hpp"
+#include "StellarForge/Graphics3D/components/Cube.hpp"
 
 void Engine3D::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -234,7 +234,7 @@ void Engine3D::_loadObject(const std::string &path) {
             const auto *const compData = comps->at(i);
             const auto compName = compData->getValue<json::JsonString>("name")->
                     getValue();
-            auto *comp = ComponentFactory::create(compName, object, compData);
+            auto *comp = ComponentFactory::getInstance().create(compName, object, compData);
             object->addComponent(comp);
         }
     }

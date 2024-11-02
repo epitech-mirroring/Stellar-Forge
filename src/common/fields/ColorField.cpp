@@ -7,7 +7,7 @@
 
 #include "ColorField.hpp"
 #include <iostream>
-#include "common/json/JsonNumber.hpp"
+#include "../json/JsonNumber.hpp"
 
 ColorField::ColorField(std::string name, std::string description,
                        const std::function<void(std::vector<unsigned char>)> &setCallback,

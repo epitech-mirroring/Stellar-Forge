@@ -6,11 +6,11 @@
 **/
 
 #include "Cube.hpp"
-#include "common/fields/FloatField.hpp"
-#include "common/fields/ColorField.hpp"
-#include "common/components/Transform.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
-#include "common/json/JsonNull.hpp"
+#include "StellarForge/Common/fields/FloatField.hpp"
+#include "StellarForge/Common/fields/ColorField.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/json/JsonNull.hpp"
 #include "rlgl.h"
 
 Cube::Cube(IObject *owner, const float size, Color *color): AComponent(owner, new Meta(this)), size(size), color(color) {}
@@ -26,7 +26,7 @@ void Cube::render(Camera3D *camera) {
     const auto scale = transform->getScale();
     BeginMode3D(*camera);
 
-    const Matrix rotationMatrix = MatrixRotateXYZ((Vector3){ rotation.x, rotation.y, rotation.z });
+    const Matrix rotationMatrix = MatrixRotateXYZ({ rotation.x, rotation.y, rotation.z });
     rlPushMatrix();
     rlMultMatrixf(MatrixToFloat(rotationMatrix));
 
@@ -95,7 +95,7 @@ std::vector<const IComponent::IMeta::IFieldGroup *> Cube::Meta::getFieldGroups()
     return {&_fieldGroup};
 }
 
-json::IJsonObject *Cube::serializeData() {
+json::IJsonObject *Cube::serializeData() const {
     return new json::JsonNull();
 }
 

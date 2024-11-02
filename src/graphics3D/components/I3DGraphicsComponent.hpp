@@ -9,7 +9,7 @@
 #ifndef I3DGRAPHICSCOMPONENT_HPP
 #define I3DGRAPHICSCOMPONENT_HPP
 
-#include "common/IComponent.hpp"
+#include "StellarForge/Common/IComponent.hpp"
 #define Transform RaylibTransform
 #include "raylib.h"
 #undef Transform

@@ -11,7 +11,7 @@
 #include <string>
 #include <functional>
 #include <vector>
-#include "common/IObject.hpp"
+#include "StellarForge/Common/IObject.hpp"
 #define Transform RaylibTransform
 #include "raylib.h"
 #undef Transform

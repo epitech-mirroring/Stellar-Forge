@@ -6,12 +6,12 @@
 */
 
 #include "Graphics3D.hpp"
-#include "common/event/EventSystem.hpp"
-#include "common/managers/SceneManager.hpp"
-#include "common/components/Transform.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
+#include "StellarForge/Common/managers/SceneManager.hpp"
+#include "StellarForge/Common/components/Transform.hpp"
 #include "components/I3DGraphicsComponent.hpp"
-#include "common/IObject.hpp"
-#include "common/VirtualObject.hpp"
+#include "StellarForge/Common/IObject.hpp"
+#include "StellarForge/Common/VirtualObject.hpp"
 #include <algorithm>
 
 Graphics3D::Graphics3D(const int width, const int height, const std::string &title, const bool precharge)
@@ -24,9 +24,9 @@ Graphics3D::Graphics3D(const int width, const int height, const std::string &tit
     SetTargetFPS(60);
     EventSystem::getInstance().triggerEvents("window_created", nullptr);
     camera = {0};
-    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f };
-    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };
-    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
+    camera.position = { 10.0f, 10.0f, 10.0f };
+    camera.target = { 0.0f, 0.0f, 0.0f };
+    camera.up = { 0.0f, 1.0f, 0.0f };
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 

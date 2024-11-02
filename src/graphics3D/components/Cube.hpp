@@ -9,8 +9,8 @@
 #define CUBE_HPP
 
 #include "I3DGraphicsComponent.hpp"
-#include "common/components/AComponent.hpp"
-#include "common/fields/groups/InvisibleFieldGroup.hpp"
+#include "StellarForge/Common/components/AComponent.hpp"
+#include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 #define Transform RaylibTransform
 #include "raymath.h"
 #include "raylib.h"
@@ -75,7 +75,7 @@ public:
   [[nodiscard]] std::vector<const IFieldGroup *> getFieldGroups() const override;
  };
 
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
  void deserialize(const json::IJsonObject *data) override;
  [[nodiscard]] Cube *clone(IObject *owner) const override;
 

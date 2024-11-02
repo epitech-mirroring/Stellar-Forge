@@ -83,7 +83,7 @@ void DynamicComponentLoader::_loadComponent(const std::filesystem::path &path) {
         return;
     }
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
     void *handle = dlopen(path.c_str(), RTLD_LAZY);
     if (handle == nullptr) {
         LOG.error << "Failed to load components in: " << path << " - " << dlerror() <<

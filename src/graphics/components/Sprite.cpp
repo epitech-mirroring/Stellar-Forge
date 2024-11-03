@@ -17,7 +17,8 @@ Sprite::Sprite(IObject *owner, const std::string &path) : AComponent(
                                                               owner, new Meta(this)),
                                                           path(path) {
     if (!texture.loadFromFile(path)) {
-        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+        throw GraphicsException(
+            "Failed to load texture from file: '" + std::string(path) + "'");
     }
     sprite.setTexture(texture);
 }
@@ -26,7 +27,8 @@ Sprite::Sprite(IObject *owner, const json::JsonObject *data) : AComponent(
     owner, new Meta(this), data) {
     this->deserializeFields(data);
     if (!texture.loadFromFile(path)) {
-        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+        throw GraphicsException(
+            "Failed to load texture from file: '" + std::string(path) + "'");
     }
     sprite.setTexture(texture);
 }
@@ -45,7 +47,8 @@ void Sprite::render(sf::RenderWindow *window) {
 
 void Sprite::setTexture(const std::string &path) {
     if (!texture.loadFromFile(path)) {
-        throw GraphicsException("Failed to load texture from file: " + std::string(path));
+        throw GraphicsException(
+            "Failed to load texture from file: '" + std::string(path) + "'");
     }
     sprite.setTexture(texture);
 }

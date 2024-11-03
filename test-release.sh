@@ -1,7 +1,7 @@
 #!/bin/bash
 
 conan remote remove Epitech-Mirroring
-conan remove '*' -c
+conan remove 'stellar-forge*' -c
 conan cache clean '*'
 conan profile detect --force
 

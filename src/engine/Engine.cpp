@@ -70,7 +70,10 @@ Engine::Engine(const std::function<void()> &initComponents,
     initComponents();
     SceneManager::getInstance();
     ObjectManager::getInstance();
-    _loadObjects(assetsPath + "objects/");
+    if (!_loadObjects(assetsPath + "objects/")) {
+        LOG.error << "An error occurred while loading objects" << '\n';
+        return;
+    }
     for (auto [_, obj]: _objects) {
         for (auto childUUID: obj.second) {
             auto *child = _objects[childUUID].first;
@@ -94,7 +97,10 @@ Engine::Engine(const std::function<void()> &initComponents,
             }
         }
     }
-    _loadScenes(assetsPath + "scenes/");
+    if (!_loadScenes(assetsPath + "scenes/") || _scenes.empty()) {
+        LOG.error << "An error occurred while loading scenes" << '\n';
+        return;
+    }
     startGraphics(gameName);
 }
 
@@ -119,21 +125,26 @@ void Engine::_startGraphics(const std::string &gameName) {
     }
 }
 
-void Engine::_loadObjects(const std::string &pathName) {
+bool Engine::_loadObjects(const std::string &pathName) {
     std::filesystem::path const path(pathName);
     if (!exists(path)) {
         LOG.error << "Path does not exist: " << absolute(path) << '\n';
-        return;
+        return false;
     }
     const std::filesystem::directory_iterator start(path);
     const std::filesystem::directory_iterator end;
     for (auto ite = start; ite != end; ++ite) {
         if (ite->is_directory()) {
-            _loadObjects(ite->path().string());
+            if (!_loadObjects(ite->path().string())) {
+                return false;
+            }
         } else if (ite->is_regular_file() && ite->path().extension() == ".json") {
-            _loadObject(ite->path().string());
+            if (!_loadObject(ite->path().string())) {
+                return false;
+            }
         }
     }
+    return true;
 }
 
 bool Engine::_isValideScene(const json::IJsonObject *data) {
@@ -233,22 +244,22 @@ bool Engine::_isValideObject(const json::IJsonObject *data) {
     return true;
 }
 
-void Engine::_loadObject(const std::string &path) {
+bool Engine::_loadObject(const std::string &path) {
     std::ifstream file(path);
     if (!file.is_open()) {
         LOG.error << "Failed to open file: " << path << '\n';
-        return;
+        return false;
     }
     auto *const parser = new json::JsonParser();
     const auto reader = json::JsonReader(parser);
     const json::IJsonObject *const raw = reader << file;
     if (raw == nullptr) {
         LOG.error << "Failed to parse file: " << path << '\n';
-        return;
+        return false;
     }
     if (!_isValideObject(raw)) {
         LOG.error << "Invalid object file: " << path << '\n';
-        return;
+        return false;
     }
     auto const *const obj = dynamic_cast<const json::JsonObject *>(raw);
     auto const *const uid = obj->getValue<json::JsonString>("id");
@@ -273,9 +284,26 @@ void Engine::_loadObject(const std::string &path) {
             const auto *const compData = comps->at(i);
             const auto compName = compData->getValue<json::JsonString>("name")->
                     getValue();
-            auto *comp = ComponentFactory::getInstance().create(
-                compName, object, compData);
-            object->addComponent(comp);
+            try {
+                auto *comp = ComponentFactory::getInstance().create(
+                    compName, object, compData);
+                if (comp != nullptr) {
+                    object->addComponent(comp);
+                } else {
+                    LOG.error << "Failed to create component: " << compName << '\n';
+                    LOG.error << "Object: " << uuid.getUuidString() << '\n';
+                    delete parser;
+                    delete object;
+                    return false;
+                }
+            } catch (const std::exception &e) {
+                LOG.error << "Failed to create component: " << compName << ", reason: "
+                        << e.what() << '\n';
+                LOG.error << "Object: " << uuid.getUuidString() << '\n';
+                delete parser;
+                delete object;
+                return false;
+            }
         }
     }
     std::vector<UUID> children;
@@ -288,37 +316,44 @@ void Engine::_loadObject(const std::string &path) {
         }
     }
     this->_objects[uuid] = std::make_pair(object, children);
+    delete parser;
+    return true;
 }
 
-void Engine::_loadScenes(const std::string &pathName) {
+bool Engine::_loadScenes(const std::string &pathName) {
     std::filesystem::path const path(pathName);
     const std::filesystem::directory_iterator start(path);
     const std::filesystem::directory_iterator end;
     for (auto ite = start; ite != end; ++ite) {
         if (ite->is_directory()) {
-            _loadScenes(ite->path().string());
+            if (!_loadScenes(ite->path().string())) {
+                return false;
+            }
         } else if (ite->is_regular_file() && ite->path().extension() == ".json") {
-            _loadScene(ite->path().string());
+            if (!_loadScene(ite->path().string())) {
+                return false;
+            }
         }
     }
+    return true;
 }
 
-void Engine::_loadScene(const std::string &path) {
+bool Engine::_loadScene(const std::string &path) {
     std::ifstream file(path);
     if (!file.is_open()) {
         LOG.error << "Failed to open file: " << path << '\n';
-        return;
+        return false;
     }
     auto *const parser = new json::JsonParser();
     const auto reader = json::JsonReader(parser);
     const json::IJsonObject *const raw = reader << file;
     if (raw == nullptr) {
         LOG.error << "Failed to parse file: " << path << '\n';
-        return;
+        return false;
     }
     if (!_isValideScene(raw)) {
         LOG.error << "Invalid scene file: " << path << '\n';
-        return;
+        return false;
     }
     auto const *const obj = dynamic_cast<const json::JsonObject *>(raw);
     auto const *const uid = obj->getValue<json::JsonString>("id");
@@ -336,5 +371,7 @@ void Engine::_loadScene(const std::string &path) {
     }
     SceneManager::getInstance().addScene(sceneUuid, scene); // TODO : Add scene position ?
     this->_scenes[sceneUuid] = scene;
+    delete parser;
+    return true;
 }
 

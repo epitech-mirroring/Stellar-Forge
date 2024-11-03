@@ -18,7 +18,7 @@
  * @since 0.1.0
  * @author Marius PAIN
  */
-class IError : std::exception {
+class IError : public std::exception {
 public:
  /**
   * @brief Default constructor

@@ -18,7 +18,7 @@ the ground up to support networked gameplay, modern graphics, and advanced game 
 - [Dependencies & Requirements](#dependencies--requirements)
 - [Supported Platforms](#supported-platforms)
 - [Build Instructions](#build-instructions)
-- [Usage Instructions](#usage-instructions)
+- [Documentation](#documentation)
 - [Example Games](#example-games)
 - [Authors & Contact](#authors--contact)
 - [Useful Links](#useful-links)
@@ -39,31 +39,58 @@ practices in software engineering.
 To build and run **Stellar Forge**, you will need:
 
 - **C++** compiler supporting C++17 or later
-- **SDL2** (Simple DirectMedia Layer) library for graphics, audio, and input handling
+- **SFML** (Simple and Fast Multimedia Library) for graphics, audio and input (For the 2D Game Engine)
 - **CMake** for building the project
-- **OTHER DEPENDENCIES** … (TO BE COMPLETED)
+- **Raylib** for graphics, audio and input (For the 3D Game Engine)
+- **GLM** (OpenGL Mathematics) for vector and matrix operations
 
 You can install the dependencies using your platform's package manager or follow the
-official documentation for each tool. (TO BE COMPLETED)
+official documentation for each tool.
 
 ## Supported Platforms
 
 - Windows 10+
-- Linux (Ubuntu 18.04+)
+- Linux (Fedora, Ubuntu, etc.)
 
 ## Build Instructions
 
-(To be completed)
+To build **Stellar Forge**, follow these steps:
 
-## Usage Instructions
+### Windows
 
-(To be completed)
+1. Clone the repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Launch the following commands:
+```bash
+./windows-build.ps1
+```
+4. Accept the installation of the dependencies.
+5. The project will be built in the `build` directory and the libraries will be copied at the root of the project.
+
+### Linux
+
+1. Clone the repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Launch the following commands: (You need to have sudo rights)
+```bash
+sudo ./linux-build.sh
+```
+4. Accept the installation of the dependencies.
+5. The project will be built in the `build` directory and the libraries will be copied at the root of the project.
+6. You can run the project by launching the executable in the `build` directory.
+
+## Documentation
+
+You can find the documentation for **Stellar Forge** in the [R-Type: Reborn](https://github.com/epitech-mirroring/R-Type-Reborn) repository or in the [Documentation](https://github.com/epitech-mirroring/R-Type-docs) repository.
+You can also find the documentation on the following website: [Stellar Forge Documentation](https://wiki.simon-gl.fr/en/home).
+If you have any questions or need help, feel free to reach out to the authors.
 
 ## Example Games
 
 **Stellar Forge** can be used to create a wide range of games, from classic arcade shooters to modern multiplayer experiences. Here are some examples of games that can be built using **Stellar Forge**:
-- Flappy-Bird-Reborn is a clone of the iconic game named Flappy Bird. Your goal is to survive and avoid the pipes that appears near you. [click here](https://github.com/epitech-mirroring/Flappy-Bird-Reborn) to try this game!
-- R-Type-Reborn is a modern reimagining of the classic arcade shoot 'em up, combining nostalgic gameplay with new features and enhancements. [click here](https://github.com/epitech-mirroring/R-Type-Reborn) to try this game!
+- **Flappy-Bird-Reborn**: is a clone of the iconic game named Flappy Bird. Your goal is to survive and avoid the pipes that appears near you. [click here](https://github.com/epitech-mirroring/Flappy-Bird-Reborn) to try this game!
+- **R-Type-Reborn**: is a modern reimagining of the classic arcade shoot 'em up, combining nostalgic gameplay with new features and enhancements. [click here](https://github.com/epitech-mirroring/R-Type-Reborn) to try this game!
+- **Demo Sample 3D Engine**: is a simple 3D game engine that demonstrates the capabilities of the Stellar Forge engine 3D. [click here](https://github.com/epitech-mirroring/Demo-Sample-3D-Engine) to try the demo!
 
 ## Authors & Contact
 
@@ -84,3 +111,4 @@ official documentation for each tool. (TO BE COMPLETED)
 - [Stellar Forge](https://github.com/epitech-mirroring/Stellar-Forge)
 - [Orion Editor](https://github.com/epitech-mirroring/Orion-Editor)
 - [R-Type: Reborn](https://github.com/epitech-mirroring/R-Type-Reborn)
+- [Documentation Repository](https://github.com/epitech-mirroring/R-Type-docs)

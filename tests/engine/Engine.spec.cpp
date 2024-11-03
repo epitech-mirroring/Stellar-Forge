@@ -63,3 +63,18 @@ TEST(Engine, dynamicComponentLoader) {
     ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Sprite"));
     ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Test1"));
 }
+
+TEST(Engine, badAssets) {
+    auto engine = Engine([] {
+                         }, "test", "./bad_assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ObjectManager const &objectManager = ObjectManager::getInstance();
+    const auto objects = objectManager.getObjects();
+    ASSERT_EQ(objects.size(), 0);
+
+    SceneManager const &sceneManager = SceneManager::getInstance();
+    const auto scenes = sceneManager.getScenes();
+    ASSERT_EQ(scenes.size(), 0);
+}

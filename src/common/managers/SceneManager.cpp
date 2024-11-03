@@ -8,6 +8,7 @@
 #include <algorithm>
 #include "SceneManager.hpp"
 #include "ManagerException.hpp"
+#include "../event/EventSystem.hpp"
 
 SceneManager &SceneManager::getInstance() {
     static SceneManager instance;
@@ -65,6 +66,7 @@ void SceneManager::switchToScene(const UUID &uuid) {
     if (scene != _sceneOrder.end()) {
         _currentSceneIndex = static_cast<int>(std::distance(
             _sceneOrder.begin(), scene));
+        EventSystem::getInstance().triggerEvents("scene_switched", nullptr);
     } else {
         throw ManagerException(
             "Scene with UUID " + uuid.getUuidString() + " does not exist.");

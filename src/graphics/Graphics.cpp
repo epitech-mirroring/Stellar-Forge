@@ -9,7 +9,6 @@
 #include "Graphics.hpp"
 
 #include "StellarForge/Common/components/Transform.hpp"
-#include "StellarForge/Common/event/EventSystem.hpp"
 #include "StellarForge/Common/managers/SceneManager.hpp"
 #include "components/IGraphicsComponent.hpp"
 
@@ -26,6 +25,9 @@ Graphics::Graphics(const int width, const int height, const std::string &title,
     sortedObjects.reserve(100);
     currentScene = SceneManager::getInstance().getCurrentScene();
     keysPressed.reserve(10);
+    EventSystem::getInstance().registerListener("scene_switched", [this](const EventData &data) {
+        this->listenToSwitchScene(data);
+    });
 }
 
 Graphics::~Graphics() {
@@ -213,6 +215,10 @@ void Graphics::catchEvents() {
             EventSystem::getInstance().triggerEvents("mouse_released", &event.mouseButton);
         }
     }
+}
+
+void Graphics::listenToSwitchScene(const EventData &data) {
+    setScene(SceneManager::getInstance().getCurrentScene());
 }
 
 void Graphics::render(const std::function<void(IObject *)> &updateFunction) {

@@ -85,6 +85,54 @@ public:
  void hideRect(bool hide);
 
  /**
+  * @brief Sets the text color for the UIButton.
+  * @param color The color to set for the text.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ void setTextColor(sf::Color *color);
+
+ /**
+  * @brief Sets the rectangle color for the UIButton.
+  * @param color The color to set for the rectangle.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ void setRectColor(sf::Color *color);
+
+ /**
+  * @brief Gets the text color for the UIButton.
+  * @return A pointer to the text color.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ sf::Color *getTextColor();
+
+ /**
+  * @brief Gets the rectangle color for the UIButton.
+  * @return A pointer to the rectangle color.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ sf::Color *getRectColor();
+
+ /**
+  * @brief Gets the text label for the UIButton.
+  * @return The text label for the UIButton.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ [[nodiscard]] std::string getLabel() const;
+
+ /**
+  * @brief Sets the text label for the UIButton.
+  * @param label The text label to set for the UIButton.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ void setLabel(const std::string &label);
+
+ /**
   * @brief Clones the UIButton for a different owner.
   * @param owner The new owner for the cloned UIButton.
   * @return A pointer to the cloned UIButton instance.

@@ -168,3 +168,32 @@ UIButton *UIButton::clone(IObject *owner) const {
     return new UIButton(owner, _rectX, _rectY, _width, _height, _buttonId, _label,
                         _charSize);
 }
+
+void UIButton::setTextColor(sf::Color *color) {
+    _textColor = color;
+    _text.setFillColor(*color);
+}
+
+void UIButton::setLabel(const std::string &label) {
+    _label = label;
+    _text.setString(label);
+    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
+}
+
+std::string UIButton::getLabel() const {
+    return _label;
+}
+
+void UIButton::setRectColor(sf::Color *color) {
+    _rectColor = color;
+    _rect.setFillColor(*color);
+}
+
+sf::Color *UIButton::getTextColor() {
+    return _textColor;
+}
+
+sf::Color *UIButton::getRectColor() {
+    return _rectColor;
+}

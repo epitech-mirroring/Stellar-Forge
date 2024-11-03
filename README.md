@@ -71,9 +71,9 @@ To build **Stellar Forge**, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Open a terminal and navigate to the project directory.
-3. Launch the following commands:
+3. Launch the following commands: (You need to have sudo rights)
 ```bash
-./linux-build.sh
+sudo ./linux-build.sh
 ```
 4. Accept the installation of the dependencies.
 5. The project will be built in the `build` directory and the libraries will be copied at the root of the project.

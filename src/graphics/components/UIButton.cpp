@@ -25,8 +25,8 @@ UIButton::UIButton(IObject *owner, const float rectX, const float rectY,
     _text.setString(_label);
     _text.setCharacterSize(charSize);
     _text.setFillColor(*_textColor);
-    _text.setPosition(rectX + (width / 2) - (_text.getGlobalBounds().width / 2),
-                      rectY + (height / 2) - (_text.getGlobalBounds().height / 2));
+    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
     _rect.setSize(sf::Vector2f(width, height));
     _rect.setPosition(rectX, rectY);
     _rect.setFillColor(*_rectColor);
@@ -41,7 +41,7 @@ UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(
     _text.setCharacterSize(_charSize);
     _text.setFillColor(*_textColor);
     _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
     _rect.setSize(sf::Vector2f(_width, _height));
     _rect.setPosition(_rectX, _rectY);
     _rect.setFillColor(*_rectColor);
@@ -178,7 +178,7 @@ void UIButton::setLabel(const std::string &label) {
     _label = label;
     _text.setString(label);
     _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
 }
 
 std::string UIButton::getLabel() const {

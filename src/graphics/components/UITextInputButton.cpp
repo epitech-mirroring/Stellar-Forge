@@ -47,8 +47,8 @@ UITextInputButton::UITextInputButton(IObject *owner, const json::JsonObject *dat
   _text.setString(_label);
   _text.setCharacterSize(_charSize);
   _text.setFillColor(*_textColor);
-  _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                    _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2));
+    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                        _rectY + (_height / 2) - (_text.getGlobalBounds().height));
   _rect.setSize(sf::Vector2f(_width, _height));
   _rect.setPosition(_rectX, _rectY);
   _rect.setFillColor(*_rectColor);
@@ -171,6 +171,13 @@ UITextInputButton::Meta::getFieldGroups() const {
 
 void UITextInputButton::toggleWriting(const EventData &eventData) {
    _writing = inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data));
+   if (_writing) {
+       EventSystem::getInstance().triggerEvents(
+            "button_" + this->_buttonId + "_start_writing", nullptr);
+   } else {
+       EventSystem::getInstance().triggerEvents(
+              "button_" + this->_buttonId + "_stop_writing", nullptr);
+   }
 }
 
 void UITextInputButton::listenToKeys(const EventData &eventData) {
@@ -189,6 +196,8 @@ void UITextInputButton::listenToKeys(const EventData &eventData) {
       }
     } else if (key == "enter") {
       _writing = false;
+      EventSystem::getInstance().triggerEvents(
+        "button_" + this->_buttonId + "_stop_writing", nullptr);
     } else if (key == "left-shift") {
       _capsLock = true;
     } else {
@@ -208,5 +217,7 @@ void UITextInputButton::listenToKeys(const EventData &eventData) {
       }
     }
       _text.setString(_label);
+      _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
   }
 }

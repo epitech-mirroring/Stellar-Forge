@@ -26,7 +26,7 @@ UIButton::UIButton(IObject *owner, const float rectX, const float rectY,
     _text.setCharacterSize(charSize);
     _text.setFillColor(*_textColor);
     _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2) - 5);
     _rect.setSize(sf::Vector2f(width, height));
     _rect.setPosition(rectX, rectY);
     _rect.setFillColor(*_rectColor);
@@ -41,7 +41,7 @@ UIButton::UIButton(IObject *owner, const json::JsonObject *data) : Button(
     _text.setCharacterSize(_charSize);
     _text.setFillColor(*_textColor);
     _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2) - 5);
     _rect.setSize(sf::Vector2f(_width, _height));
     _rect.setPosition(_rectX, _rectY);
     _rect.setFillColor(*_rectColor);
@@ -98,6 +98,10 @@ UIButton::Meta::Meta(UIButton *owner)
         new ColorField("TextColor", "The color of the text",
          [this](const std::vector<unsigned char> &color) {
              this->_owner->_textColor = new sf::Color();
+             if (color.size() != 4) {
+                 this->_owner->_textColor = new sf::Color(255, 255, 255, 255);
+                    return;
+             }
              this->_owner->_textColor->r = color[0];
              this->_owner->_textColor->g = color[1];
              this->_owner->_textColor->b = color[2];
@@ -127,6 +131,10 @@ UIButton::Meta::Meta(UIButton *owner)
         new ColorField("Color", "The color of the cube",
          [this](const std::vector<unsigned char> &color) {
              this->_owner->_rectColor = new sf::Color();
+             if (color.size() != 4) {
+                 this->_owner->_rectColor = new sf::Color(100, 100, 100, 255);
+                    return;
+             }
              this->_owner->_rectColor->r = color[0];
              this->_owner->_rectColor->g = color[1];
              this->_owner->_rectColor->b = color[2];
@@ -178,7 +186,7 @@ void UIButton::setLabel(const std::string &label) {
     _label = label;
     _text.setString(label);
     _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
-                      _rectY + (_height / 2) - (_text.getGlobalBounds().height));
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2) - 5);
 }
 
 std::string UIButton::getLabel() const {
@@ -204,4 +212,6 @@ void UIButton::setFont(const std::string &fontPath) {
             "Failed to load font from file: " + std::string(fontPath));
     }
     _text.setFont(_font);
+    _text.setPosition(_rectX + (_width / 2) - (_text.getGlobalBounds().width / 2),
+                      _rectY + (_height / 2) - (_text.getGlobalBounds().height / 2) - 5);
 }

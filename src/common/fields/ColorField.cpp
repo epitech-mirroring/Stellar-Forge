@@ -8,6 +8,7 @@
 #include "ColorField.hpp"
 #include <iostream>
 #include "../json/JsonNumber.hpp"
+#include <vector>
 
 ColorField::ColorField(std::string name, std::string description,
                        const std::function<void(std::vector<unsigned char>)> &setCallback,
@@ -41,6 +42,9 @@ json::JsonObject *ColorField::serialize() const {
 }
 
 void ColorField::deserialize(const json::IJsonObject *data) {
+    if (data == nullptr) {
+        return;
+    }
     if (data->getType() == json::OBJECT) {
         if (const auto *const obj = dynamic_cast<const json::JsonObject *>(data);
             obj->contains("r") && obj->contains("g") && obj->contains("b") && obj->contains("a")) {

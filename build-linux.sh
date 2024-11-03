@@ -14,7 +14,6 @@ fi
 os=$(uname -a)
 os_type=""
 
-
 # Function to print info messages in yellow color
 info() {
   echo -e "\033[1;33m[info] $1\033[0m"
@@ -57,6 +56,7 @@ fi
 # for fedora based systems check if build-essential is installed
 if [ $os_type == "fedora" ]; then
     info "Checking if build-essential is installed..."
+    dnf install libstdc++-static
     dnf install -y make automake gcc gcc-c++ kernel-devel
 fi
 
@@ -206,4 +206,8 @@ info "Number of threads available for build: $NUM_THREADS"
 
 # Build the project with CMake
 info "Building the project with CMake..."
-cmake --build build --target StellarForge -- -j "$NUM_THREADS"
+cmake --build build -j "$NUM_THREADS"
+
+#Copy the binary to the root directory if exist replace it
+info "Copying the binary to the root directory..."
+cp -f ./build/lib/*.a ./

@@ -81,6 +81,7 @@ cd ../../
 
 # Set-up the remote
 conan remote add Epitech-Mirroring https://nexus.place2die.com/repository/Epitech-Mirroring/
+load_env
 echo "Logging in to Epitech-Mirroring with user $NEXUS_USER"
 conan remote login Epitech-Mirroring "$NEXUS_USER" -p="$NEXUS_PASSWORD"
 

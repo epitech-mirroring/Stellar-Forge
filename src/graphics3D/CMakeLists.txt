@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(StellarForgeGraphics3D
         LANGUAGES CXX
-        VERSION 0.2.0
+        VERSION 0.3.0
         DESCRIPTION "3D Graphics components and utilities for StellarForge"
 )
 

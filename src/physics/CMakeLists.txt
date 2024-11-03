@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(StellarForgePhysics
         LANGUAGES CXX
-        VERSION 0.2.0
+        VERSION 0.3.0
         DESCRIPTION "Physics components for StellarForge"
 )
 

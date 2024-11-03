@@ -39,3 +39,4 @@ target_link_libraries(StellarForgeTests
 )
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR}/tests)
+file(COPY bad_assets DESTINATION ${CMAKE_BINARY_DIR}/tests)

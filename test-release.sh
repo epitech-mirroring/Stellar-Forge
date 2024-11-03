@@ -1,7 +1,7 @@
 #!/bin/bash
 
 conan remote remove Epitech-Mirroring
-conan remove '*' -c
+conan remove 'stellar-forge*' -c
 conan cache clean '*'
 conan profile detect --force
 
@@ -73,7 +73,7 @@ cd "build" && \
 conan install .. --build=missing -s:a build_type=Debug && \
 cd .. && \
 cmake --preset conan-debug && \
-cmake --build build/Debug && \
+cmake --build build/Debug --target StellarForgeTests && \
 cd build/Debug && \
 cd tests && \
 ./StellarForgeTests

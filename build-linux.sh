@@ -14,6 +14,18 @@ fi
 os=$(uname -a)
 os_type=""
 
+#Choose the package manager based on the os type
+if [[ $os == *"debian"* ]]; then
+  package_manager="apt-get"
+  os_type="debian"
+elif [[ $os == *"fedora"* ]]; then
+  package_manager="dnf"
+  os_type="fedora"
+else
+  echo "Unsupported OS"
+  exit 1
+fi
+
 # Function to print info messages in yellow color
 info() {
   echo -e "\033[1;33m[info] $1\033[0m"

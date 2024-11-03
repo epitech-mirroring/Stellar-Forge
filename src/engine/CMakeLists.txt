@@ -20,6 +20,7 @@ find_package(stellar-forge-graphics REQUIRED)
 find_package(stellar-forge-physics REQUIRED)
 find_package(glm REQUIRED)
 find_package(SFML REQUIRED COMPONENTS graphics window system)
+find_package(lua-cpp REQUIRED)
 target_link_libraries(StellarForge
         PUBLIC
         stellar-forge-common::stellar-forge-common
@@ -27,13 +28,17 @@ target_link_libraries(StellarForge
         stellar-forge-physics::stellar-forge-physics
         sfml::sfml
         glm::glm
+        lua-cpp::lua-cpp
+        lua
 )
 
 target_sources(StellarForge
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/Engine.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/LuaScriptComponent.hpp
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Engine.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/LuaScriptComponent.cpp
 )
 
 install(TARGETS StellarForge

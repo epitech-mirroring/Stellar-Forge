@@ -11,6 +11,8 @@
 #include "StellarForge/Common/components/AComponent.hpp"
 #include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 
+#include <LuaCpp/LuaCpp.hpp>
+
 /**
  * @class UIText
  * @brief A class for rendering text as a graphical component.
@@ -19,7 +21,7 @@
  * @since v0.1.0
  * @author Aubane NOURRY
  */
-class UIText final : public AComponent, IGraphicsComponent {
+class UIText final : public AComponent, IGraphicsComponent, public LuaCpp::LuaMetaObject {
 public:
  /**
   * @brief Constructor for the UIText class.
@@ -167,6 +169,12 @@ private:
  std::string fontPath; /**< The file path to the font. */
  unsigned int fontSize; /**< The font size to use. */
  sf::Color color; /**< The color of the text. */
+
+ // LuaMetaObject methods
+
+    std::shared_ptr<LuaType> getValue(std::string &key) override;
+
+    void setValue(std::string &key, std::shared_ptr<LuaType> value) override;
 };
 
 #endif //UITEXT_HPP

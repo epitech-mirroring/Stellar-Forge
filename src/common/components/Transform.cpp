@@ -14,8 +14,8 @@
 #include "../json/JsonObject.hpp"
 
 Transform::Transform(IObject *owner, const json::JsonObject *data): AComponent(
-        owner, new Meta(this), data), _position(Vector3(0, 0, 0)),
-    _rotation(glm::quat(1, 0, 0, 0)), _scale(Vector3(1, 1, 1)) {
+        owner, new Meta(this), data), _position(0, 0, 0),
+    _rotation(glm::quat(1, 0, 0, 0)), _scale(1, 1, 1) {
     this->deserializeFields(data);
 }
 
@@ -141,4 +141,77 @@ Vector3 &Transform::getScale() {
 Transform *Transform::clone(IObject *owner) const {
     return new Transform(owner, this->_position,
                          this->_rotation, this->_scale);
+}
+
+using LuaType = LuaCpp::Engine::LuaType;
+using LuaTNumber = LuaCpp::Engine::LuaTNumber;
+using LuaTNil = LuaCpp::Engine::LuaTNil;
+
+std::shared_ptr<LuaType> Transform::getValue(std::string &key) {
+    std::cout << "Getting value for key: " << key << std::endl;
+    if (key == "position_x") {
+        return std::make_shared<LuaTNumber>(this->_position.x);
+    }
+    if (key == "position_y") {
+        return std::make_shared<LuaTNumber>(this->_position.y);
+    }
+    if (key == "position_z") {
+        return std::make_shared<LuaTNumber>(this->_position.z);
+    }
+    if (key == "rotation_x") {
+        return std::make_shared<LuaTNumber>(this->_rotation.x);
+    }
+    if (key == "rotation_y") {
+        return std::make_shared<LuaTNumber>(this->_rotation.y);
+    }
+    if (key == "rotation_z") {
+        return std::make_shared<LuaTNumber>(this->_rotation.z);
+    }
+    if (key == "rotation_w") {
+        return std::make_shared<LuaTNumber>(this->_rotation.w);
+    }
+    if (key == "scale_x") {
+        return std::make_shared<LuaTNumber>(this->_scale.x);
+    }
+    if (key == "scale_y") {
+        return std::make_shared<LuaTNumber>(this->_scale.y);
+    }
+    if (key == "scale_z") {
+        return std::make_shared<LuaTNumber>(this->_scale.z);
+    }
+    return std::make_shared<LuaTNil>();
+}
+
+void Transform::setValue(std::string &key, std::shared_ptr<LuaType> value) {
+    std::cout << "Setting value for key: " << key << std::endl;
+    if (key == "position_x") {
+        this->_position.x = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "position_y") {
+        this->_position.y = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "position_z") {
+        this->_position.z = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "rotation_x") {
+        this->_rotation.x = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "rotation_y") {
+        this->_rotation.y = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "rotation_z") {
+        this->_rotation.z = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "rotation_w") {
+        this->_rotation.w = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "scale_x") {
+        this->_scale.x = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "scale_y") {
+        this->_scale.y = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "scale_z") {
+        this->_scale.z = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
 }

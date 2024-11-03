@@ -37,6 +37,7 @@
 #include "StellarForge/Physics/Box.hpp"
 #include "StellarForge/Physics/Sphere.hpp"
 #include "StellarForge/Common/fields/ComponentField.hpp"
+#include "LuaScriptComponent.hpp"
 
 void Engine::_registerComponents() {
     REGISTER_COMPONENT(Transform);
@@ -50,6 +51,7 @@ void Engine::_registerComponents() {
     REGISTER_COMPONENT(Box);
     REGISTER_COMPONENT(Sphere);
     REGISTER_COMPONENT(AudioSource);
+    REGISTER_COMPONENT(LuaScriptComponent);
 }
 
 void Engine::_registerLoggerScopes() {
@@ -80,6 +82,16 @@ Engine::Engine(const std::function<void()> &initComponents,
     for (const auto &[uuid, obj]: _objects) {
         if (obj.first->getParent() == nullptr) {
             ObjectManager::getInstance().addObject(uuid, obj.first);
+        }
+    }
+    //look at each objects and remove any null component
+    label:
+    for (auto [_, obj]: ObjectManager::getInstance().getObjects()) {
+        for (auto *comp: obj->getComponents()) {
+            if (comp == nullptr) {
+                obj->removeComponent(comp);
+                goto label;
+            }
         }
     }
     for (auto [_, obj]: ObjectManager::getInstance().getObjects()) {

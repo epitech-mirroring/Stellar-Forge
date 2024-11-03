@@ -17,7 +17,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 add_library(StellarForgeCommon STATIC)
 find_package(glm REQUIRED)
 find_package(lua-cpp REQUIRED)
-target_link_libraries(StellarForgeCommon PUBLIC glm::glm lua-cpp::lua-cpp)
+target_link_libraries(StellarForgeCommon PUBLIC glm::glm lua-cpp::lua-cpp lua)
 set_target_properties(StellarForgeCommon PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # If windows add DbgHelp for stack traces

@@ -15,6 +15,8 @@
 #include "StellarForge/Common/fields/groups/InvisibleFieldGroup.hpp"
 #include "../Collider.hpp"
 
+#include <LuaCpp/LuaCpp.hpp>
+
 /**
  * @class RigidBody
  * @brief Represents a rigid body component in the physics system.
@@ -22,7 +24,7 @@
  * @since v0.1.0
  * @author landry GIGANT
  */
-class RigidBody final : public AComponent {
+class RigidBody final : public AComponent, public LuaCpp::LuaMetaObject {
 public:
  glm::vec3 _velocity; ///< The velocity of the rigid body.
  glm::vec3 _acceleration; ///< The acceleration of the rigid body.
@@ -123,6 +125,12 @@ public:
 
 protected:
  [[nodiscard]] json::IJsonObject *serializeData() const override;
+
+ // LuaMetaObject methods
+public:
+    std::shared_ptr<LuaType> getValue(std::string &key) override;
+
+    void setValue(std::string &key, std::shared_ptr<LuaType> value) override;
 };
 
 #endif //STELLARFORGE_RIGIDBODY_HPP

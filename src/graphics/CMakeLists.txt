@@ -18,7 +18,8 @@ add_library(StellarForgeGraphics STATIC)
 find_package(SFML REQUIRED COMPONENTS graphics window system)
 find_package(glm REQUIRED)
 find_package(stellar-forge-common REQUIRED)
-target_link_libraries(StellarForgeGraphics PUBLIC stellar-forge-common::stellar-forge-common sfml::sfml glm::glm)
+find_package(lua-cpp REQUIRED)
+target_link_libraries(StellarForgeGraphics PUBLIC stellar-forge-common::stellar-forge-common sfml::sfml glm::glm lua-cpp::lua-cpp lua)
 
 add_subdirectory(components)
 

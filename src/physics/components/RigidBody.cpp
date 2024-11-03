@@ -145,3 +145,62 @@ void RigidBody::deserialize(const json::IJsonObject *data) {
 RigidBody *RigidBody::clone(IObject *owner) const {
     return new RigidBody(owner);
 }
+
+using LuaType = LuaCpp::Engine::LuaType;
+using LuaTNumber = LuaCpp::Engine::LuaTNumber;
+using LuaTNil = LuaCpp::Engine::LuaTNil;
+
+std::shared_ptr<LuaType> RigidBody::getValue(std::string &key) {
+    if (key == "velocity_x") {
+        return std::make_shared<LuaTNumber>(_velocity.x);
+    }
+    if (key == "velocity_y") {
+        return std::make_shared<LuaTNumber>(_velocity.y);
+    }
+    if (key == "velocity_z") {
+        return std::make_shared<LuaTNumber>(_velocity.z);
+    }
+    if (key == "acceleration_x") {
+        return std::make_shared<LuaTNumber>(_acceleration.x);
+    }
+    if (key == "acceleration_y") {
+        return std::make_shared<LuaTNumber>(_acceleration.y);
+    }
+    if (key == "acceleration_z") {
+        return std::make_shared<LuaTNumber>(_acceleration.z);
+    }
+    if (key == "terminal_velocity") {
+        return std::make_shared<LuaTNumber>(_terminalVelocity);
+    }
+    if (key == "drag") {
+        return std::make_shared<LuaTNumber>(_drag);
+    }
+    return std::make_shared<LuaTNil>();
+}
+
+void RigidBody::setValue(std::string &key, std::shared_ptr<LuaType> value) {
+    if (key == "velocity_x") {
+        _velocity.x = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "velocity_y") {
+        _velocity.y = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "velocity_z") {
+        _velocity.z = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "acceleration_x") {
+        _acceleration.x = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "acceleration_y") {
+        _acceleration.y = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "acceleration_z") {
+        _acceleration.z = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "terminal_velocity") {
+        _terminalVelocity = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "drag") {
+        _drag = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+}

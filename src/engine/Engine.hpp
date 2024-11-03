@@ -31,9 +31,9 @@ public:
 
     ~Engine();
 
-private:
     static void _startGraphics(const std::string &gameName);
 
+private:
     static void _registerComponents();
 
     static void _registerLoggerScopes();

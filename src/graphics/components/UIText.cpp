@@ -12,6 +12,7 @@
 #endif
 #include "StellarForge/Common/components/Transform.hpp"
 #include "StellarForge/Common/fields/StringField.hpp"
+#include "StellarForge/Common/fields/IntField.hpp"
 #include "StellarForge/Common/json/JsonNull.hpp"
 #include "StellarForge/Common/json/JsonNumber.hpp"
 #include "../GraphicsException.hpp"
@@ -120,8 +121,18 @@ UIText::Meta::Meta(UIText *owner)
                                       this->_owner->setText(value);
                                   },
                                   [this] { return this->_owner->textString; });
-    auto *colorField = new ColorField("Color", "The color of the cube",
+    auto *fontSizeField = new IntField("FontSize", "The size of the text",
+                                       [this](const int &value) {
+                                           this->_owner->fontSize = value;
+                                             this->_owner->text.setCharacterSize(value);
+                                       },
+                                       [this] { return this->_owner->fontSize; });
+    auto *colorField = new ColorField("Color", "The color of the text",
         [this](const std::vector<unsigned char> &color) {
+            if (color.size() != 4) {
+                 this->_owner->color = new sf::Color(255, 255, 255, 255);
+                    return;
+             }
             this->_owner->color = new sf::Color();
             this->_owner->color->r = color[0];
             this->_owner->color->g = color[1];
@@ -135,7 +146,7 @@ UIText::Meta::Meta(UIText *owner)
                  this->_owner->color->a
              };
          });
-    _fieldGroup = InvisibleFieldGroup({field, colorField});
+    _fieldGroup = InvisibleFieldGroup({field, fontSizeField, colorField});
 }
 
 std::string UIText::Meta::getName() const {

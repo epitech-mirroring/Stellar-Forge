@@ -73,7 +73,7 @@ cd "build" && \
 conan install .. --build=missing -s:a build_type=Debug && \
 cd .. && \
 cmake --preset conan-debug && \
-cmake --build build/Debug && \
+cmake --build build/Debug --target StellarForgeTests && \
 cd build/Debug && \
 cd tests && \
 ./StellarForgeTests

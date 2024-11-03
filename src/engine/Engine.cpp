@@ -268,7 +268,13 @@ bool Engine::_loadObject(const std::string &path) {
     auto const *const comps = obj->getValue<json::JsonArray<json::JsonObject> >(
         "components");
     auto uuid = UUID();
-    uuid.setUuidFromString(uid->getValue());
+    try {
+        uuid.setUuidFromString(uid->getValue());
+    } catch (const std::exception &e) {
+        LOG.error << "Failed to parse UUID: " << e.what() << '\n';
+        delete parser;
+        return false;
+    }
     std::string name;
     if (meta->contains("name")) {
         auto const *const rawName = meta->getValue<json::JsonString>("name");
@@ -311,7 +317,14 @@ bool Engine::_loadObject(const std::string &path) {
         for (int i = 0; i < child->size(); i++) {
             const auto *const childData = child->getValue(i);
             UUID childUuid;
-            childUuid.setUuidFromString(childData->getValue());
+            try {
+                childUuid.setUuidFromString(childData->getValue());
+            } catch (const std::exception &e) {
+                LOG.error << "Failed to parse UUID: " << e.what() << '\n';
+                delete parser;
+                delete object;
+                return false;
+            }
             children.push_back(childUuid);
         }
     }
@@ -359,13 +372,26 @@ bool Engine::_loadScene(const std::string &path) {
     auto const *const uid = obj->getValue<json::JsonString>("id");
     auto const *const objs = obj->getValue<json::JsonArray<json::JsonString> >("objects");
     auto sceneUuid = UUID();
-    sceneUuid.setUuidFromString(uid->getValue());
+    try {
+        sceneUuid.setUuidFromString(uid->getValue());
+    } catch (const std::exception &e) {
+        LOG.error << "Failed to parse UUID: " << e.what() << '\n';
+        delete parser;
+        return false;
+    }
     auto *scene = new VirtualScene();
     if (objs != nullptr) {
         for (int i = 0; i < objs->size(); i++) {
             const auto *const objData = objs->getValue(i);
             UUID objUuid;
-            objUuid.setUuidFromString(objData->getValue());
+            try {
+                objUuid.setUuidFromString(objData->getValue());
+            } catch (const std::exception &e) {
+                LOG.error << "Failed to parse UUID: " << e.what() << '\n';
+                delete parser;
+                delete scene;
+                return false;
+            }
             scene->addObject(_objects[objUuid].first);
         }
     }

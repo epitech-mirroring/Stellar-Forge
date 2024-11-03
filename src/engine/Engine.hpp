@@ -29,22 +29,22 @@ public:
            const std::function<void(const std::string &gameName)> &startGraphics =
                    _startGraphics);
 
-    ~Engine() = default;
+    ~Engine();
 
-private:
     static void _startGraphics(const std::string &gameName);
 
+private:
     static void _registerComponents();
 
     static void _registerLoggerScopes();
 
-    void _loadObjects(const std::string &pathName);
+    bool _loadObjects(const std::string &pathName);
 
-    void _loadObject(const std::string &path);
+    bool _loadObject(const std::string &path);
 
-    void _loadScenes(const std::string &pathName);
+    bool _loadScenes(const std::string &pathName);
 
-    void _loadScene(const std::string &path);
+    bool _loadScene(const std::string &path);
 
     static bool _isValideScene(const json::IJsonObject *data);
 

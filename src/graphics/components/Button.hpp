@@ -72,7 +72,7 @@ public:
   * @version v0.1.0
   * @since v0.1.0
   */
- [[nodiscard]] json::IJsonObject *serializeData() override;
+ [[nodiscard]] json::IJsonObject *serializeData() const override;
 
  /**
   * @brief Deserializes the button component's data from JSON format.
@@ -122,6 +122,14 @@ public:
   * @since v0.1.0
   */
  void runComponent() override;
+
+ /**
+  * @brief Gets the identifier of the button.
+  * @return The identifier of the button.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ std::string getButtonId() const;
 
  /**
   * @class Meta

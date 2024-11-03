@@ -1,7 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
-STELLAR_FORGE_VERSION = "v0.1.0"
+STELLAR_FORGE_VERSION = "rc-v0.2.0"
 
 
 class StellarForge(ConanFile):
@@ -17,7 +17,11 @@ class StellarForge(ConanFile):
         self.requires("stellar-forge-physics/" + STELLAR_FORGE_VERSION)
         self.requires("stellar-forge-graphics/" + STELLAR_FORGE_VERSION)
         self.requires("stellar-forge/" + STELLAR_FORGE_VERSION)
+        self.requires("stellar-forge-graphics-3d/" + STELLAR_FORGE_VERSION)
+        self.requires("stellar-forge-3d/" + STELLAR_FORGE_VERSION)
         self.requires("gtest/1.15.0")
+        self.requires("raylib/4.0.0")
+        self.requires("glfw/3.4.0")
 
     def layout(self):
         cmake_layout(self)

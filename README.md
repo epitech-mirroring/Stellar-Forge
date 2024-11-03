@@ -4,7 +4,7 @@
 
 ![EPITECH Project](https://img.shields.io/badge/EPITECH-2024-007EC6?style=for-the-badge&logo=epitech&logoColor=white)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![SDL2](https://img.shields.io/badge/SDL2-FFCC00?style=for-the-badge&logo=SDL2&logoColor=white)
+![SFML](https://img.shields.io/badge/SFML-184F9C?style=for-the-badge&logo=SFML&logoColor=green)
 ![CMake](https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
 ![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
@@ -18,7 +18,8 @@ the ground up to support networked gameplay, modern graphics, and advanced game 
 - [Dependencies & Requirements](#dependencies--requirements)
 - [Supported Platforms](#supported-platforms)
 - [Build Instructions](#build-instructions)
-- [Usage Instructions](#usage-instructions)
+- [Documentation](#documentation)
+- [Example Games](#example-games)
 - [Authors & Contact](#authors--contact)
 - [Useful Links](#useful-links)
 
@@ -38,38 +39,84 @@ practices in software engineering.
 To build and run **Stellar Forge**, you will need:
 
 - **C++** compiler supporting C++17 or later
-- **SDL2** (Simple DirectMedia Layer) library for graphics, audio, and input handling
+- **SFML** (Simple and Fast Multimedia Library) for graphics, audio and input (For the 2D Game Engine)
 - **CMake** for building the project
-- **OTHER DEPENDENCIES** … (TO BE COMPLETED)
+- **Raylib** for graphics, audio and input (For the 3D Game Engine)
+- **GLM** (OpenGL Mathematics) for vector and matrix operations
+- **Conan** for managing dependencies
 
 You can install the dependencies using your platform's package manager or follow the
-official documentation for each tool. (TO BE COMPLETED)
+official documentation for each tool.
 
 ## Supported Platforms
 
 - Windows 10+
-- Linux (Ubuntu 18.04+)
+- Linux (Fedora, Ubuntu, etc.)
 
 ## Build Instructions
 
-(To be completed)
+To build **Stellar Forge**, follow these steps:
 
-## Usage Instructions
+### Windows
 
-(To be completed)
+1. Clone the repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Launch the following commands:
+
+```bash
+./build-windows.ps1
+```
+
+4. Accept the installation of the dependencies.
+5. The project will be built in the `build` directory and the libraries will be copied at the root of the project.
+
+### Linux
+
+1. Clone the repository to your local machine.
+2. Open a terminal and navigate to the project directory.
+3. Launch the following commands: (You need to have sudo rights)
+
+```bash
+sudo ./build-linux.sh
+```
+
+4. Accept the installation of the dependencies.
+5. The project will be built in the `build` directory and the libraries will be copied at the root of the project.
+
+## Documentation
+
+You can find the documentation for **Stellar Forge** in
+the [R-Type: Reborn](https://github.com/epitech-mirroring/R-Type-Reborn) repository or in
+the [Documentation](https://github.com/epitech-mirroring/R-Type-docs) repository.
+You can also find the documentation on the following
+website: [Stellar Forge Documentation](https://wiki.simon-gl.fr/en/home).
+If you have any questions or need help, feel free to reach out to the authors.
+
+## Example Games
+
+**Stellar Forge** can be used to create a wide range of games, from classic arcade shooters to modern multiplayer
+experiences. Here are some examples of games that can be built using **Stellar Forge**:
+
+- **Flappy-Bird-Reborn**: is a clone of the iconic game named Flappy Bird. Your goal is to survive and avoid the pipes
+  that appears near you. [click here](https://github.com/epitech-mirroring/Flappy-Bird-Reborn) to try this game!
+- **R-Type-Reborn**: is a modern reimagining of the classic arcade shoot 'em up, combining nostalgic gameplay with new
+  features and enhancements. [click here](https://github.com/epitech-mirroring/R-Type-Reborn) to try this game!
+- **Demo Sample 3D Engine**: is a simple 3D game engine that demonstrates the capabilities of the Stellar Forge engine
+  3D. [click here](https://github.com/epitech-mirroring/Demo-Sample-3D-Engine) to try the demo!
 
 ## Authors & Contact
 
-- **Marius PAIN
-  ** - [LinkedIn](https://www.linkedin.com/in/marius-pain/) - [GitHub](https://github.com/Marius-P1)
-- **Aubane NOURRY
-  ** - [LinkedIn](https://www.linkedin.com/in/aubane-nourry/) - [GitHub](https://github.com/AubaneNourry)
-- **Simon GANIER-LOMBARD
-  ** - [LinkedIn](https://www.linkedin.com/in/simon-ganier-lombard/) - [GitHub](https://github.com/6im0n)
-- **Axel ECKENBERG
-  ** - [LinkedIn](https://www.linkedin.com/in/axel-eckenberg-483061224/) - [GitHub](https://github.com/RenardFute)
-- **Landry GIGANT
-  ** - [LinkedIn](https://www.linkedin.com/in/landry-gigant-92004627b/) - [GitHub](https://github.com/landryarki)
+<table>
+    <tbody>
+        <tr>
+            <td align="center"><a href="https://github.com/Marius-P1/"><img src="https://avatars.githubusercontent.com/u/114705049?&=4" width="100px;" alt="Marius-P1"/><br/><sub><b>Marius PAIN</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/AubaneNourry/"><img src="https://avatars.githubusercontent.com/u/114694895?v=4" width="100px;" alt="AubaneNourry"/><br/><sub><b>Aubane NOURRY</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/6im0n/"><img src="https://avatars.githubusercontent.com/u/46846093?v=4" width="100px;" alt="6im0n"/><br/><sub><b>Simon GANIER-LOMBARD</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/RenardFute/"><img src="https://avatars.githubusercontent.com/u/38489683?v=4" width="100px;" alt="RenardFute"/><br/><sub><b>Axel ECKENBERG</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/landryarki/"><img src="https://avatars.githubusercontent.com/u/114699649?v=4" width="100px;" alt="landryarki"/><br/><sub><b>Landry GIGANT</b></sub></a><br/></td>
+        </tr>
+    </tbody>
+</table>
 
 ## Useful Links
 
@@ -77,3 +124,4 @@ official documentation for each tool. (TO BE COMPLETED)
 - [Stellar Forge](https://github.com/epitech-mirroring/Stellar-Forge)
 - [Orion Editor](https://github.com/epitech-mirroring/Orion-Editor)
 - [R-Type: Reborn](https://github.com/epitech-mirroring/R-Type-Reborn)
+- [Documentation Repository](https://github.com/epitech-mirroring/R-Type-docs)

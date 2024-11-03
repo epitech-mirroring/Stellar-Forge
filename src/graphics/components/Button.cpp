@@ -54,7 +54,7 @@ Button::Button(IObject *owner, const json::JsonObject *data): AComponent(
                                                 });
 }
 
-json::IJsonObject *Button::serializeData() {
+json::IJsonObject *Button::serializeData() const {
     return new json::JsonNull();
 }
 
@@ -89,6 +89,10 @@ void Button::onReleased(const EventData &eventData) const {
 }
 
 void Button::runComponent() {
+}
+
+std::string Button::getButtonId() const {
+    return this->_buttonId;
 }
 
 Button::Meta::Meta(Button *owner)

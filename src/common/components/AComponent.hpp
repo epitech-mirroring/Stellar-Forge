@@ -138,6 +138,24 @@ public:
  */
  void onDeletion() override;
 
+ /**
+  * @brief Get the UUID of the component
+  * @return the UUID of the component
+  * @version v0.1.0
+  * @since v0.1.0
+  * @author Landry GIGANT
+  */
+ [[nodiscard]] UUID getUUID() const override;
+
+ /**
+ * @brief Set the UUID of the component
+ * @param uuid The UUID of the component
+ * @version v0.1.0
+ * @since v0.1.0
+ * @author Landry GIGANT
+ */
+ void setUUID(UUID uuid) override;
+
 protected:
  /**
   * @brief The constructor of the AComponent class
@@ -168,11 +186,13 @@ protected:
 
  bool _isActive; //< The state of the component
 
- [[nodiscard]] virtual json::IJsonObject *serializeData() = 0;
+ [[nodiscard]] virtual json::IJsonObject *serializeData() const = 0;
 
  void deserializeFields(const json::JsonObject *data) const;
 
  Logger LOG;
+
+ UUID _uuid;
 };
 
 #endif //ACOMPONENT_HPP

@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 
+#include "StellarForge/Common/components/DynamicComponentLoader.hpp"
 #include "StellarForge/Common/components/Transform.hpp"
 #include "StellarForge/Common/managers/ObjectManager.hpp"
 #include "StellarForge/Common/managers/SceneManager.hpp"
@@ -49,4 +50,31 @@ TEST(Engine, ally) {
     const auto objectsInScene = scene->getObjects();
     ASSERT_EQ(objectsInScene.size(), 1);
     ASSERT_EQ(objectsInScene.at(0)->getMeta().getName(), "Ally");
+}
+
+TEST(Engine, dynamicComponentLoader) {
+    auto loader = DynamicComponentLoader("./assets/components/");
+    auto engine = Engine([&loader]() {
+                             loader.loadComponents();
+                         }, "test", "./assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Sprite"));
+    ASSERT_TRUE(ComponentFactory::getInstance().hasComponent("Test1"));
+}
+
+TEST(Engine, badAssets) {
+    auto engine = Engine([] {
+                         }, "test", "./bad_assets/",
+                         [](const std::string &/*gameName*/) {
+                         });
+
+    ObjectManager const &objectManager = ObjectManager::getInstance();
+    const auto objects = objectManager.getObjects();
+    ASSERT_EQ(objects.size(), 0);
+
+    SceneManager const &sceneManager = SceneManager::getInstance();
+    const auto scenes = sceneManager.getScenes();
+    ASSERT_EQ(scenes.size(), 0);
 }

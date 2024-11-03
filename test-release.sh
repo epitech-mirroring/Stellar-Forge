@@ -1,7 +1,7 @@
 #!/bin/bash
 
 conan remote remove Epitech-Mirroring
-conan remove '*' -c
+conan remove 'stellar-forge*' -c
 conan cache clean '*'
 conan profile detect --force
 
@@ -46,6 +46,26 @@ conan create . --build=missing && \
 conan create . -s:a build_type=Debug --build=missing &&
 cd ../../
 
+# Graphics 3D
+cd ./src/graphics3D && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../
+
+# Engine 3D
+cd ./src/engine3D && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../
+
 mkdir -p "build" && \
 rm -rf build && \
 mkdir "build" && \
@@ -53,7 +73,7 @@ cd "build" && \
 conan install .. --build=missing -s:a build_type=Debug && \
 cd .. && \
 cmake --preset conan-debug && \
-cmake --build build/Debug && \
+cmake --build build/Debug --target StellarForgeTests && \
 cd build/Debug && \
 cd tests && \
 ./StellarForgeTests

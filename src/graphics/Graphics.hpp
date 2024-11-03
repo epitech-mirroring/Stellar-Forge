@@ -11,6 +11,7 @@
 
 #include "StellarForge/Common/IScene.hpp"
 #include "StellarForge/Common/IObject.hpp"
+#include "StellarForge/Common/event/EventSystem.hpp"
 #include "GraphicsException.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -66,6 +67,16 @@ public:
   * @author Aubane NOURRY
   */
  void render(const std::function<void(IObject *)> &updateFunction);
+
+ /**
+ * @brief Listens for a switch scene event.
+ * @param data The event data.
+ * @details This method listens for a switch scene event and changes the current scene
+ *          to the specified scene.
+ * @since v0.1.0
+ * @author Aubane NOURRY
+ */
+ void listenToSwitchScene(const EventData &data);
 
  /**
      * @brief Translates an SFM key code to a string.

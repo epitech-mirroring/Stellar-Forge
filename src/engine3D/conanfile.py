@@ -1,7 +1,7 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
-STELLAR_FORGE_VERSION = "rc-v0.2.0"
+STELLAR_FORGE_VERSION = "v0.2.0"
 
 
 class StellarForge3D(ConanFile):

@@ -197,3 +197,11 @@ sf::Color *UIButton::getTextColor() {
 sf::Color *UIButton::getRectColor() {
     return _rectColor;
 }
+
+void UIButton::setFont(const std::string &fontPath) {
+    if (!_font.loadFromFile(fontPath)) {
+        throw GraphicsException(
+            "Failed to load font from file: " + std::string(fontPath));
+    }
+    _text.setFont(_font);
+}

@@ -133,6 +133,15 @@ public:
  void setLabel(const std::string &label);
 
  /**
+  * @brief Sets the font to use for the text.
+  * @param fontPath The file path to the font, as a std::string.
+  * @details This method sets the font to use for rendering the text on the screen.
+  * @version v0.1.0
+  * @since v0.1.0
+ */
+ void setFont(const std::string &fontPath);
+
+ /**
   * @brief Clones the UIButton for a different owner.
   * @param owner The new owner for the cloned UIButton.
   * @return A pointer to the cloned UIButton instance.

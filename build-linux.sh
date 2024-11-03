@@ -68,7 +68,7 @@ fi
 # for fedora based systems check if build-essential is installed
 if [ $os_type == "fedora" ]; then
     info "Checking if build-essential is installed..."
-    dnf install libstdc++-static
+    dnf install -y libstdc++-static
     dnf install -y make automake gcc gcc-c++ kernel-devel
 fi
 

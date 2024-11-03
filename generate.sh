@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function print_check() {
   # Print green checkmark
@@ -102,7 +102,7 @@ function prompt() {
 ask "What is your build system?" "CMake" "Other"
 build_system=$?
 
-if [ $build_system -eq 1 ]; then
+if [[ $build_system -eq 1 ]]; then
   ask "Do you want to use Conan?" "Yes" "No"
   conan=$?
   project_name=$(prompt "Enter project name" "my_project" "Project name:")
@@ -135,12 +135,12 @@ add_executable(\${PROJECT_NAME} main.cpp)
 EOF
 
   # If Conan is selected, create conanfile.txt
-  if [ $conan -eq 1 ]; then
+  if [[ $conan -eq 1 ]]; then
     # Check if conan is installed
     if ! command -v conan &> /dev/null; then
       ask "Conan is not installed. Do you want to install it?" "Yes" "No"
       install_conan=$?
-      if [ $install_conan -eq 1 ]; then
+      if [[ $install_conan -eq 2 ]]; then
         print_cross
         echo "Please install Conan and run this script again."
         exit 1
@@ -217,7 +217,7 @@ EOF
 
   ask "Do you want to generate a build script?" "Yes" "No"
   generate_build_script=$?
-  if [ $generate_build_script -eq 1 ]; then
+  if [[ $generate_build_script -eq 1 ]]; then
     cat > build-linux.sh <<EOF
 #!/bin/bash
 mkdir -p build

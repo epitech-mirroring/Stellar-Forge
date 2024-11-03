@@ -91,6 +91,10 @@ void Button::onReleased(const EventData &eventData) const {
 void Button::runComponent() {
 }
 
+std::string Button::getButtonId() const {
+    return this->_buttonId;
+}
+
 Button::Meta::Meta(Button *owner)
     : IMeta(), _owner(owner), _fieldGroup({}) {
     const std::vector<IField *> fields = {

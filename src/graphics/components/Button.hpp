@@ -124,6 +124,14 @@ public:
  void runComponent() override;
 
  /**
+  * @brief Gets the identifier of the button.
+  * @return The identifier of the button.
+  * @version v0.1.0
+  * @since v0.1.0
+  */
+ std::string getButtonId() const;
+
+ /**
   * @class Meta
   * @brief Metadata class for Button.
   * @details Provides metadata information and field groups for the Button component.

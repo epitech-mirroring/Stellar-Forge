@@ -20,7 +20,6 @@ public:
 
  UITextInputButton(IObject *owner, const json::JsonObject *data);
 
- std::string getValue();
  void toggleWriting(const EventData &eventData);
  void listenToKeys(const EventData &eventData);
  void releaseShift(const EventData &eventData);

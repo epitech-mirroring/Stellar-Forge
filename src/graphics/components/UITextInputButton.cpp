@@ -68,10 +68,6 @@ UITextInputButton::UITextInputButton(IObject *owner, const json::JsonObject *dat
     });
 }
 
-std::string UITextInputButton::getValue() {
-  return _label;
-}
-
 void UITextInputButton::releaseShift(const EventData &eventData) {
   (void)eventData;
   _capsLock = false;
@@ -175,14 +171,11 @@ UITextInputButton::Meta::getFieldGroups() const {
 
 void UITextInputButton::toggleWriting(const EventData &eventData) {
    _writing = inButton(static_cast<sf::Event::MouseButtonEvent *>(eventData.data));
-    std::cout << "writing: " << _writing << std::endl;
 }
 
 void UITextInputButton::listenToKeys(const EventData &eventData) {
   if (_writing) {
-      std::cout << "writing" << std::endl;
       if (_firstInput) {
-          std::cout << "first input" << std::endl;
           _label = "";
           _firstInput = false;
       }

@@ -16,8 +16,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 find_package(glm REQUIRED)
 find_package(stellar-forge-common REQUIRED)
+find_package(lua-cpp REQUIRED)
 add_library(StellarForgePhysics STATIC)
-target_link_libraries(StellarForgePhysics PUBLIC glm::glm stellar-forge-common::stellar-forge-common)
+target_link_libraries(StellarForgePhysics PUBLIC glm::glm stellar-forge-common::stellar-forge-common lua-cpp::lua-cpp lua)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(components)

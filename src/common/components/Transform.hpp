@@ -11,6 +11,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/vec3.hpp>
 
+#include <LuaCpp/LuaCpp.hpp>
+
 #include "AComponent.hpp"
 #include "../fields/groups/InvisibleFieldGroup.hpp"
 #include "../factories/ComponentFactory.hpp"
@@ -22,8 +24,7 @@
  * @since v0.1.0
  * @authors Landry GIGANT, Axel ECKENBERG
  */
-
-class Transform final : public AComponent {
+class Transform final : public AComponent, public LuaCpp::LuaMetaObject {
 protected:
  glm::vec3 _position; ///< The position of the object in 3D space.
  glm::quat _rotation; ///< The rotation of the object represented as a quaternion.
@@ -206,6 +207,13 @@ public:
  void deserialize(const json::IJsonObject *data) override;
 
  [[nodiscard]] Transform *clone(IObject *owner) const override;
+
+ // LuaMetaObject methods
+public:
+
+    std::shared_ptr<LuaType> getValue(std::string &key) override;
+
+    void setValue(std::string &key, std::shared_ptr<LuaType> value) override;
 };
 
 #endif //STELLARFORGE_TRANSFORM_HPP

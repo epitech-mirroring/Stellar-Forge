@@ -180,3 +180,54 @@ void UIText::deserialize(const json::IJsonObject *data) {
 UIText *UIText::clone(IObject *owner) const {
     return new UIText(owner, textString, fontSize, color, fontPath);
 }
+
+using LuaType = LuaCpp::Engine::LuaType;
+using LuaTNumber = LuaCpp::Engine::LuaTNumber;
+using LuaTNil = LuaCpp::Engine::LuaTNil;
+using LuaTString = LuaCpp::Engine::LuaTString;
+
+std::shared_ptr<LuaType> UIText::getValue(std::string &key) {
+    if (key == "text") {
+        return std::make_shared<LuaTString>(textString);
+    }
+    if (key == "size") {
+        return std::make_shared<LuaTNumber>(fontSize);
+    }
+    if (key == "colorR") {
+        return std::make_shared<LuaTNumber>(color->r);
+    }
+    if (key == "colorG") {
+        return std::make_shared<LuaTNumber>(color->g);
+    }
+    if (key == "colorB") {
+        return std::make_shared<LuaTNumber>(color->b);
+    }
+    if (key == "colorA") {
+        return std::make_shared<LuaTNumber>(color->a);
+    }
+    return std::make_shared<LuaTNil>();
+}
+
+void UIText::setValue(std::string &key, std::shared_ptr<LuaType> value) {
+    if (key == "text") {
+        textString = std::dynamic_pointer_cast<LuaTString>(value)->getValue();
+    }
+    if (key == "size") {
+        fontSize = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "colorR") {
+        color->r = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "colorG") {
+        color->g = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "colorB") {
+        color->b = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    if (key == "colorA") {
+        color->a = std::dynamic_pointer_cast<LuaTNumber>(value)->getValue();
+    }
+    text.setFillColor(*color);
+    text.setString(textString);
+    text.setCharacterSize(fontSize);
+}

@@ -22,6 +22,7 @@ class StellarForge(ConanFile):
         self.requires("gtest/1.15.0")
         self.requires("raylib/4.0.0")
         self.requires("glfw/3.4.0")
+        self.requires("lua-cpp/1.0.0")
 
     def layout(self):
         cmake_layout(self)

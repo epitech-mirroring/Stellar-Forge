@@ -2,9 +2,20 @@
 
 conan remote remove Epitech-Mirroring
 conan remove 'stellar-forge*' -c
+conan remove 'lua-cpp*' -c
 conan cache clean '*'
 conan profile detect --force
 
+
+# Lua
+cd ./src/lua/Source && \
+mkdir -p "build" && \
+cd "build" && \
+conan install .. --build=missing && \
+cd .. && \
+conan create . --build=missing && \
+conan create . -s:a build_type=Debug --build=missing &&
+cd ../../../
 
 # Common
 cd ./src/common && \
